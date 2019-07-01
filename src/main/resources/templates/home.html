@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<body>
+
+<h1>SPRING BOOT</h1>
+
+<h2 th:text="${msg}"></h2>
+<h2 th:text="${info}" th:if="${not #maps.isEmpty(info)}"></h2>
+<form th:action="@{/home}">
+    <input type="submit">
+</form>
+
+</body>
+</html>
