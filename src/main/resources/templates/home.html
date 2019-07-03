@@ -11,7 +11,9 @@
 
 <h2 th:text="${msg}"></h2>
 <h2 th:text="${info}" th:if="${not #maps.isEmpty(info)}"></h2>
-<form th:action="@{/home}">
+<form th:action="@{/home}" method="post">
+    <input type="text" name="ab101">
+    <input type="text" name="ab102">
     <input type="submit">
 </form>
 

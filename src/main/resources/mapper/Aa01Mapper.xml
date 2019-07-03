@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Aa01Dao">
+    <select id="getNameAndPicById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa102 AS "name", aaa106 AS "pic"
+        FROM aa01
+        WHERE aaa101=#{id}
+        ;
+    </select>
+</mapper>

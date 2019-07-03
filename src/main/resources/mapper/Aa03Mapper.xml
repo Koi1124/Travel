@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Aa03Dao">
+    <select id="getPicById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT aaa305 FROM aa03
+        WHERE aaa301=#{id}
+        ;
+    </select>
+
+    <select id="getNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT aaa302 FROM aa03
+        WHERE aaa301=#{id}
+        ;
+    </select>
+</mapper>

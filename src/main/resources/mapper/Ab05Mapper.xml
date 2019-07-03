@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ab05Dao">
+    <select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+          aaa101 AS "author", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
+          aab506 AS "count", aab507 AS "telephone",aab509 AS "introduction"
+          FROM ab05
+          WHERE aab508=1 AND aab501=#{id}
+          ;
+    </select>
+
+    <update id="changeStateById">
+        UPDATE ab05
+        SET aab509=#{state}
+        WHERE aab501=#{id}
+        ;
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM ab05
+        WHERE aab509=0
+        AND aab501=#{id}
+        ;
+    </delete>
+
+    <insert id="insertCompany" parameterType="java.util.Map">
+        INSERT INTO ab05
+        (aaa101, aab502, aab503, aab504, aab505,
+         aab506, aab507, aab509)
+         VALUES
+         (#{dto.aaa101}, #{dto.aab502}, #{dto.aab503}, #{dto.aab504}, #{dto.aab505},
+          #{dto.aab506}, #{dto.aab507}, #{dto.aab509})
+         ;
+    </insert>
+
+
+    <select id="getAuthorIdById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT aaa101
+        FROM ab05
+        WHERE aab501=#{id} AND aab509=1;
+        ;
+    </select>
+
+    <select id="getIntroById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT aab508
+        FROM ab05
+        WHERE aab501=#{id} AND aab509=1;
+        ;
+    </select>
+
+</mapper>
