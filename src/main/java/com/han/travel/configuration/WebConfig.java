@@ -14,7 +14,8 @@ public class WebConfig implements WebMvcConfigurer
     LoginInterceptor loginInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry)
+    {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
                 .excludePathPatterns(
                         "/",
@@ -23,7 +24,8 @@ public class WebConfig implements WebMvcConfigurer
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry)
+    {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 
     }

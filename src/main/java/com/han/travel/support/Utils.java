@@ -41,4 +41,16 @@ public class Utils
             }
         }
     }
+
+    /**
+     * @Author Saki
+     * @Description 判断字典是否不为空
+     * @Date 2019/7/3
+     * @param map
+     * @return boolean
+     **/
+    public static boolean isNotEmpty(Map map)
+    {
+        return map != null && map.size() > 0;
+    }
 }
