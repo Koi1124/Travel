@@ -49,7 +49,8 @@ public class Utils
      * @param map
      * @return boolean
      **/
-    public static boolean isNotEmpty(Map map) {
+    public static boolean isNotEmpty(Map map)
+    {
         return map != null && map.size() > 0;
     }
 }

@@ -97,7 +97,8 @@ public class MailTools
      * @Date 2019/7/3
      * @return java.lang.String
      **/
-    public static String getRandomIdentifyCode() {
+    public static String getRandomIdentifyCode()
+    {
         String str = String.valueOf((int)(Math.random() * 1000000));
         return "000000".substring(str.length()) + str;
     }

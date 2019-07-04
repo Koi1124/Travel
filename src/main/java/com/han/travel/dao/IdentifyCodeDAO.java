@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Map;
 
 @Repository
-public interface IdentifyCodeDAO {
+public interface IdentifyCodeDAO
+{
 
     Map<String, Object> getIdentifyCodeByMail(String mail);
 

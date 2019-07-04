@@ -71,7 +71,8 @@ public class UserController
     @ResponseBody
     public boolean register(@RequestBody Map<String, Object> map)
     {
-        if (identifyCodeService.checkIdentifyCode(map)) {
+        if (identifyCodeService.checkIdentifyCode(map))
+        {
             aa01Dao.addUser(map);
             identifyCodeService.deleteIdentifyCodeByMail((String)map.get("mail"));
             return true;

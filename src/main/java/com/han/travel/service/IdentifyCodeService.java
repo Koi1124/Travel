@@ -56,13 +56,17 @@ public class IdentifyCodeService
         String msg = "周游旅行平台：\n\t您的验证码为 " + identifyCode + " ，请在30分钟之内使用。";
         try {
             MailTools.sendMail(mail, msg);
-            if (Utils.isNotEmpty(identifyCodeDAO.getIdentifyCodeByMail(mail))) {
+            if (Utils.isNotEmpty(identifyCodeDAO.getIdentifyCodeByMail(mail)))
+            {
                 return identifyCodeDAO.updateIdentifyCode(map);
-            } else {
+            }
+            else
+            {
                 return identifyCodeDAO.addIdentifyCode(map);
             }
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             e.printStackTrace();
             return false;
         }
