@@ -20,7 +20,7 @@ public class CompanyController
     {
         List<Map<String,Object>> res=companyService.getTopMDD();
         System.out.println(res);
-        List<Map<String,Object>> test=companyService.seachCompanyByMDD(11);
+        List<Map<String,Object>> test=companyService.searchCompByMDD(11);
         System.out.println(test);
         dto.put("res",res);
         return "home";

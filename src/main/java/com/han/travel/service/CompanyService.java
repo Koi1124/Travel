@@ -70,7 +70,7 @@ public class CompanyService
      *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      *@author: Han
      */
-    public List<Map<String,Object>> seachCompanyByMDD(int pid)
+    public List<Map<String,Object>> searchCompByMDD(int pid)
     {
         List<Map<String,Object>> result=new ArrayList<>();
         List<Integer> compList=ac07Dao.getCompByMDD(pid);
@@ -96,6 +96,53 @@ public class CompanyService
         }
         return result;
     }
+    
+    
+    /**
+     *@discription: 发布结伴征召
+     *
+     * dto includes MDD Id
+     *
+     *@param dto 
+     *@date: 2019/7/4 8:45
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean publishComp(Map<String,Object> dto) 
+    {
+        boolean tag=false;
+        if (ab05Dao.insertCompanny(dto))
+        {
+            dto.put("aab501",)
+            if (ac07Dao.insertMDD(dto))
+            {
+                tag=true;
+            }
+        }
+        return tag;
+    }
+
+    /**
+     *@discription: 管理员更改结伴征召审核状态
+     *@param id
+     *@date: 2019/7/4 8:56
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean passComp(int id)
+    {
+        return ab05Dao.changeStateById(id,1);
+    }
+    public boolean rejectComp(int id)
+    {
+        return ab05Dao.changeStateById(id,2);
+    }
+    public boolean finishComp(int id)
+    {
+        return ab05Dao.changeStateById(id,3);
+    }
+
+
 
 
 
