@@ -11,4 +11,9 @@ public interface Ac05Dao
     boolean insertCompApp(@Param("dto")Map<String,Object> dto);
 
     boolean changeAppState(@Param("id") int id,@Param("state") int state);
+
+    Integer getCompCount(int cid);
+
+    Map<String,Object> getAppCountAndPNameAndPIdByPId(int id);
+
 }

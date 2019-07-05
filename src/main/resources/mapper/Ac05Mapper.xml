@@ -18,4 +18,15 @@
         WHERE aac501=#{id}
         ;
     </update>
+
+    <select id="getCompCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(aab501) FROM ac05
+        WHERE aac506=1 AND aab501=#{cid};
+    </select>
+    
+    <select id="getAppCountAndPNameAndPIdByPId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT c.aaa302 AS "name", c.aaa301 AS "id", COUNT(a.aab501) AS "app"
+        FROM ac05 a, ac07 b, aa03 c
+        WHERE a.aab501=b.aab501 AND b.aaa301=c.aaa301 AND c.aaa301=#{id}
+    </select>
 </mapper>

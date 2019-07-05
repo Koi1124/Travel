@@ -11,14 +11,16 @@ public interface Ac07Dao
 {
     boolean insertMDD(@Param("dto")Map<String,Object> dto);
 
-    int placeCount(int pid);
+    Integer placeCount(int pid);
 
-    boolean deleteById(int id);
+    boolean deleteByCompId(int cid);
 
     List<Integer> getAllMDD();
 
     List<Integer> getCompByMDD(int pid);
 
     List<Integer> getMDDByComp(int cid);
+
+    List<Map<String,Object>> getTop8MDD();
 
 }

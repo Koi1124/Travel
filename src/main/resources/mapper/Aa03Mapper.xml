@@ -12,4 +12,23 @@
         WHERE aaa301=#{id}
         ;
     </select>
+
+    <select id="getPicAndNameById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa302 AS "name", aaa305 AS "pic"
+        FROM aa03
+        WHERE aaa301=#{id}
+        ;
+    </select>
+
+    <select id="getProvinceId" resultType="java.lang.Integer">
+        SELECT aaa301 FROM aa03
+        WHERE aaa304=0
+        ;
+    </select>
+
+    <select id="getCitiesIdByProvince" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT aaa301 FROM aa03
+        WHERE aaa304=#{id}
+        ;
+    </select>
 </mapper>

@@ -20,6 +20,7 @@ public class WebConfig implements WebMvcConfigurer
                 .excludePathPatterns(
                         "/",
                         "/home",
+                        "/together/**",
                         "/error");
     }
 

@@ -16,9 +16,9 @@
         ;
     </select>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
+    <delete id="deleteByCompId" parameterType="java.lang.Integer">
         DELETE FROM ac07
-        WHERE aac701=#{id}
+        WHERE aab501=#{id}
         ;
     </delete>
 
@@ -40,6 +40,16 @@
         SELECT aaa301
         FROM ac07
         WHERE aab501=#{cid}
+        ;
+    </select>
+
+
+    <select id="getTop8MDD" resultType="java.util.HashMap">
+        SELECT aaa301 AS "id", COUNT(DISTINCT(aab501)) AS "count"
+        FROM ac07
+        GROUP BY id
+        ORDER BY count DESC
+        LIMIT 8
         ;
     </select>
 </mapper>

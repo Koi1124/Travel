@@ -1,5 +1,6 @@
 package com.han.travel.dao;
 
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public interface Ab05Dao
 
     boolean deleteById(int id);
 
-    boolean insertCompanny(@Param("dto") Map<String,Object> dto);
+    boolean insertCompany(@Param("dto") Map<String,Object> dto);
 
     Integer getAuthorIdById(int id);
 

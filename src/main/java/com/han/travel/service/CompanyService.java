@@ -4,6 +4,8 @@ import com.han.travel.dao.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,38 +33,126 @@ public class CompanyService
      */
     public List<Map<String,Object>> getTopMDD()
     {
-        List<Integer> mddList=ac07Dao.getAllMDD();
-        int initSize=((int)(mddList.size()/0.75)+1);
-        Map<Integer,Integer> countMap=new HashMap<>(initSize);
+//        long startTime=System.nanoTime();
         List<Map<String,Object>> result=new ArrayList<>(8);
-        for (Integer mdd:mddList)
+//        List<Integer> mddList=ac07Dao.getAllMDD();
+//        int initSize=((int)(mddList.size()/0.75)+1);
+//        Map<Integer,Integer> countMap=new HashMap<>(initSize);
+//        for (Integer mdd:mddList)
+//        {
+//            countMap.put(mdd,ac07Dao.placeCount(mdd));
+//        }
+//        Map<Integer,Integer> sorted=countMap.entrySet().stream()
+//                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+//                .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue, (e1,e2)->e2,
+//                        LinkedHashMap::new));
+//        int index=0;
+//        for (Map.Entry m:sorted.entrySet())
+//        {
+//            index++;
+//            Map<String,Object> dto=new HashMap<>();
+//            int id=(Integer) m.getKey();
+//            dto.put("id",id);
+//            dto.put("name",aa03Dao.getNameById(id));
+//            dto.put("pic",aa03Dao.getPicById(id));
+//            dto.put("count",m.getValue());
+//            dto.put("app",calculateAppCount(id));
+//            result.add(dto);
+//            if (index==8)
+//            {
+//                break;
+//            }
+//        }
+
+
+        List<Map<String,Object>> top8MDD=ac07Dao.getTop8MDD();
+        for (Map<String,Object> dto:top8MDD)
         {
-            countMap.put(mdd,ac07Dao.placeCount(mdd));
-        }
-        Map<Integer,Integer> sorted=countMap.entrySet().stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue, (e1,e2)->e2,
-                        LinkedHashMap::new));
-        int index=0;
-        for (Map.Entry m:sorted.entrySet())
-        {
-            index++;
-            Map<String,Object> dto=new HashMap<>();
-            int id=(Integer) m.getKey();
-            dto.put("id",id);
-            dto.put("name",aa03Dao.getNameById(id));
-            dto.put("pic",aa03Dao.getPicById(id));
-            dto.put("count",m.getValue());
+            int id= (Integer) dto.get("id");
+            Map<String,String> temp=aa03Dao.getPicAndNameById(id);
+            dto.put("pic",temp.get("pic"));
+            dto.put("name",temp.get("name"));
+            //dto.put("app",calculateAppCount(id));
+            dto.put("app",ac05Dao.getAppCountAndPNameAndPIdByPId(id).get("app"));
             result.add(dto);
-            if (index==8)
-            {
-                break;
-            }
         }
+//        long endTime=System.nanoTime();
+//        System.out.println(endTime-startTime);
         return result;
     }
 
 
+    /**
+     *@discription: 获取目的地报名人数
+     *@param pid
+     *@date: 2019/7/5 14:43
+     *@return: java.lang.Integer
+     *@author: Han
+     */
+    private int calculateAppCount(int pid)
+    {
+        int count=0;
+        List<Integer> compList=ac07Dao.getCompByMDD(pid);
+        for (Integer cid:compList)
+        {
+            count=count+ac05Dao.getCompCount(cid);
+        }
+        return count;
+    }
+
+    /**
+     *@discription: 提前获取所有城市信息
+     *@param
+     *@date: 2019/7/5 11:03
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    public List<Map<String,Object>> prepareAllMDDInfo()
+    {
+        long startTime=System.nanoTime();
+        List<Map<String,Object>> result=new ArrayList<>();
+        List<Integer> provinces=aa03Dao.getProvinceId();
+        for (Integer pid:provinces)
+        {
+            List<Integer> cities=aa03Dao.getCitiesIdByProvince(pid);
+            int initSize=((int)(cities.size()/0.75)+1);
+            Map<String,Object> dto=new HashMap<>(initSize);
+            dto.put("name",aa03Dao.getNameById(pid));
+            int index=0;
+            for (Integer cid:cities)
+            {
+                Map<String,Object> cityInfo=ac05Dao.getAppCountAndPNameAndPIdByPId(cid);
+//                Map<String,Object> cityInfo=new HashMap<>();
+//                cityInfo.put("name",aa03Dao.getNameById(cid));
+//                cityInfo.put("id",cid);
+//                cityInfo.put("app",calculateAppCount(cid));
+                cityInfo.put("count",ac07Dao.placeCount(cid));
+                dto.put(String.valueOf(index++),cityInfo);
+            }
+            result.add(dto);
+        }
+        long endTime=System.nanoTime();
+        System.out.println(endTime-startTime);
+        return result;
+    }
+
+
+
+    /**
+     *@discription: 计算开始结束天数差
+     *@param startDate
+	 *@param endDate
+     *@date: 2019/7/5 9:23
+     *@return: int
+     *@author: Han
+     */
+    private int calculateDays(String startDate,Date endDate) throws ParseException
+    {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        Date start=simpleDateFormat.parse(startDate);
+        long days=endDate.getTime()-start.getTime();
+        return (int)(days/(24*3600*1000));
+    }
     /**
      *@discription: 根据选择的目的地显示对应结伴，地点用|隔开
      *@param pid 
@@ -78,8 +168,21 @@ public class CompanyService
         {
             Map<String,Object> dto=new HashMap<>();
             List<Integer> MDDList=ac07Dao.getMDDByComp(cid);
-            String intro=ab05Dao.getIntroById(cid);
-            int authorId=ab05Dao.getAuthorIdById(cid);
+            Map<String,Object> comp=ab05Dao.queryById(cid);
+            String intro= (String) comp.get("intro");
+            int authorId= (int) comp.get("authorId");
+            Date date= (Date) comp.get("date");
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            String currentDate = simpleDateFormat.format(new Date());
+            int days=0;
+            try
+            {
+                days=calculateDays(currentDate,date);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             Map<String,String> author=aa01Dao.getNameAndPicById(authorId);
             StringBuilder mddName=new StringBuilder();
             for (Integer p:MDDList)
@@ -90,11 +193,30 @@ public class CompanyService
             dto.put("id",cid);
             dto.put("name",mddName.toString());
             dto.put("intro",intro);
+            dto.put("days",days);
             dto.put("authorName",author.get("name"));
             dto.put("authorPic",author.get("pic"));
             result.add(dto);
         }
         return result;
+    }
+
+
+    /**
+     *@discription: 如果插入成功，返回当前id
+     *@param dto
+     *@date: 2019/7/5 8:31
+     *@return: java.lang.Integer
+     *@author: Han
+     */
+    private Integer getKey(Map<String,Object> dto)
+    {
+        dto.put("id",null);
+        if (ab05Dao.insertCompany(dto))
+        {
+            return (Integer) dto.get("id");
+        }
+        else return null;
     }
     
     
@@ -108,12 +230,12 @@ public class CompanyService
      *@return: boolean
      *@author: Han
      */
-    public boolean publishComp(Map<String,Object> dto) 
+    public boolean publishComp(Map<String,Object> dto)
     {
         boolean tag=false;
-        if (ab05Dao.insertCompanny(dto))
+        if (getKey(dto)!=null)
         {
-            dto.put("aab501",)
+            dto.put("aab501",getKey(dto));
             if (ac07Dao.insertMDD(dto))
             {
                 tag=true;
@@ -124,26 +246,76 @@ public class CompanyService
 
     /**
      *@discription: 管理员更改结伴征召审核状态
-     *@param id
+     *@param cid
      *@date: 2019/7/4 8:56
      *@return: boolean
      *@author: Han
      */
-    public boolean passComp(int id)
+    public boolean passComp(int cid)
     {
-        return ab05Dao.changeStateById(id,1);
+        return ab05Dao.changeStateById(cid,1);
     }
-    public boolean rejectComp(int id)
+    public boolean rejectComp(int cid)
     {
-        return ab05Dao.changeStateById(id,2);
+        return ab05Dao.changeStateById(cid,2);
     }
-    public boolean finishComp(int id)
+    public boolean finishComp(int cid)
     {
-        return ab05Dao.changeStateById(id,3);
+        return ab05Dao.changeStateById(cid,3);
     }
 
 
+    /**
+     *@discription: 申请参加结伴
+     *@param dto
+     *@date: 2019/7/5 8:37
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean joinComp(Map<String,Object> dto)
+    {
+        return ac05Dao.insertCompApp(dto);
+    }
 
+    /**
+     *@discription: 结伴发起用户更改参加表状态
+     *@param aid
+     *@date: 2019/7/5 8:40
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean passApp(int aid)
+    {
+        return ac05Dao.changeAppState(aid,1);
+    }
+    public boolean rejectApp(int aid)
+    {
+        return ac05Dao.changeAppState(aid,2);
+    }
+
+    /**
+     *@discription: 结伴发起用户删除结伴征召，当且只当征召状态为未审核
+     *@param cid
+     *@date: 2019/7/5 8:42
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean deleteComp(int cid)
+    {
+        return ab05Dao.deleteById(cid) && ac07Dao.deleteByCompId(cid);
+    }
+
+    /**
+     *@discription: 其他用户通过点击查询到的征召查看征召整体信息
+     *@param cid
+     *@date: 2019/7/5 8:46
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    public Map<String,Object> getCompInfoById(int cid)
+    {
+        return ab05Dao.queryById(cid);
+    }
 
 
 }

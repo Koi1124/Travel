@@ -3,10 +3,10 @@
 <mapper namespace="com.han.travel.dao.Ab05Dao">
     <select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT
-          aaa101 AS "author", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
-          aab506 AS "count", aab507 AS "telephone",aab509 AS "introduction"
+          aaa101 AS "authorId", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
+          aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
           FROM ab05
-          WHERE aab508=1 AND aab501=#{id}
+          WHERE aab509=1 AND aab501=#{id}
           ;
     </select>
 
@@ -25,12 +25,15 @@
     </delete>
 
     <insert id="insertCompany" parameterType="java.util.Map">
+        <selectKey keyProperty="dto.id" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO ab05
         (aaa101, aab502, aab503, aab504, aab505,
-         aab506, aab507, aab509)
+         aab506, aab507, aab508, aab509)
          VALUES
-         (#{dto.aaa101}, #{dto.aab502}, #{dto.aab503}, #{dto.aab504}, #{dto.aab505},
-          #{dto.aab506}, #{dto.aab507}, #{dto.aab509})
+         (#{dto.aaa101}, #{dto.aab502}, #{dto.aab503,jdbcType=DATE}, #{dto.aab504,jdbcType=VARCHAR}, #{dto.aab505,jdbcType=INTEGER},
+          #{dto.aab506,jdbcType=INTEGER}, #{dto.aab507,jdbcType=VARCHAR}, #{dto.aab508}, 0)
          ;
     </insert>
 

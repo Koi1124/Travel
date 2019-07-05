@@ -25,11 +25,11 @@ public class UserController
     @Autowired
     private Aa01Dao aa01Dao;
 
-    @RequestMapping("/")
-    public String welcomeHome()
-    {
-        return "register";
-    }
+//    @RequestMapping("/")
+//    public String welcomeHome()
+//    {
+//        return "register";
+//    }
 
     /**
      * @Author Saki
