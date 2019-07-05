@@ -2,6 +2,7 @@ package com.han.travel.controller;
 
 import com.han.travel.dao.Aa01Dao;
 import com.han.travel.service.IdentifyCodeService;
+import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 /**
  * @ClassName UserController
- * @Description TODO
+ * @Description 用户信息管理controller
  * @Author Saki
  * @Date 2019/7/3
  * @LastUpdate 2019/7/4
@@ -78,5 +79,29 @@ public class UserController
             return true;
         }
         return false;
+    }
+
+    /**
+     * @Author Saki
+     * @Description 用户登录
+     *     返回状态码： 200 成功； 300 用户名不存在； 400 密码错误
+     * @Date 2019/7/4
+     * @param map
+     * @return java.lang.String
+     **/
+    @PostMapping("/login")
+    @ResponseBody
+    public String login(@RequestBody Map<String, String> map)
+    {
+        Map<String, String> result = aa01Dao.getUserByMail(map.get("mail"));
+        if (Utils.isNotEmpty(result))
+        {
+            if (map.get("password").equals(result.get("password")))
+            {
+                return "200";
+            }
+            return "400";
+        }
+        return "300";
     }
 }
