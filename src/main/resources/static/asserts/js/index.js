@@ -121,7 +121,7 @@ $(document).ready(function() {
                 mail: mail.val(),
                 identifyCode: $("#identify-code").val(),
                 name: name.val(),
-                pass: pass.val()
+                password: pass.val()
             };
             $.ajax({
                 type: "post",
@@ -145,6 +145,68 @@ $(document).ready(function() {
             });
         }
     });
+
+
+    //登录邮箱失焦时事件
+    var mailLogin = $("#mail-login");
+    var passLogin = $("#password-login");
+
+    mailLogin.blur(function () {
+        if (mailLogin.val().indexOf('@') < 0) {
+            $("#email-login-tip").text("请输入正确的邮箱格式！");
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/register/mail_check",
+                data: JSON.stringify({mail:mailLogin.val()}),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    if (result) {
+                        $("#email-login-tip").text("");
+                    }
+                    else {
+                        $("#email-login-tip").text("用户不存在");
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                    $("#email-login-tip").text("提示：网络故障");
+                }
+            });
+        }
+    });
+
+    $("#btn-login").click(function () {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/login",
+            data: JSON.stringify({
+                mail:mailLogin.val(),
+                password:passLogin.val()
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result == "200") {
+                    alert("登录成功");
+                }
+                else if (result == "300") {
+                    alert("用户名不存在");
+                }
+                else if (result == "400") {
+                    alert("密码错误");
+                }
+            },
+            error: function (e) {
+                console.log(e);
+                $("#email-login-tip").text("提示：网络故障");
+            }
+        });
+    });
 });
 
 
@@ -164,6 +226,7 @@ function waitTime(o) {
         setTimeout(function () {waitTime(o);},1000);
     }
 }
+
 
 //检测是否含有中文
 function containChinese(val){
