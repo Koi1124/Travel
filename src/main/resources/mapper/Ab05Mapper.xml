@@ -52,4 +52,17 @@
         ;
     </select>
 
+    <select id="getSearchCompInfoByMDD" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT t1.id, t1.intro, t1.date, t1.authorName, t1.authorPic, IFNULL(t2.star,0) 'star' FROM
+        (SELECT a.aab501 AS 'id', a.aab508 AS 'intro', a.aab503 AS 'date', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic'
+                FROM ab05 a, ac07 b, aa01 c
+                WHERE a.aaa101=c.aaa101 AND a.aab501=b.aab501 AND a.aab509=1
+                AND b.aaa301=#{pid}) t1 LEFT JOIN
+        (SELECT a.aab501 AS 'id' ,count(b.aad404) AS 'star' FROM ab05 a, ad04 b, ac07 c
+        WHERE a.aab501=b.aad404 AND a.aab501=c.aab501 AND b.aad403=5 AND c.aaa301=#{pid}
+        GROUP BY id) t2
+        on t1.id=t2.id
+        ;
+    </select>
+
 </mapper>

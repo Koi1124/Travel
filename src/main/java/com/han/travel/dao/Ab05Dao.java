@@ -22,4 +22,6 @@ public interface Ab05Dao
 
     String getIntroById(int id);
 
+    List<Map<String,Object>> getSearchCompInfoByMDD(int pid);
+
 }

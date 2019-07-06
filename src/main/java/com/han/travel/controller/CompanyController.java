@@ -47,6 +47,13 @@ public class CompanyController
         return "together/homepage";
     }
 
+    @RequestMapping("/")
+    public String test()
+    {
+        System.out.println(companyService.searchCompByMDD(11));
+        return "together/homepage";
+    }
+
 
 //    @RequestMapping("/")
 //    public String test()

@@ -31,4 +31,11 @@
         WHERE aaa304=#{id}
         ;
     </select>
+
+    <select id="getNamesByComp" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT a.aaa302 FROM aa03 a, ac07 b
+        WHERE a.aaa301=b.aaa301
+        AND b.aab501=#{cid}
+        ;
+    </select>
 </mapper>

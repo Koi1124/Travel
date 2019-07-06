@@ -22,6 +22,8 @@ public class CompanyService
     private Aa03Dao aa03Dao;
     @Resource
     private Aa01Dao aa01Dao;
+    @Resource
+    private Ad04Dao ad04Dao;
     
 
     /**
@@ -74,6 +76,7 @@ public class CompanyService
             dto.put("name",temp.get("name"));
             //dto.put("app",calculateAppCount(id));
             dto.put("app",ac05Dao.getAppCountAndPNameAndPIdByPId(id).get("app"));
+            dto.put("star",ad04Dao.getStarCountByMDDID(id));
             result.add(dto);
         }
 //        long endTime=System.nanoTime();
@@ -162,16 +165,48 @@ public class CompanyService
      */
     public List<Map<String,Object>> searchCompByMDD(int pid)
     {
-        List<Map<String,Object>> result=new ArrayList<>();
-        List<Integer> compList=ac07Dao.getCompByMDD(pid);
-        for (Integer cid:compList)
+        long startTime=System.nanoTime();
+//        List<Map<String,Object>> result=new ArrayList<>();
+//        List<Integer> compList=ac07Dao.getCompByMDD(pid);
+//        for (Integer cid:compList)
+//        {
+//            Map<String,Object> dto=new HashMap<>();
+//            List<Integer> MDDList=ac07Dao.getMDDByComp(cid);
+//            Map<String,Object> comp=ab05Dao.queryById(cid);
+//            String intro= (String) comp.get("intro");
+//            int authorId= (int) comp.get("authorId");
+//            Date date= (Date) comp.get("date");
+//            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+//            String currentDate = simpleDateFormat.format(new Date());
+//            int days=0;
+//            try
+//            {
+//                days=calculateDays(currentDate,date);
+//            }
+//            catch (Exception e)
+//            {
+//                e.printStackTrace();
+//            }
+//            Map<String,String> author=aa01Dao.getNameAndPicById(authorId);
+//            StringBuilder mddName=new StringBuilder();
+//            for (Integer p:MDDList)
+//            {
+//                mddName.append(aa03Dao.getNameById(p)+"|");
+//            }
+//            mddName.deleteCharAt(mddName.length()-1);
+//            dto.put("id",cid);
+//            dto.put("name",mddName.toString());
+//            dto.put("intro",intro);
+//            dto.put("days",days);
+//            dto.put("authorName",author.get("name"));
+//            dto.put("authorPic",author.get("pic"));
+//            result.add(dto);
+//        }
+
+        List<Map<String,Object>> result=ab05Dao.getSearchCompInfoByMDD(pid);
+        for (Map<String,Object> m:result)
         {
-            Map<String,Object> dto=new HashMap<>();
-            List<Integer> MDDList=ac07Dao.getMDDByComp(cid);
-            Map<String,Object> comp=ab05Dao.queryById(cid);
-            String intro= (String) comp.get("intro");
-            int authorId= (int) comp.get("authorId");
-            Date date= (Date) comp.get("date");
+            Date date=(Date)m.get("date");
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
             String currentDate = simpleDateFormat.format(new Date());
             int days=0;
@@ -183,21 +218,18 @@ public class CompanyService
             {
                 e.printStackTrace();
             }
-            Map<String,String> author=aa01Dao.getNameAndPicById(authorId);
+            m.put("days",days);
+            List<String> nameList=aa03Dao.getNamesByComp((Integer) m.get("id"));
             StringBuilder mddName=new StringBuilder();
-            for (Integer p:MDDList)
+            for (String name:nameList)
             {
-                mddName.append(aa03Dao.getNameById(p)+"|");
+                mddName.append(name+"|");
             }
             mddName.deleteCharAt(mddName.length()-1);
-            dto.put("id",cid);
-            dto.put("name",mddName.toString());
-            dto.put("intro",intro);
-            dto.put("days",days);
-            dto.put("authorName",author.get("name"));
-            dto.put("authorPic",author.get("pic"));
-            result.add(dto);
+            m.put("name",mddName.toString());
         }
+        long endTime=System.nanoTime();
+        System.out.println("search test:"+ (endTime-startTime));
         return result;
     }
 
@@ -318,4 +350,17 @@ public class CompanyService
     }
 
 
+    /**
+     *@discription: 结伴主页搜索的结伴推荐
+     *@param  
+     *@date: 2019/7/6 11:21
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    public List<Map<String,Object>> getCompList()
+    {
+        return null;
+    }
+    
+    
 }

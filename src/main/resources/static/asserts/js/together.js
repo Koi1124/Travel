@@ -16,7 +16,7 @@ $(document).ready(function() {
                     "    <div class=\"bg\"></div>\n" +
                     "    <div class=\"txt\">\n" +
                     "    <strong>" + mdd.name + "</strong>\n" +
-                    "    <p>发起 " + mdd.count + " 个结伴<br>" + 0 + " 人关注<br>" + mdd.app + " 人报名</p>\n" +
+                    "    <p>发起 " + mdd.count + " 个结伴<br>" + mdd.star + " 人关注<br>" + mdd.app + " 人报名</p>\n" +
                     "    </div>\n" +
                     "    </a>\n" +
                     "</li>\n");

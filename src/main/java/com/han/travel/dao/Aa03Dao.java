@@ -17,4 +17,6 @@ public interface Aa03Dao
     List<Integer> getProvinceId();
 
     List<Integer> getCitiesIdByProvince(int id);
+
+    List<String> getNamesByComp(int cid);
 }

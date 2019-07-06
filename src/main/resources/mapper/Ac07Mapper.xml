@@ -52,4 +52,5 @@
         LIMIT 8
         ;
     </select>
+
 </mapper>
