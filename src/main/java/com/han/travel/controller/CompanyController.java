@@ -3,9 +3,9 @@ package com.han.travel.controller;
 import com.han.travel.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +29,6 @@ public class CompanyController
     @ResponseBody
     public List<Map<String,Object>> getTop()
     {
-        //dto.put("topMDD",companyService.getTopMDD());
-        //System.out.println(companyService.prepareAllMDDInfo());
         return companyService.getTopMDD();
     }
 
@@ -38,7 +36,18 @@ public class CompanyController
     @ResponseBody
     public List<Map<String,Object>> getSearch()
     {
+        System.out.println(companyService.prepareAllMDDInfo());
         return companyService.prepareAllMDDInfo();
+    }
+
+    @RequestMapping("/company_search")
+    @ResponseBody
+    public Map<String,Object> getCompany(@RequestBody Map<String,Integer> dto)
+    {
+        int id=dto.get("id");
+        int page=dto.get("page");
+        int itemCount=dto.get("itemCount");
+        return companyService.searchCompByMDDOrderByLatest(id,(page-1)*itemCount,itemCount);
     }
 
     @RequestMapping("")
@@ -47,11 +56,17 @@ public class CompanyController
         return "together/homepage";
     }
 
-    @RequestMapping("/")
-    public String test()
+
+    @RequestMapping("/company/detail")
+    public String toCompanyDetail(@RequestParam Map<String,Object> dto,Map<String,Object> map)
     {
-        System.out.println(companyService.searchCompByMDD(11));
-        return "together/homepage";
+        Map<String,Object> detail=companyService.getCompDetail(dto);
+        for (Map.Entry m:detail.entrySet())
+        {
+            map.put((String) m.getKey(),m.getValue());
+        }
+        System.out.println(map);
+        return "together/test";
     }
 
 

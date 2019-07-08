@@ -3,6 +3,7 @@ package com.han.travel.dao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -15,5 +16,7 @@ public interface Ac05Dao
     Integer getCompCount(int cid);
 
     Map<String,Object> getAppCountAndPNameAndPIdByPId(int id);
+
+    List<Map<String,Object>> getApplicantsIdAndNameAndPicByCId(int cid);
 
 }

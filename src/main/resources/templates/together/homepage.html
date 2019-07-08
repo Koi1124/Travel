@@ -18,6 +18,8 @@
     <!--<script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1562232559.js" type="text/javascript" crossorigin="anonymous"></script>-->
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <script th:src="@{/asserts/js/together.js}"></script>
+    <link rel="stylesheet" th:href="@{/asserts/css/jquery.pagination.css}" />
+    <script th:src="@{/asserts/js/jquery.pagination.min.js}"></script>
 </head>
 <body>
 
@@ -160,10 +162,13 @@
                 </ul>
             </div>
             <div class="post_pagin" id="smallpager">
-                <div class="ft">
-                    <a class="disable _j_pageitem" data-page="1"><i class="btn-prev"></i></a>
-                    <span class="num"><span>1</span>/84</span>
-                    <a class="btn-next _j_pageitem" data-page="3"><i></i></a>
+                <!--<div class="ft">-->
+                <!--<a class="btn-pre _j_pageitem" data-page="1"><i class="btn-prev"></i></a>-->
+                <!--<span class="num"><span>1</span>/84</span>-->
+                <!--<a class="btn-next _j_pageitem" data-page="3"><i></i></a>-->
+                <!--</div>-->
+                <div id="pagination" class="page f1" style="text-align: center;">
+
                 </div>
             </div>
         </div>

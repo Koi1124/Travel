@@ -29,4 +29,12 @@
         FROM ac05 a, ac07 b, aa03 c
         WHERE a.aab501=b.aab501 AND b.aaa301=c.aaa301 AND c.aaa301=#{id}
     </select>
+    
+    <select id="getApplicantsIdAndNameAndPicByCId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aaa101 AS 'applicantId', b.aaa102 AS 'applicantName', b.aaa106 AS 'applicantPic'
+        FROM ac05 a, aa01 b
+        WHERE a.aaa101=b.aaa101 AND a.aac506=1
+        AND a.aab501=#{cid}
+        ;
+    </select>
 </mapper>

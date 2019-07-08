@@ -1,10 +1,22 @@
 var data = new Array();
+var page = 1;
+var totalPage = 10;
+var id = 1;
+var itemCount = 8;
+//获取当前网址，如： http://localhost:80/ybzx/index.jsp  
+var curPath=window.document.location.href;
+//获取主机地址之后的目录，如： ybzx/index.jsp  
+var pathName=window.document.location.pathname;
+var pos=curPath.indexOf(pathName);
+//获取主机地址，如： http://localhost:80  
+var localhostPaht=curPath.substring(0,pos);
+
 
 $(document).ready(function() {
-
+    //8个结伴目的地推荐
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/together/mdd_top",
+        url: localhostPaht+"/together/mdd_top",
         contentType: "application/json",
         dataType: "json",
         async: true,
@@ -27,9 +39,10 @@ $(document).ready(function() {
         }
     });
 
+    //省市搜索
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/together/mdd_search",
+        url: localhostPaht+"/together/mdd_search",
         contentType: "application/json",
         dataType: "json",
         async: true,
@@ -41,27 +54,9 @@ $(document).ready(function() {
         }
     });
 
-    for (var i = 0; i < 8; i++) {
-        $("._j_together_list").append("<li class=\"item\">\n" +
-            "                    <a href=\"/together/detail/2362047.html\" target=\"_blank\">\n" +
-            "                        <div class=\"image\">\n" +
-            "                            <img src=\"http://b2-q.mafengwo.net/s7/M00/E8/AA/wKgB6lQ3UfSAIxLHAAE0oJAh8c028.jpeg?imageMogr2%2Fthumbnail%2F%21200x130r%2Fgravity%2FCenter%2Fcrop%2F%21200x130%2Fquality%2F100\" style=\"width: 200px;height: 130px;\">\n" +
-            "                            <div class=\"after\"><b>16</b>天后</div>\n" +
-            "                            <hr>\n" +
-            "                        </div>\n" +
-            "                        <h3 class=\"title\">独库公路|喀纳斯|北疆</h3>\n" +
-            "                        <div class=\"desc\">90后爱旅行的菇凉一枚，目前四个菇凉，机票已出，希望找（会...</div>\n" +
-            "                        <div class=\"user clearfix\">\n" +
-            "                <span class=\"avatar\"><img src=\"http://n4-q.mafengwo.net/s14/M00/E7/0E/wKgE2l0J7muAR4QiAAC1CK3ccSk14.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90\" width=\"48\">\n" +
-            "                </span>\n" +
-            "                            <span class=\"name\">卢卢  </span>\n" +
-            "                            <span class=\"level\">上海</span>\n" +
-            "                        </div>\n" +
-            "                        <div class=\"attention\"><i class=\"icon-arrow\"></i>已有<b>21</b>人关注</div>\n" +
-            "                    </a>\n" +
-            "                </li>");
-    }
 
+    initPagination(totalPage);
+    togetherSearch(1);
     initDropBar();
 });
 
@@ -70,13 +65,17 @@ function initDropBar() {
         $("#drop-place").show(250);
     });
     $("#_j_together_mdd_search").blur(function () {
-        $("#drop-place").hide(250);
+        setTimeout(function(){
+            $("#drop-place").hide(250);
+        }, 250);
     });
     $("._j_time_input").focus(function () {
         $("#drop-date").show(250);
     });
     $("._j_time_input").blur(function () {
-        $("#drop-date").hide(250);
+        setTimeout(function(){
+            $("#drop-date").hide(250);
+        }, 250);
     });
 }
 
@@ -92,26 +91,122 @@ function setData(json) {
             }
         }
         data[i] = list;
+
     });
 
     //col1框中数据点击事件
-    $("._j_country_select").mouseenter(function () {
+    $("._j_country_select").mouseover(function () {
         $(".col2").empty();
         initCol2($(this).attr("data-index"));
         $(".on").attr("class", "_j_country_select");
         $(this).attr("class", "on");
     });
 
-    $(".col1").children("li").get(0).attr("class", "on");
-    initCol2(0);
+
+
+
+
 }
 
 //初始化col2
 function initCol2(col1) {
     $(data[col1]).each(function (i, item) {
-        $(".col2").append("<li class=\"_j_city_select\" data-mddid=" + item.id + " data-name=" + item.name +
-            "       ><a><span class=\"num\"><em>" + item.count + "</em>结伴</span>" + item.name + "</a></li>");
+        $(".col2").append("<ul class=\"_j_city_select\" data-mddid=" + item.id + " data-name=" + item.name +
+            "       ><a><span class=\"num\"><em>" + item.count + "</em>结伴</span>" + item.name + "</a></ul>");
+    });
 
-        //    TODO：col2点击事件
+    $("._j_city_select").click(function () {
+        page = 1;
+        togetherSearch($(this).attr("data-mddid"));
+    });
+
+}
+
+//结伴搜索
+function togetherSearch(mid) {
+    $.ajax({
+        type: "post",
+        url: localhostPaht+"/together/company_search",
+        contentType: "application/json",
+        data:JSON.stringify({
+            page:page,
+            itemCount:itemCount,
+            id:mid
+        }),
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (id != mid) {
+                id = mid;
+                page = 1;
+                totalPage = Math.ceil(result.count / itemCount);
+                initPagination();
+            }
+            $("._j_together_list").empty();
+            setCompany(result.info);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+//搜索出结伴之后写入页面
+function setCompany(data) {
+    $(data).each(function (i, item) {
+        $("._j_together_list").append("<li class=\"item\">\n" +
+            "                <a class=\"company-item\" together-id=" + item.id + " target=\"_blank\" star=" + item.star + "  authorName="+ item.authorName +" authorPic="+ item.authorPic +"  onclick='companyClick(this)'>\n" +
+            "                        <div class=\"image\">\n" +
+            "                            <img src=" + item.mddPic + " style=\"width: 200px;height: 130px;\">\n" +
+            "                            <div class=\"after\"><b>" + item.days +
+            "                            </b>天后</div><hr>" +
+            "                        </div>" +
+            "                        <h3 class=\"title\">" + item.name +
+            "                        </h3><div class=\"desc\">" + item.intro +
+            "                        ...</div><div class=\"user clearfix\">\n" +
+            "                <span class=\"avatar\"><img src=" + item.authorPic + " width=\"48\"  >" +
+            "                </span>" +
+            "                            <span class=\"name\" style='font-size: 18px' > " + item.authorName +
+            "                          </span>\n</div>\n" +
+            "                        <div class=\"attention\"><i class=\"icon-arrow\"></i>已有<b>" + item.star + "</b>人关注</div>\n" +
+            "                    </a>" +
+            "                </li>");
+    });
+}
+
+function companyClick(c) {
+    var form = $("<form method='post'></form>");
+    form.attr({"action": localhostPaht+"/together/company/detail"});
+    var args = {id:$(c).attr("together-id"),
+        name:$(c).children("h3").get(0).innerText,
+        star:$(c).attr("star"),
+        authorName:$(c).attr("authorName"),
+        authorPic:$(c).attr("authorPic")};
+    for (var arg in args)
+    {
+        var input = $("<input type='hidden'>");
+        input.attr({"name": arg});
+        input.val(args[arg]);
+        form.append(input);
+    }
+    $("html").append(form);
+    form.submit();
+}
+
+function initPagination() {
+    $("#pagination").pagination({
+        currentPage: page,// 当前页数
+        totalPage: totalPage,// 总页数
+        isShow: true,// 是否显示首尾页
+        count: 10,// 显示个数
+        homePageText: "首页",// 首页文本
+        endPageText: "尾页",// 尾页文本
+        prevPageText: "上一页",// 上一页文本
+        nextPageText: "下一页",// 下一页文本
+        callback: function(current) {
+            // 回调,current(当前页数)
+            page = current;
+            togetherSearch(id);
+        }
     });
 }

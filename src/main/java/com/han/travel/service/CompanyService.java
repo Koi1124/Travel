@@ -156,15 +156,34 @@ public class CompanyService
         long days=endDate.getTime()-start.getTime();
         return (int)(days/(24*3600*1000));
     }
+
     /**
      *@discription: 根据选择的目的地显示对应结伴，地点用|隔开
-     *@param pid 
+     *@param pid
+	 *@param order
      *@date: 2019/7/3 19:20
+     *@reviseDate: 2019/7/8
      *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      *@author: Han
      */
-    public List<Map<String,Object>> searchCompByMDD(int pid)
+    private Map<String,Object> searchCompByMDD(int pid, String order, int page, int offset)
     {
+        switch (order)
+        {
+            case "热门":
+                order=" ORDER BY star DESC";
+                break;
+            case "最新":
+                order=" ORDER BY t1.id DESC";
+                break;
+            case "即将":
+                order=" ORDER BY t1.date";
+                break;
+            default:
+                order="";
+                break;
+        }
+
         long startTime=System.nanoTime();
 //        List<Map<String,Object>> result=new ArrayList<>();
 //        List<Integer> compList=ac07Dao.getCompByMDD(pid);
@@ -203,8 +222,10 @@ public class CompanyService
 //            result.add(dto);
 //        }
 
-        List<Map<String,Object>> result=ab05Dao.getSearchCompInfoByMDD(pid);
-        for (Map<String,Object> m:result)
+        Map<String,Object> result=new HashMap<>(2);
+        List<Map<String,Object>> info=ab05Dao.getSearchCompInfoByMDD(pid,order,page,offset);
+        System.out.println(info);
+        for (Map<String,Object> m:info)
         {
             Date date=(Date)m.get("date");
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
@@ -219,19 +240,44 @@ public class CompanyService
                 e.printStackTrace();
             }
             m.put("days",days);
-            List<String> nameList=aa03Dao.getNamesByComp((Integer) m.get("id"));
+            List<Map<String,Object>> nameAndPicList=aa03Dao.getNamesAndPicsByComp((Integer) m.get("id"));
             StringBuilder mddName=new StringBuilder();
-            for (String name:nameList)
+            for (Map<String,Object> map:nameAndPicList)
             {
-                mddName.append(name+"|");
+                mddName.append(map.get("name")+"|");
             }
             mddName.deleteCharAt(mddName.length()-1);
             m.put("name",mddName.toString());
+            m.put("mddPic",nameAndPicList.get(0).get("pic"));
         }
         long endTime=System.nanoTime();
+        result.put("count",ab05Dao.getCompTotalCountByMDD(pid));
+        result.put("info",info);
         System.out.println("search test:"+ (endTime-startTime));
         return result;
     }
+
+
+    /**
+     *@discription: 传给前端的最终信息，包括信息的个数与信息本身
+     *@param pid 
+     *@date: 2019/7/8 9:06
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    public Map<String,Object> searchCompByMDDOrderByFocus(int pid,int page,int offset)
+    {
+        return searchCompByMDD(pid,"热门",page,offset);
+    }
+    public Map<String,Object> searchCompByMDDOrderByLatest(int pid,int page,int offset)
+    {
+        return searchCompByMDD(pid,"最新",page,offset);
+    }
+    public Map<String,Object> searchCompByMDDOrderBySoon(int pid,int page,int offset)
+    {
+        return searchCompByMDD(pid,"即将",page,offset);
+    }
+
 
 
     /**
@@ -337,30 +383,25 @@ public class CompanyService
         return ab05Dao.deleteById(cid) && ac07Dao.deleteByCompId(cid);
     }
 
+    
     /**
-     *@discription: 其他用户通过点击查询到的征召查看征召整体信息
-     *@param cid
-     *@date: 2019/7/5 8:46
+     *@discription: 补充传入信息，丰富细节
+     *@param dto 
+     *@date: 2019/7/8 15:34
      *@return: java.util.Map<java.lang.String,java.lang.Object>
      *@author: Han
      */
-    public Map<String,Object> getCompInfoById(int cid)
+    public Map<String,Object> getCompDetail(Map<String,Object> dto)
     {
-        return ab05Dao.queryById(cid);
+        int id= Integer.parseInt((String) dto.get("id"));
+        Map<String,Object> detail=ab05Dao.queryById(id);
+        for (Map.Entry m:detail.entrySet())
+        {
+            dto.put((String) m.getKey(),m.getValue());
+        }
+        int app=ac05Dao.getCompCount(id);
+        dto.put("app",app);
+        dto.put("applicants",ac05Dao.getApplicantsIdAndNameAndPicByCId(id));
+        return dto;
     }
-
-
-    /**
-     *@discription: 结伴主页搜索的结伴推荐
-     *@param  
-     *@date: 2019/7/6 11:21
-     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
-     *@author: Han
-     */
-    public List<Map<String,Object>> getCompList()
-    {
-        return null;
-    }
-    
-    
 }
