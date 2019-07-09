@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface Ab05Dao
+public interface Ab05Dao extends CheckDao
 {
     Map<String,Object> queryById(int id);
 

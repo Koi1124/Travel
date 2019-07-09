@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ab05Dao">
+    <select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+          aaa101 AS "authorId", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
+          aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
+          FROM ab05
+          WHERE aab509=1 AND aab501=#{id}
+          ;
+    </select>
+
+    <update id="changeStateById">
+        UPDATE ab05
+        SET aab509=#{state}
+        WHERE aab501=#{id}
+        ;
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM ab05
+        WHERE aab509=0
+        AND aab501=#{id}
+        ;
+    </delete>
+
+    <insert id="insertCompany" parameterType="java.util.Map">
+        <selectKey keyProperty="dto.id" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO ab05
+        (aaa101, aab502, aab503, aab504, aab505,
+         aab506, aab507, aab508, aab509)
+         VALUES
+         (#{dto.aaa101}, #{dto.aab502}, #{dto.aab503,jdbcType=DATE}, #{dto.aab504,jdbcType=VARCHAR}, #{dto.aab505,jdbcType=INTEGER},
+          #{dto.aab506,jdbcType=INTEGER}, #{dto.aab507,jdbcType=VARCHAR}, #{dto.aab508}, 0)
+         ;
+    </insert>
+
+
+    <select id="getAuthorIdById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT aaa101
+        FROM ab05
+        WHERE aab501=#{id} AND aab509=1;
+        ;
+    </select>
+
+    <select id="getIntroById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT aab508
+        FROM ab05
+        WHERE aab501=#{id} AND aab509=1;
+        ;
+    </select>
+
+    <select id="getAllByState" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+        aab501,aaa101, aab502, aab503, aab504, aab505,aab506, aab507,aab508
+        FROM ab05
+        WHERE aab509=0 limit #{begin},#{num};
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM ab05
+        where aab509=0;
+    </select>
+
+    <select id="getSearchCompInfoByMDD" resultType="java.util.HashMap">
+        SELECT t1.id, t1.intro, t1.date, t1.authorName, t1.authorPic, IFNULL(t2.star,0) 'star' FROM
+        (SELECT a.aab501 AS 'id', a.aab508 AS 'intro', a.aab503 AS 'date', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic'
+                FROM ab05 a, ac07 b, aa01 c
+                WHERE a.aaa101=c.aaa101 AND a.aab501=b.aab501 AND a.aab509=1
+                AND b.aaa301=#{pid}) t1 LEFT JOIN
+        (SELECT a.aab501 AS 'id' ,count(b.aad404) AS 'star' FROM ab05 a, ad04 b, ac07 c
+        WHERE a.aab501=b.aad404 AND a.aab501=c.aab501 AND b.aad403=5 AND c.aaa301=#{pid}
+        GROUP BY id) t2
+        ON t1.id=t2.id
+        ORDER BY #{order}
+        LIMIT #{page},#{offset};
+        ;
+    </select>
+
+    <select id="getCompTotalCountByMDD" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(t1.id) AS 'count' FROM
+        (SELECT a.aab501 AS 'id', a.aab508 AS 'intro', a.aab503 AS 'date', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic'
+                FROM ab05 a, ac07 b, aa01 c
+                WHERE a.aaa101=c.aaa101 AND a.aab501=b.aab501 AND a.aab509=1
+                AND b.aaa301=#{pid}) t1 LEFT JOIN
+        (SELECT a.aab501 AS 'id' ,count(b.aad404) AS 'star' FROM ab05 a, ad04 b, ac07 c
+        WHERE a.aab501=b.aad404 AND a.aab501=c.aab501 AND b.aad403=5 AND c.aaa301=#{pid}
+        GROUP BY id) t2
+        ON t1.id=t2.id
+        ;
+    </select>
+
+</mapper>
