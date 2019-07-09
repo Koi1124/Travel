@@ -1,0 +1,294 @@
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="'结伴' + ${title}">结伴 </title>
+    <meta name="renderer" content="webkit" />
+
+    <script type="text/javascript">
+        window.Env = {"has_logo":1,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","W_HTTP":"https:\/\/w.mafengwo.cn","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"https:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","TONGJI_HOST":"tongji.mafengwo.cn","UID":62964992,"CSTK":"956f8d3b3812cd0734afe5b3d75def0b_56c098b44f0588091c4f621451c811e0","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","MOBILE_BINDED":true};
+    </script>
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script th:src="@{/asserts/js/detail.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="detail-hd">
+        <div class="cover" th:style="'background-image:url(' + @{/mddPic} + ')'" style="background-image:url(https://n3-q.mafengwo.net/s5/M00/E5/67/wKgB3FHlDx2AeOipAAMkkOmX8pg42.jpeg?imageMogr2%2Fthumbnail%2F%211280x280r%2Fgravity%2FCenter%2Fcrop%2F%211280x280%2Fquality%2F100)">
+            <div class="bg"></div>
+            <div class="shadow"></div>
+        </div>
+        <div class="wrapper">
+            <div class="mt-nav">
+                <a href="/together/" th:href="@{/together}">结伴首页</a>
+                <a href="/u/62964992/together.html">我的结伴</a>
+                <a href="/u/84303163/together.html">TA的结伴</a>
+            </div>
+            <div class="info">
+                <div class="middle">
+                    <h1 th:text="${title}">一起去新疆，有一起的么？</h1>
+                    <div class="total">
+                        <span>5016</span>人浏览
+                        <em class="dot"></em>
+                        <span th:text="${app}">10</span>人报名
+                        <em class="dot"></em>
+                        <span th:text="${star}">19</span>人关注
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="event-btns">
+            <div class="cell-join">
+                <a class="btn-join _j_together_add"><i></i><span>我要报名</span></a>
+            </div>
+            <div class="cell-collect">
+                <a class="btn-collect _j_together_care"><i></i><span class="_j_together_text">关注此结伴</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row-bg2">
+        <div class="summary">
+            <ul class="clearfix">
+                <li><i class="icon-startTime"></i><span th:text="'出发时间：'+ ${date}">出发时间：2019-12-21</span></li>
+                <li><i class="icon-days"></i><span th:text="'大约：' ">大约：9天</span></li>
+                <li><i class="icon-destination"></i><span th:text="'目的地：'+ ${name}">目的地：伊犁|禾木|喀纳斯|新疆</span></li>
+                <li><i class="icon-departure"></i><span th:text="'出发地：'">出发地：乌鲁木齐</span></li>
+                <li><i class="icon-people"></i><span th:text="'希望人数：'">希望人数：6人</span></li>
+            </ul>
+            <div class="contact _j_contact">
+                联系方式
+                <span class="invisible" >
+        ------报名后可见-------
+    </span>
+
+            </div>
+        </div>
+        <div class="wrapper clearfix">
+            <div class="detail-content">
+                <div class="sponsor clearfix">
+                    <a class="avatar" href="#" target="_blank"><img th:src="@{authorPic}" src="https://p2-q.mafengwo.net/s10/M00/A5/03/wKgBZ1lLhj6AOljuAAbO3skT8HU94.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" height="90" width="90"></a>
+                    <a class="name" href="#" target="_blank"><p th:text="${authorName}">风信子</p></a>
+                    <div class="opt">
+                        <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
+                            <span class="follow"><i></i>加关注</span>
+                            <script type="text/x-jquery-tmpl" id="_j_together_sendmsg">
+
+                <div class="pop-privateLetter">
+                    <span class="p-close btn_eject_close _j_close">×</span>
+                    <p>给 <span>${to_uname}</span> 发送消息</p>
+                    <textarea class="_j_msg_area"></textarea>
+                    <div><a class="btn _j_send_button" role="button">发送</a></div>
+                </div>
+                </script>
+                        </a>
+                    </div>
+                </div>
+                <div class="desc _j_description">
+                    <div class="title" ><p th:text="${title}">一起去新疆，有一起的么？</p></div>
+                    <p th:text="${intro}">
+                    一起去新疆，有一起的么？<br />
+                    <br />
+                    听说冬天的新疆也很美，地大物博在新疆是最好的体现，冬季新疆安逸宁静，现在约4-6个朋友一起，<br />
+                    <br />
+                    时间12月21-29日  9天时间<br />
+                    <br />
+                    行程相同的加微信详聊。<br />
+                    <br />
+                    本人微信：wsyfine（敲门：新疆）<br />
+                    <br />
+                    【行程安排】<br />
+                    <br />
+                    第一天：全国各地—乌鲁木齐<br />
+                    第二天：乌鲁木齐—乌尔禾魔鬼城—乌尔禾<br />
+                    第三天：乌尔禾—禾木<br />
+                    第四天：禾木—喀纳斯<br />
+                    第五天：喀纳斯—布尔津<br />
+                    第六天：布尔津—奎屯<br />
+                    第七天：奎屯—赛里木湖<br />
+                    第八天：赛里木湖—伊宁<br />
+                    第九天：伊宁—乌鲁木齐—解散
+                    </p>
+                </div>
+                <div class="mod-joinform">
+                    <h3 class="mod-title">我要报名</h3>
+                    <div class="bd">
+                        <div class="item">
+                            <span class="label">联系电话</span>
+                            <div class="ui-input inp-tel"><input class="_j_add_phone" type="text" placeholder="请输入您的联系方式"></div>
+                            <span class="tips"><span>*必填</span>：只对活动发起人和本人公开</span>
+                        </div>
+                        <div class="item">
+                            <span class="label">性别</span>
+                            <div class="gender">
+                                <span class="radio on _j_add_gender" data-gender="1"><span class="icon-radio"><i></i></span>男</span>
+                                <span class="radio _j_add_gender" data-gender="0"><span class="icon-radio"><i></i></span>女</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span class="label">同行人数</span>
+                            <div class="num">
+                                <div class="ui-input inp-num"><input type="text" class="_j_together_men"></div>
+                                男<span class="gray">(/人)</span>
+                            </div>
+                            <div class="num">
+                                <div class="ui-input inp-num"><input type="text" class="_j_together_women"></div>
+                                女<span class="gray">(/人)</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span class="label">同行名单</span>
+                            <div class="ui-input inp-list"><input type="text" class="_j_together_names"></div>
+                        </div>
+                        <div class="item">
+                            <span class="label">备注</span>
+                            <div class="ui-textarea"><textarea class="_j_together_remark"></textarea></div>
+                        </div>
+                        <div class="item">
+                            <a class="btn _j_submit">报名</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-side">
+                <div class="mod-joinlist">
+                    <div class="hd">
+                        <span><em th:text="${app}">10</em> 人报名</span>
+                        <i class="icon-arrow"></i>
+                    </div>
+                    <div class="bd">
+                        <ul class="clearfix" th:each="applicant:${applicants}">
+                            <li >
+                                <a class="avatar" href="#" target="_blank"><img th:src="@{applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
+                                <a class="name" href="#" target="_blank"><p th:text="${applicant.applicantName}">时光吹老了好少年</p></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ft toggle _j_show_more_add_btn">
+                        <a><i class="icon-arrow"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="wrapper clearfix">
+                <div class="mod-comment">
+                    <h3 class="mod-title">留言</h3>
+                    <div class="comment-form clearfix">
+                        <textarea class="_j_comment_content"></textarea>
+                        <input class="btn _j_submit_comment" type="button" value="留言">
+                    </div>
+                    <ul class="comment-list _j_comment_list" id="comment-list" th:each="comment:${commentInfo}">
+                        <div class="vc_comment">
+                            <div class="avatar"><a href="#" th:href="@{/comment.remarkerId}" target="_blank"><img src="" th:src="@{/comment.remarkerPic}" style="width: 48px;height: 48px;"></a></div>
+                            <div class="comm_con">
+                                <dl>
+                                    <dt class="clearfix">
+                                        <div class="comm_info">
+                                            <a target="_blank" class="comm_name" href="#" th:href="@{/comment.remarkerId}"><p th:text="${comment.remarkerName}"></p></a>
+                                            <br>
+                                            <span class="comm_time" ><p th:text="${comment.time}">2019-07-08 16:43:11</p></span>
+                                        </div>
+                                        <div class="comm_reply">
+                                            <a class="_j_replay" data-cid="29218971" data-name="高科" data-uid="75408551">回复</a>
+                                        </div>
+                                    </dt>
+                                    <dd>
+                                        <div class="comm_word">
+                                            <p th:text="${comment.content}">成都出发拼车结伴费用AA一路走走停停观光拍照费用aa微信779056108</p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="post_pagin" id="smallpager"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="pagination_tmpl" type="text/x-jquery-tmpl">
+    {{if pageTotal > 1}}
+    <div class="m-pagination">
+        <span class="count">共${pageTotal}页/${total}条</span>
+        {{if currPage > 1}}
+             <a class="pg-next _j_pageitem" data-page="${currPage - 1}">&nbsp;&lt;&lt;Prev&nbsp;</a>
+        {{/if}}
+        {{each(i, index) indexers}}
+        {{if index == currPage}}
+            <a class="pi pg-current">${index}</a>
+        {{else}}
+            <a class="pi _j_pageitem" data-page="${index}">${index}</a>
+        {{/if}}
+        {{/each}}
+        {{if currPage < pageTotal}}
+            <a class="pg-next _j_pageitem" data-page="${currPage + 1}">&nbsp;Next&nbsp;&gt;&gt;</a>
+        {{/if}}
+    </div>
+    {{/if}}
+    </script>
+
+    <link href="https://css.mafengwo.net/css/mfw-footer.css?1558532347" rel="stylesheet" type="text/css"/>
+
+    <div id="footer">
+        <div class="ft-content" style="width: 1105px">
+            <div class="ft-copyright">
+                <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+                <p>© 2019 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="https://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="https://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱: mfwjubao@mafengwo.com</span></p>
+                <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="https://n1-q.mafengwo.net/s12/M00/A5/45/wKgED1xJi3uAA7KLAAf_CkKLHRQ87.jpeg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+            </div>
+            <div class="ft-safety">
+                <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+                <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+                <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+                <a class="s-d" href="http://www.itrust.org.cn/Home/Index/satification_certificate/wm/MY2019051501.html" target="_blank" rel="nofollow"></a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <link href="https://css.mafengwo.net/css/mfw-toolbar.css?1537192876" rel="stylesheet" type="text/css"/>
+
+    <div class="mfw-toolbar" id="_j_mfwtoolbar">
+        <div class="toolbar-item-top">
+            <a role="button" class="btn _j_gotop">
+                <i class="icon_top"></i>
+                <em>返回顶部</em>
+            </a>
+        </div>
+        <div class="toolbar-item-feedback">
+            <a role="button" data-japp="feedback" class="btn">
+                <i class="icon_feedback"></i>
+                <em>意见反馈</em>
+            </a>
+        </div>
+        <div class="toolbar-item-code">
+            <a role="button" class="btn">
+                <i class="icon_code"></i>
+            </a>
+            <a role="button" class="mfw-code _j_code">
+
+
+                <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+            </a>
+            <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+        </div>
+        <div class="toolbar-item-down">
+            <a role="button" class="btn _j_gobottom">
+                <i class="icon_down"></i>
+                <em>页面底部</em>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

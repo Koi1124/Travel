@@ -22,6 +22,10 @@ public interface Ab05Dao
 
     String getIntroById(int id);
 
+    List<Map<String,Object>> getAllByState(Map<String,Integer> map);
+
+    Integer selectCount();
+
     List<Map<String,Object>> getSearchCompInfoByMDD(@Param("pid") int pid,@Param("order") String order,@Param("page") int page,@Param("offset") int offset);
 
     Integer getCompTotalCountByMDD(int pid);

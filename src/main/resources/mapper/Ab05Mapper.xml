@@ -52,6 +52,18 @@
         ;
     </select>
 
+    <select id="getAllByState" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+        aab501,aaa101, aab502, aab503, aab504, aab505,aab506, aab507,aab508
+        FROM ab05
+        WHERE aab509=0 limit #{begin},#{num};
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM ab05
+        where aab509=0;
+    </select>
+
     <select id="getSearchCompInfoByMDD" resultType="java.util.HashMap">
         SELECT t1.id, t1.intro, t1.date, t1.authorName, t1.authorPic, IFNULL(t2.star,0) 'star' FROM
         (SELECT a.aab501 AS 'id', a.aab508 AS 'intro', a.aab503 AS 'date', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic'

@@ -155,7 +155,7 @@ function togetherSearch(mid) {
 function setCompany(data) {
     $(data).each(function (i, item) {
         $("._j_together_list").append("<li class=\"item\">\n" +
-            "                <a class=\"company-item\" together-id=" + item.id + " target=\"_blank\" star=" + item.star + "  authorName="+ item.authorName +" authorPic="+ item.authorPic +"  onclick='companyClick(this)'>\n" +
+            "                <a class=\"company-item\" together-id=" + item.id + " target=\"_blank\" star=" + item.star + "  authorName="+ item.authorName +" authorPic="+ item.authorPic +" mddPic="+ item.mddPic +"  onclick='companyClick(this)'>\n" +
             "                        <div class=\"image\">\n" +
             "                            <img src=" + item.mddPic + " style=\"width: 200px;height: 130px;\">\n" +
             "                            <div class=\"after\"><b>" + item.days +
@@ -176,12 +176,13 @@ function setCompany(data) {
 
 function companyClick(c) {
     var form = $("<form method='post'></form>");
-    form.attr({"action": localhostPaht+"/together/company/detail"});
+    form.attr({"action": localhostPaht+"/together/company/detail/"+$(c).attr("together-id")+".html"});
     var args = {id:$(c).attr("together-id"),
         name:$(c).children("h3").get(0).innerText,
         star:$(c).attr("star"),
         authorName:$(c).attr("authorName"),
-        authorPic:$(c).attr("authorPic")};
+        authorPic:$(c).attr("authorPic"),
+        mddPic:$(c).attr("mddPic")};
     for (var arg in args)
     {
         var input = $("<input type='hidden'>");
