@@ -1,12 +1,13 @@
 package com.han.travel.controller;
 
-import com.han.travel.dao.Aa01Dao;
+import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.IdentifyCodeService;
-import com.han.travel.support.Utils;
+import com.han.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -24,13 +25,13 @@ public class UserController
     private IdentifyCodeService identifyCodeService;
 
     @Autowired
-    private Aa01Dao aa01Dao;
+    private UserService userService;
 
-//    @RequestMapping("/")
-//    public String welcomeHome()
-//    {
-//        return "register";
-//    }
+    @RequestMapping("/")
+    public String welcomeHome()
+    {
+        return "testUpload";
+    }
 
     /**
      * @Author Saki
@@ -74,9 +75,11 @@ public class UserController
     {
         if (identifyCodeService.checkIdentifyCode(map))
         {
-            aa01Dao.addUser(map);
-            identifyCodeService.deleteIdentifyCodeByMail((String)map.get("mail"));
-            return true;
+            if (userService.addUser(map))
+            {
+                identifyCodeService.deleteIdentifyCodeByMail((String) map.get("mail"));
+                return true;
+            }
         }
         return false;
     }
@@ -91,17 +94,25 @@ public class UserController
      **/
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestBody Map<String, String> map)
+    public String login(@RequestBody Map<String, String> map, HttpServletRequest request)
     {
-        Map<String, String> result = aa01Dao.getUserByMail(map.get("mail"));
-        if (Utils.isNotEmpty(result))
+        String code = userService.login(map);
+        switch (code)
         {
-            if (map.get("password").equals(result.get("password")))
-            {
+            case "noName":
+                return "300";
+            case "passFalse":
+                return "400";
+            default:
+                request.getSession().setAttribute(SessionConfig.USER_ID, code);
                 return "200";
-            }
-            return "400";
         }
-        return "300";
+    }
+
+    @PostMapping("/forget")
+    @ResponseBody
+    public boolean forget(@RequestBody Map<String, String> map)
+    {
+        return userService.sendPasswordByMail(map.get("mail"));
     }
 }
