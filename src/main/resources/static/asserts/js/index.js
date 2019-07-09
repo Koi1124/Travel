@@ -1,23 +1,28 @@
 //注册登录页面
 $(document).ready(function() {
+    if(window.location.hash =="#1") {
+        $("title").text("注册");
+        turnToRegister();
+    }
+
     var name = $("#name");
     var mail = $("#mail");
     var btnICode = $("#btn-i-code");
     btnICode.attr("disabled", true);
     var pass = $("#password");
     var passRepeat = $("#password-repeat");
-    var btnResgister = $("#test");
+    var btnResgister = $("#register");
 
     var illegal = [1, 1, 1, 1];//合法性检测
 
 
     name.blur(function () {
         if (name.val().length < 4 || name.val().length > 20) {
-            $("#name-tip").text("用户名应该为4~20位");
+            setText($("#name-tip"), "用户名应该为4~20位");
             illegal[0] = 1;
         }
         else {
-            $("#name-tip").text("");
+            setText($("#name-tip"), "");
             illegal[0] = 0;
         }
     });
@@ -25,7 +30,7 @@ $(document).ready(function() {
     //mail输入框失焦事件
     mail.blur(function () {
         if (mail.val().indexOf('@') < 0) {
-            $("#email-tip").text("请输入正确的邮箱格式！");
+            setText($("#email-tip"), "请输入正确的邮箱格式！");
             btnICode.attr("disabled", true);
             illegal[1] = 1;
         }
@@ -39,19 +44,19 @@ $(document).ready(function() {
                 async: true,
                 success: function (result) {
                     if (result) {
-                        $("#email-tip").text("该邮箱已被使用，请前往登录页面！");
+                        setText($("#email-tip"), "该邮箱已被使用，请前往登录页面！");
                         btnICode.attr("disabled", true);
                         illegal[1] = 1;
                     }
                     else {
-                        $("#email-tip").text("");
+                        setText($("#email-tip"), "");
                         btnICode.attr("disabled", false);
                         illegal[1] = 0;
                     }
                 },
                 error: function (e) {
                     console.log(e);
-                    $("#email-tip").text("提示：网络故障");
+                    setText($("#email-tip"), "提示：网络故障");
                     illegal[1] = 1;
                 }
             });
@@ -60,25 +65,25 @@ $(document).ready(function() {
 
     pass.blur(function () {
         if (pass.val().length < 8 || pass.val().length > 18) {
-            $("#password-tip").text("密码应该为8~18位");
+            setText($("#password-tip"), "密码应该为8~18位");
             illegal[2] = 1;
         }
         else if (containChinese(pass.val())) {
-            $("#password-tip").text("密码只能为英文字母、标点或数字");
+            setText($("#password-tip"), "密码只能为英文字母、标点或数字");
             illegal[2] = 1;
         }
         else {
-            $("#password-tip").text("");
+            setText($("#password-tip"), "");
             illegal[2] = 0;
         }
 
         if (passRepeat.val() != "") {
             if (pass.val() === passRepeat.val()) {
-                $("#password-repeat-tip").text("");
+                $setText($("#password-repeat-tip"), "");
                 illegal[3] = 0;
             }
             else {
-                $("#password-repeat-tip").text("两次密码输入不同！");
+                setText($("#password-repeat-tip"), "两次密码输入不同！");
                 illegal[3] = 1;
             }
         }
@@ -86,11 +91,11 @@ $(document).ready(function() {
 
     passRepeat.blur(function () {
         if (pass.val() === passRepeat.val()) {
-            $("#password-repeat-tip").text("");
+            setText($("#password-repeat-tip"), "");
             illegal[3] = 0;
         }
         else {
-            $("#password-repeat-tip").text("两次密码输入不同！");
+            setText($("#password-repeat-tip"), "两次密码输入不同！");
             illegal[3] = 1;
         }
     });
@@ -132,11 +137,12 @@ $(document).ready(function() {
                 async: true,
                 success: function (result) {
                     if (result) {
-                        $("#i-code-tip").text("");
-                        alert("注册成功");
+                        setText($("#i-code-tip"), "");
+                        // TODO 登录事件
+                        login(mail.val(), pass.val());
                     }
                     else {
-                        $("#i-code-tip").text("验证码错误！");
+                        setText($("#i-code-tip"), "验证码错误！");
                     }
                 },
                 error: function (e) {
@@ -146,14 +152,12 @@ $(document).ready(function() {
         }
     });
 
-
     //登录邮箱失焦时事件
     var mailLogin = $("#mail-login");
     var passLogin = $("#password-login");
-
     mailLogin.blur(function () {
         if (mailLogin.val().indexOf('@') < 0) {
-            $("#email-login-tip").text("请输入正确的邮箱格式！");
+            setText($("#email-login-tip"), "请输入正确的邮箱格式");
         }
         else {
             $.ajax({
@@ -165,50 +169,79 @@ $(document).ready(function() {
                 async: true,
                 success: function (result) {
                     if (result) {
-                        $("#email-login-tip").text("");
-                    }
-                    else {
-                        $("#email-login-tip").text("用户不存在");
+                        setText($("#email-login-tip"), "");
+                    } else {
+                        setText($("#email-login-tip"), "用户不存在");
                     }
                 },
                 error: function (e) {
                     console.log(e);
-                    $("#email-login-tip").text("提示：网络故障");
+                    setText($("#email-login-tip"), "提示：网络故障");
                 }
             });
         }
     });
 
     $("#btn-login").click(function () {
+        login(mailLogin.val(), passLogin.val());
+    });
+
+
+    var mailForget = $("#mail-forget");
+
+    $("#btn-forget").click(function () {
         $.ajax({
             type: "post",
-            url: "http://localhost:8080/login",
-            data: JSON.stringify({
-                mail:mailLogin.val(),
-                password:passLogin.val()
-            }),
+            url: "http://localhost:8080/forget",
+            data: JSON.stringify({mail:mailForget.val()}),
             contentType: "application/json",
             dataType: "json",
             async: true,
             success: function (result) {
-                if (result == "200") {
-                    alert("登录成功");
+                if (result) {
+                    turnToLogin();
+                    mailLogin.val(mailForget.val());
                 }
-                else if (result == "300") {
-                    alert("用户名不存在");
-                }
-                else if (result == "400") {
-                    alert("密码错误");
+                else {
+                    alert("网络故障");
                 }
             },
             error: function (e) {
                 console.log(e);
-                $("#email-login-tip").text("提示：网络故障");
             }
         });
     });
 });
 
+
+function login(mail, pass) {
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/login",
+        data: JSON.stringify({
+            mail:mail,
+            password:pass
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (result == "300") {
+                setText($("#email-login-tip"), "用户名不存在");
+            }
+            else if (result == "400") {
+                setText($("#password-login-tip"), "密码错误");
+            }
+            else if (result == "200") {
+                window.location.href = "/homepage";
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            $("#email-login-tip").text("提示：网络故障");
+        }
+    });
+}
 
 /**
  * 获取验证码按钮设置等待时间
@@ -235,4 +268,31 @@ function containChinese(val){
         return true;
     }
     return false;
+}
+
+
+function turnToLogin() {
+    $("#_j_signup_box").hide();
+    $("#_j_forget_box").hide();
+    $("#_j_login_box").show();
+}
+
+function turnToRegister() {
+    $("#_j_signup_box").show();
+    $("#_j_login_box").hide();
+}
+
+function turnToForget() {
+    $("#_j_forget_box").show();
+    $("#_j_login_box").hide();
+}
+
+function setText(input, text) {
+    if (text === "") {
+        $(input).hide();
+    }
+    else {
+        $(input).text(text);
+        $(input).show();
+    }
 }

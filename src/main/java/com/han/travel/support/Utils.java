@@ -6,6 +6,13 @@ import java.util.Map;
 
 public class Utils
 {
+    //图像传输的对应格式的请求头
+    public static final String[] imgHeaders = {
+            "data:image/png;base64",
+            "data:image/bmp;base64",
+            "data:image/jpeg;base64"
+    };
+
     /**
      *@discription:  将文本信息中的景点地点自动替换为跳转链接
      * 1.0 弱智方法 ->长文本效率极低

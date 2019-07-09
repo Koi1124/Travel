@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -10,82 +9,51 @@
         window.Env = {"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","W_HTTP":"http:\/\/w.mafengwo.cn","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","TONGJI_HOST":"tongji.mafengwo.cn","UID":63008954,"CSTK":"2b61500a9cfff8821b0182961d7ef82b_de98f87c8ebd2f44da99f3a7810d101c","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","MOBILE_BINDED":true};
     </script>
 
-    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css" rel="stylesheet" type="text/css"/>
-
 
     <link href="http://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
-    <!--<script th:src="@{/asserts/js/mafengwo_all.js}"></script>-->
-    <!--<script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1562232559.js" type="text/javascript" crossorigin="anonymous"></script>-->
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css" rel="stylesheet" type="text/css"/>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.0.js"></script>
     <script th:src="@{/asserts/js/together.js}"></script>
     <link rel="stylesheet" th:href="@{/asserts/css/jquery.pagination.css}" />
+    <link rel="stylesheet" th:href="@{/asserts/css/topbar.css}" />
     <script th:src="@{/asserts/js/jquery.pagination.min.js}"></script>
 </head>
 <body>
+<div id="header">
+    <div class="zy-header">
+        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
+            <div class="head-logo-zy"><a class="zy-logo" title="马蜂窝自由行" href="https://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-zy-index"><a href="">首页</a></li>
+                <li class="head-nav-zy-place head-nav-active"><a href="">目的地</a></li>
+                <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
+                <li class="head-nav-zy-sales"><a href="">跟团游</a></li>
+                <li class="head-nav-zy-flight"><a href="">结伴</a></li>
+            </ul>
 
-<!--<div class="topBar">-->
-<!--<div class="topBarC">-->
-<!--<div class="logo"><a title="马蜂窝自由行" href="/">马蜂窝自由行</a></div>-->
-<!--<div class="t_nav">-->
-<!--<ul id="pnl_nav" data-cs-t="headnav_wo">-->
-<!--<li data-cs-p="index">-->
-<!--<strong class="t"><a href="/">首页</a></strong>-->
-<!--</li>-->
-<!--<li data-cs-t="wenda" data-cs-p="wenda">-->
-<!--<strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>-->
-<!--</li>-->
-<!--<li data-cs-t="things" data-cs-p="things">-->
-<!--<strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">马蜂窝周边</a></strong>-->
-<!--</li>-->
-<!--<li data-cs-p="together">-->
-<!--<strong class="t"><a href="/together/">结伴</a></strong>-->
-<!--</li>-->
-<!--<li data-cs-p="group">-->
-<!--<strong class="t"><a href="/group/">小组</a></strong>-->
-<!--</li>-->
-<!--<li data-cs-p="mall">-->
-<!--<strong class="t"><a href="/club/">蜂首俱乐部</a></strong>-->
-<!--</li>-->
-<!--<li class="drop" data-cs-p="other">-->
-<!--<strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>-->
-<!--<div class="c">-->
+            <div class="head-user-zy" id="_j_head_user">
+                <a href="" title="个人空间">
+                    <div class="user-image"><img src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90" height="32" width="32" alt="wdnmd的窝"></div>
+                </a>
+            </div>
 
-<!--<a href="/focus/" target="_blank">真人兽</a>-->
-
-<!--<a href="/school/" target="_blank">马蜂窝高校</a>-->
-<!--<a href="/photo_pk/prev.php" target="_blank">照片PK</a>-->
-<!--<a href="/auction/" target="_blank">马蜂窝拍卖行</a>-->
-<!--<a href="/mall/virtual_goods.php" target="_blank">道具商店</a>-->
-<!--<a href="/radio/" target="_blank">旅行电台</a>-->
-<!--<a href="/club/" target="_blank">蜂首聚乐部</a>-->
-<!--<a href="/home/vip_show.php" target="_blank">VIP</a>-->
-<!--<a href="/game/wager.php" target="_blank">分歧终端机</a>-->
-<!--</div>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--<div class="t_search">-->
-<!--<form method="GET" action="/search/s.php" name="search">-->
-<!--<input type="text" class="key" value="" name="q" id="word">-->
-<!--<input type="submit" value="" class="btn">-->
-<!--</form>-->
-<!--</div>-->
-
-<!--<div class="t_info">-->
-<!--<div data-pagelet id="pagelet-block-4959c0bf29175cf23109729acd322391" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
+            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
+                <div class="head-search-wrapper-zy">
+                    <div class="head-searchform-zy">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off" style="outline:none;">
+                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <input id="_j_all_together_num" type="hidden" data-num="2900"/>
 <div class="container _j_total" data-total="1000">
     <div class="index-hd">
         <div class="wrapper">
-            <div class="mt-nav">
-                <a>结伴首页</a>
-                <a href="/u/63008954/together.html">我的结伴</a>
-            </div>
             <div class="info">
                 <div class="num">我们共有<span>405339</span>个计划</div>
                 <div class="total"><span>637770</span>人关注·<span>1351897</span>人报名</div>
@@ -162,13 +130,7 @@
                 </ul>
             </div>
             <div class="post_pagin" id="smallpager">
-                <!--<div class="ft">-->
-                <!--<a class="btn-pre _j_pageitem" data-page="1"><i class="btn-prev"></i></a>-->
-                <!--<span class="num"><span>1</span>/84</span>-->
-                <!--<a class="btn-next _j_pageitem" data-page="3"><i></i></a>-->
-                <!--</div>-->
                 <div id="pagination" class="page f1" style="text-align: center;">
-
                 </div>
             </div>
         </div>
@@ -232,13 +194,5 @@
         </a>
     </div>
 </div>
-
-
-<!--<script language="javascript" type="text/javascript">-->
-<!--if (typeof M !== "undefined" && typeof M.loadResource === "function") {-->
-<!--M.loadResource("http://js.mafengwo.net/js/cv/js+pageletcommon+pageHeadUserInfoWWWDark:js+jquery.tmpl:js+M+module+Pagination:js+jquery-ui-core:js+jquery-ui-datepicker:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+together+index:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^ZVZU^1561616124.js");-->
-<!--}-->
-<!--</script>-->
-
 </body>
 </html>
