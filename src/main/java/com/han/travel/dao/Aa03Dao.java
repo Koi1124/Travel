@@ -10,6 +10,8 @@ public interface Aa03Dao
 {
     String getPicById(int id);
 
+    Integer getIdByName(String name);
+
     String getNameById(int id);
 
     Map<String,String> getPicAndNameById(int id);
