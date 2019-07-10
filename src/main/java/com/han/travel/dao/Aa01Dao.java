@@ -7,7 +7,7 @@ import java.util.Map;
 @Repository
 public interface Aa01Dao
 {
-    Map<String, String> getNameAndPicById(int id);
+    Map<String, Object> getNameAndPicAndIdById(int id);
 
     Map<String, Object> getUserByMail(String mail);
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Af01Dao">
+    <insert id="insertChatBar" parameterType="java.lang.Integer">
+        INSERT INTO af01 (aae101)
+        VALUES (#{lId})
+        ;
+    </insert>
+
+    
+    <delete id="deleteChatBar" parameterType="java.lang.Integer">
+        DELETE FROM af01
+        WHERE aae101=#{lId}
+        ;
+    </delete>
+
+    <select id="isExistLatest" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT b.aae101 FROM af01 b
+        WHERE b.aae101 in
+        (SELECT aae101 FROM ae01
+        WHERE (aae104=#{dto.clientId} AND aae105=#{dto.toClientId})
+        OR (aae105=#{dto.clientId} AND aae104=#{dto.toClientId}))
+        ;
+    </select>
+    
+</mapper>

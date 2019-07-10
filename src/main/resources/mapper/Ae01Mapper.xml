@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ae01Dao">
+    
+    <select id="getLatestLetterByClient" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae106 AS 'state', a.aae104 AS 'client1', a.aae105 AS 'client2'
+        FROM ae01 a, af01 b
+        WHERE a.aae101=b.aae101 AND (a.aae104=#{id} OR a.aae105=#{id})
+        ;
+    </select>
+    
+    <insert id="insertLetterToUId" parameterType="java.util.HashMap">
+        <selectKey keyProperty="dto.id" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO ae01(aae102,aae103,aae104,aae105,aae106)
+        VALUES (#{dto.content},CURRENT_TIME ,#{dto.clientId},#{dto.toClientId},0)
+        ;
+    </insert>
+
+    <update id="readDone" parameterType="java.lang.Integer">
+        UPDATE ae01
+        SET aae106=1
+        WHERE aae101=#{id}
+        ;
+    </update>
+    
+    <select id="getLettersByClinetIdAndToClientId" resultType="java.util.HashMap">
+        SELECT aae102 AS 'content',aae103 AS 'time'
+        FROM ae01
+        WHERE aae104=#{cid} AND aae105=#{tocid}
+        ;
+    </select>
+
+</mapper>
