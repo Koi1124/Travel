@@ -1,18 +1,11 @@
 package com.han.travel.controller;
 
-import com.han.travel.support.Utils;
+import com.han.travel.support.ImgUploadTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Decoder;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @ClassName AgencyController
@@ -34,42 +27,15 @@ public class AgencyController
      **/
     @PostMapping("/agency/upload_img")
     @ResponseBody
-    public boolean uploadImg(@RequestBody Map<String, Object> map) {
+    public boolean uploadImg(@RequestBody Map<String, Object> map)
+    {
         List<String> images = (ArrayList) map.get("image");
+        List<String> paths = ImgUploadTools.uploadImgs(images);
 
-        for (String image : images) {
-            UUID id = UUID.randomUUID();
-            for (String header : Utils.imgHeaders) {
-                if (image.indexOf(header) != 0) {
-                    continue;
-                }
-                // 去掉头部
-                image = image.substring(header.length() + 1);
-                //获取项目路径到E:/upload/images
-                String filepath = "E:" + File.separator + "upload" + File.separator + "images" + File.separator ;
-                File file = new File(filepath);
-                if (!file.exists()) {//目录不存在就创建
-                    file.mkdirs();
-                }
-
-                // 写入磁盘
-                BASE64Decoder decoder = new BASE64Decoder();
-                try {
-                    System.out.println(image);
-                    byte[] decodedBytes = decoder.decodeBuffer(image);
-                    int index = header.indexOf("/");
-                    String last = header.substring(index + 1, index + 4);
-                    last = last.equals("jpe") ? "jpg" : last;
-                    String fileName = filepath + id + "." + last;
-                    FileOutputStream out = new FileOutputStream(fileName);
-                    out.write(decodedBytes);
-                    out.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
+        if (images.size() == paths.size())
+        {
+            return true;
         }
-        return true;
+        return false;
     }
 }

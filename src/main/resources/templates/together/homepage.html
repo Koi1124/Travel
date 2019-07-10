@@ -13,11 +13,12 @@
     <link href="http://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
     <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css" rel="stylesheet" type="text/css"/>
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.0.js"></script>
+
+    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
     <script th:src="@{/asserts/js/together.js}"></script>
-    <link rel="stylesheet" th:href="@{/asserts/css/jquery.pagination.css}" />
-    <link rel="stylesheet" th:href="@{/asserts/css/topbar.css}" />
-    <script th:src="@{/asserts/js/jquery.pagination.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
+    <link rel="stylesheet" th:href="@{/asserts/css/style.css}" />
+    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
 </head>
 <body>
 <!--<div id="header">-->
@@ -73,7 +74,6 @@
             <h3 class="mod-title">结伴热门目的地</h3>
             <div class="bd">
                 <ul id="together-mdd-box" class="clearfix">
-                    <!--TODO-->
                 </ul>
             </div>
         </div>

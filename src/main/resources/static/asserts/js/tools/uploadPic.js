@@ -38,7 +38,7 @@ $(function () {
                     }
                     delParent.remove();
                 });
-                $img0.attr("src", "http://www.jq22.com/demo/imgUp201703281022/img/a7.png").appendTo($section);
+                $img0.attr("src", "../img/upload/close.png").appendTo($section);
                 var $img = $("<img id=" + id + " class='up-img up-opcity'>");
                 id++;
                 $img.appendTo($section);

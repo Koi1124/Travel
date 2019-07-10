@@ -5,9 +5,11 @@ import com.han.travel.service.IdentifyCodeService;
 import com.han.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -31,6 +33,18 @@ public class UserController
     public String welcomeHome()
     {
         return "testUpload";
+    }
+
+    @RequestMapping("/setting")
+    public String setting(HttpSession session, Map<String, Object> dto)
+    {
+        //TODO 删除测试数据
+        session.setAttribute(SessionConfig.USER_ID, 0);
+        session.setAttribute(SessionConfig.USER_NAME, "admin");
+        session.setAttribute(SessionConfig.USER_LOGO, "/asserts/img/commom/default_logo.jpg");
+
+        dto.putAll(userService.getUserById((int)session.getAttribute(SessionConfig.USER_ID)));
+        return "setting";
     }
 
     /**
@@ -109,10 +123,40 @@ public class UserController
         }
     }
 
+    /**
+     * @Author Saki
+     * @Description 忘记密码之后发邮件的请求
+     * @Date 2019/7/10
+     * @param map
+     * @return boolean
+     **/
     @PostMapping("/forget")
     @ResponseBody
     public boolean forget(@RequestBody Map<String, String> map)
     {
         return userService.sendPasswordByMail(map.get("mail"));
+    }
+    
+    /**
+     * @Author Saki
+     * @Description 更改信息 昵称、性别、居住地、备注
+     * @Date 2019/7/10 
+     * @param map
+     * @return boolean 
+     **/
+    @PostMapping("/change_info")
+    @ResponseBody
+    public boolean updateUser(@RequestBody Map<String, String> map, HttpSession session)
+    {
+        map.put("id", String.valueOf(session.getAttribute(SessionConfig.USER_ID)));
+        return userService.updateUser(map);
+    }
+
+
+    @PostMapping("/change_logo")
+    @ResponseBody
+    public boolean updateLogo(@RequestBody Map<String, String> map, HttpSession session) {
+        map.put("id", String.valueOf(session.getAttribute(SessionConfig.USER_ID)));
+        return userService.updateLogo(map);
     }
 }

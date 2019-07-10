@@ -138,7 +138,6 @@ $(document).ready(function() {
                 success: function (result) {
                     if (result) {
                         setText($("#i-code-tip"), "");
-                        // TODO 登录事件
                         login(mail.val(), pass.val());
                     }
                     else {

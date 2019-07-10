@@ -9,7 +9,13 @@ public interface Aa01Dao
 {
     Map<String, Object> getNameAndPicAndIdById(int id);
 
+    Map<String, String> getUserById(int id);
+
     Map<String, Object> getUserByMail(String mail);
+
+    boolean updateUser(Map<String, String> map);
+
+    boolean updateLogo(Map<String, String> map);
 
     boolean addUser(Map<String, Object> map);
 }

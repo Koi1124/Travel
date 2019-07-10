@@ -13,6 +13,12 @@
         ;
     </select>
 
+    <select id="getIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT aaa301 FROM aa03
+        WHERE aaa302=#{name}
+        ;
+    </select>
+
     <select id="getPicAndNameById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT aaa302 AS "name", aaa305 AS "pic"
         FROM aa03
