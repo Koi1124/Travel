@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.IdentifyCodeDAO">
+
+    <select id="getIdentifyCodeByMail" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT code, time FROM identifycode
+         WHERE mail=#{mail};
+    </select>
+
+    <delete id="deleteIdentifyCodeByMail" parameterType="java.lang.String">
+        DELETE FROM identifycode
+         WHERE mail=#{mail};
+    </delete>
+
+    <update id="updateIdentifyCode" parameterType="java.util.HashMap">
+        UPDATE identifycode
+           SET code=#{code}, time=current_time()
+         WHERE mail=#{mail};
+    </update>
+
+    <insert id="addIdentifyCode" parameterType="java.util.HashMap">
+        INSERT into identifycode(mail, code, time)
+            VALUES(#{mail}, #{code}, current_time());
+    </insert>
+
+</mapper>

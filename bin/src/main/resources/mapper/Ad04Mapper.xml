@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ad04Dao">
+    <select id="getStarCountByIdAndType" resultType="java.lang.Integer">
+        SELECT count(aad404) AS 'count'
+        FROM ad04
+        WHERE aad404=#{id} ANY aad403=#{type}
+        ;
+    </select>
+
+
+    <select id="getStarCountByMDDID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(a.aad404) as 'star' FROM ad04 a, ac07 b
+        WHERE a.aad403=5 AND a.aad404=b.aab501
+        AND b.aaa301=#{id}
+        ;
+    </select>
+
+</mapper>

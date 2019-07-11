@@ -1,0 +1,114 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>登录</title>
+    <link th:href="@{/asserts/css/login.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
+    <script th:src="@{/asserts/js/index.js}"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="container container-login">
+
+        <div class="signup-forms">
+            <div class="signup-box" id="_j_signup_box" style="display: none;">
+                <div class="inner inner_v2 clearfix">
+                    <div class="inner_v2_center">
+
+                        <div class="form-field">
+                            <input id="name" type="text" placeholder="您的名称" autocomplete="off" class="verification[required]">
+                            <div id="name-tip" class="err-tip" style="display: none;"></div>
+                        </div>
+                        <div class="form-field">
+                            <input id="mail" type="email" placeholder="您的邮箱" autocomplete="off" data-type="mobile" value="" />
+                            <div id="email-tip" class="err-tip" style="display: none;"></div>
+                        </div>
+                        <div class="form-field">
+                            <input id="password" type="password" placeholder="您的密码" autocomplete="off" class="verification[required,minSize[8],maxSize[30],funcCall[checkPasswordStrong]]" data-verification-result="failed">
+                            <div id="password-tip" class="err-tip" style="display: none;"></div>
+                        </div>
+                        <div class="form-field">
+                            <input id="password-repeat" type="password" placeholder="确认密码" autocomplete="off" class="verification[equals[password]]" data-verification-result="success">
+                            <div id="password-repeat-tip" class="err-tip" style="display: none;"></div>
+                        </div>
+                        <div class="form-field">
+                            <div class="clearfix">
+                                <button id="btn-i-code" class="vcode-send-right sms-code-send">获取验证码</button>
+                                <input id="identify-code" type="text" placeholder="邮箱验证码" autocomplete="off" class="vcode-input-left verification[required]" data-verification-result="failed">
+                            </div>
+                            <div id="i-code-tip" class="err-tip" style="display: none;"></div>
+                        </div>
+
+
+
+                        <div class="submit-btn">
+                            <button id="register">立即注册</button>
+                        </div>
+
+                        <!--TODO    用户协议-->
+                        <div class="agreement">注册视为同意<a target="_blank" href="#">《周游用户使用协议》</a>
+                        </div>
+                        <div class="connect"></div>
+                    </div>
+                </div>
+                <div class="bottom-link">已经注册?<a id="turn-to-login" onclick="turnToLogin()">马上登录</a>
+                </div>
+            </div>
+
+            <div class="signup-box" id="_j_login_box">
+                <div class="inner inner_v2 clearfix">
+                    <div class="inner_v2_center">
+
+                        <div class="form-field">
+                            <input id="mail-login" type="text" placeholder="您的邮箱" autocomplete="off"
+                                   class="verification[required,maxSize[50]]" value="" />
+                            <div id="email-login-tip" class="err-tip" style="display: none"></div>
+                        </div>
+                        <div class="form-field">
+                            <input id="password-login" type="password" placeholder="您的密码" autocomplete="off"
+                                   class="verification[required,minSize[4],maxSize[50]]" />
+                            <div id="password-login-tip" class="err-tip" style="display: none"></div>
+                        </div>
+                        <div class="form-link"><a onclick="turnToForget()">忘记密码</a></div>
+                        <div class="submit-btn">
+                            <button id="btn-login">登 录</button>
+                        </div>
+
+                        <div class="bottomblock">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="bottom-link">
+                    还没有帐号?<a id="turn-to-register" onclick="turnToRegister()">马上注册</a>
+                </div>
+            </div>
+
+            <div class="signup-box" id="_j_forget_box" style="padding-left: 65px; display: none">
+                <div class="add-info">
+                    <div class="hd">找回密码</div>
+                    <input type="hidden" name="challenge">
+                    <div class="form-field">
+                        <input id="mail-forget" type="text" placeholder="您的邮箱" autocomplete="off" data-type="email" class="verification[required,maxSize[50],custom[email]]" value="">
+                        <div id="mail-forget-tip" class="err-tip" style="display: none"></div>
+                    </div>
+                    <div class="form-link">
+                        <a onclick="turnToLogin()">返回登录</a>
+                    </div>
+                    <div class="submit-btn">
+                        <button id="btn-forget" class="verify-code-send" type="button">立即找回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fullscreen-bg" style="background-image: url(&quot;https://images.mafengwo.net/images/signup/wallpaper/18.jpg&quot;);"><img src="https://images.mafengwo.net/images/signup/wallpaper/18.jpg&#10;" style="height: 941px; width: auto;"></div>
+
+
+</body>
+</html>

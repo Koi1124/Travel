@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ac05Dao">
+
+    <insert id="insertCompApp" parameterType="java.util.Map">
+        INSERT INTO ac05
+        (aab501, aaa101, aac502, aac503, aac504,
+         aac505, aac506)
+        VALUES
+        (#{dto.aab501}, #{dto.aaa101}, #{dto.aab502}, #{dto.aab503}, #{dto.aab504},
+         #{dto.aab505}, 0)
+        ;
+    </insert>
+
+    <update id="changeApplState">
+        UPDATE ac05
+        SET aac506=#{state}
+        WHERE aac501=#{id}
+        ;
+    </update>
+
+    <select id="getCompCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(aab501) FROM ac05
+        WHERE aac506=1 AND aab501=#{cid};
+    </select>
+    
+    <select id="getAppCountAndPNameAndPIdByPId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT c.aaa302 AS "name", c.aaa301 AS "id", COUNT(a.aab501) AS "app"
+        FROM ac05 a, ac07 b, aa03 c
+        WHERE a.aab501=b.aab501 AND b.aaa301=c.aaa301 AND c.aaa301=#{id}
+    </select>
+    
+    <select id="getApplicantsIdAndNameAndPicByCId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aaa101 AS 'applicantId', b.aaa102 AS 'applicantName', b.aaa106 AS 'applicantPic'
+        FROM ac05 a, aa01 b
+        WHERE a.aaa101=b.aaa101 AND a.aac506=1
+        AND a.aab501=#{cid}
+        ;
+    </select>
+</mapper>

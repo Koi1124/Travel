@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ab04Dao">
+    <select id="getAllByState" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+		aab401,aaa201, aab402, aab403, aab404, aab405,aab406, aab407
+        FROM ab04
+        WHERE aab408=0 limit #{begin},#{num};
+    </select>
+    
+    <select id="selectCount" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM ab04
+		where aab408=0;
+	</select>
+	
+	<update id="changeStateById">
+        UPDATE ab04
+        SET aab408=#{state}
+        WHERE aab401=#{id}
+        ;
+    </update>
+</mapper>

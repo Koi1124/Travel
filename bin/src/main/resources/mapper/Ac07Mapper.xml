@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ac07Dao">
+    <insert id="insertMDD" parameterType="java.util.Map">
+        INSERT INTO ac07
+        (aaa301, aab501)
+        VALUES
+        (#{dto.aaa301}, #{dto.aab501})
+        ;
+    </insert>
+
+    <select id="placeCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(aaa301)
+        FROM ac07
+        WHERE aaa301=#{pid}
+        ;
+    </select>
+
+    <delete id="deleteByCompId" parameterType="java.lang.Integer">
+        DELETE FROM ac07
+        WHERE aab501=#{id}
+        ;
+    </delete>
+
+    <select id="getAllMDD" resultType="java.lang.Integer">
+        SELECT DISTINCT aaa301
+        FROM ac07
+        ;
+    </select>
+
+    <select id="getCompByMDD" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT aab501
+        FROM ac07
+        WHERE aaa301=#{pid}
+        ;
+    </select>
+
+
+    <select id="getMDDByComp" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT aaa301
+        FROM ac07
+        WHERE aab501=#{cid}
+        ;
+    </select>
+
+
+    <select id="getTop8MDD" resultType="java.util.HashMap">
+        SELECT aaa301 AS "id", COUNT(DISTINCT(aab501)) AS "count"
+        FROM ac07
+        GROUP BY id
+        ORDER BY count DESC
+        LIMIT 8
+        ;
+    </select>
+
+</mapper>

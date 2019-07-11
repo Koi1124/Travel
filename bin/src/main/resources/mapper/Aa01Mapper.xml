@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Aa01Dao">
+    <select id="getNameAndPicAndIdById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa102 AS "name", aaa106 AS "pic", aaa101 AS "id"
+        FROM aa01
+        WHERE aaa101=#{id}
+        ;
+    </select>
+
+    <select id="getUserById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa102 AS "name", aaa103 AS "sex", aaa104 AS "address", aaa106 AS "pic", aaa120 AS "addtion"
+        FROM aa01
+        WHERE aaa101=#{id}
+        ;
+    </select>
+
+    <select id="getUserByMail" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT aaa101 AS "id", aaa102 AS "name", aaa106 AS "pic", aaa108 AS "password"
+        FROM aa01
+        WHERE aaa107=#{mail}
+        ;
+    </select>
+
+    <update id="updateUser" parameterType="java.util.HashMap">
+        UPDATE aa01 SET aaa102=#{name}, aaa103=#{sex}, aaa104=#{address}, aaa120=#{addtion}
+        WHERE aaa101=#{id}
+        ;
+    </update>
+
+    <update id="updateLogo" parameterType="java.util.HashMap">
+        UPDATE aa01 SET aaa106=#{image}
+        WHERE aaa101=#{id}
+        ;
+    </update>
+
+    <insert id="addUser" parameterType="java.util.HashMap">
+        INSERT INTO aa01(aaa102, aaa103, aaa105, aaa106, aaa107, aaa108)
+        VALUES (#{name}, 0, current_time(), "/asserts/img/commom/default_logo.jpg", #{mail}, #{password});
+    </insert>
+</mapper>

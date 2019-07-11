@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Aa03Dao">
+    <select id="getPicById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT aaa305 FROM aa03
+        WHERE aaa301=#{id}
+        ;
+    </select>
+
+    <select id="getNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT aaa302 FROM aa03
+        WHERE aaa301=#{id}
+        ;
+    </select>
+
+    <select id="getIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT aaa301 FROM aa03
+        WHERE aaa302=#{name}
+        ;
+    </select>
+
+    <select id="getPicAndNameById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa302 AS "name", aaa305 AS "pic"
+        FROM aa03
+        WHERE aaa301=#{id}
+        ;
+    </select>
+
+    <select id="getProvinceId" resultType="java.lang.Integer">
+        SELECT aaa301 FROM aa03
+        WHERE aaa304=0
+        ;
+    </select>
+
+    <select id="getCitiesIdByProvince" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT aaa301 FROM aa03
+        WHERE aaa304=#{id}
+        ;
+    </select>
+
+    <select id="getNamesAndPicsByComp" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT a.aaa302 AS 'name', a.aaa305 AS 'pic' FROM aa03 a, ac07 b
+        WHERE a.aaa301=b.aaa301
+        AND b.aab501=#{cid}
+        ;
+    </select>
+</mapper>

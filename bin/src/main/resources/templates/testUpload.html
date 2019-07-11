@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>上传图片插件</title>
+    <link th:href="@{/asserts/css/main.css}" type="text/css" rel="stylesheet">
+    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/uploadPic.js}"></script>
+</head>
+<body>
+<div class="img-box full">
+    <section class=" img-section">
+        <p class="up-p">执照照片：<span class="up-span">最多可以上传5张图片</span></p>
+        <div class="z_photo upimg-div clear">
+            <section class="z_file fl">
+                <img th:src="@{/asserts/img/upload/add.png}" class="add-img">
+                <input type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">
+            </section>
+        </div>
+    </section>
+</div>
+<button id="btn-upload" onclick="upload()">上传</button>
+</body>
+</html>

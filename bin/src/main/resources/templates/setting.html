@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的信息</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/asserts/css/tools/clip.css}"/>
+    <link th:href="@{/asserts/css/style.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
+    <script th:src="@{/asserts/js/setting.js}"></script>
+    <!--裁剪工具-->
+    <script th:src="@{/asserts/js/tools/clip/zoom.js}"></script>
+    <script th:src="@{/asserts/js/tools/clip/photoClip.js}"></script>
+    <script th:src="@{/asserts/js/tools/clip/hammer.js}"></script>
+</head>
+<body>
+
+<div id="header">
+    <div class="zy-header">
+        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
+            <div class="head-logo-zy"><a class="zy-logo" title="马蜂窝自由行" href="https://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-zy-index"><a href="">首页</a></li>
+                <li class="head-nav-zy-place"><a href="">目的地</a></li>
+                <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
+                <li class="head-nav-zy-sales"><a href="">跟团游</a></li>
+                <li class="head-nav-zy-flight"><a href="">结伴</a></li>
+            </ul>
+
+            <div class="head-user-zy" id="_j_head_user">
+                <a href="" title="个人空间">
+                    <div class="user-image">
+                        <img th:src="${session.user_logo}" height="32" width="32" alt="wdnmd的窝">
+                    </div>
+                </a>
+            </div>
+
+            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
+                <div class="head-search-wrapper-zy">
+                    <div class="head-searchform-zy">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
+                               style="outline:none;">
+                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div class="wrapper clearfix">
+    <div class="aside">
+        <a class="on" onclick="infoClick(this)"><i class="i1"></i>我的信息</a>
+        <a onclick="logoClick(this)"><i class="i2"></i>我的头像</a>
+        <a onclick="passwordClick(this)"><i class="i4"></i>密码修改</a>
+    </div>
+
+    <div class="content">
+        <div class="hd">
+            <strong>我的信息</strong>
+        </div>
+        <div id="alert-box" class="alert alert-danger" style="color: #a94442;background-color: #f2dede;border-color: #ebccd1;display:none"></div>
+
+        <div id="user-info" class="userinfo" style="display: block">
+            <dl class="clearfix">
+                <dt>名称：</dt>
+                <dd><input id="input-name" type="text" th:value="${name}" maxlength="20" autocomplete="off" spellcheck="false"
+                            class="verification[required,funcCall[checkNickname]]" /></dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>性别：</dt>
+                <dd>
+                    <label><span class="cssradio"><input type="radio" name="gender" value="1" th:checked="${sex eq '1'}" /><span></span></span>男</label>
+                    <label><span class="cssradio"><input type="radio" name="gender" value="2" th:checked="${sex eq '2'}"/><span></span></span>女</label>
+                    <label><span class="cssradio"><input type="radio" name="gender" value="0" th:checked="${sex eq '0'}"/><span></span></span>保密</label>
+                </dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>居住城市：</dt>
+                <dd>
+                    <div class="input-group">
+                        <input id="input-address" type="hidden" name="citymddid" th:value="${address}" autocomplete="off">
+                        <input id="input-address-name" type="text" name="city" th:value="${addressName}" autocomplete="off"/>
+                        <ul class="input-suggest"></ul>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>个人简介：</dt>
+                <dd><textarea id="input-addtion" th:text="${addtion}" data-verification-name="个人简介" placeholder="例：摄影师/旅居澳洲/潜水爱好者" class="verification[maxSize[100]]" maxlength="100"></textarea></dd>
+            </dl>
+
+            <div class="btn-sub"><button onclick="infoSubmit()">保存</button></div>
+        </div>
+
+        <div id="user-logo" class="userlogo" style="display: none">
+            <div class="avatar" id="_j_avatar_box">
+                <img id="user_logo" src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageView2%2F2%2Fw%2F120%2Fh%2F120%2Fq%2F90" width="120" height="120" border="0">
+                <div class="progress" id="percentContent" style="display:none;">
+                    <div class="bar">
+                        <div class="num" id="percentNum">0%</div>
+                        <div class="on" style="width:0%" id="uploadPercent"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-sub">
+                <div class="btn" id="btn-logo" style="position: relative; z-index: 1;">选择图片</div>支持jpg、png、jpeg、bmp，图片大小10M以内
+            </div>
+
+        </div>
+
+        <div id="user-password" class="userinfo" style="display: none; padding-left: 60px">
+            <dl class="clearfix">
+                <dt>原密码：</dt>
+                <dd><input id="password-old" type="password" value="" maxlength="18" autocomplete="off"
+                           class="verification[required,funcCall[checkNickname]]" /></dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>新密码：</dt>
+                <dd><input id="password-input" type="password" value="" maxlength="18" autocomplete="off"
+                           class="verification[required,funcCall[checkNickname]]" /></dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>确认密码：</dt>
+                <dd><input id="password-repeat" type="password" value="" maxlength="18" autocomplete="off"
+                           class="verification[required,funcCall[checkNickname]]" /></dd>
+            </dl>
+            <div class="btn-sub"><button id="btn-password">确认修改</button></div>
+        </div>
+
+    </div>
+
+</div>
+<div class="clip-mask">
+    <article class="jq22-container">
+        <div id="clipArea">
+            <div id="lei">
+            </div>
+        </div>
+        <div class="foot-use">
+            <div class="uploader1 blue">
+                <input type="button" name="file" class="button" value="打开">
+                <input id="file" type="file" accept="image/*" multiple />
+            </div>
+            <button id="clipBtn" onclick="">截取</button>
+        </div>
+        <div id="view"></div>
+    </article>
+</div>
+</body>
+</html>
