@@ -5,8 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 @Repository
-public interface Aa02Dao extends CheckDao 
+public interface Ab04Dao extends CheckDao 
 {
 	List<Map<String,Object>>getAllByState(Map<String,Integer>map);
 	
