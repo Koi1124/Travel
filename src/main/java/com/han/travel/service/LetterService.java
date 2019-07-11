@@ -88,4 +88,9 @@ public class LetterService
         return tag;
     }
 
+    public List<Map<String,Object>> getDetailByClientAndToClient(int cid,int tocid)
+    {
+        return ae01Dao.getDetailByClientAndToClient(cid,tocid);
+    }
+
 }

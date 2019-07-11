@@ -24,12 +24,13 @@
         WHERE aae101=#{id}
         ;
     </update>
-    
-    <select id="getLettersByClinetIdAndToClientId" resultType="java.util.HashMap">
-        SELECT aae102 AS 'content',aae103 AS 'time'
-        FROM ae01
-        WHERE aae104=#{cid} AND aae105=#{tocid}
+
+    <select id="getDetailByClientAndToClient" resultType="java.util.HashMap">
+        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae104 AS 'userId', b.aaa102 AS 'userName', b.aaa106 AS 'userPic'
+        FROM ae01 a, aa01 b
+        WHERE a.aae104=b.aaa101 AND ((a.aae104=#{cid} AND a.aae105=#{tocid}) OR (a.aae104=#{tocid} AND a.aae105=#{cid}))
+        ORDER BY time
         ;
     </select>
-
+    
 </mapper>

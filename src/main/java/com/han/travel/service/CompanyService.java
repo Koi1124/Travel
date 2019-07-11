@@ -429,11 +429,11 @@ public class CompanyService
 
     public List<Map<String,Object>> getAllCompCommentByCIdAndByLatest(int cid)
     {
-        return getAllCompCommentByCId(cid," ORDER BY time");
+        return getAllCompCommentByCId(cid," ORDER BY time DESC");
     }
     public List<Map<String,Object>> getAllCompCommentByCIdAndByFocus(int cid)
     {
-        return getAllCompCommentByCId(cid," ORDER BY thumbsUpCount");
+        return getAllCompCommentByCId(cid," ORDER BY thumbsUpCount DESC");
     }
 
 }

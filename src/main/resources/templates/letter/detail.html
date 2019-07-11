@@ -1,10 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
     <title>Title</title>
 </head>
 <body>
 
+
+<input type="hidden" th:value="${toClientId}" id="t_id">
+
+<div id="total_chat">
+    <div id="_chat" th:each="letter:${detail}">
+        <div th:if="${session.userId} eq ${letter.userId}">
+            <h1 th:text="${letter.userId}"></h1>
+        </div>
+        <div th:if="${session.userId} ne ${letter.userId}">
+            <h3 th:text="${letter.userId}"></h3>
+        </div>
+        <div>
+            <h5 th:text="${letter.content}"></h5>
+            <h5 th:text="${letter.time}"></h5>
+        </div>
+    </div>
+    </div>
+<div>
+    <textarea id="message" name="sendMsg"></textarea>
+    <input type="button" value="发送" onclick="send()">
+</div>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var userId=[[${session.userId}]];
+    //获取当前网址，如： http://localhost:80/ybzx/index.jsp  
+    var curPath=window.document.location.href;
+    //获取主机地址之后的目录，如： ybzx/index.jsp  
+    var pathName=window.document.location.pathname;
+    var pos=curPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:80  
+    var localhostPaht=curPath.substring(0,pos);
+
+    var socket;
+    if(typeof(WebSocket) == "undefined") {
+        console.log("您的浏览器不支持WebSocket");
+    }else{
+        console.log("您的浏览器支持WebSocket");
+        console.log(userId);
+        //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+        //等同于socket = new WebSocket("ws://localhost:8083/checkcentersys/websocket/20");
+        socket = new WebSocket((localhostPaht+"/socket/"+userId).replace("http","ws"));
+        //打开事件
+        socket.onopen = function() {
+            console.log("Socket 已打开");
+            //socket.send("这是来自客户端的消息" + location.href + new Date());
+        };
+//获得消息事件
+        socket.onmessage = function(msg) {
+            console.log(msg.data);
+            var info=msg.data.split(",");
+            document.getElementById("total_chat").innerHTML +=
+                "    <div>\n" +
+                "        <h3>"+ info[2] +"</h3>\n" +
+                "    </div>\n" +
+                "    <div>\n" +
+                "        <h5>"+info[0]+"</h5>\n" +
+                "        <h5>"+curentTime()+"</h5>\n" +
+                "    </div>";
+            //发现消息进入    开始处理前端触发逻辑
+        };
+        //关闭事件
+        socket.onclose = function() {
+            console.log("Socket已关闭");
+        };
+        //发生了错误事件
+        socket.onerror = function() {
+            alert("Socket发生了错误");
+            //此时可以尝试刷新页面
+        }
+        //离开页面时，关闭socket
+        //jquery1.8中已经被废弃，3.0中已经移除
+        // $(window).unload(function(){
+        //     socket.close();
+        //});
+
+        function curentTime()
+        {
+            var now = new Date();
+
+            var year = now.getFullYear();       //年
+            var month = now.getMonth() + 1;     //月
+            var day = now.getDate();            //日
+
+            var hh = now.getHours();            //时
+            var mm = now.getMinutes();          //分
+            var ss = now.getSeconds();           //秒
+
+            var clock = year + "-";
+
+            if(month < 10)
+                clock += "0";
+
+            clock += month + "-";
+
+            if(day < 10)
+                clock += "0";
+
+            clock += day + " ";
+
+            if(hh < 10)
+                clock += "0";
+
+            clock += hh + ":";
+            if (mm < 10) clock += '0';
+            clock += mm + ":";
+
+            if (ss < 10) clock += '0';
+            clock += ss;
+            return(clock);
+        }
+
+        function send() {
+            var message = document.getElementById("message").value;
+            var To = document.getElementById("t_id").value;
+            var jsonMsg = {
+                "message": message,
+                "To": To
+            }
+            console.log(jsonMsg);
+            document.getElementById("total_chat").innerHTML +=
+                "    <div>\n" +
+                "        <h1>"+ userId +"</h1>\n" +
+                "    </div>\n" +
+                "    <div>\n" +
+                "        <h5>"+message+"</h5>\n" +
+                "        <h5>"+curentTime()+"</h5>\n" +
+                "    </div>";
+            socket.send(JSON.stringify(jsonMsg));
+
+        }
+    }
+    /*]]>*/
+</script>
 </body>
 </html>
