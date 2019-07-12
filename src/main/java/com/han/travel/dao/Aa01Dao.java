@@ -17,5 +17,7 @@ public interface Aa01Dao
 
     boolean updateLogo(Map<String, String> map);
 
+    Integer updatePassword(Map<String, String> map);
+
     boolean addUser(Map<String, Object> map);
 }

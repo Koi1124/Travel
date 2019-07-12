@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="GBK" standalone="no"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Ac00Dao">
-    
-    <insert id="commentComp" parameterType="java.util.HashMap">
-        INSERT INTO ac00(aaa101,aaa102,aac002,aac003,aac004,
-                           aac005,aac006,aac007)
-                  VALUES (#{dto.aaa101},NULL ,5,#{dto.aac003},#{dto.aac004},
-                           CURRENT_TIME ,0,NULL)
+
+    <insert id="addComment" parameterType="java.util.HashMap">
+        INSERT INTO ac00(aaa101, aac002, aac003, aac004, aac005,
+                           aac006, aac007)
+                  VALUES (#{userId}, #{type} , #{pid}, #{content}, CURRENT_TIME,
+                           "1" , #{score})
                            ;
     </insert>
 
-    <select id="getParentCompCommentByCIdOrderBy"  resultType="java.util.HashMap">
+    <select id="getCommentByTypeAndIdOrderByLimit" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT a.aac001 AS 'remarkId', b.aaa102 AS 'remarkerName', b.aaa101 AS 'remarkerId', b.aaa106 AS 'remarkerPic',
-        a.aac004 AS 'content', count(d.aad201) AS 'thumbsUpCount', a.aac005 AS 'time'
+        a.aac004 AS 'content', count(d.aad201) AS 'thumbsUpCount', DATE_FORMAT(a.aac005,'%Y-%m-%d %H:%i:%S') AS 'time',
+        a.aac007 AS 'score'
         FROM ac00 a, aa01 b, ad02 d
-        WHERE a.aaa101=b.aaa101 AND a.aac006=0 AND a.aac002=5 AND d.aad203=a.aac001 AND d.aad202=3
-        AND a.aac003=#{cid}
+        WHERE a.aaa101=b.aaa101 AND a.aac002=#{type} AND d.aad203=a.aac001 AND d.aad202=3
+        AND a.aac003=#{id}
         GROUP BY remarkerId
         ORDER BY #{order}
+        LIMIT #{start}, #{pageCount}
         ;
     </select>
 
-    <select id="getKidCompCommentByParentIdOrderBy" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT c.aaa101 AS 'replierId', c.aaa102 AS 'replierName', c.aaa106 AS 'replierPic', a.aac004 AS 'content',
-         count(b.aaa101) AS 'thumbsUpCount', a.aac005 AS 'time'
-        FROM ac00 a, ad02 b, aa01 c
-        WHERE a.aac001=b.aad203 AND a.aaa101=c.aaa101 AND b.aad202=3
-        AND a.aac006=#{pid}
-        GROUP BY replierId
+    <delete id="deleteCommentById" parameterType="java.lang.Integer">
+        UPDATE ac00 SET ac006="2"
+        WHERE aac001=#{id}
         ;
-    </select>
-
+    </delete>
 
 </mapper>

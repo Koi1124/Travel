@@ -1,5 +1,6 @@
 package com.han.travel.service;
 
+import com.han.travel.configuration.SessionConfig;
 import com.han.travel.dao.Aa01Dao;
 import com.han.travel.dao.Aa03Dao;
 import com.han.travel.support.ImgUploadTools;
@@ -8,6 +9,7 @@ import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,18 +36,28 @@ public class UserService {
      * @param map
      * @return java.lang.String 
      **/
-    public String login(Map<String, String> map)
+    public Map<String, Object> login(Map<String, String> map)
     {
-        Map<String, Object> result = aa01Dao.getUserByMail(map.get("mail"));
-        if (Utils.isNotEmpty(result))
+        Map<String, Object> user = aa01Dao.getUserByMail(map.get("mail"));
+        Map<String, Object> result = new HashMap<>();
+        if (Utils.isNotEmpty(user))
         {
-            if (map.get("password").equals(result.get("password")))
+            if (map.get("password").equals(user.get("password")))
             {
-                return String.valueOf(result.get("id"));
+                result.put("status", "success");
+                result.put(SessionConfig.USER_ID, user.get("id"));
+                result.put(SessionConfig.USER_LOGO, user.get("pic"));
+                result.put(SessionConfig.USER_NAME, user.get("name"));
             }
-            return "passFalse";
+            else
+            {
+                result.put("status", "passFalse");
+            }
         }
-        return "noName";
+        else {
+            result.put("status", "noName");
+        }
+        return result;
     }
 
     /**
@@ -109,15 +121,31 @@ public class UserService {
      * @param map
      * @return boolean
      **/
-    public boolean updateLogo(Map<String, String> map)
+    public String updateLogo(Map<String, String> map)
     {
         String path = ImgUploadTools.uploadImg(map.get("image"));
         if (path != null && !path.equals(""))
         {
             map.put("image", path);
-            return aa01Dao.updateLogo(map);
+            if (aa01Dao.updateLogo(map))
+            {
+                return path;
+            }
         }
-        return false;
+        return "";
+    }
+
+
+    /**
+     * @Author Saki
+     * @Description //TODO
+     * @Date 2019/7/10
+     * @param map
+     * @return boolean
+     **/
+    public boolean updatePassword(Map<String, String> map)
+    {
+        return aa01Dao.updatePassword(map) > 0;
     }
 
     /**

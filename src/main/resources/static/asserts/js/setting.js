@@ -34,10 +34,18 @@ $(document).ready(function(){
                 success: function (result) {
                     console.log(result);
                     if (result) {
+                        $("#alert-box").hide(200);
                         $('#user_logo').attr("src", dataURL);
+                        spop({
+                            template: '头像更换成功',
+                            position  : 'top-center',
+                            style: 'success',
+                            autoclose: 1500
+                        });
                     }
                     else {
                         $('#user_logo').attr("src", src);
+                        $("#alert-box").text("网络故障，请稍后再试").show(200);
                     }
                 },
                 error: function (e) {
@@ -69,20 +77,69 @@ function infoSubmit() {
             success: function (result) {
                 if (result) {
                     $("#alert-box").hide(200);
+                    spop({
+                        template: '头像更换成功',
+                        position  : 'top-center',
+                        style: 'success',
+                        autoclose: 1500
+                    });
                 }
                 else {
                     $("#alert-box").text("非法的居住城市").show(200);
                 }
             },
             error: function (e) {
-                $("#alert-box").text("网络故障，请稍后再试").show();
+                $("#alert-box").text("网络故障，请稍后再试").show(200);
                 console.log(e);
             }
         });
     }
 }
 
-
+function passwordSubmit() {
+    if ($("#password-input").val().length < 8) {
+        $("#alert-box").text("用户名应为8~18位！").show(200);
+        return;
+    }
+    else if ($("#password-input").val() != $("#password-repeat").val()) {
+        $("#alert-box").text("两次密码输入不一致！").show(200);
+        return;
+    }
+    else {
+        $("#alert-box").hide(200);
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/change_password",
+            data: JSON.stringify({
+                oldPassword:$("#password-old").val(),
+                newPassword:$("#password-input").val()
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                if (result) {
+                    $("#alert-box").hide(200);
+                    $("#password-repeat").val("");
+                    $("#password-input").val("");
+                    $("#password-old").val("");
+                    spop({
+                        template: '密码修改成功',
+                        position  : 'top-center',
+                        style: 'success',
+                        autoclose: 1500
+                    });
+                }
+                else {
+                    $("#alert-box").text("原密码错误").show(200);
+                }
+            },
+            error: function (e) {
+                $("#alert-box").text("网络故障，请稍后再试").show(200);
+                console.log(e);
+            }
+        });
+    }
+}
 
 
 //左侧三个按钮的点击事件

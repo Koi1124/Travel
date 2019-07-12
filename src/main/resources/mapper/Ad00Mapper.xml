@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ad00Dao">
+
+    <select id="getCompReplyByParentIdOrderBy" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT c.aaa101 AS 'replierId', c.aaa102 AS 'replierName', c.aaa106 AS 'replierPic', a.aad002 AS 'content',
+              DATE_FORMAT(a.aad003,'%Y-%m-%d %H:%i:%S') AS 'time', a.aad004 AS 'respondedId', b.aaa102 AS 'respondedName'
+        FROM ad00 a, aa01 b, aa01 c
+        WHERE a.aaa101=c.aaa101 AND a.aad004=b.aaa101
+        AND a.aac001=#{pid}
+        ORDER BY time
+        ;
+    </select>
+
+    <insert id="addReply" parameterType="java.util.HashMap">
+        INSERT INTO ad00(aac001, aaa101, aad002, aad003, aad004)
+        VALUES(#{commentId}, #{userId}, #{content}, CURRENT_TIME, #{replyId})
+        ;
+    </insert>
+
+    <delete id="deleteReplyById" parameterType="java.lang.Integer">
+        DELETE FROM ad00
+        WHERE ad001=#{id}
+        ;
+    </delete>
+</mapper>

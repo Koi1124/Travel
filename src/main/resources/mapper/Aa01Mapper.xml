@@ -34,6 +34,12 @@
         ;
     </update>
 
+    <update id="updatePassword" parameterType="java.util.HashMap">
+        UPDATE aa01 SET aaa108=#{newPassword}
+        WHERE aaa101=#{id} and aaa108=#{oldPassword}
+        ;
+    </update>
+
     <insert id="addUser" parameterType="java.util.HashMap">
         INSERT INTO aa01(aaa102, aaa103, aaa105, aaa106, aaa107, aaa108)
         VALUES (#{name}, 0, current_time(), "/asserts/img/commom/default_logo.jpg", #{mail}, #{password});

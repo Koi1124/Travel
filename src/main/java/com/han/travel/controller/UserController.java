@@ -30,19 +30,14 @@ public class UserController
     private UserService userService;
 
     @RequestMapping("/")
-    public String welcomeHome()
+    public String helloWorld()
     {
-        return "testUpload";
+        return "login";
     }
 
     @RequestMapping("/setting")
     public String setting(HttpSession session, Map<String, Object> dto)
     {
-        //TODO 删除测试数据
-        session.setAttribute(SessionConfig.USER_ID, 0);
-        session.setAttribute(SessionConfig.USER_NAME, "admin");
-        session.setAttribute(SessionConfig.USER_LOGO, "/asserts/img/commom/default_logo.jpg");
-
         dto.putAll(userService.getUserById((int)session.getAttribute(SessionConfig.USER_ID)));
         return "setting";
     }
@@ -108,17 +103,20 @@ public class UserController
      **/
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestBody Map<String, String> map, HttpServletRequest request)
+    public String login(@RequestBody Map<String, String> map, HttpSession session)
     {
-        String code = userService.login(map);
-        switch (code)
+
+        Map<String, Object> result = userService.login(map);
+        switch ((String)result.get("status"))
         {
             case "noName":
                 return "300";
             case "passFalse":
                 return "400";
             default:
-                request.getSession().setAttribute(SessionConfig.USER_ID, code);
+                session.setAttribute(SessionConfig.USER_ID, result.get(SessionConfig.USER_ID));
+                session.setAttribute(SessionConfig.USER_NAME, result.get(SessionConfig.USER_NAME));
+                session.setAttribute(SessionConfig.USER_LOGO, result.get(SessionConfig.USER_LOGO));
                 return "200";
         }
     }
@@ -152,11 +150,39 @@ public class UserController
         return userService.updateUser(map);
     }
 
-
+    /**
+     * @Author Saki
+     * @Description 修改头像
+     * @Date 2019/7/11
+     * @param map
+     * @param session
+     * @return boolean
+     **/
     @PostMapping("/change_logo")
     @ResponseBody
     public boolean updateLogo(@RequestBody Map<String, String> map, HttpSession session) {
         map.put("id", String.valueOf(session.getAttribute(SessionConfig.USER_ID)));
-        return userService.updateLogo(map);
+        String path = userService.updateLogo(map);
+        if (path.equals(""))
+        {
+            return false;
+        }
+        session.setAttribute(SessionConfig.USER_LOGO, path);
+        return true;
+    }
+
+    /**
+     * @Author Saki
+     * @Description 修改用户密码
+     * @Date 2019/7/11
+     * @param map
+     * @param session
+     * @return boolean
+     **/
+    @PostMapping("/change_password")
+    @ResponseBody
+    public boolean updatePassword(@RequestBody Map<String, String> map, HttpSession session) {
+        map.put("id", String.valueOf(session.getAttribute(SessionConfig.USER_ID)));
+        return userService.updatePassword(map);
     }
 }

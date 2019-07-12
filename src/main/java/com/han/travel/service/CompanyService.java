@@ -26,7 +26,8 @@ public class CompanyService
     private Ad04Dao ad04Dao;
     @Resource
     private Ac00Dao ac00Dao;
-    
+    @Resource
+    private Ad00Dao ad00Dao;
 
     /**
      *@discription: 前8关注最多的结伴目的地
@@ -407,33 +408,35 @@ public class CompanyService
         return dto;
     }
 
-
     /**
-     *@discription: 根据结伴id返回所有评论与回复信息
-     *@param cid 
-     *@date: 2019/7/9 14:04
-     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
-     *@author: Han
-     */
-    private List<Map<String,Object>> getAllCompCommentByCId(int cid,String order)
+     * @Author Saki
+     * @Description 根据结伴id返回所有评论与回复信息
+     * @Date 2019/7/11
+     * @param map
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    private List<Map<String, Object>> getAllCompCommentByCId(Map<String, Object> map)
     {
-        List<Map<String,Object>> info=ac00Dao.getParentCompCommentByCIdOrderBy(cid,order);
-        for (Map<String,Object> m:info)
+        List<Map<String, Object>> info = ac00Dao.getCommentByTypeAndIdOrderByLimit(map);
+        for (Map<String, Object> m : info)
         {
-            int parentId= (int) m.get("remarkId");
-            List<Map<String,Object>> reply=ac00Dao.getKidCompCommentByParentIdOrderBy(parentId);
+            int parentId= (int)m.get("remarkId");
+            List<Map<String, String>> reply = ad00Dao.getCompReplyByParentIdOrderBy(parentId);
             m.put("reply",reply);
         }
         return info;
     }
 
-    public List<Map<String,Object>> getAllCompCommentByCIdAndByLatest(int cid)
+
+    public List<Map<String,Object>> getAllCompCommentByCIdAndByLatest(Map<String, Object> map)
     {
-        return getAllCompCommentByCId(cid," ORDER BY time");
+        map.put("order", " ORDER BY time");
+        return getAllCompCommentByCId(map);
     }
-    public List<Map<String,Object>> getAllCompCommentByCIdAndByFocus(int cid)
+    public List<Map<String,Object>> getAllCompCommentByCIdAndByFocus(Map<String, Object> map)
     {
-        return getAllCompCommentByCId(cid," ORDER BY thumbsUpCount");
+        map.put("order", " ORDER BY thumbsUpCount");
+        return getAllCompCommentByCId(map);
     }
 
 }

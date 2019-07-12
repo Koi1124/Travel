@@ -73,7 +73,7 @@ public class ImgUploadTools
                 FileOutputStream out = new FileOutputStream(fileName);
                 out.write(decodedBytes);
                 out.close();
-                return fileName;
+                return "/image/" + id + "." + last;
             } catch (Exception e)
             {
                 e.printStackTrace();

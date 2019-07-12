@@ -232,7 +232,7 @@ function login(mail, pass) {
                 setText($("#password-login-tip"), "密码错误");
             }
             else if (result == "200") {
-                window.location.href = "/homepage";
+                window.location.href = "/together";
             }
         },
         error: function (e) {

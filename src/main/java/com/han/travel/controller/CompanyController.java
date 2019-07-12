@@ -1,5 +1,7 @@
 package com.han.travel.controller;
 
+import com.han.travel.configuration.SessionConfig;
+import com.han.travel.service.CommentService;
 import com.han.travel.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +18,7 @@ import java.util.Map;
 public class CompanyController
 {
     @Autowired
-    CompanyService companyService;
-
+    private CompanyService companyService;
 
     /**
      *@discription: 存入dto，返回结伴主页
@@ -37,7 +38,6 @@ public class CompanyController
     @ResponseBody
     public List<Map<String,Object>> getSearch()
     {
-        System.out.println(companyService.prepareAllMDDInfo());
         return companyService.prepareAllMDDInfo();
     }
 
@@ -81,28 +81,28 @@ public class CompanyController
             System.out.println(dto);
         }
         Map<String,Object> detail=companyService.getCompDetail(dto);
-        System.out.println(detail);
+        //System.out.println(detail);
         for (Map.Entry m:detail.entrySet())
         {
             map.put((String) m.getKey(),m.getValue());
         }
 
-        map.put("commentInfo",companyService.getAllCompCommentByCIdAndByLatest(id));
+        //map.put("commentInfo",companyService.getAllCompCommentByCIdAndByLatest(id));
 
-        System.out.println(map);
+        //System.out.println(map);
 
         return "together/detail";
     }
 
-
-
-//    @RequestMapping("/")
-//    public String test()
-//    {
-//        List<Map<String, Object>> maps = companyService.searchCompByMDD(17);
-//        System.out.println(maps);
-//        return "home";
-//    }
+    //TODO 测试入口
+    @RequestMapping("/testIn")
+    public String test(HttpSession session)
+    {
+        session.setAttribute(SessionConfig.USER_ID, 1);
+        session.setAttribute(SessionConfig.USER_NAME, "saki");
+        session.setAttribute(SessionConfig.USER_LOGO, "https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/b8a9e6bbb4676bf884?t=1547043301");
+        return "together/homepage";
+    }
 
 
 }
