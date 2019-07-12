@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer
                         "/home",
                         "/together/**",
                         "/letter/**",
+                        "/test/**",
                         "/error");
     }
 

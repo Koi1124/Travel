@@ -3,6 +3,7 @@ package com.han.travel.controller;
 import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.CommentService;
 import com.han.travel.service.CompanyService;
+import com.han.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,15 @@ public class CompanyController
         return companyService.searchCompByMDDOrderByLatest(id,(page-1)*itemCount,itemCount);
     }
 
+
+    @RequestMapping("/publish")
+    public String toPublish()
+    {
+        return "together/publish";
+    }
+
+
+
     @RequestMapping("")
     public String toHomepage()
     {
@@ -82,10 +92,7 @@ public class CompanyController
         }
         Map<String,Object> detail=companyService.getCompDetail(dto);
         //System.out.println(detail);
-        for (Map.Entry m:detail.entrySet())
-        {
-            map.put((String) m.getKey(),m.getValue());
-        }
+        map.putAll(detail);
 
         //map.put("commentInfo",companyService.getAllCompCommentByCIdAndByLatest(id));
 

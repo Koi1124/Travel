@@ -75,6 +75,8 @@ public class SocketServer
 
         sendMessageTo(content,String.valueOf(toClientId),String.valueOf(clientId));
 
+        MessageSocketServer.sendMessage(toClientId);
+
     }
 
     /**

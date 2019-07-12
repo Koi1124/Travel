@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Sa01Dao">
+    
+    <insert id="insertMessage">
+        INSERT INTO sa01(aaa101,ssa102)
+        VALUES (#{userId},#{content})
+        ;
+    </insert>
+
+    <delete id="deleteMessage" parameterType="java.lang.Integer">
+        DELETE FROM sa01
+        WHERE ssa101=#{id}
+        ;
+    </delete>
+
+    <select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(aaa101) AS 'num'
+        FROM sa01
+        WHERE aaa101=#{uid}
+        ;
+    </select>
+    
+    <select id="messageByUId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT ssa102
+        FROM sa01
+        WHERE aaa101=#{uid}
+        ;
+    </select>
+
+</mapper>

@@ -137,6 +137,7 @@
                 "        <h5>"+curentTime()+"</h5>\n" +
                 "    </div>";
             socket.send(JSON.stringify(jsonMsg));
+            document.getElementById("message").value="";
 
         }
     }
