@@ -407,36 +407,4 @@ public class CompanyService
         dto.put("applicants",ac05Dao.getApplicantsIdAndNameAndPicByCId(id));
         return dto;
     }
-
-    /**
-     * @Author Saki
-     * @Description 根据结伴id返回所有评论与回复信息
-     * @Date 2019/7/11
-     * @param map
-     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
-     **/
-    private List<Map<String, Object>> getAllCompCommentByCId(Map<String, Object> map)
-    {
-        List<Map<String, Object>> info = ac00Dao.getCommentByTypeAndIdOrderByLimit(map);
-        for (Map<String, Object> m : info)
-        {
-            int parentId= (int)m.get("remarkId");
-            List<Map<String, String>> reply = ad00Dao.getCompReplyByParentIdOrderBy(parentId);
-            m.put("reply",reply);
-        }
-        return info;
-    }
-
-
-    public List<Map<String,Object>> getAllCompCommentByCIdAndByLatest(Map<String, Object> map)
-    {
-        map.put("order", " ORDER BY time");
-        return getAllCompCommentByCId(map);
-    }
-    public List<Map<String,Object>> getAllCompCommentByCIdAndByFocus(Map<String, Object> map)
-    {
-        map.put("order", " ORDER BY thumbsUpCount");
-        return getAllCompCommentByCId(map);
-    }
-
 }

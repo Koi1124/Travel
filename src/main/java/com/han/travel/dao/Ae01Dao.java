@@ -13,9 +13,9 @@ public interface Ae01Dao
 
     Integer insertLetterToUId(@Param("dto") Map<String,Object> dto);
 
-    List<Map<String,Object>> getLettersByClinetIdAndToClientId(@Param("cid")int cid,@Param("tocid")int tocid);
-
     List<Integer> getClientAndToClientByLId(int id);
 
     boolean readDone(int id);
+
+    List<Map<String,Object>> getDetailByClientAndToClient(@Param("cid")int cid,@Param("tocid")int tocid);
 }
