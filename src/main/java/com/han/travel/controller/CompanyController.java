@@ -21,6 +21,8 @@ public class CompanyController
     @Autowired
     private CompanyService companyService;
 
+
+
     /**
      *@discription: 存入dto，返回结伴主页
      *@param
@@ -49,7 +51,31 @@ public class CompanyController
         int id=dto.get("id");
         int page=dto.get("page");
         int itemCount=dto.get("itemCount");
-        return companyService.searchCompByMDDOrderByLatest(id,(page-1)*itemCount,itemCount);
+        int type=dto.get("type");
+
+        Map<String,Object>result=new HashMap<>();
+        switch (type)
+        {
+            case 3:
+                result=companyService.searchCompByMDDOrderByFocus(id,(page-1)*itemCount,itemCount);
+                break;
+            case 2:
+                result=companyService.searchCompByMDDOrderByLatest(id,(page-1)*itemCount,itemCount);
+                break;
+            case 1:
+                result=companyService.searchCompByMDDOrderBySoon(id,(page-1)*itemCount,itemCount);
+                break;
+            default:
+                break;
+        }
+        return result;
+    }
+
+    @RequestMapping("/mdd_info")
+    @ResponseBody
+    public List<Map<String,Object>> getMddInfo()
+    {
+        return companyService.getMddInfo();
     }
 
 

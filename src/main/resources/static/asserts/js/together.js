@@ -1,8 +1,11 @@
 var data = new Array();
+var info;
 var page = 1;
 var totalPage = 10;
 var id = 1;
 var itemCount = 8;
+var type=3;
+
 //获取当前网址，如： http://localhost:80/ybzx/index.jsp  
 var curPath=window.document.location.href;
 //获取主机地址之后的目录，如： ybzx/index.jsp  
@@ -21,12 +24,13 @@ $(document).ready(function() {
         dataType: "json",
         async: true,
         success: function (result) {
+            togetherSearch(result[0].id,3);
             $(result).each(function (i, mdd) {
-                $("#together-mdd-box").append("<li class=\"item\">\n" +
-                    "    <a class=\"_j_hot_mdd\" data-mddname=''" + mdd.name + " data-mddid:" + mdd.id + ">\n" +
-                    "    <div class=\"image\"><img src=" + mdd.src + " style=\"width: 220px;height: 220px;\"></div>\n" +
-                    "    <div class=\"bg\"></div>\n" +
-                    "    <div class=\"txt\">\n" +
+                $("#together-mdd-box").append("<li class='item'>\n" +
+                    "    <a class='_j_hot_mdd' data-mddname=''" + mdd.name + " data-mddid:" + mdd.id + " onclick='searchCompany("+ mdd.id +","+ type +")'>\n" +
+                    "    <div class='image'><img src=" + mdd.src + " style='width: 220px;height: 220px;'></div>\n" +
+                    "    <div class='bg'></div>\n" +
+                    "    <div class='txt'>\n" +
                     "    <strong>" + mdd.name + "</strong>\n" +
                     "    <p>发起 " + mdd.count + " 个结伴<br>" + mdd.star + " 人关注<br>" + mdd.app + " 人报名</p>\n" +
                     "    </div>\n" +
@@ -54,9 +58,39 @@ $(document).ready(function() {
         }
     });
 
+    $.ajax({
+        url: localhostPaht + "/together/mdd_info",
+        type: "post",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            info = eval(data);
+            console.log(info);
+            $("#_j_together_mdd_search").autocomplete({
+                source: info,
+                message:{
+                    results: function(){
+                    },
+                    noResults: ''
+                },
+                select:function (event,ui) {
+                    page=1;
+                    searchCompany(ui.item.id,type);
+                }
+            })
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+
+
+    $("#_j_together_mdd_search").bind('input propertychange',function () {
+        $("#drop-place").hide(250);
+    })
+
 
     initPagination(totalPage);
-    togetherSearch(1);
     initDropBar();
 });
 
@@ -82,8 +116,8 @@ function initDropBar() {
 //根据json数据设置地点选择框
 function setData(json) {
     $(json).each(function (i, map) {
-        $(".col1").append("<li class=\"_j_country_select\" data-index=" + i + " data-name=" + map["name"] +
-            "><a>" + map["name"] + "<i class=\"icon-arrow\"></i></a></li>");
+        $(".col1").append("<li class='_j_country_select' data-index=" + i + " data-name=" + map["name"] +
+            "><a>" + map["name"] + "<i class='icon-arrow'></i></a></li>");
         var list = new Array();
         for (var key in map) {
             if (key != "name") {
@@ -98,7 +132,8 @@ function setData(json) {
     $("._j_country_select").mouseover(function () {
         $(".col2").empty();
         initCol2($(this).attr("data-index"));
-        $(".on").attr("class", "_j_country_select");
+        //$(".on").attr("class", "_j_country_select");
+        $(".col1 li").attr("class","_j_country_select");
         $(this).attr("class", "on");
     });
 
@@ -111,19 +146,38 @@ function setData(json) {
 //初始化col2
 function initCol2(col1) {
     $(data[col1]).each(function (i, item) {
-        $(".col2").append("<ul class=\"_j_city_select\" data-mddid=" + item.id + " data-name=" + item.name +
-            "       ><a><span class=\"num\"><em>" + item.count + "</em>结伴</span>" + item.name + "</a></ul>");
+        $(".col2").append("<ul class='_j_city_select' data-mddid=" + item.id + " data-name=" + item.name +
+            "       ><a><span class='num'><em>" + item.count + "</em>结伴</span>" + item.name + "</a></ul>");
     });
 
     $("._j_city_select").click(function () {
         page = 1;
-        togetherSearch($(this).attr("data-mddid"));
+        searchCompany($(this).attr("data-mddid"),type);
     });
 
 }
 
+
+$(function () {
+    $("._j_sort_list a").click(function () {
+        type=$(this).attr("data-flag");
+        var id=$("._j_sort_list").attr("mdd_id");
+        $("._j_sort_list a").attr("class","");
+        $(this).attr("class","on");
+
+        searchCompany(id,type);
+    });
+});
+
+
+
+
+
+
 //结伴搜索
-function togetherSearch(mid) {
+function togetherSearch(mid,type) {
+    $("._j_sort_list").attr("mdd_id",mid);
+
     $.ajax({
         type: "post",
         url: localhostPaht+"/together/company_search",
@@ -131,7 +185,8 @@ function togetherSearch(mid) {
         data:JSON.stringify({
             page:page,
             itemCount:itemCount,
-            id:mid
+            id:mid,
+            type:type
         }),
         dataType: "json",
         async: true,
@@ -149,26 +204,42 @@ function togetherSearch(mid) {
             console.log(e);
         }
     });
+
 }
+
+
+function scroll() {
+    var scroll_offset = $(".filter-bar").offset(); //得到pos这个div层的offset，包含两个值，top和left
+    $("body,html").animate({
+        scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+    },200);
+}
+
+
+function searchCompany(mid,type) {
+    togetherSearch(mid,type);
+    scroll();
+}
+
 
 //搜索出结伴之后写入页面
 function setCompany(data) {
     $(data).each(function (i, item) {
-        $("._j_together_list").append("<li class=\"item\">\n" +
-            "                <a class=\"company-item\" together-id=" + item.id + " target=\"_blank\" star=" + item.star + "  authorName="+ item.authorName +" authorPic="+ item.authorPic +" mddPic="+ item.mddPic +"  onclick='companyClick(this)'>\n" +
-            "                        <div class=\"image\">\n" +
-            "                            <img src=" + item.mddPic + " style=\"width: 200px;height: 130px;\">\n" +
-            "                            <div class=\"after\"><b>" + item.days +
+        $("._j_together_list").append("<li class='item'>\n" +
+            "                <a class='company-item' together-id=" + item.id + " target='_blank' star=" + item.star + "  authorName="+ item.authorName +" authorPic="+ item.authorPic +" mddPic="+ item.mddPic +"  onclick='companyClick(this)'>\n" +
+            "                        <div class='image'>\n" +
+            "                            <img src=" + item.mddPic + " style='width: 200px;height: 130px;'>\n" +
+            "                            <div class='after'><b>" + item.days +
             "                            </b>天后</div><hr>" +
             "                        </div>" +
-            "                        <h3 class=\"title\">" + item.name +
-            "                        </h3><div class=\"desc\">" + item.intro +
-            "                        ...</div><div class=\"user clearfix\">\n" +
-            "                <span class=\"avatar\"><img src=" + item.authorPic + " width=\"48\"  >" +
+            "                        <h3 class='title'>" + item.name +
+            "                        </h3><div class='desc'>" + item.intro +
+            "                        ...</div><div class='user clearfix'>\n" +
+            "                <span class='avatar'><img src=" + item.authorPic + " width='48'  >" +
             "                </span>" +
-            "                            <span class=\"name\" style='font-size: 18px' > " + item.authorName +
+            "                            <span class='name' style='font-size: 18px' > " + item.authorName +
             "                          </span>\n</div>\n" +
-            "                        <div class=\"attention\"><i class=\"icon-arrow\"></i>已有<b>" + item.star + "</b>人关注</div>\n" +
+            "                        <div class='attention'><i class='icon-arrow'></i>已有<b>" + item.star + "</b>人关注</div>\n" +
             "                    </a>" +
             "                </li>");
     });
@@ -207,12 +278,9 @@ function initPagination() {
         callback: function(current) {
             // 回调,current(当前页数)
             page = current;
-            togetherSearch(id);
+            searchCompany(id,type);
 
-            var scroll_offset = $(".filter-bar").offset(); //得到pos这个div层的offset，包含两个值，top和left
-            $("body,html").animate({
-                scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
-            },200);
+
         }
     });
 }

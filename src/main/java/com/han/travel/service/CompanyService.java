@@ -174,13 +174,13 @@ public class CompanyService
         switch (order)
         {
             case "热门":
-                order=" ORDER BY star DESC";
+                order="  star DESC";
                 break;
             case "最新":
-                order=" ORDER BY t1.id DESC";
+                order="  t1.id DESC";
                 break;
             case "即将":
-                order=" ORDER BY t1.date";
+                order="  t1.date";
                 break;
             default:
                 order="";
@@ -227,7 +227,7 @@ public class CompanyService
 
         Map<String,Object> result=new HashMap<>(2);
         List<Map<String,Object>> info=ab05Dao.getSearchCompInfoByMDD(pid,order,page,offset);
-        System.out.println(info);
+        System.out.println("info:"+info);
         for (Map<String,Object> m:info)
         {
             Date date=(Date)m.get("date");
@@ -253,6 +253,7 @@ public class CompanyService
             m.put("name",mddName.toString());
             m.put("mddPic",nameAndPicList.get(0).get("pic"));
         }
+        System.out.println("after info:"+info);
         long endTime=System.nanoTime();
         result.put("count",ab05Dao.getCompTotalCountByMDD(pid));
         result.put("info",info);
@@ -406,5 +407,11 @@ public class CompanyService
         dto.put("app",app);
         dto.put("applicants",ac05Dao.getApplicantsIdAndNameAndPicByCId(id));
         return dto;
+    }
+
+
+    public List<Map<String,Object>> getMddInfo()
+    {
+        return aa03Dao.getAllKidNamesAndId();
     }
 }

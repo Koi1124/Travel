@@ -21,4 +21,6 @@ public interface Aa03Dao
     List<Integer> getCitiesIdByProvince(int id);
 
     List<Map<String,Object>> getNamesAndPicsByComp(int cid);
+
+    List<Map<String,Object>> getAllKidNamesAndId();
 }

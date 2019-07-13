@@ -44,4 +44,10 @@
         AND b.aab501=#{cid}
         ;
     </select>
+    
+    <select id="getAllKidNamesAndId" resultType="java.util.HashMap">
+        SELECT aaa301 AS 'id', aaa302 AS 'label', aaa302 AS 'value'  FROM aa03
+        WHERE aaa304 <![CDATA[ <> ]]> 0
+        ;
+    </select>
 </mapper>

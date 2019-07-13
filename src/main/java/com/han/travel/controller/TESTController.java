@@ -37,4 +37,10 @@ public class TESTController
         return "test/click";
     }
 
+
+    @RequestMapping("/jquery")
+    public String to()
+    {
+        return "test/click";
+    }
 }

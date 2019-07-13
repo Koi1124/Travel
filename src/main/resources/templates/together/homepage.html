@@ -13,8 +13,10 @@
     <link href="http://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
     <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css" rel="stylesheet" type="text/css"/>
 
+    <link th:href="@{/asserts/css/jquery-ui.css}">
 
-    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
+    <script th:src="@{/asserts/js/together/jquery.js}"></script>
+    <script th:src="@{/asserts/js/together/jquery-ui.js}"></script>
     <script th:src="@{/asserts/js/together.js}"></script>
     <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
     <link rel="stylesheet" th:href="@{/asserts/css/style.css}" />
@@ -93,33 +95,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="flr-date _j_time_tpl">
-                <div class="ui-input">
-                    <input type="text" class="_j_time_input" placeholder="出发时间">
-                    <i class="icon-date _j_date"></i>
-                    <input type="text" value="" readonly="readonly" id="together_datepicker" style="width: 30px; height: 30px; border: none; padding: 0; margin: 0;position: absolute;left: 225px;top: 0;opacity: 0">
-                </div>
-                <div id="drop-date" class="drop drop-date _j_time_list"  style="display: none;">
-                    <ul>
-                        <li class="_j_time_select" data-timeflag="1" data-timeinfo="全部出发时间"><a>
-                            <span class="num _j_show_num"><em>2900</em>结伴</span>全部出发时间</a></li>
-                        <li class="_j_time_select" data-timeflag="2" data-timeinfo="今天"><a>
-                            <span class="num _j_show_num"><em>59</em>结伴</span>今天</a></li>
-                        <li class="_j_time_select" data-timeflag="3" data-timeinfo="1个月内"><a>
-                            <span class="num _j_show_num"><em>1182</em>结伴</span>1个月内</a></li>
-                        <li class="_j_time_select" data-timeflag="4" data-timeinfo="1-3个月内"><a>
-                            <span class="num _j_show_num"><em>1281</em>结伴</span>1-3个月内</a></li>
-                        <li class="_j_time_select" data-timeflag="5" data-timeinfo="3个月以上"><a>
-                            <span class="num _j_show_num"><em>473</em>结伴</span>3个月以上</a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="sort _j_sort_list">
                 <a class="on" data-flag="3">热门结伴<i></i></a>
                 <a data-flag="2">最新发表<i></i></a>
                 <a data-flag="1">即将出发<i></i></a>
             </div>
-            <a href="/together/publish/" class="btn-add"><i></i>发布我的结伴计划</a>
+            <a href="/together/publish/" class="btn-add" th:href="@{/together/publish}"><i></i>发布我的结伴计划</a>
         </div>
     </div>
     <div class="row-bg">
@@ -141,58 +122,6 @@
 
 
 
-<link href="http://css.mafengwo.net/css/mfw-footer.css?1558532347" rel="stylesheet" type="text/css"/>
-
-<div id="footer">
-    <div class="ft-content" style="width: 1105px">
-        <div class="ft-copyright">
-            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
-            <p>© 2019 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱: mfwjubao@mafengwo.com</span></p>
-            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="https://n1-q.mafengwo.net/s12/M00/A5/45/wKgED1xJi3uAA7KLAAf_CkKLHRQ87.jpeg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
-        </div>
-        <div class="ft-safety">
-            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
-            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
-            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
-            <a class="s-d" href="http://www.itrust.org.cn/Home/Index/satification_certificate/wm/MY2019051501.html" target="_blank" rel="nofollow"></a>
-        </div>
-
-    </div>
-</div>
-
-
-<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1537192876" rel="stylesheet" type="text/css"/>
-
-<div class="mfw-toolbar" id="_j_mfwtoolbar">
-    <div class="toolbar-item-top">
-        <a role="button" class="btn _j_gotop">
-            <i class="icon_top"></i>
-            <em>返回顶部</em>
-        </a>
-    </div>
-    <div class="toolbar-item-feedback">
-        <a role="button" data-japp="feedback" class="btn">
-            <i class="icon_feedback"></i>
-            <em>意见反馈</em>
-        </a>
-    </div>
-    <div class="toolbar-item-code">
-        <a role="button" class="btn">
-            <i class="icon_code"></i>
-        </a>
-        <a role="button" class="mfw-code _j_code">
-
-
-            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
-        </a>
-        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
-    </div>
-    <div class="toolbar-item-down">
-        <a role="button" class="btn _j_gobottom">
-            <i class="icon_down"></i>
-            <em>页面底部</em>
-        </a>
-    </div>
 </div>
 </body>
 </html>
