@@ -78,7 +78,7 @@ function infoSubmit() {
                 if (result) {
                     $("#alert-box").hide(200);
                     spop({
-                        template: '头像更换成功',
+                        template: '信息修改成功',
                         position  : 'top-center',
                         style: 'success',
                         autoclose: 1500

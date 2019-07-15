@@ -31,9 +31,11 @@ public class CommentService {
      * @param map
      * @return boolean
      **/
-    public boolean addComment(Map<String, Object> map)
+    public Integer addComment(Map<String, Object> map)
     {
-        return ac00Dao.addComment(map);
+        map.put("cid", null);
+        ac00Dao.addComment(map);
+        return (Integer) map.get("cid");
     }
 
     /**
@@ -46,9 +48,9 @@ public class CommentService {
      *          start:开始的位置 Limit start，pageCount
      *          pageCount:查询个数
      *      }
-     * @Date 2019/7/11 
+     * @Date 2019/7/11
      * @param map
-     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>> 
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      **/
     private List<Map<String, Object>> getCommentAndReply(Map<String, Object> map)
     {
@@ -71,7 +73,7 @@ public class CommentService {
      **/
     public List<Map<String,Object>> getCommentAndReplyByLatest(Map<String, Object> map)
     {
-        map.put("order", " ORDER BY time");
+        map.put("order", " time DESC");
         return getCommentAndReply(map);
     }
 
@@ -84,7 +86,7 @@ public class CommentService {
      **/
     public List<Map<String,Object>> getCommentAndReplyByFocus(Map<String, Object> map)
     {
-        map.put("order", " ORDER BY thumbsUpCount");
+        map.put("order", " thumbsUpCount DESC");
         return getCommentAndReply(map);
     }
 
@@ -92,9 +94,9 @@ public class CommentService {
     /**
      * @Author Saki
      * @Description 根据评论id删除评论(隐藏评论)
-     * @Date 2019/7/12 
+     * @Date 2019/7/12
      * @param id
-     * @return boolean 
+     * @return boolean
      **/
     public boolean deleteCommentById(int id)
     {
@@ -108,8 +110,23 @@ public class CommentService {
      * @param map
      * @return boolean
      **/
-    public boolean addReply(Map<String, Object> map)
+    public Integer addReply(Map<String, Object> map)
     {
-        return ad00Dao.addReply(map);
+        map.put("rid", null);
+        ad00Dao.addReply(map);
+        return (Integer) map.get("rid");
+    }
+
+
+    /**
+     * @Author Saki
+     * @Description 根据id删除回复
+     * @Date 2019/7/12
+     * @param id
+     * @return boolean
+     **/
+    public boolean deleteReplyById(int id)
+    {
+        return ad00Dao.deleteReplyById(id);
     }
 }

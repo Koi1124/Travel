@@ -1,23 +1,78 @@
 <?xml version="1.0" encoding="GBK" standalone="no"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Aa02Dao">
-    <select id="getAllByState" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+    <select id="getAll" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT
 		aaa201,aaa202, aaa203, aaa204, aaa205, aaa206,aaa207, aaa208,aaa209,aaa210
         FROM aa02
         WHERE aaa211=0 limit #{begin},#{num};
     </select>
-    
+
     <select id="selectCount" resultType="java.lang.Integer">
-	SELECT count(*) 
-	FROM aa02
-	where aaa211=0;
-	</select>
-	
-	<update id="changeStateById">
+        SELECT count(*)
+        FROM aa02
+        where aaa211=0;
+    </select>
+
+    <update id="changeStateById">
         UPDATE aa02
         SET aaa211=#{state}
         WHERE aaa201=#{id}
         ;
+    </update>
+
+
+    <!--普通增改查-->
+    <insert id="addAgency" parameterType="java.util.HashMap">
+        INSERT INTO aa02(aaa201, aaa202, aaa203, aaa204, aaa205,
+        aaa209, aaa211)
+        VALUES(#{id}, "未认证旅行社", "未认证旅行社", #{mail}, #{password},
+        "/asserts/img/commom/default_logo.jpg", "2");
+    </insert>
+
+    <update id="updateAgency" parameterType="java.util.HashMap">
+        UPDATE aa02 SET aaa202=#{name}, aaa203=#{allName}, aaa206=#{phone}, aaa207=#{phoneTime},
+        aaa208=#{workTime}, aaa210=#{licence}, aaa211="0"
+        WHERE aaa201=#{id};
+    </update>
+
+    <update id="updateLogo" parameterType="java.util.HashMap">
+        UPDATE aa02 SET aaa209=#{logo}
+        WHERE aaa201=#{id};
+    </update>
+
+    <select id="getAgencyByMail" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT aaa201 as 'id', aaa202 as 'name', aaa205 as 'password',
+        aaa209 as 'logo', aaa211 as 'status'
+        FROM aa02
+        WHERE aaa204=#{mail};
+    </select>
+
+    <select id="getAgencyById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa202 as 'name', aaa203 as 'logoName', aaa206 as 'phone', aaa207 as 'phoneTime',
+        aaa208 as 'workTime', aaa209 as 'logo', aaa210 as 'licence'
+        FROM aa02
+        WHERE aaa201=#{id};
+    </select>
+
+    <!--以下为用户表增改！important-->
+    <!--由于回复表设计失误，只能在此弥补
+        每一个旅行社都对应一个邮箱为angency的普通用户用来存储id、昵称、头像信息-->
+    <insert id="addAgencyUser" parameterType="java.util.HashMap">
+        <selectKey keyProperty="map.id" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO aa01(aaa102, aaa103, aaa105, aaa106, aaa107, aaa108)
+        VALUES ("未认证旅行社", 0, current_time(), "/asserts/img/commom/default_logo.jpg", "agency", "agency");
+    </insert>
+
+    <update id="upadteAgencyUser" parameterType="java.util.HashMap">
+        UPDATE aa01 SET aaa102=#{name}
+        WHERE aaa101=#{id};
+    </update>
+
+    <update id="updateAgencyUserLogo" parameterType="java.util.HashMap">
+        UPDATE aa01 SET aaa106=#{logo}
+        WHERE aaa101=#{id};
     </update>
 </mapper>

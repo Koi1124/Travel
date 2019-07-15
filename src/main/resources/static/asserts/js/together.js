@@ -28,7 +28,7 @@ $(document).ready(function() {
             $(result).each(function (i, mdd) {
                 $("#together-mdd-box").append("<li class='item'>\n" +
                     "    <a class='_j_hot_mdd' data-mddname=''" + mdd.name + " data-mddid:" + mdd.id + " onclick='searchCompany("+ mdd.id +","+ type +")'>\n" +
-                    "    <div class='image'><img src=" + mdd.src + " style='width: 220px;height: 220px;'></div>\n" +
+                    "    <div class='image'><img src=" + mdd.pic + " style='width: 220px;height: 220px;'></div>\n" +
                     "    <div class='bg'></div>\n" +
                     "    <div class='txt'>\n" +
                     "    <strong>" + mdd.name + "</strong>\n" +

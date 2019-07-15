@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Ab04Dao extends CheckDao 
 {
-	List<Map<String,Object>>getAllByState(Map<String,Integer>map);
+	List<Map<String,Object>>getAll(Map<String,Integer>map);
 	
 	Integer selectCount();
 	

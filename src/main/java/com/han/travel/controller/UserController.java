@@ -29,12 +29,6 @@ public class UserController
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
-    public String helloWorld()
-    {
-        return "login";
-    }
-
     @RequestMapping("/setting")
     public String setting(HttpSession session, Map<String, Object> dto)
     {
@@ -50,26 +44,13 @@ public class UserController
      * @param map
      * @return boolean
      **/
-    @PostMapping("/register/mail_check")
+    @PostMapping("/user/register/mail_check")
     @ResponseBody
     public boolean checkMail(@RequestBody Map<String, Object> map)
     {
         return identifyCodeService.isMailUsed((String)map.get("mail"));
     }
 
-    /**
-     * @Author Saki
-     * @Description 获取输入邮箱的验证码
-     * @Date 2019/7/3
-     * @param map
-     * @return boolean
-     **/
-    @PostMapping("/register/get_identify_code")
-    @ResponseBody
-    public boolean getIdentifyCode(@RequestBody Map<String, Object> map)
-    {
-        return identifyCodeService.addIdentifyCode((String)map.get("mail"));
-    }
 
     /**
      * @Author Saki
@@ -78,7 +59,7 @@ public class UserController
      * @param map
      * @return boolean
      **/
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     @ResponseBody
     public boolean register(@RequestBody Map<String, Object> map)
     {
@@ -86,7 +67,7 @@ public class UserController
         {
             if (userService.addUser(map))
             {
-                identifyCodeService.deleteIdentifyCodeByMail((String) map.get("mail"));
+                identifyCodeService.deleteIdentifyCodeByMail(map);
                 return true;
             }
         }
@@ -101,7 +82,7 @@ public class UserController
      * @param map
      * @return java.lang.String
      **/
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     @ResponseBody
     public String login(@RequestBody Map<String, String> map, HttpSession session)
     {
@@ -128,19 +109,19 @@ public class UserController
      * @param map
      * @return boolean
      **/
-    @PostMapping("/forget")
+    @PostMapping("/user/forget")
     @ResponseBody
     public boolean forget(@RequestBody Map<String, String> map)
     {
         return userService.sendPasswordByMail(map.get("mail"));
     }
-    
+
     /**
      * @Author Saki
      * @Description 更改信息 昵称、性别、居住地、备注
      * @Date 2019/7/10 
      * @param map
-     * @return boolean 
+     * @return boolean
      **/
     @PostMapping("/change_info")
     @ResponseBody
