@@ -4,23 +4,27 @@
 
     <select id="getCompReplyByParentIdOrderBy" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT c.aaa101 AS 'replierId', c.aaa102 AS 'replierName', c.aaa106 AS 'replierPic', a.aad002 AS 'content',
-              DATE_FORMAT(a.aad003,'%Y-%m-%d %H:%i:%S') AS 'time', a.aad004 AS 'respondedId', b.aaa102 AS 'respondedName'
+               DATE_FORMAT(a.aad003,'%Y-%m-%d %H:%i:%S') AS 'time', a.aad004 AS 'respondedId', b.aaa102 AS 'respondedName',
+               a.aad001 AS 'replyId'
         FROM ad00 a, aa01 b, aa01 c
         WHERE a.aaa101=c.aaa101 AND a.aad004=b.aaa101
-        AND a.aac001=#{pid}
+              AND a.aac001=#{pid}
         ORDER BY time
         ;
     </select>
 
     <insert id="addReply" parameterType="java.util.HashMap">
         INSERT INTO ad00(aac001, aaa101, aad002, aad003, aad004)
-        VALUES(#{commentId}, #{userId}, #{content}, CURRENT_TIME, #{replyId})
+        VALUES(#{map.commentId}, #{map.userId}, #{map.content}, CURRENT_TIME, #{map.replyId})
+        <selectKey keyProperty="map.rid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         ;
     </insert>
 
     <delete id="deleteReplyById" parameterType="java.lang.Integer">
         DELETE FROM ad00
-        WHERE ad001=#{id}
+        WHERE aad001=#{id}
         ;
     </delete>
 </mapper>

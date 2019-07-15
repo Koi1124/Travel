@@ -149,7 +149,7 @@ function infoClick(e) {
         $(e).attr("class", "on");
 
         $(".content").children("div").hide();
-        $(".hd").html("<strong>我的信息</strong>").show();
+        $(".hd").html("<strong>信息认证</strong>").show();
         $("#user-info").show();
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ad02Dao">
+
+    <insert id="thumbsUp" parameterType="java.util.HashMap">
+        INSERT INTO ad02(aaa101, aad202, aad203)
+        VALUES(#{uid}, #{type}, #{pid})
+        ;
+    </insert>
+
+    <delete id="thumbsDown" parameterType="java.util.HashMap">
+        DELETE FROM ad02
+        WHERE aaa101=#{uid} AND aad202=#{type} AND aad203=#{pid}
+        ;
+    </delete>
+</mapper>

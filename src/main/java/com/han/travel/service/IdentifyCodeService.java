@@ -1,6 +1,7 @@
 package com.han.travel.service;
 
 import com.han.travel.dao.Aa01Dao;
+import com.han.travel.dao.Aa02Dao;
 import com.han.travel.dao.IdentifyCodeDAO;
 import com.han.travel.support.MailTools;
 import com.han.travel.support.Utils;
@@ -28,6 +29,9 @@ public class IdentifyCodeService
     @Resource
     private Aa01Dao aa01Dao;
 
+    @Resource
+    private Aa02Dao aa02Dao;
+
     /**
      * @Author Saki
      * @Description 检测邮箱是否被占有
@@ -40,23 +44,37 @@ public class IdentifyCodeService
         return Utils.isNotEmpty(aa01Dao.getUserByMail(mail));
     }
 
+
+    /**
+     * @Author Saki
+     * @Description 检测邮箱是否被占有
+     * @Date 2019/7/3
+     * @param mail 邮箱
+     * @return boolean 被占用：true；未使用：false
+     **/
+    public boolean isAgencyMailUsed(String mail)
+    {
+        return Utils.isNotEmpty(aa02Dao.getAgencyByMail(mail));
+    }
+
     /**
      * @Author Saki
      * @Description 添加/修改验证码
      * @Date 2019/7/3
-     * @param mail 邮箱
+     * @param map {
+     *            mail:
+     *            type:
+     *        }
      * @return boolean 是否成功
      **/
-    public boolean addIdentifyCode(String mail)
+    public boolean addIdentifyCode(Map<String, Object> map)
     {
         String identifyCode = MailTools.getRandomIdentifyCode();
-        Map<String, Object> map = new HashMap<>();
-        map.put("mail", mail);
         map.put("code", identifyCode);
         String msg = "周游旅行平台：\n\t您的验证码为 " + identifyCode + " ，请在30分钟之内使用。";
         try {
-            MailTools.sendMail(mail, msg);
-            if (Utils.isNotEmpty(identifyCodeDAO.getIdentifyCodeByMail(mail)))
+            MailTools.sendMail((String)map.get("mail"), msg);
+            if (Utils.isNotEmpty(identifyCodeDAO.getIdentifyCodeByMail(map)))
             {
                 return identifyCodeDAO.updateIdentifyCode(map);
             }
@@ -81,7 +99,7 @@ public class IdentifyCodeService
      **/
     public boolean checkIdentifyCode(Map<String, Object> map)
     {
-        Map<String, Object> result = identifyCodeDAO.getIdentifyCodeByMail((String)map.get("mail"));
+        Map<String, Object> result = identifyCodeDAO.getIdentifyCodeByMail(map);
         if (Utils.isNotEmpty(result))
         {
             if (result.get("code").equals((String)map.get("identifyCode")))
@@ -102,11 +120,11 @@ public class IdentifyCodeService
      * @Author Saki
      * @Description 根据邮箱删除数据库中验证码
      * @Date 2019/7/3
-     * @param mail 邮箱
+     * @param map
      * @return boolean
      **/
-    public boolean deleteIdentifyCodeByMail(String mail)
+    public boolean deleteIdentifyCodeByMail(Map<String, Object> map)
     {
-        return identifyCodeDAO.deleteIdentifyCodeByMail(mail);
+        return identifyCodeDAO.deleteIdentifyCodeByMail(map);
     }
 }

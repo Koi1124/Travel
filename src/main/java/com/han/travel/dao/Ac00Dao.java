@@ -1,5 +1,6 @@
 package com.han.travel.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface Ac00Dao
      * @param dto
      * @return boolean
      **/
-    boolean addComment(Map<String, Object> dto);
+    boolean addComment(@Param("map") Map<String, Object> dto);
 
     /**
      * @Author Saki

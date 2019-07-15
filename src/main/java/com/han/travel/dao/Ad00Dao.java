@@ -47,7 +47,7 @@ public interface Ad00Dao {
      * @param map
      * @return boolean
      **/
-    boolean addReply(Map<String, Object> map);
+    boolean addReply(@Param("map") Map<String, Object> map);
 
     /**
      * @Author Saki

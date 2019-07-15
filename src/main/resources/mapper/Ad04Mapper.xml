@@ -4,7 +4,7 @@
     <select id="getStarCountByIdAndType" resultType="java.lang.Integer">
         SELECT count(aad404) AS 'count'
         FROM ad04
-        WHERE aad404=#{id} ANY aad403=#{type}
+        WHERE aad404=#{id} AND aad403=#{type}
         ;
     </select>
 

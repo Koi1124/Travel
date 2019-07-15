@@ -2,12 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Ab05Dao">
     <select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT
-          aaa101 AS "authorId", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
-          aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
-          FROM ab05
-          WHERE aab509=1 AND aab501=#{id}
-          ;
+        SELECT authorId, title, date, setout, period,
+            count, telephone, intro, commentCount
+        from
+            (SELECT
+                 aab501, aaa101 AS "authorId", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
+                         aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
+             FROM ab05
+             WHERE aab509=1 AND aab501=#{id}) t1
+            LEFT JOIN
+            (SELECT aab501, count(aac001) AS "commentCount"
+             FROM ab05, ac00
+             WHERE ab05.aab501=ac00.aac003 AND ac00.aac002="5" AND ab05.aab501=#{id} AND ac00.aac006=1
+             GROUP BY aab501) t2
+                on t1.aab501=t2.aab501
+        ;
     </select>
 
     <update id="changeStateById">

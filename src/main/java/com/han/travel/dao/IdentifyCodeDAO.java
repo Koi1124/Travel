@@ -9,9 +9,9 @@ import java.util.Map;
 public interface IdentifyCodeDAO
 {
 
-    Map<String, Object> getIdentifyCodeByMail(String mail);
+    Map<String, Object> getIdentifyCodeByMail(Map<String, Object> map);
 
-    boolean deleteIdentifyCodeByMail(String mail);
+    boolean deleteIdentifyCodeByMail(Map<String, Object> map);
 
     boolean updateIdentifyCode(Map<String, Object> dto);
 

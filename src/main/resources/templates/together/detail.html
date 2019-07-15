@@ -10,7 +10,7 @@
     </script>
 
     <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
-            rel="stylesheet" type="text/css">
+          rel="stylesheet" type="text/css">
 
     <link href="https://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1530619858.css"
           rel="stylesheet" type="text/css">
@@ -20,9 +20,13 @@
     <link href="https://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
 
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
+
     <script th:src="@{/asserts/js/commom/jquery.js}"></script>
+    <script th:src="@{/asserts/js/commom/comment.js}"></script>
     <script th:src="@{/asserts/js/together/detail.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
 
     <style>
         .rev-item {
@@ -35,6 +39,7 @@
 <input id="user_id" th:value="${session.user_id}" type="hidden"/>
 <input id="user_name" th:value="${session.user_name}" type="hidden"/>
 <input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
+<input id="comment_count" th:value="${commentCount}" type="hidden"/>
 <div class="container">
     <div class="detail-hd">
         <div class="cover" th:style="'background-image:url(' + ${mddPic} + ')'" style="background-image:url(https://n3-q.mafengwo.net/s5/M00/E5/67/wKgB3FHlDx2AeOipAAMkkOmX8pg42.jpeg?imageMogr2%2Fthumbnail%2F%211280x280r%2Fgravity%2FCenter%2Fcrop%2F%211280x280%2Fquality%2F100)">
@@ -87,18 +92,10 @@
                     <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
                     <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
                     <div class="opt">
-                        <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
+                        <a class="btn-follow" data-japp="following" data-style="together" th:data-uid="${authorId}">
                             <span class="follow"><i></i>加关注</span>
-                            <script type="text/x-jquery-tmpl" id="_j_together_sendmsg">
-
-                <div class="pop-privateLetter">
-                    <span class="p-close btn_eject_close _j_close"></span>
-                    <p>给 <span>${to_uname}</span> 发送消息</p>
-                    <textarea class="_j_msg_area"></textarea>
-                    <div><a class="btn _j_send_button" role="button">发送</a></div>
-                </div>
-                </script>
                         </a>
+                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
                     </div>
                 </div>
                 <div class="desc _j_description">
@@ -111,25 +108,23 @@
                     <div class="bd">
                         <div class="item">
                             <span class="label">联系电话</span>
-                            <div class="ui-input inp-tel"><input class="_j_add_phone" type="text" placeholder="请输入您的联系方式"></div>
+                            <div class="ui-input inp-tel" style="width: 280px;">
+                                <input class="_j_add_phone" type="text" placeholder="请输入您的联系方式">
+                            </div>
                             <span class="tips"><span>*必填</span>：只对活动发起人和本人公开</span>
                         </div>
                         <div class="item">
                             <span class="label">性别</span>
                             <div class="gender">
                                 <span class="radio on _j_add_gender" data-gender="1"><span class="icon-radio"><i></i></span>男</span>
-                                <span class="radio _j_add_gender" data-gender="0"><span class="icon-radio"><i></i></span>女</span>
+                                <span class="radio _j_add_gender" data-gender="2"><span class="icon-radio"><i></i></span>女</span>
                             </div>
                         </div>
                         <div class="item">
                             <span class="label">同行人数</span>
                             <div class="num">
                                 <div class="ui-input inp-num"><input type="text" class="_j_together_men"></div>
-                                男<span class="gray">(/人)</span>
-                            </div>
-                            <div class="num">
-                                <div class="ui-input inp-num"><input type="text" class="_j_together_women"></div>
-                                女<span class="gray">(/人)</span>
+                                <span class="gray" style="font-size: 14px">(不包括自己)</span>
                             </div>
                         </div>
                         <div class="item">
@@ -138,7 +133,10 @@
                         </div>
                         <div class="item">
                             <span class="label">备注</span>
-                            <div class="ui-textarea"><textarea class="_j_together_remark"></textarea></div>
+                            <div class="ui-textarea">
+                                <textarea class="_j_together_remark" style="height: 60px;">
+                                </textarea>
+                            </div>
                         </div>
                         <div class="item">
                             <a class="btn _j_submit">报名</a>
@@ -174,299 +172,22 @@
                     <h3 class="mod-title">留言</h3>
                     <div class="comment-form clearfix">
                         <textarea class="_j_comment_content" style="height: 60px;"></textarea>
-                        <input class="btn _j_submit_comment" type="button" value="留言">
+                        <input id="join_submit" class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
                     </div>
                     <div class="_j_commentlist">
                         <div class="rev-list">
                             <ul id="comment-list">
-                                <li class="rev-item comment-item clearfix">
-                                    <div class="user"><a class="avatar" href="用户空间地址" target="_blank">
-                                        <img src="https://n1-q.mafengwo.net/s12/M00/C0/E3/wKgED1u3JPmAdpyEAAnA2isTe2g94.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                             width="48" height="48"></a></div>
-                                    <a class="useful" data-id="153937408" title="点赞">
-                                        <i></i><span class="useful-num"></span>
-                                    </a>
-                                    <a class="name" href="/u/60974728.html" target="_blank">linda</a>
-
-                                    <!-- 内容 -->
-                                    <p class="rev-txt">青岛天主教堂一直是心里种草的地方，其清新的外观和哥特式建筑让人宛如置身于欧洲的某个地方。清晨的教堂显得格外静谧。<br>
-                                        大门口的拱形窗户是拍照的好地方，有一对情侣在这个门前面自拍了一个多小时的婚纱照。<br>
-                                        宽敞明亮的大厅里，阳光从色彩斑斓的玻璃花窗透射出柔和的光线。大厅东西两侧设有走廊，后面设有两个大祭台，四个小祭台，大厅的穹顶绘以圣象壁画，充满浓厚的宗教气氛。屋顶覆盖舌头红瓦，其气势庞大，且又古朴典雅。
-                                    </p>
-
-
-
-
-                                    <div class="info clearfix">
-                                        <a class="btn-comment _j_comment" title="评论"
-                                           style="text-decoration:none;">评论</a>
-                                        <a class="btn-comment _j_comment" title="展开" onclick="clickExtend(this)" extend="1" style="padding:0 5px;">展开</a>
-                                        <span class="time">2018-11-30 16:50:04</span>
-                                    </div>
-
-                                    <div class="comment add-reply">
-                                        <ul class="more_reply_box comment_list">
-                                            <li>
-                                                <a href="/u/90596456.html" target="_blank">
-                                                    <img src="https://b1-q.mafengwo.net/s10/M00/50/B6/wKgBZ1mYgW6AT85RAACJSm-hfEg66.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                         width="16" height="16">梓茵
-                                                </a>
-                                                ：还要门票呢，我们济南洪家楼的教堂也很漂亮，免费参观😁
-                                                <a class="_j_reply re_reply" data-id="574572" data-uid="90596456"
-                                                   data-username="梓茵" title="添加回复">回复</a>
-                                                <br><span class="time">2019-05-10 09:15:41</span>
-                                            </li>
-                                            <li>
-                                                <a href="/u/39621148.html" target="_blank">
-                                                    <img src="https://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                         width="16" height="16">马蜂窝用户
-                                                </a>
-                                                ：就是，济南教堂都免费
-                                                <a class="_j_reply re_reply" data-id="575180" data-uid="39621148"
-                                                   data-username="马蜂窝用户" title="添加回复">回复</a>
-                                                <br><span class="time">2019-05-10 15:05:05</span>
-                                            </li>
-                                            <li>
-                                                <a href="/u/73431959.html" target="_blank">
-                                                    <img src="https://p2-q.mafengwo.net/s12/M00/94/10/wKgED1vTKz2AJp7wAAUgJZhVImY05.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                         width="16" height="16">记忆的尘封
-                                                </a>
-                                                ：在这里，旅游观光的人很多；在这里，每天有数对恋人拍婚纱照做记念。这里的街道都是以全国各地的省、市城市名来命名的。
-                                                <a class="_j_reply re_reply" data-id="598180" data-uid="73431959"
-                                                   data-username="记忆的尘封" title="添加回复">回复</a>
-                                                <br><span class="time">2019-05-27 03:39:27</span>
-                                            </li>
-                                            <li> <a href="/u/94362993.html" target="_blank"> <img
-                                                    src="https://n2-q.mafengwo.net/s14/M00/42/7F/wKgE2l0kQl6AHUFXAAs78PL76m0393.png?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                    width="16" height="16">Jack.Swift </a> 回复马蜂窝用户：真的吗？ <br><span
-                                                    class="time">2019-7-10 15:39</span>
-                                            </li>
-                                        </ul>
-                                        <div class="add-comment reply-form" style="display: block">
-                                            <textarea class="comment_reply" style="overflow: hidden; color: rgb(204, 204, 204);float: left;"></textarea>
-                                            <a class="btn btn_submit_reply" style="float: right;text-align:center;padding: 0;width: 15%;height: 25px;font-size: 14px;">
-                                                回复
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="rev-item comment-item clearfix">
-                                    <div class="user"><a class="avatar" href="/u/72441602.html" target="_blank"><img
-                                            src="https://p1-q.mafengwo.net/s6/M00/09/9C/wKgB4lNtoAOAa_pXAAHlMmV_jXA68.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            width="48" height="48"></a></div>
-                                    <a class="useful" data-id="118939016" title="点赞">
-                                        <i></i><span class="useful-num">3</span>
-                                    </a>
-                                    <a class="name" href="/u/72441602.html" target="_blank">海德</a>
-                                    <p class="rev-txt">
-                                        建堂大厅宽敞明亮，装修典雅，二楼装有大型风琴，配之穹顶的圣像壁画，教会氛围浓厚，相信弥撒时一定是庄严肃穆，大气磅礴，如果在这里举行婚礼，效果一定非常好。<br>
-                                        门口是一个砖石地面的小广场，左右各有一处古建构成了建筑群，这让我想到了欧洲的类似的广场，设几处座椅，满地鸽子，喝喝咖啡，很是惬意，咱们这就有点简单了。这个广场平时人还比较少，周末会有很多夫妇或者情侣拍婚纱照，在搭配上卖烤红薯的、卖儿童玩具的、卖棉花糖的，这景观真是让人心情复杂。<br>
-                                        教堂位于浙江路，在中上路商圈附近，外广场属于正常街道，完全免费，参观教堂10块，教堂每日早上弥撒，周日上午2次弥撒，据说有风琴奏乐，弥撒时免票，这里我去过四次，有三次是路过。
-                                    </p>
-
-
-                                    <div class="info clearfix">
-                                        <a class="btn-comment _j_comment" title="添加评论">评论</a>
-                                        <span class="time">2015-07-02 09:44:47</span>
-                                    </div>
-
-                                    <div class="comment add-reply hide" style="display: none;">
-                                        <ul class="more_reply_box comment_list">
-                                        </ul>
-
-                                        <div class="add-comment hide reply-form" style="display: none;">
-							<textarea class="comment_reply focus" data-comment_id="23571411"
-                                      data-comment_username="Mia" data-poi_id="2575" data-poi_name="圣弥厄尔大教堂"
-                                      data-parent_id="" data-parent_uid="" data-parent_username=""
-                                      placeholder="发表评论："
-                                      style="color: rgb(0, 0, 0); height: 70px;"></textarea>
-                                            <a class="btn btn_submit_reply">回复</a>
-                                        </div>
-                                    </div>
-                                </li>
+                                <!--评论列表-->
                             </ul>
                         </div>
-
-
                     </div>
-
-
-                    <!-- 评论列表 End -->
-
-                    <!-- 评价 s -->
-                    <div data-anchor="comment">
-                        <div class="row row-reviewForm" id="comment_20190710143940" data-cs-p="点评">
-                            <div class="wrapper">
-
-                                <div class="mfw-reviews">
-                                    <div id="_j_commentform_cnt">
-                                        <h2>
-                                            <strong>茄子妙妙屋</strong>
-                                            <em>*</em>为必填选项
-                                        </h2>
-                                        <form action="" method="post" class="_j_commentdialogform" data-typeid="3">
-
-                                            <div class="review-item item-star">
-                                                <div class="label"><em>*</em>总体评价</div>
-                                                <div class="review-star _j_rankblock" data-star="" name="rank">
-                                                    <input type="hidden" name="rank" value="" essential="1" data-inputname="总体评价">
-
-
-                                                    <!--
-                                                        js修改class改变星数：  _j_starcount star0
-                                                                                _j_starcount star1
-                                                                                _j_starcount star2/4/5
-                                                    -->
-                                                    <span class="_j_starcount star0"></span>
-                                                    <div class="click-star _j_starlist">
-                                                        <a role="button" title="千万别去" rel="nofollow"></a>
-                                                        <a role="button" title="不推荐" rel="nofollow"></a>
-                                                        <a role="button" title="一般般" rel="nofollow"></a>
-                                                        <a role="button" title="值得一去" rel="nofollow"></a>
-                                                        <a role="button" title="必须推荐" rel="nofollow"></a>
-                                                    </div>
-
-                                                </div>
-                                                <span class="txt-tips _j_startip">点击星星打分</span>
-                                            </div>
-
-                                            <div class="review-item item-comment">
-                                                <div class="label"><em>*</em>评价</div>
-                                                <div class="content">
-									<textarea class="_j_commentarea" name="comment" essential="1"
-                                              data-inputname="点评内容" placeholder="写下你的评价" data-minlen="15"
-                                              data-maxlen="500"></textarea>
-                                                    <p class="_j_commentcounttip">15-500个字</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="review-item item-photo">
-                                                <div class="label">上传照片</div>
-                                                <div class="content">
-                                                    <dl class="upload-box _j_piclist">
-                                                        <dd data-commentid="" id="_j_addpicbtns" ids="0"
-                                                            style="position: relative;">
-                                                            <a class="add-place"><i></i></a>
-
-                                                        </dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                            <div class="review-item item-action">
-                                                <a class="btn-large _j_submit" role="button" title="提交点评">提交点评</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>
+                    <div class="post_pagin" id="smallpager">
+                        <div id="pagination" class="page f1" style="text-align: center;">
                         </div>
                     </div>
-                    <!-- 评价 e -->
-                    <!--<ul class="comment-list _j_comment_list" id="comment-list" th:each="comment:${commentInfo}">-->
-                        <!--<div class="vc_comment">-->
-                            <!--<div class="avatar"><a href="#" th:href="@{/comment.remarkerId}" target="_blank"><img src="" th:src="@{/comment.remarkerPic}" style="width: 48px;height: 48px;"></a></div>-->
-                            <!--<div class="comm_con">-->
-                                <!--<dl>-->
-                                    <!--<dt class="clearfix">-->
-                                        <!--<div class="comm_info">-->
-                                            <!--<a target="_blank" class="comm_name" href="#" th:href="@{/comment.remarkerId}"><p th:text="${comment.remarkerName}"></p></a>-->
-                                            <!--<br>-->
-                                            <!--<span class="comm_time" ><p th:text="${comment.time}">2019-07-08 16:43:11</p></span>-->
-                                        <!--</div>-->
-                                        <!--<div class="comm_reply">-->
-                                            <!--<a class="_j_replay" data-cid="29218971" data-name="高科" data-uid="75408551">回复</a>-->
-                                        <!--</div>-->
-                                    <!--</dt>-->
-                                    <!--<dd>-->
-                                        <!--<div class="comm_word">-->
-                                            <!--<p th:text="${comment.content}">成都出发拼车结伴费用AA一路走走停停观光拍照费用aa微信779056108</p>-->
-                                        <!--</div>-->
-                                    <!--</dd>-->
-                                <!--</dl>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</ul>-->
-                    <div class="post_pagin" id="smallpager"></div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script id="pagination_tmpl" type="text/x-jquery-tmpl">
-    {{if pageTotal > 1}}
-    <div class="m-pagination">
-        <span class="count">共${pageTotal}页/${total}条</span>
-        {{if currPage > 1}}
-             <a class="pg-next _j_pageitem" data-page="${currPage - 1}">&nbsp;&lt;&lt;Prev&nbsp;</a>
-        {{/if}}
-        {{each(i, index) indexers}}
-        {{if index == currPage}}
-            <a class="pi pg-current">${index}</a>
-        {{else}}
-            <a class="pi _j_pageitem" data-page="${index}">${index}</a>
-        {{/if}}
-        {{/each}}
-        {{if currPage < pageTotal}}
-            <a class="pg-next _j_pageitem" data-page="${currPage + 1}">&nbsp;Next&nbsp;&gt;&gt;</a>
-        {{/if}}
-    </div>
-    {{/if}}
-    </script>
-
-    <link href="https://css.mafengwo.net/css/mfw-footer.css?1558532347" rel="stylesheet" type="text/css"/>
-
-    <div id="footer">
-        <div class="ft-content" style="width: 1105px">
-            <div class="ft-copyright">
-                <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
-                <p>© 2019 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="https://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="https://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱: mfwjubao@mafengwo.com</span></p>
-                <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="https://n1-q.mafengwo.net/s12/M00/A5/45/wKgED1xJi3uAA7KLAAf_CkKLHRQ87.jpeg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
-            </div>
-            <div class="ft-safety">
-                <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
-                <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
-                <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
-                <a class="s-d" href="http://www.itrust.org.cn/Home/Index/satification_certificate/wm/MY2019051501.html" target="_blank" rel="nofollow"></a>
-            </div>
-
-        </div>
-    </div>
-
-
-    <link href="https://css.mafengwo.net/css/mfw-toolbar.css?1537192876" rel="stylesheet" type="text/css"/>
-
-    <div class="mfw-toolbar" id="_j_mfwtoolbar">
-        <div class="toolbar-item-top">
-            <a role="button" class="btn _j_gotop">
-                <i class="icon_top"></i>
-                <em>返回顶部</em>
-            </a>
-        </div>
-        <div class="toolbar-item-feedback">
-            <a role="button" data-japp="feedback" class="btn">
-                <i class="icon_feedback"></i>
-                <em>意见反馈</em>
-            </a>
-        </div>
-        <div class="toolbar-item-code">
-            <a role="button" class="btn">
-                <i class="icon_code"></i>
-            </a>
-            <a role="button" class="mfw-code _j_code">
-
-
-                <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
-            </a>
-            <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
-        </div>
-        <div class="toolbar-item-down">
-            <a role="button" class="btn _j_gobottom">
-                <i class="icon_down"></i>
-                <em>页面底部</em>
-            </a>
-        </div>
-    </div>
-
 </body>
 </html>

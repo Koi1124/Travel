@@ -1,10 +1,8 @@
 //注册登录页面
-$(document).ready(function() {
-    if(window.location.hash =="#1") {
-        $("title").text("注册");
-        turnToRegister();
-    }
+var type = "1";
+var path = "/user";
 
+$(document).ready(function() {
     var name = $("#name");
     var mail = $("#mail");
     var btnICode = $("#btn-i-code");
@@ -14,6 +12,19 @@ $(document).ready(function() {
     var btnResgister = $("#register");
 
     var illegal = [1, 1, 1, 1];//合法性检测
+
+
+    if(window.location.hash =="#1") {
+        $("title").text("注册");
+        turnToRegister();
+    }
+    if (window.location.pathname.substr(window.location.pathname.lastIndexOf("/") + 1) == "agency") {
+        $("title").text("旅行社登录");
+        $("#name").hide();
+        path = "/agency";
+        type = "2";
+        illegal[0] = 0;
+    }
 
 
     name.blur(function () {
@@ -37,7 +48,7 @@ $(document).ready(function() {
         else {
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/register/mail_check",
+                url: path + "/register/mail_check",
                 data: JSON.stringify({mail:mail.val()}),
                 contentType: "application/json",
                 dataType: "json",
@@ -79,7 +90,7 @@ $(document).ready(function() {
 
         if (passRepeat.val() != "") {
             if (pass.val() === passRepeat.val()) {
-                $setText($("#password-repeat-tip"), "");
+                setText($("#password-repeat-tip"), "");
                 illegal[3] = 0;
             }
             else {
@@ -102,11 +113,13 @@ $(document).ready(function() {
 
     //获取验证码按钮点击事件
     btnICode.click(function () {
-        console.log("click");
         $.ajax({
             type: "post",
-            url: "http://localhost:8080//register/get_identify_code",
-            data: JSON.stringify({mail:mail.val()}),
+            url: "/get_identify_code",
+            data: JSON.stringify({
+                mail:mail.val(),
+                type:type
+            }),
             contentType: "application/json",
             dataType: "json",
             async: true,
@@ -126,16 +139,18 @@ $(document).ready(function() {
                 mail: mail.val(),
                 identifyCode: $("#identify-code").val(),
                 name: name.val(),
-                password: pass.val()
+                password: pass.val(),
+                type:type
             };
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/register",
+                url: path + "/register",
                 data: JSON.stringify(msg),
                 contentType: "application/json",
                 dataType: "json",
                 async: true,
                 success: function (result) {
+                    console.log(result);
                     if (result) {
                         setText($("#i-code-tip"), "");
                         login(mail.val(), pass.val());
@@ -161,7 +176,7 @@ $(document).ready(function() {
         else {
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/register/mail_check",
+                url: path + "/register/mail_check",
                 data: JSON.stringify({mail:mailLogin.val()}),
                 contentType: "application/json",
                 dataType: "json",
@@ -191,7 +206,7 @@ $(document).ready(function() {
     $("#btn-forget").click(function () {
         $.ajax({
             type: "post",
-            url: "http://localhost:8080/forget",
+            url: path + "/forget",
             data: JSON.stringify({mail:mailForget.val()}),
             contentType: "application/json",
             dataType: "json",
@@ -216,7 +231,7 @@ $(document).ready(function() {
 function login(mail, pass) {
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/login",
+        url: path + "/login",
         data: JSON.stringify({
             mail:mail,
             password:pass
