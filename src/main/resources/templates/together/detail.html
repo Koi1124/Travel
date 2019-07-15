@@ -60,7 +60,8 @@
                 <a class="btn-join _j_together_add"><i></i><span>我要报名</span></a>
             </div>
             <div class="cell-collect">
-                <a class="btn-collect _j_together_care"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect _j_together_care" th:if="${isCollect==null}"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect on" th:unless="${isCollect==null}"><i></i><span>已关注结伴</span></a>
             </div>
         </div>
     </div>
@@ -88,16 +89,9 @@
                     <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
                     <div class="opt">
                         <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
-                            <span class="follow"><i></i>加关注</span>
-                            <script type="text/x-jquery-tmpl" id="_j_together_sendmsg">
-
-                <div class="pop-privateLetter">
-                    <span class="p-close btn_eject_close _j_close"></span>
-                    <p>给 <span>${to_uname}</span> 发送消息</p>
-                    <textarea class="_j_msg_area"></textarea>
-                    <div><a class="btn _j_send_button" role="button">发送</a></div>
-                </div>
-                </script>
+                            <span class="follow" th:if="${isFollow==null}"><i></i>加关注</span>
+                            <span class="followed" th:unless="${isFollow==null}">已关注</span>
+                            <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
                         </a>
                     </div>
                 </div>

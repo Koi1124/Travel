@@ -4,7 +4,7 @@
     <select id="getStarCountByIdAndType" resultType="java.lang.Integer">
         SELECT count(aad404) AS 'count'
         FROM ad04
-        WHERE aad404=#{id} ANY aad403=#{type}
+        WHERE aad404=#{id} AND aad403=#{type}
         ;
     </select>
 
@@ -13,6 +13,18 @@
         SELECT count(a.aad404) as 'star' FROM ad04 a, ac07 b
         WHERE a.aad403=5 AND a.aad404=b.aab501
         AND b.aaa301=#{id}
+        ;
+    </select>
+    
+    <insert id="insertCollect" parameterType="java.util.HashMap">
+        INSERT INTO ad04(aaa101,aad402,aad403,aad404)
+        VALUES (#{map.userId},CURRENT_TIME ,#{map.type},#{map.collectId})
+        ;
+    </insert>
+    
+    <select id="isCollect" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT aad401 FROM ad04
+        WHERE aaa101=#{map.userId} AND aad403=#{map.type} AND aad404=#{map.collectId}
         ;
     </select>
 

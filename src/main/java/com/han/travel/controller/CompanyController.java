@@ -1,9 +1,7 @@
 package com.han.travel.controller;
 
 import com.han.travel.configuration.SessionConfig;
-import com.han.travel.service.CommentService;
-import com.han.travel.service.CompanyService;
-import com.han.travel.service.UserService;
+import com.han.travel.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,10 @@ public class CompanyController
 {
     @Autowired
     private CompanyService companyService;
-
+    @Autowired
+    private CollectService collectService;
+    @Autowired
+    private FollowService followService;
 
 
     /**
@@ -87,7 +88,7 @@ public class CompanyController
 
 
 
-    @RequestMapping("")
+    @RequestMapping({"","/"})
     public String toHomepage()
     {
         return "together/homepage";
@@ -117,11 +118,16 @@ public class CompanyController
             System.out.println(dto);
         }
         Map<String,Object> detail=companyService.getCompDetail(dto);
-        //System.out.println(detail);
+        //System.out.println("detail:"+detail);
         map.putAll(detail);
 
+        Map<String,Object> isCollectDto=new HashMap<>(3);
+        isCollectDto.put("userId",session.getAttribute(SessionConfig.USER_ID));
+        isCollectDto.put("collectId",id);
+        isCollectDto.put("type",'5');
+        map.put("isCollect",collectService.isCollect(isCollectDto));
+        map.put("isFollow",followService.isFollow((Integer) map.get("authorId"), (Integer) session.getAttribute(SessionConfig.USER_ID)));
         //map.put("commentInfo",companyService.getAllCompCommentByCIdAndByLatest(id));
-
         //System.out.println(map);
 
         return "together/detail";
@@ -134,6 +140,14 @@ public class CompanyController
         session.setAttribute(SessionConfig.USER_ID, 1);
         session.setAttribute(SessionConfig.USER_NAME, "saki");
         session.setAttribute(SessionConfig.USER_LOGO, "https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/b8a9e6bbb4676bf884?t=1547043301");
+        return "together/homepage";
+    }
+
+    @RequestMapping("/testUser")
+    public String tests(HttpSession session)
+    {
+        session.setAttribute(SessionConfig.USER_ID,7);
+        session.setAttribute(SessionConfig.USER_NAME,"user7");
         return "together/homepage";
     }
 
