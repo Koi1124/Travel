@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public interface Ab05Dao extends CheckDao
 {
-    Map<String,Object> queryById(int id);
+	Map<String,Object> queryById(int id);
 
     boolean changeStateById(@Param("id") int id,@Param("state") int state);
 
@@ -22,7 +22,7 @@ public interface Ab05Dao extends CheckDao
 
     String getIntroById(int id);
 
-    List<Map<String,Object>> getAllByState(Map<String,Integer> map);
+    List<Map<String,Object>> getAll(Map<String,Integer> map);
 
     Integer selectCount();
 

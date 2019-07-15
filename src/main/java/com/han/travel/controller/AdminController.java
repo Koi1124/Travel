@@ -3,12 +3,15 @@ package com.han.travel.controller;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.han.travel.dao.Aa02Dao;
+import com.han.travel.dao.Ab01Dao;
 import com.han.travel.dao.Ab04Dao;
 import com.han.travel.dao.Ab05Dao;
 import com.han.travel.support.PageBean;
@@ -24,7 +27,10 @@ public class AdminController
 	
 	@Autowired
 	private Ab04Dao ab04Dao;
-
+	
+	@Autowired
+    private Ab01Dao ab01Dao;
+	
 	@RequestMapping("/admin")
     public String toIndex(Map<String,Object> dto)
     {
@@ -35,7 +41,7 @@ public class AdminController
     {
     	return "admin/index";
     }
-
+	
 	@RequestMapping("/company_list")
     public String toCompany_List(Map<String,Object> dto)
     {
@@ -67,11 +73,7 @@ public class AdminController
     {
     	return "admin/statistic";
     }
-	@RequestMapping("/strategy")
-    public String toStrategey(Map<String,Object> dto)
-    {
-    	return "admin/strategy";
-    }
+	
 	@RequestMapping("/travel_item_list")
     public String toTravel_Item(Map<String,Object> dto)
     {
@@ -87,6 +89,9 @@ public class AdminController
     {
     	return "admin/welcome";
     }
+	
+	
+	
 	/**
      * @Author ayds
      * @Description 获取分页的结伴数据
@@ -115,6 +120,15 @@ public class AdminController
     {
 		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab04Dao, "ab04");
     }
+	
+	@PostMapping("/admin/ab01/selectByPage")
+    @ResponseBody					
+    public Map<String,Object> selectAb01ByPage(@RequestBody Map<String, Object> map)
+    {
+		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab01Dao, "ab01");
+    }
+	
+	
     /**
      * @Author ayds
      * @Description 审核改变数据状态
@@ -141,6 +155,13 @@ public class AdminController
     public boolean changeAb04State(@RequestBody Map<String, Object> map)
     {	
 		return ab04Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
+    }
+	
+	@PostMapping("/admin/ab01/changeState")
+    @ResponseBody
+    public boolean changeAb01State(@RequestBody Map<String, Object> map)
+    {	
+		return ab01Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
     }
 	
 }
