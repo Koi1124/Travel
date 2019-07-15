@@ -9,10 +9,12 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" th:href="@{/asserts/css/font.css}">
         <link rel="stylesheet" th:href="@{/asserts/css/xadmin.css}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script th:src="@{/asserts/lib/layui/layui.js}" charset="utf-8"></script>
         <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript" ></script>
-		<script th:src="@{/asserts/js/admin.js}" type="text/javascript" ></script>
+		<script th:src="@{/asserts/js/admin/admin_aa02.js}" type="text/javascript" ></script>
 			
     </head>
     
@@ -67,11 +69,10 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-									<a class="prev" href="#" onclick="decrease('#aa02page','aa02')">&lt;&lt;</a>
-									<a class="next" href="#" onclick="add('#aa02page',$('#aa02tolPage').html(),'aa02')">&gt;&gt;</a>
-									<input id="aa02page" type="hidden" value="1" >
-									<span id="aa02tolPage" style="visibility:hidden"></span>
-									<span id="aa02currPage" style="visibility:hidden"></span>
+									<a class="prev" href="#" onclick="decrease('#pageNum')">&lt;&lt;</a>
+									<a class="num" href="#" id="pageNum">1</a>
+									<a class="next" href="#" onclick="add('#pageNum',$('#tolPage').html())">&gt;&gt;</a>
+									<span id="tolPage" style="visibility:hidden"></span>
 								</div>
                             </div>
                         </div>

@@ -15,5 +15,17 @@
         AND b.aaa301=#{id}
         ;
     </select>
+    
+    <insert id="insertCollect" parameterType="java.util.HashMap">
+        INSERT INTO ad04(aaa101,aad402,aad403,aad404)
+        VALUES (#{map.userId},CURRENT_TIME ,#{map.type},#{map.collectId})
+        ;
+    </insert>
+    
+    <select id="isCollect" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT aad401 FROM ad04
+        WHERE aaa101=#{map.userId} AND aad403=#{map.type} AND aad404=#{map.collectId}
+        ;
+    </select>
 
 </mapper>

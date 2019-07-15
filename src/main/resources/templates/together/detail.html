@@ -65,7 +65,8 @@
                 <a class="btn-join _j_together_add"><i></i><span>我要报名</span></a>
             </div>
             <div class="cell-collect">
-                <a class="btn-collect _j_together_care"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect _j_together_care" th:if="${isCollect==null}"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect on" th:unless="${isCollect==null}"><i></i><span>已关注结伴</span></a>
             </div>
         </div>
     </div>
@@ -91,11 +92,20 @@
                 <div class="sponsor clearfix">
                     <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
                     <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
-                    <div th:if="${session.user_id ne authorId}" class="opt">
-                        <a class="btn-follow" data-japp="following" data-style="together" th:data-uid="${authorId}">
-                            <span class="follow"><i></i>加关注</span>
-                        </a>
-                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+
+                    <div th:if="${session.user_id ne authorId} class="opt">
+
+                        <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
+                            <span class="follow" th:if="${isFollow==null}"><i></i>加关注</span>
+                            <span class="followed" th:unless="${isFollow==null}">已关注</span>
+                            <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
+
+                            <a class="btn-follow" data-japp="following" data-style="together" th:data-uid="${authorId}">
+                                <span class="follow"><i></i>加关注</span>
+
+                            </a>
+                            <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+
                     </div>
                 </div>
                 <div class="desc _j_description">

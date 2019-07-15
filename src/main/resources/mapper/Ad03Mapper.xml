@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ad03Dao">
+    
+    <insert id="addFollow">
+        INSERT INTO ad03(aad302,aad303)
+        VALUES (#{followerId},#{userId})
+        ;
+    </insert>
+
+    <delete id="removeFollow">
+        DELETE FROM ad03
+        WHERE aad302=#{followerId} AND aad303=#{userId}
+        ;
+    </delete>
+
+    <select id="isFollow" resultType="java.lang.Integer">
+        SELECT aad301
+        FROM ad03
+        WHERE aad302=#{followerId} AND aad303=#{userId}
+        ;
+    </select>
+    
+</mapper>

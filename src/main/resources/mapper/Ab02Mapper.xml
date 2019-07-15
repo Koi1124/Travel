@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ab02Dao">
+	<select id="fuzzyGet" resultType="java.util.HashMap">
+		SELECT aab201,aab301,aab202,aab203,aab204,
+			aab205
+		FROM ab02
+	<where>
+	<if test="city!=null and city!=''">
+		and aab301 LIKE CONCAT(CONCAT('%',#{city}),'%')
+	</if>
+	<if test="name!=null and name!=''">
+		and aab202 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	</if>
+	</where>
+	limit #{begin}, #{num}
+	</select>
+	
+	<insert id="insertStrategy" parameterType="java.util.HashMap" >
+		INSERT into ab02(aab301,aab202,aab203,aab204,aab205)
+		VALUES(#{aab301},#{aab202},#{aab203},#{aab204},#{aab205})
+		;
+	</insert>
+	
+	<delete id="delStrategy" parameterType="java.lang.Integer" >
+		DELETE FROM ab02
+		WHERE aab201=#{id}
+	</delete>
+	
+	<update id="updateStrategy" parameterType="java.util.HashMap"  >
+		UPDATE ab02
+		SET aab301=#{aab301},aab202=#{aab202},aab203=#{aab203},aab204=#{aab204},
+		aab205=#{aab205}
+		WHERE aab201=#{id}
+	</update>
+		
+	<select id="fuzzySelectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM ab02
+	<where>
+	<if test="city!=null and city!=''">
+		and aab301 LIKE CONCAT(CONCAT('%',#{city}),'%')
+	</if>
+	<if test="name!=null and name!=''">
+		and aab202 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	</if>
+	</where>
+	</select>
+	
+	<select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap" >
+		SELECT aab201,aab301,aab202,aab203,aab204,
+			aab205
+		FROM ab02
+		where aab201=#{id}
+	</select>
+	
+</mapper>

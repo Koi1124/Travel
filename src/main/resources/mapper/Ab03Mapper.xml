@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ab03Dao">
+	<select id="fuzzyGet" resultType="java.util.HashMap">
+		SELECT aab301,aaa301,aab302,aab303,aab304,
+				aab305,aab306,aab307,aab308,aab309,
+				aab310
+		FROM ab03 
+	<where>
+	<if test="name!=null and name!=''">
+		and aab302 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	</if>
+	<if test="intro!=null and intro!=''">
+		and aab303 LIKE CONCAT(CONCAT('%',#{intro}),'%')
+	</if>
+	</where>
+	limit #{begin}, #{num}
+	</select>
+	
+	<insert id="insertAttraction" parameterType="java.util.HashMap" >
+		INSERT into ab03(aaa301,aab302,aab303,aab304,aab305,aab306,aab307,aab308,aab309,aab310)
+		VALUES(#{aaa301},#{aab302},#{aab303},#{aab304},#{aab305},#{aab306},#{aab307},#{aab308},#{aab309},#{aab310})
+		;
+	</insert>
+	
+	<delete id="delAttraction" parameterType="java.lang.Integer" >
+		DELETE FROM ab03
+		WHERE aab301=#{id}
+	</delete>
+	
+	<update id="updateAttraction" parameterType="java.util.HashMap"  >
+		UPDATE ab03
+		SET aaa301=#{aaa301},aab302=#{aab302},aab303=#{aab303},aab304=#{aab304},aab305=#{aab305},
+		aab306=#{aab306},aab307=#{aab307},aab308=#{aab308},aab309=#{aab309},aab310=#{aab310}
+		WHERE aab301=#{id}
+	</update>
+		
+	<select id="fuzzySelectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM ab03
+	<where>
+	<if test="name!=null and name!=''">
+		and aab303 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	</if>
+	<if test="intro!=null and intro!=''">
+		and aab303 LIKE CONCAT(CONCAT('%',#{intro}),'%')
+	</if>
+	</where>
+	</select>
+	
+	<select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap" >
+		SELECT aab301,aaa301,aab302,aab303,aab304,
+				aab305,aab306,aab307,aab308,aab309,
+				aab310
+		FROM ab03
+		where aab301=#{id}
+	</select>
+	
+</mapper>

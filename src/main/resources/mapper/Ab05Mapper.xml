@@ -61,7 +61,7 @@
         ;
     </select>
 
-    <select id="getAllByState" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+    <select id="getAll" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT
         aab501,aaa101, aab502, aab503, aab504, aab505,aab506, aab507,aab508
         FROM ab05
