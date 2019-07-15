@@ -1,14 +1,10 @@
 package com.han.travel.controller;
 
-import com.han.travel.configuration.SessionConfig;
-import com.han.travel.service.CommentService;
 import com.han.travel.service.CompanyService;
-import com.han.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +81,76 @@ public class CompanyController
         return "together/publish";
     }
 
+    /**
+     * @Author Saki
+     * @Description 获取用户之前的报名信息
+     * @Date 2019/7/15
+     * @param map {
+     *           uid:用户id,
+     *           tid:结伴id
+     *        }
+     *
+     *  返回数据，如果没有返回 null
+     *   否则 map {
+     *            phone: 电话,
+     *            count:人数,
+     *            list:同行列表,
+     *            addition:备注,
+     *            status:状态,
+     *            sex:性别
+     *       }
+     * @return java.util.Map<java.lang.String,java.lang.String>
+     **/
+    @PostMapping("/check_join")
+    @ResponseBody
+    public Map<String, Object> checkJoin(@RequestBody Map<String, Object> map)
+    {
+        return companyService.getAppByUidAndTid(map);
+    }
 
+    /**
+     * @Author Saki
+     * @Description 结伴报名信息更改
+     * @Date 2019/7/15
+     * @param map {
+     *           tid: 结伴id,
+     *           phone: 联系方式,
+     *           count: 同行人数,
+     *           list: 同行名单,
+     *           addition: 备注,
+     *           uid: 用户id,
+     *           sex:性别
+     *        }
+     * @return boolean
+     **/
+    @PostMapping("/join_update")
+    @ResponseBody
+    public boolean joinUpdate(@RequestBody Map<String, Object> map)
+    {
+        return companyService.joinUpdate(map);
+    }
+
+    /**
+     * @Author Saki
+     * @Description 结伴报名
+     * @Date 2019/7/15
+     * @param map {
+     *            tid: 结伴id,
+     *            phone: 联系方式,
+     *            count: 同行人数,
+     *            list: 同行名单,
+     *            addition: 备注,
+     *            uid: 用户id,
+     *            sex:性别
+     *        }
+     * @return boolean
+     **/
+    @PostMapping("/join")
+    @ResponseBody
+    public boolean joinCompany(@RequestBody Map<String, Object> map)
+    {
+        return companyService.joinComp(map);
+    }
 
     @RequestMapping("")
     public String toHomepage()
@@ -117,25 +182,9 @@ public class CompanyController
             System.out.println(dto);
         }
         Map<String,Object> detail=companyService.getCompDetail(dto);
-        //System.out.println(detail);
         map.putAll(detail);
-
-        //map.put("commentInfo",companyService.getAllCompCommentByCIdAndByLatest(id));
-
-        //System.out.println(map);
 
         return "together/detail";
     }
-
-    //TODO 测试入口
-    @RequestMapping("/testIn")
-    public String test(HttpSession session)
-    {
-        session.setAttribute(SessionConfig.USER_ID, 1);
-        session.setAttribute(SessionConfig.USER_NAME, "saki");
-        session.setAttribute(SessionConfig.USER_LOGO, "https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/b8a9e6bbb4676bf884?t=1547043301");
-        return "together/homepage";
-    }
-
 
 }

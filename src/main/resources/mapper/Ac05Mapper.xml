@@ -5,12 +5,25 @@
     <insert id="insertCompApp" parameterType="java.util.Map">
         INSERT INTO ac05
         (aab501, aaa101, aac502, aac503, aac504,
-         aac505, aac506)
+         aac505, aac506, aac507)
         VALUES
-        (#{dto.aab501}, #{dto.aaa101}, #{dto.aab502}, #{dto.aab503}, #{dto.aab504},
-         #{dto.aab505}, 0)
+        (#{dto.tid}, #{dto.uid}, #{dto.phone}, #{dto.count}, #{dto.list},
+         #{dto.addition}, 0, #{dto.sex})
         ;
     </insert>
+
+    <select id="getAppByUidAndTid" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT aac502 as 'phone', aac503 as 'count', aac504 as 'list', aac505 as 'addition',
+               aac506 as 'status', aac507 as 'sex'
+        FROM ac05
+        WHERE aaa101=#{uid} AND aab501=#{tid};
+    </select>
+
+    <update id="updateAppByUidAndTid" parameterType="java.util.HashMap">
+        UPDATE ac05 SET aac502=#{phone}, aac503=#{count}, aac504=#{list}, aac505=#{addition},
+               aac506="0", aac507=#{sex}
+        WHERE aaa101=#{uid} AND aab501=#{tid};
+    </update>
 
     <update id="changeApplState">
         UPDATE ac05
