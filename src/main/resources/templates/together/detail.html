@@ -1,0 +1,201 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="'结伴' + ${title}">结伴 </title>
+    <meta name="renderer" content="webkit" />
+
+    <script type="text/javascript">
+        window.Env = {"has_logo":1,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","W_HTTP":"https:\/\/w.mafengwo.cn","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"https:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","TONGJI_HOST":"tongji.mafengwo.cn","UID":62964992,"CSTK":"956f8d3b3812cd0734afe5b3d75def0b_56c098b44f0588091c4f621451c811e0","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","MOBILE_BINDED":true};
+    </script>
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
+          rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1530619858.css"
+          rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
+
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
+    <script th:src="@{/asserts/js/commom/comment.js}"></script>
+    <script th:src="@{/asserts/js/together/detail.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
+
+    <style>
+        .rev-item {
+            padding: 25px 0 20px 40px;
+        }
+    </style>
+
+</head>
+<body>
+<input id="user_id" th:value="${session.user_id}" type="hidden"/>
+<input id="user_name" th:value="${session.user_name}" type="hidden"/>
+<input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
+<input id="comment_count" th:value="${commentCount}" type="hidden"/>
+<div class="container">
+    <div class="detail-hd">
+        <div class="cover" th:style="'background-image:url(' + ${mddPic} + ')'" style="background-image:url(https://n3-q.mafengwo.net/s5/M00/E5/67/wKgB3FHlDx2AeOipAAMkkOmX8pg42.jpeg?imageMogr2%2Fthumbnail%2F%211280x280r%2Fgravity%2FCenter%2Fcrop%2F%211280x280%2Fquality%2F100)">
+            <div class="bg"></div>
+            <div class="shadow"></div>
+        </div>
+        <div class="wrapper">
+            <div class="info">
+                <div class="middle">
+                    <h1 th:text="${title}">一起去新疆，有一起的么？</h1>
+                    <div class="total">
+                        <span>5016</span>人浏览
+                        <em class="dot"></em>
+                        <span th:text="${app}">10</span>人报名
+                        <em class="dot"></em>
+                        <span th:text="${star}">19</span>人关注
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="event-btns">
+            <div class="cell-join">
+                <a class="btn-join _j_together_add"><i></i><span>我要报名</span></a>
+            </div>
+            <div class="cell-collect">
+                <a class="btn-collect _j_together_care" th:if="${isCollect==null}"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect on" th:unless="${isCollect==null}"><i></i><span>已关注结伴</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row-bg2">
+        <div class="summary">
+            <ul class="clearfix">
+                <li><i class="icon-startTime"></i><span th:text="'出发时间：'+ ${date}">出发时间：2019-12-21</span></li>
+                <li><i class="icon-days"></i><span th:text="'大约：' + ${period} + '天'">大约：9天</span></li>
+                <li><i class="icon-destination"></i><span th:text="'目的地：'+ ${name}">目的地：伊犁|禾木|喀纳斯|新疆</span></li>
+                <li><i class="icon-departure"></i><span th:text="'出发地：'+ ${setout}">出发地：乌鲁木齐</span></li>
+                <li><i class="icon-people"></i><span th:text="'希望人数：'+ ${count} + '人'">希望人数：6人</span></li>
+            </ul>
+            <div class="contact _j_contact">
+                联系方式
+                <span class="invisible" >
+        ------报名后可见-------
+    </span>
+
+            </div>
+        </div>
+        <div class="wrapper clearfix">
+            <div class="detail-content">
+                <div class="sponsor clearfix">
+                    <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
+                    <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
+                    <div class="opt">
+
+                        <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
+                            <span class="follow" th:if="${isFollow==null}"><i></i>加关注</span>
+                            <span class="followed" th:unless="${isFollow==null}">已关注</span>
+                            <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
+
+                            <a class="btn-follow" data-japp="following" data-style="together" th:data-uid="${authorId}">
+                                <span class="follow"><i></i>加关注</span>
+
+                            </a>
+                            <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+                    </div>
+                </div>
+                <div class="desc _j_description">
+                    <div class="title" ><p th:text="${title}">一起去新疆，有一起的么？</p></div>
+                    <p th:text="${intro}">
+                    </p>
+                </div>
+                <div class="mod-joinform">
+                    <h3 class="mod-title">我要报名</h3>
+                    <div class="bd">
+                        <div class="item">
+                            <span class="label">联系电话</span>
+                            <div class="ui-input inp-tel" style="width: 280px;">
+                                <input class="_j_add_phone" type="text" placeholder="请输入您的联系方式">
+                            </div>
+                            <span class="tips"><span>*必填</span>：只对活动发起人和本人公开</span>
+                        </div>
+                        <div class="item">
+                            <span class="label">性别</span>
+                            <div class="gender">
+                                <span class="radio on _j_add_gender" data-gender="1"><span class="icon-radio"><i></i></span>男</span>
+                                <span class="radio _j_add_gender" data-gender="2"><span class="icon-radio"><i></i></span>女</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span class="label">同行人数</span>
+                            <div class="num">
+                                <div class="ui-input inp-num"><input type="text" class="_j_together_men"></div>
+                                <span class="gray" style="font-size: 14px">(不包括自己)</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span class="label">同行名单</span>
+                            <div class="ui-input inp-list"><input type="text" class="_j_together_names"></div>
+                        </div>
+                        <div class="item">
+                            <span class="label">备注</span>
+                            <div class="ui-textarea">
+                                <textarea class="_j_together_remark" style="height: 60px;">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="btn _j_submit">报名</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-side">
+                <div class="mod-joinlist">
+                    <div class="hd">
+                        <span><em th:text="${app}">10</em> 人报名</span>
+                        <i class="icon-arrow"></i>
+                    </div>
+                    <div class="bd">
+                        <ul class="clearfix" th:each="applicant:${applicants}">
+                            <li >
+                                <a class="avatar" href="#" target="_blank"><img th:src="@{applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
+                                <a class="name" href="#" target="_blank"><p th:text="${applicant.applicantName}">时光吹老了好少年</p></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ft toggle _j_show_more_add_btn">
+                        <a><i class="icon-arrow"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="wrapper clearfix">
+                <div class="mod-comment">
+                    <h3 class="mod-title">留言</h3>
+                    <div class="comment-form clearfix">
+                        <textarea class="_j_comment_content" style="height: 60px;"></textarea>
+                        <input id="join_submit" class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
+                    </div>
+                    <div class="_j_commentlist">
+                        <div class="rev-list">
+                            <ul id="comment-list">
+                                <!--评论列表-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="post_pagin" id="smallpager">
+                        <div id="pagination" class="page f1" style="text-align: center;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
