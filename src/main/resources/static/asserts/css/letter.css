@@ -1,0 +1,138 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.letterwrap {
+*zoom: 1; position: relative;
+}
+
+.letterwrap .panel {
+margin-left: 250px;
+margin-right: 250px;
+
+}
+
+
+
+.title {
+    padding: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+#voiceText {
+    padding-top: 2em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+    height: 40em;
+    overflow-y: auto;
+}
+
+.item {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.item-right {
+    flex-direction: row-reverse;
+}
+
+.img-head {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.img-head > img {
+    width: 50px;
+    height: 50px;
+}
+
+.item-left .img-head {
+    margin-right: 2em;
+    background-color: #337ab7;
+}
+
+.item-right .img-head {
+    margin-left: 2em;
+    background-color: #eee;
+}
+
+.content {
+    padding: 7px 10px 5px 20px;
+    border-radius: 5px;
+    position: relative;
+    max-width: calc(100% - 8.2em);
+    font-size: 18px;
+}
+
+.item-left .content {
+    
+    background-color: #ff9d00;
+    color: #fff;
+}
+
+.item-right .content {
+    
+    background-color: #eee;
+}
+
+.item-left .content:before,
+.item-right .content:after {
+    position: absolute;
+    content: "";
+    border: 0.6em solid;
+    top: 0;
+}
+
+.item-left .content:before {
+    left: -0.6em;
+    border-color: transparent transparent #ff9d00;
+    
+}
+
+.item-right .content:after {
+    right: -0.6em;
+    border-color: transparent transparent #eee;
+    
+}
+
+.edit_block {
+    background-color: #fafafa;
+    border-top: 1px solid #e5e5e5;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.edit_block .txt textarea {
+    font-size: 20px;
+    line-height: 24px;
+    height: 100%;
+    padding: 5px 20px;
+    border: none;
+    outline: none;
+    width: 990px;
+    background-color: #fafafa;
+    resize: none;
+}
+.edit_block .tips {
+    font-style: normal;
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    font-size: 14px;
+    color: #ccc;
+}
+.edit_block a {
+    background-color: transparent;
+    text-decoration: none;
+    color: #ff9d00;
+    cursor: pointer;
+}

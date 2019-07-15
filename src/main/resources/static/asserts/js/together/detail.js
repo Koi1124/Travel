@@ -143,7 +143,7 @@ $(document).ready(function () {
                         autoclose: 1500
                     });
                     $(".cell-collect").attr("class","cell-collect on");
-                    $(".cell-collect span").val("已关注结伴");
+                    $(".cell-collect span").text("已关注结伴");
                     $("._j_together_care").attr("class","btn-collect on");
                     $(".total span:eq(2)").text(Number(collectNum)+1);
                 }
