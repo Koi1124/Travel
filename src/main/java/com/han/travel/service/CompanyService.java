@@ -1,6 +1,7 @@
 package com.han.travel.service;
 
 import com.han.travel.dao.*;
+import com.han.travel.support.Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -360,6 +361,18 @@ public class CompanyService
     }
 
     /**
+     * @Author Saki
+     * @Description 更新报名信息
+     * @Date 2019/7/15
+     * @param map
+     * @return boolean
+     **/
+    public boolean joinUpdate(Map<String, Object> map)
+    {
+        return ac05Dao.updateAppByUidAndTid(map);
+    }
+
+    /**
      *@discription: 结伴发起用户更改参加表状态
      *@param aid
      *@date: 2019/7/5 8:40
@@ -413,5 +426,22 @@ public class CompanyService
     public List<Map<String,Object>> getMddInfo()
     {
         return aa03Dao.getAllKidNamesAndId();
+    }
+
+    /**
+     * @Author Saki
+     * @Description 查询用户之前的提交记录
+     * @Date 2019/7/15
+     * @param map
+     * @return java.util.Map<java.lang.String,java.lang.String>
+     **/
+    public Map<String, Object> getAppByUidAndTid(Map<String, Object> map)
+    {
+        Map<String, Object> result = ac05Dao.getAppByUidAndTid(map);
+        if (Utils.isNotEmpty(result))
+        {
+            return result;
+        }
+        return null;
     }
 }

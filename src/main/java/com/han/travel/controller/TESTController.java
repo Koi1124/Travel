@@ -34,7 +34,7 @@ public class TESTController
     public String toStr()
     {
         messageService.collect("wdnmd","1","我是你爸爸",1);
-        return "test/click";
+        return "test/new";
     }
 
 

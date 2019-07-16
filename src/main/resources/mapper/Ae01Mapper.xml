@@ -26,9 +26,9 @@
     </update>
 
     <select id="getDetailByClientAndToClient" resultType="java.util.HashMap">
-        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae104 AS 'userId', b.aaa102 AS 'userName', b.aaa106 AS 'userPic'
-        FROM ae01 a, aa01 b
-        WHERE a.aae104=b.aaa101 AND ((a.aae104=#{cid} AND a.aae105=#{tocid}) OR (a.aae104=#{tocid} AND a.aae105=#{cid}))
+        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae104 AS 'userId'
+        FROM ae01 a
+        WHERE ((a.aae104=#{cid} AND a.aae105=#{tocid}) OR (a.aae104=#{tocid} AND a.aae105=#{cid}))
         ORDER BY time
         ;
     </select>

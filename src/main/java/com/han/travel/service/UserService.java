@@ -173,4 +173,11 @@ public class UserService {
         }
         return false;
     }
+
+
+    public Map<String,Object> getUserPicAndNameById(int id)
+    {
+        return aa01Dao.getNameAndPicAndIdById(id);
+    }
+
 }

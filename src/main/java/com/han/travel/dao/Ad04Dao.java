@@ -3,6 +3,8 @@ package com.han.travel.dao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public interface Ad04Dao
 {
@@ -10,4 +12,9 @@ public interface Ad04Dao
 
     Integer getStarCountByMDDID(Integer id);
 
+    boolean insertCollect(@Param("map")Map<String,Object> map);
+
+    Integer isCollect(@Param("map")Map<String,Object> map);
+
+    boolean deleteCollect(@Param("map") Map<String, Object> map);
 }

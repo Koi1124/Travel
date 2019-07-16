@@ -22,8 +22,13 @@
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
 
-    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
-    <script th:src="@{/asserts/js/commom/comment.js}"></script>
+
+    <script th:inline="javascript">
+        var telephone = [[${telephone}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/common/comment.js}"></script>
     <script th:src="@{/asserts/js/together/detail.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
@@ -33,7 +38,6 @@
             padding: 25px 0 20px 40px;
         }
     </style>
-
 </head>
 <body>
 <input id="user_id" th:value="${session.user_id}" type="hidden"/>
@@ -65,7 +69,8 @@
                 <a class="btn-join _j_together_add"><i></i><span>我要报名</span></a>
             </div>
             <div class="cell-collect">
-                <a class="btn-collect _j_together_care"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect _j_together_care" th:if="${isCollect==null}"><i></i><span class="_j_together_text">关注此结伴</span></a>
+                <a class="btn-collect on" th:unless="${isCollect==null}"><i></i><span>已关注结伴</span></a>
             </div>
         </div>
     </div>
@@ -91,11 +96,20 @@
                 <div class="sponsor clearfix">
                     <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
                     <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
-                    <div class="opt">
-                        <a class="btn-follow" data-japp="following" data-style="together" th:data-uid="${authorId}">
-                            <span class="follow"><i></i>加关注</span>
+
+                    <div th:if="${session.user_id ne authorId}" class="opt">
+
+                        <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
+                            <span class="follow" th:if="${isFollow==null}"><i></i>加关注</span>
+                            <span class="followed" th:unless="${isFollow==null}">已关注</span>
+                            <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
                         </a>
+<<<<<<< HEAD
                         <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+
+=======
+                            <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+>>>>>>> 2ed84e590578dac6c9395f3d0798cc80ecf543d5
                     </div>
                 </div>
                 <div class="desc _j_description">
@@ -103,7 +117,7 @@
                     <p th:text="${intro}">
                     </p>
                 </div>
-                <div class="mod-joinform">
+                <div th:if="${session.user_id ne authorId}" class="mod-joinform">
                     <h3 class="mod-title">我要报名</h3>
                     <div class="bd">
                         <div class="item">
@@ -134,12 +148,11 @@
                         <div class="item">
                             <span class="label">备注</span>
                             <div class="ui-textarea">
-                                <textarea class="_j_together_remark" style="height: 60px;">
-                                </textarea>
+                                <textarea class="_j_together_remark" style="height: 60px;"></textarea>
                             </div>
                         </div>
                         <div class="item">
-                            <a class="btn _j_submit">报名</a>
+                            <a id="join_submit" class="btn _j_submit">报名</a>
                         </div>
                     </div>
                 </div>
@@ -152,16 +165,16 @@
                         <i class="icon-arrow"></i>
                     </div>
                     <div class="bd">
-                        <ul class="clearfix" th:each="applicant:${applicants}">
-                            <li >
-                                <a class="avatar" href="#" target="_blank"><img th:src="@{applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
+                        <ul class="clearfix" th:each="applicant,appStatus:${applicants}">
+                            <li>
+                                <a class="avatar" href="#" target="_blank"><img th:src="${applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
                                 <a class="name" href="#" target="_blank"><p th:text="${applicant.applicantName}">时光吹老了好少年</p></a>
                             </li>
                         </ul>
                     </div>
-                    <div class="ft toggle _j_show_more_add_btn">
-                        <a><i class="icon-arrow"></i></a>
-                    </div>
+                    <!--<div class="ft toggle _j_show_more_add_btn">-->
+                        <!--<a><i class="icon-arrow"></i></a>-->
+                    <!--</div>-->
                 </div>
 
             </div>
@@ -172,7 +185,7 @@
                     <h3 class="mod-title">留言</h3>
                     <div class="comment-form clearfix">
                         <textarea class="_j_comment_content" style="height: 60px;"></textarea>
-                        <input id="join_submit" class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
+                        <input class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
                     </div>
                     <div class="_j_commentlist">
                         <div class="rev-list">

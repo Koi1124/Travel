@@ -9,7 +9,7 @@ import java.util.Map;
 @Repository
 public interface Ac05Dao
 {
-    boolean insertCompApp(@Param("dto")Map<String,Object> dto);
+    boolean insertCompApp(@Param("dto")Map<String, Object> dto);
 
     boolean changeAppState(@Param("id") int id,@Param("state") int state);
 
@@ -19,4 +19,7 @@ public interface Ac05Dao
 
     List<Map<String,Object>> getApplicantsIdAndNameAndPicByCId(int cid);
 
+    Map<String, Object> getAppByUidAndTid(Map<String, Object> map);
+
+    boolean updateAppByUidAndTid(Map<String, Object> map);
 }
