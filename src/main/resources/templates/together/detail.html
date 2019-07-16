@@ -55,7 +55,7 @@
                 <div class="middle">
                     <h1 th:text="${title}">一起去新疆，有一起的么？</h1>
                     <div class="total">
-                        <span>5016</span>人浏览
+                        <span th:text="${view}">5016</span>人浏览
                         <em class="dot"></em>
                         <span th:text="${app}">10</span>人报名
                         <em class="dot"></em>
@@ -104,12 +104,7 @@
                             <span class="followed" th:unless="${isFollow==null}">已关注</span>
                             <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
                         </a>
-<<<<<<< HEAD
-                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
-
-=======
-                            <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
->>>>>>> 2ed84e590578dac6c9395f3d0798cc80ecf543d5
+                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}"  data-tpl="_j_together_sendmsg">发私信</a>
                     </div>
                 </div>
                 <div class="desc _j_description">

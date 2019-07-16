@@ -29,4 +29,6 @@ public interface Ab05Dao extends CheckDao
     List<Map<String,Object>> getSearchCompInfoByMDD(@Param("pid") int pid,@Param("order") String order,@Param("page") int page,@Param("offset") int offset);
 
     Integer getCompTotalCountByMDD(int pid);
+
+    boolean updateViewByComp(@Param("cid") int cid,@Param("view") int view);
 }

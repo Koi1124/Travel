@@ -190,6 +190,8 @@ public class CompanyController
         //System.out.println("detail:"+detail);
         map.putAll(detail);
 
+        map.put("view",companyService.handleView(id,(Integer) detail.get("view")));
+
         Map<String,Object> isCollectDto=new HashMap<>(3);
         isCollectDto.put("userId",session.getAttribute(SessionConfig.USER_ID));
         isCollectDto.put("collectId",id);

@@ -412,14 +412,19 @@ public class CompanyService
     {
         int id= Integer.parseInt((String) dto.get("id"));
         Map<String,Object> detail=ab05Dao.queryById(id);
-        for (Map.Entry m:detail.entrySet())
-        {
-            dto.put((String) m.getKey(),m.getValue());
-        }
+        dto.putAll(detail);
         int app=ac05Dao.getCompCount(id);
         dto.put("app",app);
         dto.put("applicants",ac05Dao.getApplicantsIdAndNameAndPicByCId(id));
         return dto;
+    }
+
+
+    public Integer handleView(int id,Integer view)
+    {
+        if (view==null)view=0;
+        ab05Dao.updateViewByComp(id,++view);
+        return view;
     }
 
 

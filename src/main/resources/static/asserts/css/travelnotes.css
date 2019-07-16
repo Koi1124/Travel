@@ -1,0 +1,284 @@
+a:hover {
+   
+    text-decoration: none;
+
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+.zy-container {
+    width: 1000px;
+    margin: 0 auto;
+}
+.zy-wrapper {
+    float: right;
+    width: 700px;
+}
+.zy-travelnotes .navbar {
+    margin-bottom: 20px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.tn-selected .tn-tag {
+    padding: 0 5px 0 20px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #666;
+    border-radius: 13px;
+}
+
+
+.tn-nav {
+    float: left;
+}
+.tn-nav .active {
+    padding-bottom: 6px;
+    border-bottom: 3px solid #ff9d00;
+    position: relative;
+    z-index: 11;
+}
+.tn-nav .tn-nav-hot {
+    width: 170px;
+}
+.tn-nav li {
+    float: left;
+    width: 150px;
+    display: inline;
+    text-align: center;
+}
+.tn-nav .active a {
+    color: #ff9d00;
+}
+.tn-nav li a {
+    color: #333;
+    font-size: 18px;
+}
+.tn-nav .tn-nav-new {
+    width: 120px;
+}
+.tn-nav li a {
+    color: #333;
+    font-size: 18px;
+}
+.tn-write {
+    float: right;
+    width: 140px;
+}
+.tn-write .btn-add {
+    display: block;
+    height: 36px;
+    background-color: #ff9d00;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+}
+.tn-write .btn-add i {
+    background: url(https://css.mafengwo.net/images/index-sprites9.png) no-repeat;
+    display: inline-block;
+    margin-right: 5px;
+    width: 18px;
+    height: 17px;
+    background-position: 0 0;
+    overflow: hidden;
+    vertical-align: -3px;
+}
+
+.tn-item {
+    padding: 15px 0;
+    height: 150px;
+}
+.tn-item:hover {
+    background-color: #f8f8f8;
+    padding: 15px;
+    margin: 0 -15px;
+}
+.tn-image {
+    float: left;
+    width: 220px;
+    height: 150px;
+    position: relative;
+}
+.tn-image img {
+    width: 220px;
+    height: 150px;
+    border: 0;
+    vertical-align: middle;
+}
+.tn-wrapper {
+    float: right;
+    width: 455px;
+    height: 150px;
+}
+.tn-item dl {
+    height: 117px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.tn-item dt {
+    height: 26px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 26px;
+}
+.tn-item dd {
+    line-height: 20px;
+    font-size: 14px;
+    overflow: hidden;
+    margin-inline-start:0px;
+}
+.tn-extra {
+    height: 33px;
+    overflow: hidden;
+    line-height: 33px;
+}
+.tn-extra .tn-ding {
+    float: right;
+    color: #ff9d00;
+    font-size: 14px;
+    text-align: right;
+}
+.tn-extra .tn-ding em {
+    font-style: normal;
+}
+.tn-extra .btn-ding {
+    display: inline-block;
+    float: right;
+    margin-left: 8px;
+    width: 38px;
+    height: 33px;
+    background-position: -60px 0!important;
+    overflow: hidden;
+    background-image: url(https://css.mafengwo.net/images/index-sprites8@2x.png);
+    background-size: 200px;
+}
+
+
+.tn-extra .tn-place {
+    margin-right: 5px;
+}
+.tn-extra .tn-place i {
+    float: left;
+    margin: 8px 5px 0 0;
+    width: 14px;
+    height: 16px;
+    background-position: 0 -50px!important;
+    overflow: hidden;
+    background-image: url(https://css.mafengwo.net/images/index-sprites8@2x.png);
+    background-size: 200px;
+}
+.tn-extra .tn-place a {
+    color: #666;
+}
+
+.tn-extra span {
+    display: inline-block;
+}
+.tn-item dt a {
+    width: 360px;
+}
+.tn-item dd a {
+    color: #666;
+}
+.tn-extra .tn-place i {
+    float: left;
+    margin: 8px 5px 0 0;
+    width: 14px;
+    height: 16px;
+    background-position: 0 -50px!important;
+    overflow: hidden;
+}
+.tn-extra .tn-user {
+    margin-right: 10px;
+}
+.tn-extra .tn-nums {
+    font-size: 14px;
+    color: #999;
+}
+.tn-extra .tn-nums i {
+    float: left;
+    margin: 10px 5px 0 0;
+    width: 18px;
+    height: 14px;
+    background-position: -30px -50px!important;
+    background-image: url(https://css.mafengwo.net/images/index-sprites8@2x.png);
+    background-size: 200px;
+}
+.tn-item dt a {
+    width: 420px;
+    height: 26px;
+    display: block;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+
+.m-pagination {
+    padding-right: 0;
+    padding: 20px 5px;
+    line-height: 24px;
+    text-align: right;
+    font-size: 12px;
+    color: #999;
+}
+
+
+.zy-aside {
+    float: left;
+    width: 260px;
+}
+.asidebox {
+    margin-bottom: 30px;
+}
+.asidebox-hd {
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 12px;
+}
+.asidebox-hd .hd-title {
+    float: left;
+    font-size: 18px;
+    color: #333;
+    font-weight: normal;
+}
+.asidebox-hd .hd-right {
+    margin: 15px;
+    float: right;
+    color: #999;
+}
+
+
+.gonglve-item {
+    margin-bottom: 10px;
+}
+.gonglve-item .img {
+    position: relative;
+    height: 140px;
+    margin-bottom: 10px;
+}
+.gonglve-item h3 {
+    margin: 20px 0 5px;
+    width: 260px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+}
+.box-gonglve h3 a {
+    color: #333;
+}
