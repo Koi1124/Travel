@@ -4,9 +4,9 @@
 <head>
     <title>私信</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/scrollbar.css" th:href="@{/asserts/css/scrollbar.css}">
-    <link rel="stylesheet" href="css/index.css" th:href="@{/asserts/css/letter.css}" />
+    <link rel="stylesheet" href="asserts/css/navbar.css">
+    <link rel="stylesheet"  th:href="@{/asserts/css/scrollbar.css}">
+    <link rel="stylesheet"  th:href="@{/asserts/css/letter.css}" />
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -66,14 +66,13 @@
             <div class="title" th:text="${toClient.name}">用户id</div>
             <div id="voiceText">
                 <div id="all_dialog" th:each="letter:${detail}">
+                    <div class="item-time" th:text="${letter.time}"></div>
                     <div class="item item-left" th:if="${session.user_id} ne ${letter.userId}">
                         <div class="img-head"><img src="image/headL.png" th:src="${toClient.pic}" alt="头像"></div>
-                        <div th:text="${letter.time}"></div>
                         <div class="content" th:text="${letter.content}"></div>
                     </div>
                     <div class="item item-right" th:if="${session.user_id} eq ${letter.userId}">
                         <div class="img-head"><img src="image/headR.png" th:src="${session.user_logo}" alt="头像"></div>
-                        <div th:text="${letter.time}"></div>
                         <div class="content" th:text="${letter.content}"></div>
                     </div>
                 </div>

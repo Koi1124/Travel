@@ -1,5 +1,6 @@
 package com.han.travel.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -18,6 +19,10 @@ public interface Aa01Dao
     boolean updateLogo(Map<String, String> map);
 
     Integer updatePassword(Map<String, String> map);
+    
+    boolean updateAdminPwd(@Param("newPassword") String newPassword,@Param("oldPassword") String oldPassword);
 
     boolean addUser(Map<String, Object> map);
+    
+    String getPwdByName(String name);
 }
