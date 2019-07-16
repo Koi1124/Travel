@@ -1,19 +1,19 @@
 package com.han.travel.controller;
 
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.han.travel.dao.Aa02Dao;
 import com.han.travel.dao.Ab01Dao;
 import com.han.travel.dao.Ab04Dao;
 import com.han.travel.dao.Ab05Dao;
+import com.han.travel.service.AdminService;
 import com.han.travel.support.PageBean;
 
 @Controller
@@ -21,6 +21,9 @@ public class AdminController
 {
 	@Autowired
     private Ab05Dao ab05Dao;
+	
+	@Autowired
+    private AdminService adminService;
 	
 	@Autowired
 	private Aa02Dao aa02Dao;
@@ -31,16 +34,35 @@ public class AdminController
 	@Autowired
     private Ab01Dao ab01Dao;
 	
+	
 	@RequestMapping("/admin")
-    public String toIndex(Map<String,Object> dto)
+    public String toAdminLogin(Map<String,Object> dto)
     {
-    	return "admin/index";
+    	return "admin/adminLogin";
     }
-	@RequestMapping("/admin/index")
-    public String toindex(Map<String,Object> dto)
+	
+	@RequestMapping("/editPassword")
+    public String toEditPassword(Map<String,Object> dto)
     {
-    	return "admin/index";
+    	return "admin/editPassword";
     }
+	
+	@RequestMapping("/admin/login")
+    public String toIndex(HttpServletRequest request)
+    {	
+		String username=(String) request.getSession().getAttribute("username");
+		
+		if(username!=null &&username.equals("admin"))
+		{
+			return "admin/index";
+		}
+		else
+		{
+			return "admin/error";
+		}
+    	
+    }
+
 	
 	@RequestMapping("/company_list")
     public String toCompany_List(Map<String,Object> dto)
@@ -128,6 +150,33 @@ public class AdminController
 		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab01Dao, "ab01");
     }
 	
+	@PostMapping("/admin/check")
+    @ResponseBody					
+    public boolean loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
+    {
+		 if(adminService.adminCheck(map))
+		 {
+			 request.getSession().setAttribute("username", map.get("username"));
+			 request.getSession().setAttribute("password", map.get("password"));
+			 return true;
+		 }else
+		 {
+			 return false;
+		 }
+    }
+	
+	@PostMapping("/admin/editPassword")
+    @ResponseBody					
+    public boolean editPassword(@RequestBody Map<String, Object> map)
+    {
+		 if(adminService.updatePwd(map))
+		 {
+			 return true;
+		 }else
+		 {
+			 return false;
+		 }
+    }
 	
     /**
      * @Author ayds
@@ -163,5 +212,7 @@ public class AdminController
     {	
 		return ab01Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
     }
+	
+	
 	
 }
