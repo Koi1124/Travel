@@ -24,6 +24,7 @@ $(function () {
         async: true,
         success: function (result) {
             if (result != null) {
+                $(".invisible").text(telephone);
                 $("._j_add_phone").attr("value", result.phone);
                 $("._j_together_men").attr("value", result.count);
                 $("._j_together_names").attr("value", result.list);
@@ -115,52 +116,89 @@ $(document).ready(function () {
     });
 
     // 结伴关注点击事件
-    $("._j_together_care").click(function () {
-        var data;
+    $(".btn-collect").click(function () {
         var collectNum=$(".total span:eq(2)").text();
-        console.log(collectNum);
         var userId=$("#user_id").val();
-        var path=window.location.pathname;
-        var collectId=path.substr(path.lastIndexOf("/")).split(".")[0].split("/")[1];
-        data={
+        var data={
             userId:userId,
-            collectId:collectId,
+            collectId:pid,
             type:5
+        };
+        if ($(this).attr("class") == "btn-collect _j_together_care") {
+            $.ajax({
+                type: "post",
+                url: "/collect",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                dataType: "json",
+                async: true,
+                success:function (result) {
+                    if (result) {
+                        spop({
+                            template: '成功关注',
+                            position  : 'top-center',
+                            style: 'success',
+                            autoclose: 1500
+                        });
+                        $(".cell-collect span").text("已关注结伴");
+                        $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
+                            $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
+                        });
+                        $(".btn-collect").attr("class","btn-collect on");
+                        $(".total span:eq(2)").text(Number(collectNum)+1);
+                    }
+                    else {
+                        spop({
+                            template: '网络故障，请稍后再试',
+                            position  : 'top-center',
+                            style: 'error',
+                            autoclose: 1500
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         }
-        $.ajax({
-            type: "post",
-            url: "/collect",
-            contentType: "application/json",
-            data: JSON.stringify(data),
-            dataType: "json",
-            async: true,
-            success:function (result) {
-                if (result) {
-                    spop({
-                        template: '成功关注',
-                        position  : 'top-center',
-                        style: 'success',
-                        autoclose: 1500
-                    });
-                    $(".cell-collect").attr("class","cell-collect on");
-                    $(".cell-collect span").val("已关注结伴");
-                    $("._j_together_care").attr("class","btn-collect on");
-                    $(".total span:eq(2)").text(Number(collectNum)+1);
+        else {
+            $.ajax({
+                type: "post",
+                url: "/uncollect",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                dataType: "json",
+                async: true,
+                success:function (result) {
+                    if (result) {
+                        spop({
+                            template: '成功取消关注',
+                            position  : 'top-center',
+                            style: 'success',
+                            autoclose: 1500
+                        });
+                        $(".cell-collect span").text("关注此结伴");
+                        $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
+                            $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
+                        });
+                        $(".btn-collect").attr("class","btn-collect _j_together_care");
+                        $(".total span:eq(2)").text(Number(collectNum)-1);
+                    }
+                    else {
+                        spop({
+                            template: '网络故障，请稍后再试',
+                            position  : 'top-center',
+                            style: 'error',
+                            autoclose: 1500
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
                 }
-                else {
-                    spop({
-                        template: '网络故障，请稍后再试',
-                        position  : 'top-center',
-                        style: 'error',
-                        autoclose: 1500
-                    });
-                }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        })
-    })
+            });
+        }
+    });
 
 
     // 用户关注点击事件
@@ -244,4 +282,83 @@ $(document).ready(function () {
         }
     })
 
-})
+});
+
+//关注结伴
+function star(data) {
+
+    $.ajax({
+        type: "post",
+        url: "/collect",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        dataType: "json",
+        async: true,
+        success:function (result) {
+            if (result) {
+                spop({
+                    template: '成功关注',
+                    position  : 'top-center',
+                    style: 'success',
+                    autoclose: 1500
+                });
+                $(".cell-collect span").text("已关注结伴");
+                $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
+                    $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
+                });
+                $(".btn-collect").attr("class","btn-collect on");
+                $(".total span:eq(2)").text(Number(collectNum)+1);
+            }
+            else {
+                spop({
+                    template: '网络故障，请稍后再试',
+                    position  : 'top-center',
+                    style: 'error',
+                    autoclose: 1500
+                });
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+//取消关注
+function starClear(data) {
+    $.ajax({
+        type: "post",
+        url: "/uncollect",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        dataType: "json",
+        async: true,
+        success:function (result) {
+            if (result) {
+                spop({
+                    template: '成功取消关注',
+                    position  : 'top-center',
+                    style: 'success',
+                    autoclose: 1500
+                });
+                $(".cell-collect span").text("关注此结伴");
+                $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
+                    $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
+                });
+                $(".btn-collect").attr("class","btn-collect _j_together_care");
+                $(".total span:eq(2)").text(Number(collectNum)-1);
+            }
+            else {
+                spop({
+                    template: '网络故障，请稍后再试',
+                    position  : 'top-center',
+                    style: 'error',
+                    autoclose: 1500
+                });
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}

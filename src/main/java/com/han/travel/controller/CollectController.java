@@ -24,7 +24,22 @@ public class CollectController
         return collectService.addCollect(map);
     }
 
-
-
+    /**
+     * @Author Saki
+     * @Description 取消关注
+     * @Date 2019/7/15
+     * @param map {
+     *           userId:,
+     *           collectId:,
+     *           type:
+     *        }
+     * @return boolean
+     **/
+    @RequestMapping("/uncollect")
+    @ResponseBody
+    public boolean uncollect(@RequestBody Map<String,Object> map)
+    {
+        return collectService.deleteCollect(map);
+    }
 
 }

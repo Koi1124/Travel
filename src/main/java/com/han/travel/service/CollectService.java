@@ -21,4 +21,9 @@ public class CollectService
     {
         return ad04Dao.isCollect(dto);
     }
+
+    public boolean deleteCollect(Map<String,Object> dto)
+    {
+        return ad04Dao.deleteCollect(dto);
+    }
 }

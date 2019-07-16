@@ -16,5 +16,5 @@ public interface Ad04Dao
 
     Integer isCollect(@Param("map")Map<String,Object> map);
 
-
+    boolean deleteCollect(@Param("map") Map<String, Object> map);
 }

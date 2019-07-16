@@ -22,8 +22,12 @@
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
 
-    <script th:src="@{/asserts/js/commom/jquery.js}"></script>
-    <script th:src="@{/asserts/js/commom/comment.js}"></script>
+    <script th:inline="javascript">
+        var telephone = [[${telephone}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/common/comment.js}"></script>
     <script th:src="@{/asserts/js/together/detail.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
@@ -33,7 +37,6 @@
             padding: 25px 0 20px 40px;
         }
     </style>
-
 </head>
 <body>
 <input id="user_id" th:value="${session.user_id}" type="hidden"/>
@@ -93,18 +96,14 @@
                     <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
                     <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
 
-                    <div th:if="${session.user_id ne authorId} class="opt">
+                    <div th:if="${session.user_id ne authorId}" class="opt">
 
                         <a class="btn-follow" data-japp="following" data-style="together" data-uid="84303163" th:data-uid="${authorId}">
                             <span class="follow" th:if="${isFollow==null}"><i></i>加关注</span>
                             <span class="followed" th:unless="${isFollow==null}">已关注</span>
                             <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
-
-                            <a class="btn-follow" data-japp="following" data-style="together" th:data-uid="${authorId}">
-                                <span class="follow"><i></i>加关注</span>
-
-                            </a>
-                            <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+                        </a>
+                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
 
                     </div>
                 </div>
@@ -168,9 +167,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="ft toggle _j_show_more_add_btn">
-                        <a><i class="icon-arrow"></i></a>
-                    </div>
+                    <!--<div class="ft toggle _j_show_more_add_btn">-->
+                        <!--<a><i class="icon-arrow"></i></a>-->
+                    <!--</div>-->
                 </div>
 
             </div>

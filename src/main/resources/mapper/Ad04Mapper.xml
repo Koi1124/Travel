@@ -28,4 +28,10 @@
         ;
     </select>
 
+    <delete id="deleteCollect" parameterType="java.util.HashMap">
+        DELETE FROM ad04
+        WHERE aaa101=#{map.userId} AND aad403=#{map.type} AND aad404=#{map.collectId}
+        ;
+    </delete>
+
 </mapper>
