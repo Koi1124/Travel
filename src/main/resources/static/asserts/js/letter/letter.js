@@ -1,13 +1,13 @@
-var itemL = '<div class="item item-left">\n' +
+var itemL = '<div class="item-time">'+ curentTime() +'</div>' +
+    '       <div class="item item-left">\n' +
     '            <div class="img-head"><img src="'+ toClientPic +'" alt="头像"></div>\n' +
-    '            <div>'+ curentTime() +'</div>' +
     '            <div class="content">\n' +
     '                CONTENT-LEFT\n' +
     '            </div>\n' +
     '        </div>';
-var itemR = '<div class="item item-right">\n' +
+var itemR = '<div class="item-time">'+ curentTime() +'</div>' +
+    '           <div class="item item-right">\n' +
     '            <div class="img-head"><img src="'+ user_logo +'" alt="头像"></div>\n' +
-    '            <div>'+ curentTime() +'</div>' +
     '            <div class="content">\n' +
     '                CONTENT-RIGHT\n' +
     '            </div>\n' +
