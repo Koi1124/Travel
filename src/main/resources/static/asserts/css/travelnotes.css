@@ -220,7 +220,40 @@ img {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.tn-selected .tn-tag {
+    padding: 0 5px 0 20px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #666;
+    border-radius: 13px;
+}
+.zy-travelnotes .tn-tag {
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #f6f6f6;
+    border: 1px solid #e5e5e5;  
+}
 
+.zy-travelnotes .tn-tag:hover {
+    text-decoration: none;
+    background-color: #ff9d00;
+    border-color: #ff9d00;
+    color: #fff;
+}
+.tn-selected .tn-tag i {
+    display: inline-block;
+    margin-left: 4px;
+    border: 7px solid #f6f6f6;
+    width: 5px;
+    height: 5px;
+    background: url(https://css.mafengwo.net/images/index-sprites9.png) no-repeat -135px -30px;
+    vertical-align: -4px;
+    border-radius: 20%;
+}
+.tn-selected .tn-tag:hover i {
+    background-position: -145px -30px;
+    border-color: #ff9d00;
+}
 
 
 
