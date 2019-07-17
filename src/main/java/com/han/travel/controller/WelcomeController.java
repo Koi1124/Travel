@@ -1,7 +1,10 @@
 package com.han.travel.controller;
 
+import com.han.travel.configuration.SessionConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName WelcomeController
@@ -24,6 +27,13 @@ public class WelcomeController
     public String agencyLogin()
     {
         return "login";
+    }
+
+    @RequestMapping("/noteTest")
+    public String noteTest(HttpSession session)
+    {
+        session.setAttribute(SessionConfig.USER_ID, 1);
+        return "note/edit";
     }
 
 }

@@ -202,15 +202,6 @@ public class CompanyController
         return "together/detail";
     }
 
-    //TODO 测试入口
-    @RequestMapping("/testIn")
-    public String test(HttpSession session)
-    {
-        session.setAttribute(SessionConfig.USER_ID, 1);
-        session.setAttribute(SessionConfig.USER_NAME, "saki");
-        session.setAttribute(SessionConfig.USER_LOGO, "https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/b8a9e6bbb4676bf884?t=1547043301");
-        return "together/homepage";
-    }
 
     @RequestMapping("/testUser")
     public String tests(HttpSession session)

@@ -1,0 +1,659 @@
+.a {
+    background-color: transparent;
+    text-decoration: none;
+    color: #ff9d00;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.i, cite, em, var, address, dfn {
+    font-style: italic;
+
+}
+.set_index {
+    height: 480px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/page_bg.jpg) center 0 no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.set_bg {
+    background-size: cover;
+}
+
+.set_bg, .set_map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.set_page {
+    display: block;
+}
+
+.set_page {
+    height: 67px;
+    padding: 200px 0 0 275px;
+    width: 705px;
+    margin: 0 auto;
+    position: relative;
+}
+.set_page a.set_add {
+    width: 67px;
+    height: 67px;
+    float: left;
+    margin-right: 20px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/nn_sprite_v29.png) -10px 0 no-repeat;
+    position: relative;
+}
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    /* overflow: hidden; */
+}
+
+.set_page h2 {
+    margin-top: 2px;
+}
+
+.set_page h2, .set_page h2 a {
+    font-size: 24px;
+    color: #333;
+    font-weight: normal;
+}
+.set_page p {
+    margin-top: 12px;
+    font-size: 16px;
+}
+.set_title {
+    width: 938px;
+    padding: 20px 20px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #fff;
+    line-height: 20px;
+    position: absolute;
+    bottom: 25px;
+    z-index: 1;
+    left: 50%;
+    margin-left: -489px;
+    box-shadow: 0 2px 2px rgba(110,98,85,.5);
+    transition: .2s linear 0s;
+    -webkit-transition: .2s linear 0s;
+}
+.set_title input {
+    width: 868px;
+    height: 20px;
+    line-height: 22px;
+    font-size: 18px;
+    border: 0;
+
+    color: #666;
+    float: left;
+}
+
+
+.set_btn a {
+    width: 162px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 34px;
+    overflow: hidden;
+    color: #fff;
+    display: block;
+}
+
+.set_btn {
+    width: 162px;
+    position: absolute;
+    left: 50%;
+    bottom: 95px;
+    margin-left: -489px;
+    background-color: #8b8b8b;
+    background-color: rgba(0,0,0,.7);
+    z-index: 11;
+    overflow: hidden;
+}
+.set_btn a i {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v35.png) -83px -630px no-repeat;
+    vertical-align: -2px;
+    float: left;
+    margin: 7px 10px 0 13px;
+}
+
+.set_btn a:hover, .set_btn a.on, .set_btn a.a_set, .set_btn li:hover .a_add {
+    background: #6a6a6a;
+    background-color: rgba(0,0,0,.2);
+    text-decoration: none;
+    color: #ff8a00;
+}
+
+
+
+
+.container {
+    margin-bottom: 0;
+}
+
+.container {
+    width: 980px;
+    margin: 40px auto;
+}
+
+.content {
+    min-height: 350px;
+    padding-bottom: 100px;
+}
+
+.content {
+    float: left;
+    width: 680px;
+    font-size: 15px;
+    color: #444;
+    line-height: 28px;
+    position: relative;
+}
+
+
+.textarea {
+    width: 100%;
+    min-height: 26px;
+    display: block;
+    border: 0;
+    resize: none;
+    line-height: 1.8;
+    padding: 0;
+}
+
+
+#textarea {
+    display: block;
+    overflow: hidden;
+    height: 18px;
+}
+
+
+
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    outline:none;
+}
+
+.sidebar {
+    position: relative;
+    z-index: 11;
+}
+
+.sidebar {
+    float: right;
+    width: 240px;
+    padding-top: 10px;
+}
+
+
+.sidebar-item {
+    margin-bottom: 25px;
+    position: relative;
+    line-height: 28px;
+}
+.add-btn {
+    color: #333;
+    display: block;
+    font-size: 18px;
+    color: #333;
+}
+
+.add-btn .i{
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+
+    float: left;
+    margin-right: 10px;
+    width: 28px;
+    height: 28px;
+}
+
+.add-btn .icon-photo {
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+
+    float: left;
+    margin-right: 10px;
+    width: 28px;
+    height: 28px;
+}
+.add-btn:hover .icon-photo {
+    background-position: 0 -30px;
+}
+
+
+
+
+.add-btn .icon-title {
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+    background-position: -60px 0;
+    float: left;margin-right: 10px;
+    width: 28px;
+    height: 28px;
+}
+.add-btn:hover .icon-title {
+    background-position: -60px -30px;
+}
+
+
+.side-save .btn-save:hover {
+    text-decoration: none;
+    background-color: #ff9d00;
+    color: #fff;
+    border-color: #e6e6e6;
+}
+
+.side-save .btn-save {
+    margin-top: 5px;
+    display: block;
+    width: 138px;
+    height: 32px;
+    border: 1px solid #e6e6e6;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 16px;
+    line-height: 32px;
+    transition: all .1s linear;
+}
+
+
+.side-save {
+    margin: 20px 0 30px;
+    color: #999;
+    line-height: 20px;
+}
+.side_title {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+    line-height: 15px;
+}
+
+.catalog_content {
+    line-height: 26px;
+    font-size: 14px;
+}
+.catalog_content li a {
+    color: #999;
+}
+.catalog_content .catalog_num {
+    float: left;
+
+    color: #ccc;
+}
+
+
+
+
+.add-panel {
+    position: fixed;
+    left: 30%;
+    top: 250px;
+    width: 40%;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+    z-index: 10000;
+}
+.add-panel-title .inner {
+    padding: 40px 35px;
+}
+.a-form {
+    margin: 10px 0;
+}
+.a-inpwrap {
+    float: left;
+    display: inline-block;
+    width: 75%;
+    position: relative;
+    margin-bottom: 48px;
+}
+
+.a-inptxt {
+    width: 90%;
+    height: 20px;
+    padding: 19px 20px;
+    background-color: #efefef;
+    border: 1px solid #efefef;
+    line-height: 20px;
+    font-size: 18px;
+    color: #333;
+    border-radius: 30px;
+    transition: all .2s linear;
+}
+.a-inpwrap input:focus{
+    outline: 0;
+    background-color: #fff;
+    border-color: #ff9d00;
+    box-shadow: 0 0 2px rgba(255,157,0,.5);
+}
+
+.a-btn {
+    float: left;
+    display:inline-block;
+    margin-left: 8px;
+    line-height: 58px;
+    width: 98px;
+    border: 1px solid #ff9d00;
+    text-align: center;
+    font-size: 20px;
+    color: #ff9d00;
+    border-radius: 30px;
+    transition: all .2s linear;
+}
+
+
+.content .add_pic, .content {
+    margin: 0;
+    padding: 20px 0;
+}
+
+
+.add_pic {
+    position: relative;
+    background-color: #fff;
+    margin-bottom: 18px;
+}
+.content .turn {
+    padding: 0 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #000;
+    background: rgba(0,0,0,0.7);
+}
+.turn .right {
+    background-position: -439px -61px;
+}
+.turn .close {
+    background-position: -460px -50px;
+    margin-right: 0;
+}
+.turn .go_set_page {
+    font-weight: normal;
+    color: #fff;
+    margin: 0 8px;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.turn i {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v35.png) -439px -36px no-repeat;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.action-ft {
+    height: 60px;
+    padding: 30px 0;
+}
+.action-wrap {
+    margin: 0 auto;
+    position: relative;
+}
+.action-ft .item-btn {
+    width: 300px;
+    padding-right: 300px;
+    text-align: right;
+    margin: auto;
+}
+
+
+
+.btn-publish {
+    display: inline-block;
+    margin-left: 25px;
+    padding: 0 55px;
+    height: 60px;
+    background: -webkit-linear-gradient(-30deg,transparent 0,rgba(255,138,0,.3) 30%,rgba(255,138,0,1) 90%);
+    background-color: #ff9d00;
+    border-radius: 30px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    line-height: 60px;
+    text-align: center;
+    box-shadow: 0 0 7px rgba(0,0,0,0.15);
+    vertical-align: middle;
+}
+.btn-publish:hover {
+    text-decoration: none;
+    background-color: #ff9d00;
+    color: rgb(255, 255, 255);
+
+}
+
+.article_title {
+    margin: 20px 0;
+    position: relative;
+}
+.article_title h2 {
+    height: 50px;
+    overflow: hidden;
+    color: #222;
+    font-size: 24px;
+    line-height: 50px;
+}
+.article_title .handle {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+}
+
+
+.article_title .handle a {
+    margin-left: 10px;
+    width: 22px;
+    height: 23px;
+    line-height: 100px;
+    overflow: hidden;
+    display: none;
+
+}
+
+.article_title:hover .handle a {
+    display: inline-block;
+}
+.add-panel:after, .img-mobile .a-question, .pl-schbar i, .pub-last a.close-btn i, .tit-style .add i, .video-hd .item i, .article_title .handle a, .side-save .btn-save i, .edit-btn-music .icon-music, .edit-btn-music .icon-pen {
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+}
+
+
+
+.article_title .handle .edit {
+    background-position: -150px -90px;
+}
+
+
+.article_title .handle .delete {
+    background-position: -150px -60px;
+}
+
+ul li {
+    list-style: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+li a:hover {
+    color:#eb9e19;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    width: 10px;
+    height: 16px;
+    background-color: #F5F5F5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(227, 227, 227, 0.3);
+    border-radius: 10px;
+    background-color: #EEEEEE;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(238, 238, 238, 0.3);
+    background-color: #a1a1a1;
+}
+
+.mask {
+    position: fixed;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(15, 15, 15, 0.63);
+    z-index: 999;
+    display: none;
+}
+
+
+.loading{
+    position:fixed;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    display: none;
+}
+.wandering-cubes{
+    width:160px;
+    height:160px;
+    margin-top:auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left:auto;
+    position:fixed;
+    z-index: 10000;
+}
+.cube1,.cube2{
+    background-color: #ffa800;
+    width:50%;
+    height:50%;
+    position:absolute;
+    top:0;
+    left:0;
+    -webkit-animation:cubemove 1.8s infinite ease-in-out;
+    -moz-animation:cubemove 1.8s infinite ease-in-out;
+    -o-animation:cubemove 1.8s infinite ease-in-out;
+    animation:cubemove 1.8s infinite ease-in-out
+}
+.cube2{
+    -webkit-animation-delay:-.9s;
+    -moz-animation-delay:-.9s;
+    -o-animation-delay:-.9s;
+    animation-delay:-.9s
+}
+@-webkit-keyframes cubemove{
+    25%{
+        -webkit-transform:translateX(84px) rotate(-90deg) scale(.5)
+    }
+    50%{
+        -webkit-transform:translateX(84px) translateY(84px) rotate(-180deg)
+    }
+    75%{
+        -webkit-transform:translateX(0px) translateY(84px) rotate(-270deg) scale(.5)
+    }
+    100%{
+        -webkit-transform:rotate(-360deg)
+    }
+
+}
+@-moz-keyframes cubemove{
+    25%{
+        -moz-transform:translateX(84px) rotate(-90deg) scale(.5)
+    }
+    50%{
+        -moz-transform:translateX(84px) translateY(84px) rotate(-180deg)
+    }
+    75%{
+        -moz-transform:translateX(0px) translateY(84px) rotate(-270deg) scale(.5)
+    }
+    100%{
+        -moz-transform:rotate(-360deg)
+    }
+
+}
+@-o-keyframes cubemove{
+    25%{
+        -o-transform:translateX(84px) rotate(-90deg) scale(.5)
+    }
+    50%{
+        -o-transform:translateX(84px) translateY(84px) rotate(-180deg)
+    }
+    75%{
+        -o-transform:translateX(0px) translateY(84px) rotate(-270deg) scale(.5)
+    }
+    100%{
+        -o-transform:rotate(-360deg)
+    }
+
+}
+@keyframes cubemove {
+    25% {
+        transform: translateX(84px) rotate(-90deg) scale(.5)
+    }
+    50% {
+        transform: translateX(84px) translateY(84px) rotate(-180deg)
+    }
+    75% {
+        transform: translateX(0px) translateY(84px) rotate(-270deg) scale(.5)
+    }
+    100% {
+        transform: rotate(-360deg)
+    }
+}
+
+
+.mop-load-div{
+    box-pack:center;
+    box-align:center;
+    height:200px;
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    -o-box-pack:center;
+    -o-box-align:center
+}

@@ -33,4 +33,26 @@
         where aab103=0;
     </select>
 
+    <insert id="addNote" parameterType="java.util.HashMap">
+        <selectKey keyProperty="map.nid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO ab01(aaa101, aab102, aab103, aab104, aab109,
+                         aab110, aab111)
+            VALUES(#{map.uid}, "", 0, CURRENT_TIME, 0,
+                   "", "");
+    </insert>
+
+    <update id="updateNote" parameterType="java.util.HashMap">
+        UPDATE ab01
+        SET aab102=#{title}, aab104=CURRENT_TIME,
+            <if test="date != null">aab105=#{date},</if>
+            <if test="time != null">aab106=#{time},</if>
+            <if test="poi != null">aab108=#{poi},</if>
+            <if test="money != null">aab107=#{money},</if>
+            aab110=#{content}, aab111=#{topImg},
+            aab112=#{intro}
+        WHERE aab101=#{nid};
+    </update>
+
 </mapper>

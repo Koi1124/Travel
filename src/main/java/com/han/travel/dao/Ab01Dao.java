@@ -20,4 +20,7 @@ public interface Ab01Dao extends CheckDao
 
     Integer selectCount();
 
+    Integer addNote(@Param("map") Map<String, Object> map);
+
+    boolean updateNote(Map<String, Object> map);
 }
