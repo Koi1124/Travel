@@ -115,6 +115,16 @@ $(document).ready(function () {
         },400);
     });
 
+
+    // 私信点击事件
+    $(".btn-privateLetter").click(function () {
+        var id=$(".btn-privateLetter").attr("data-to_uid");
+        id=Number(id);
+        var url="/letter/detail/"+id;
+        window.location.replace(url);
+    });
+
+
     // 结伴关注点击事件
     $(".btn-collect").click(function () {
         var collectNum=$(".total span:eq(2)").text();

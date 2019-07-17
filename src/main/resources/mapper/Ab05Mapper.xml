@@ -3,11 +3,11 @@
 <mapper namespace="com.han.travel.dao.Ab05Dao">
     <select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT authorId, title, date, setout, period,
-            count, telephone, intro, commentCount
+            count, telephone, intro, commentCount, view
         from
             (SELECT
                  aab501, aaa101 AS "authorId", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
-                         aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
+                         aab506 AS "count", aab507 AS "telephone",aab508 AS "intro", aab510 AS "view"
              FROM ab05
              WHERE aab509=1 AND aab501=#{id}) t1
             LEFT JOIN
@@ -100,5 +100,11 @@
         ON t1.id=t2.id
         ;
     </select>
+    
+    <update id="updateViewByComp">
+        UPDATE ab05 SET aab510=#{view}
+        WHERE aab501=#{cid}
+        ;
+    </update>
 
 </mapper>

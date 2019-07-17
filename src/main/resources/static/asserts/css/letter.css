@@ -6,12 +6,12 @@
 
 
 .letterwrap {
-*zoom: 1; position: relative;
+    *zoom: 1; position: relative;
 }
 
 .letterwrap .panel {
-margin-left: 250px;
-margin-right: 250px;
+    margin-left: 280px;
+    margin-right: 280px;
 
 }
 
@@ -36,6 +36,10 @@ margin-right: 250px;
 .item {
     margin-bottom: 10px;
     display: flex;
+}
+.item-time {
+    font-size: 10px;
+    text-align: center;
 }
 
 .item-right {
@@ -73,15 +77,16 @@ margin-right: 250px;
     font-size: 18px;
 }
 
+
 .item-left .content {
-    
-    background-color: #ff9d00;
-    color: #fff;
+    background-color: #eee;
+
 }
 
 .item-right .content {
-    
-    background-color: #eee;
+    background-color: #ff9d00;
+    color: #fff;
+
 }
 
 .item-left .content:before,
@@ -94,14 +99,14 @@ margin-right: 250px;
 
 .item-left .content:before {
     left: -0.6em;
-    border-color: transparent transparent #ff9d00;
-    
+    border-color: transparent transparent #eee;
+
 }
 
 .item-right .content:after {
     right: -0.6em;
-    border-color: transparent transparent #eee;
-    
+
+    border-color: transparent transparent #ff9d00;
 }
 
 .edit_block {
@@ -118,7 +123,7 @@ margin-right: 250px;
     padding: 5px 20px;
     border: none;
     outline: none;
-    width: 990px;
+    width: 900px;
     background-color: #fafafa;
     resize: none;
 }
@@ -127,7 +132,7 @@ margin-right: 250px;
     position: absolute;
     right: 14px;
     bottom: 14px;
-    font-size: 14px;
+    font-size: 20px;
     color: #ccc;
 }
 .edit_block a {
