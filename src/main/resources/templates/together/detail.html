@@ -25,6 +25,8 @@
 
     <script th:inline="javascript">
         var telephone = [[${telephone}]];
+        var title=[[${title}]];
+        var rUserId=[[${authorId}]];
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
@@ -40,6 +42,7 @@
     </style>
 </head>
 <body>
+<div id="header" th:insert="~{homepage :: navbar}"></div>
 <input id="user_id" th:value="${session.user_id}" type="hidden"/>
 <input id="user_name" th:value="${session.user_name}" type="hidden"/>
 <input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
@@ -95,7 +98,7 @@
             <div class="detail-content">
                 <div class="sponsor clearfix">
                     <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
-                    <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
+                    <a class="name _publisher_name" href="#" th:data_id="${authorId}" target="_blank"><p th:text="${authorName}"></p></a>
 
                     <div th:if="${session.user_id ne authorId}" class="opt">
 

@@ -32,7 +32,7 @@
         ;
     </update>
 
-    <select id="getCompCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="getAppCountByCId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT COUNT(aab501) FROM ac05
         WHERE aac506=1 AND aab501=#{cid};
     </select>

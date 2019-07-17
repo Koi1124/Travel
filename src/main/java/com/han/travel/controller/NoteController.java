@@ -29,6 +29,13 @@ public class NoteController
     @Autowired
     private NoteService noteService;
 
+    /**
+     *@discription: 主页游记显示
+     *@param dto 
+     *@date: 2019/7/16 14:56
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
     @RequestMapping("/displayNotes")
     @ResponseBody
     public Map<String,Object> getNotesInfo(@RequestBody Map<String,Integer> dto)

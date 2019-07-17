@@ -39,7 +39,7 @@ public class MessageSocketServer
         e.printStackTrace();
     }
 
-    public static void sendMessage(int rid)
+    public static void sendMessage(Integer rid)
     {
         for (MessageSocketServer m:messageSet)
         {

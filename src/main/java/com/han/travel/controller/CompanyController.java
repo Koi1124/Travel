@@ -162,44 +162,53 @@ public class CompanyController
     {
         return "together/homepage";
     }
-
-
+    
+    /**
+     *@discription: 结伴细节页面信息 map->
+     * date: 日期  authorName: 用户名  authorId: 用户ID  authorPic: 用户头像
+     * star: 收藏数  commentCount: 评论数  title: 结伴标题  mddPic: 目的地图片
+     * setout: 出发地  view: 浏览量  intro: 结伴介绍  app: 报名数
+     * id: 结伴id  period: 大约用时天数  name: 结伴目的地合集
+     * applicants: 报名表信息-> applicantPic: 报名人头像  applicantName: 报名人名  applicantId: 报名人ID
+     *@param id
+	 *@param map
+	 *@param session 
+     *@date: 2019/7/17 16:35
+     *@return: java.lang.String
+     *@author: Han
+     */
     @RequestMapping("/company/detail/{id}.html")
-    public String toCompanyDetail(@PathVariable("id") int id, @RequestParam(required = false) Map<String,Object> dto, Map<String,Object> map, HttpSession session)
+    public String toCompanyDetail(@PathVariable("id") int id, Map<String,Object> map, HttpSession session)
     {
-        if (dto.size()>0)
-        {
-            System.out.println(dto);
-            session.setAttribute("c_authorName",dto.get("authorName"));
-            session.setAttribute("c_authorPic",dto.get("authorPic"));
-            session.setAttribute("c_name",dto.get("name"));
-            session.setAttribute("c_star",dto.get("star"));
-            session.setAttribute("c_mddPic",dto.get("mddPic"));
-        }
-        else
-        {
-            dto.put("id",String.valueOf(id));
-            dto.put("authorName",session.getAttribute("c_authorName"));
-            dto.put("authorPic",session.getAttribute("c_authorPic"));
-            dto.put("name",session.getAttribute("c_name"));
-            dto.put("star",session.getAttribute("c_star"));
-            dto.put("mddPic",session.getAttribute("c_mddPic"));
-            System.out.println(dto);
-        }
-        Map<String,Object> detail=companyService.getCompDetail(dto);
-        //System.out.println("detail:"+detail);
+//        if (dto.size()>0)
+//        {
+//            System.out.println("origin数据："+dto);
+//            session.setAttribute("c_authorName",dto.get("authorName"));
+//            session.setAttribute("c_authorPic",dto.get("authorPic"));
+//            session.setAttribute("c_name",dto.get("name"));
+//            session.setAttribute("c_star",dto.get("star"));
+//            session.setAttribute("c_mddPic",dto.get("mddPic"));
+//        }
+//        else
+//        {
+//            dto.put("id",String.valueOf(id));
+//            dto.put("authorName",session.getAttribute("c_authorName"));
+//            dto.put("authorPic",session.getAttribute("c_authorPic"));
+//            dto.put("name",session.getAttribute("c_name"));
+//            dto.put("star",session.getAttribute("c_star"));
+//            dto.put("mddPic",session.getAttribute("c_mddPic"));
+//            System.out.println(dto);
+//        }
+
+        Map<String,Object> detail=companyService.getCompPartialDetail(id);
         map.putAll(detail);
-
         map.put("view",companyService.handleView(id,(Integer) detail.get("view")));
-
         Map<String,Object> isCollectDto=new HashMap<>(3);
         isCollectDto.put("userId",session.getAttribute(SessionConfig.USER_ID));
         isCollectDto.put("collectId",id);
         isCollectDto.put("type",'5');
         map.put("isCollect",collectService.isCollect(isCollectDto));
         map.put("isFollow",followService.isFollow((Integer) map.get("authorId"), (Integer) session.getAttribute(SessionConfig.USER_ID)));
-        //map.put("commentInfo",companyService.getAllCompCommentByCIdAndByLatest(id));
-        //System.out.println(map);
 
         return "together/detail";
     }

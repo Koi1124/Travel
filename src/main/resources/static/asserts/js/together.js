@@ -103,14 +103,6 @@ function initDropBar() {
             $("#drop-place").hide(250);
         }, 250);
     });
-    $("._j_time_input").focus(function () {
-        $("#drop-date").show(250);
-    });
-    $("._j_time_input").blur(function () {
-        setTimeout(function(){
-            $("#drop-date").hide(250);
-        }, 250);
-    });
 }
 
 //根据json数据设置地点选择框

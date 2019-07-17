@@ -3,6 +3,7 @@ var userId = -1;
 var userName = "";
 var userLogo = "";
 var pid = 0;
+
 $(function () {
     getComment(1);
     initPagination();
@@ -289,6 +290,8 @@ function clickCommentSubmit() {
             userId:userId,
             type:5,
             pid:pid,
+            title:title,
+            rUserId:rUserId,
             content:$("._j_comment_content").val(),
             score:0
         }),
