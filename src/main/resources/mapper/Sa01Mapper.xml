@@ -22,10 +22,15 @@
     </select>
     
     <select id="messageByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT ssa102 AS 'msg', ssa103 AS 'type', ssa101 AS 'id'
+        SELECT ssa102 AS 'msg', ssa103 AS 'type', ssa101 AS 'mid', ssa104 AS 'pid'
         FROM sa01
         WHERE aaa101=#{uid}
         ;
     </select>
 
+    <delete id="clearAllByUId" parameterType="java.lang.Integer">
+        DELETE FROM sa01
+        WHERE aaa101=#{uid}
+        ;
+    </delete>
 </mapper>

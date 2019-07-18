@@ -98,14 +98,17 @@ public class CommentController
      *          commentId：父级评论id
      *          replyId：被回复者id
      *          content：回复内容
+     *          title: 被回复内容
+     *          pid: 评论对象id
+     *          type: 类型
      *       }
      * @return boolean
      **/
     @PostMapping("/addReply")
     @ResponseBody
-    public Integer addReply(@RequestBody Map<String, Object> map)
+    public Integer addReply(@RequestBody Map<String, Object> map,HttpSession session)
     {
-        System.out.println(map);
+        messageService.reply(session.getAttribute(SessionConfig.USER_NAME),String.valueOf(map.get("type")),map.get("title"),map.get("rUserId"),map.get("pid"));
         return commentService.addReply(map);
     }
 

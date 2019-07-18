@@ -85,8 +85,12 @@ function clickReplySubmit(e) {
         data = {
             commentId:commentId,
             replyId:-1,
+            rUserId:$(e).closest("li").attr("u_id"),
             content:$(e).prev("textarea").val(),
-            userId:$("#user_id").val()
+            userId:$("#user_id").val(),
+            title:$(e).closest(".rev-txt").text(),
+            pid:pid,
+            type:5
         };
     }
     else {
@@ -94,8 +98,12 @@ function clickReplySubmit(e) {
         data = {
             commentId:commentId,
             replyId:replyId,
+            rUserId:replyId,
             content:$(e).prev("textarea").val(),
-            userId:$("#user_id").val()
+            userId:$("#user_id").val(),
+            title:$(e).prev(".rev-txt").text(),
+            pid:pid,
+            type:5
         }
     }
     $.ajax({
