@@ -193,3 +193,23 @@
 
 	spop.defaults = {};
 }());
+
+
+
+function logSuccess(msg) {
+    spop({
+        template: msg,
+        position  : 'top-center',
+        style: 'success',
+        autoclose: 1500
+    });
+}
+
+function logError(msg) {
+    spop({
+        template: msg,
+        position  : 'top-center',
+        style: 'errors',
+        autoclose: 3000
+    });
+}

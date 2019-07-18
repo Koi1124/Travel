@@ -10,6 +10,11 @@ import java.util.Map;
 @Repository
 public interface Ab01Dao extends CheckDao
 {
+    /**==============================================================================
+     *                              管理员操作
+     * ==============================================================================
+     */
+
     Map<String,Object> queryById(int id);
 
     boolean changeStateById(@Param("id") int id,@Param("state") int state);
@@ -20,9 +25,22 @@ public interface Ab01Dao extends CheckDao
 
     Integer selectCount();
 
+    /**==============================================================================
+     *                              用户操作
+     * ==============================================================================
+     */
     Integer addNote(@Param("map") Map<String, Object> map);
 
     boolean updateNote(Map<String, Object> map);
+
+    List<Map<String, Object>> getDraftByUid(int uid);
+
+    Map<String, Object> getMyNoteById(int nid);
+
+    /**==============================================================================
+     *                              首页查询
+     * ==============================================================================
+     */
 
     /**
      *@discription:

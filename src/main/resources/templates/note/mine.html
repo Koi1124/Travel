@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/asserts/css/note/noteMine.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/note/mine.js}"></script>
+</head>
+<body>
+
+
+
+
+
+<div class="wrapper">
+    <ul class="btns clearfix" data-cs-t="note_create_entrance">
+        <li class="btn1">
+            <a class="btn _jump">
+                <div class="icon"><i></i></div>新游记
+            </a>
+        </li>
+        <li class="btn2">
+            <a class="btn _jump">
+                <div class="icon"><i></i></div>草稿箱</a>
+
+
+            <div class="drafts _j_save_pop " style="">
+                <div class="draft-panel">
+                    <div class="inner">
+                        <h3 class="hd">我的草稿 <b class="_j_roughcount">5</b>
+                            <span>你还有<b class="_j_roughcount">5</b>篇草稿没有完成，快来完成吧~</span>
+                        </h3>
+                        <div class="draft-list">
+                            <div style="position: relative; height: 390px;">
+                                <div class="bd" style="position: relative; overflow-y: hidden;">
+                                    <ul class="clearfix" style="overflow-y:auto; max-height:390px">
+
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                    { color: #999; }</a></div>
+                                                <span class="time">2019-07-11 19:50:25</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                    { color: #999; }</a></div>
+                                                <span class="time">2019-07-11 19:50:25</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                    { color: #999; }</a></div>
+                                                <span class="time">2019-07-11 19:50:25</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                    { color: #999; }</a></div>
+                                                <span class="time">2019-07-11 19:50:25</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                    { color: #999; }</a></div>
+                                                <span class="time">2019-07-11 19:50:25</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                                </div>
+                                            </div>
+                                        </li><li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                        <div class="detail">
+                                            <div class="title"><a
+                                                    href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                { color: #999; }</a></div>
+                                            <span class="time">2019-07-11 19:50:25</span>
+                                            <div class="action">
+                                                <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                        class="icon-write"></i>继续写</a>
+                                                <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
+                                                    { color: #999; }</a></div>
+                                                <span class="time">2019-07-11 19:50:25</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                                <span class="img"><img
+                                                        src="http://p2-q.mafengwo.net/s14/M00/99/34/wKgE2l0m5cuALDo_AAHMxQqdixo33.jpeg?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
+                                                        style="height: 100px;width: 150px;"></span>
+                                            <div class="detail">
+                                                <div class="title"><a
+                                                        href="/ginfo/create.php?rid=71405621">1111134324生物学仍然是</a>
+                                                </div>
+                                                <span class="time">2019-07-11 22:02:41</span>
+                                                <div class="action">
+                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71405621"><i
+                                                            class="icon-write"></i>继续写</a>
+                                                    <a class="i-delete _j_del_rough" data-rid="71405621">删除</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="scrollbar"
+                                     style="position: absolute; right: -10px; top: 0px; width: 5px; height: 100px; background-color: rgb(214, 214, 214); border-radius: 10px; cursor: pointer; opacity: 0; display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ft"><a class="close _j_pop_close" href="javascript:void(0);"><i></i>关闭草稿箱</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="_j_layer_0" class="layer _j_layer"
+     style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001; display:none;">
+    <div class="layer_mask _j_mask"
+         style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;">
+    </div>
+    <div class="layer_content _j_content"
+         style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;">
+        <div id="popup_container" class="popup-box new-popbox pop_no_margin"
+             style="position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left: 37%; top: 45%;">
+
+
+            <div class="pop-ctn">
+                <p class="hd _j_content">确认删除该草稿吗？</p>
+
+            </div>
+            <div class="pop-btns"><a role="button" tabindex="0"
+                                     class="popbtn popbtn-cancel popbtn-half _j_close _j_false">取消</a><a role="button" tabindex="0"
+                                                                                                         class="popbtn popbtn-submit popbtn-half _j_close _j_true">确定</a></div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

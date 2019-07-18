@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-    <link th:href="@{/asserts/css/noteEdit.css}" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <link th:href="@{/asserts/css/note/noteEdit.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/dateSelect.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         var nid = [[${nid}]];
@@ -13,6 +15,7 @@
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/tools/dateSelect.js}"></script>
     <script th:src="@{/asserts/js/note/edit.js}"></script>
 </head>
 
@@ -54,7 +57,7 @@
 <div class="container clearfix">
     <div id="" class="content pagelet-block">
         <div class="block-loading loading_backward"></div>
-        <div class="_j_content_box">
+        <div id="_j_content_box" class="_j_content_box">
 
 
             <!-- 正文 文本框 s -->
@@ -150,6 +153,53 @@
 
 <!-- mask -->
 <div id="mask" class="mask"></div>
-</body>
 
+
+<div id="submit-mask" class="mask">
+    <div class="popup-box layer_dialog _j_dialog pop_no_margin dialog_overflow"
+         style="opacity: 1; background: rgb(255, 255, 255); z-index: 1;">
+        <div class="dialog_title" style="display:block">
+            <div class="_j_title title"></div>
+        </div>
+        <div class="dialog_body _j_content">
+            <div class="prop-info">
+                <h3 class="pi-title">完善出行信息可以让游记被更多人看到哦</h3>
+                <form class="_j_exform"> <input type="hidden" name="iid" value="14943927">
+                    <div class="pi-base">
+                        <div class="pi-row">
+                            <div class="pi-col pi-date"> <label>出发时间</label>
+                                <input id="date-input" class="pi-input _j_dateinput hasDatepicker"
+                                    style="z-index: 551; position: relative;">
+                                <i class="pi-icon-cal"></i> </div>
+
+                        </div>
+                        <div class="pi-row">
+                            <div class="pi-col pi-day"> <label>出行天数</label>
+                                <input id="days-input" class="pi-input" type="text" placeholder="输入天数" name="dayscount">
+                            </div>
+                        </div>
+                        <div class="pi-row">
+                            <div class="pi-col pi-day"> <label>人均花费/RMB</label>
+                                <input id="money-input" class="pi-input" type="text" placeholder="输入花费" name="expense">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pi-tags">
+                        <label>游记标签</label>
+
+                        <div class="_j_tagcommon hide" style="display: block;">
+
+                            <ul class="pi-otherTag clearfix">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pop-action">
+                        <a class="btn-submit _j_submit" role="button">确定</a>
+                    </div>
+                </form>
+            </div>
+        </div> <a id="popup_close" class="close-btn _j_close"><i></i></a>
+    </div>
+</div>
+</body>
 </html>

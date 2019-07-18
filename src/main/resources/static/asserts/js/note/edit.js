@@ -6,6 +6,7 @@ var index = 1;//title编号，用来右侧栏跳转
 var base64 = new Array();
 var picCount = 0;
 var picLoad = 0;
+var poiId = null;
 
 var titleBox = "<div class='article_title _j_data_item'>\n" +
     "    <h2 class='t9' style='display: none'><span>武汉</span></h2>\n" +
@@ -34,6 +35,8 @@ var picBox = "<div class='add_pic _j_data_item'>\n" +
 //添加标题（侧栏）点击事件
 function clickTitle() {
     curCurPos = activeText.getCurPos();
+    activeTitle = null;
+    $(".a-inptxt").val("");
     $("#mask").fadeIn(250);
     $(".add-panel-title").fadeIn(250);
 }
@@ -223,11 +226,157 @@ function setAutoHeight(elem) {
     return $obj.css({ height: $obj.attr('initAttrH'), 'overflow-y': 'hidden' }).height(elem.prop("scrollHeight"));
 }
 
-//
+//提交按钮
 function clickSubmit() {
     if (testBlank($("#_j_title").val())) {
-
+        logError("标题不能为空！");
+        return;
     }
+    if ($("._j_content_box").children("div").length == 1 && testBlank($("#textarea").val())) {
+        logError("请填写游记内容！");
+        return;
+    }
+    var str = "";
+    $(".textarea").each(function (i, item) {
+        str += $(item).val();
+    });
+    $("h2").each(function (i, item) {
+        str += $(item).text();
+    });
+    $.ajax({
+        type: "post",
+        url: "/note/getPlace",
+        data: JSON.stringify({content:$("#_j_title").val() + str}),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            $(".pi-otherTag").empty();
+            for(var key in result) {
+                addPoiTag(key, result[key]);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+    $("#submit-mask").fadeIn(250);
+}
+
+//确认提交
+function submitNote() {
+    var data = {
+        title:$("#_j_title").val(),
+        content:getContent(),
+        topImg:$("#top_image").attr("src"),
+        intro:$("#textarea").val(),
+        nid:nid,
+        poi:poiId,
+        date:$("#date-input").val(),
+        money:$("#money-input").val(),
+        time:$("#days-input").val(),
+        status:1
+    }
+    $.ajax({
+        type: "post",
+        url: "/note/updateNote",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (result) {
+                $("._j_draft_save_time").text("已于" + getNowFormatDate() + "保存");
+            }
+            else {
+                logError("网络故障，请稍后再试");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+//保存草稿
+function saveNote() {
+    var intro = $("#textarea").val();
+    // if (testBlank(intro)) {
+    //     intro = $("._j_content_box").find(".article_title")[0].find("h2").text();
+    //     intro += "  " + $("._j_content_box").find(".textarea")[1].val();
+    // }
+    var data = {
+            title:$("#_j_title").val(),
+            content:getContent(),
+            topImg:$("#top_image").attr("src"),
+            intro:intro,
+            nid:nid
+    }
+    $.ajax({
+        type: "post",
+        url: "/note/updateNote",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (result) {
+                $("._j_draft_save_time").text("已于" + getNowFormatDate() + "保存");
+            }
+            else {
+                logError("网络故障，请稍后再试");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+
+
+//获取文章主题内容
+function getContent() {
+    var data = new Array();
+    $("._j_content_box").children("div").each(function (i, item) {
+        if ($(item).attr("class") == "article_title _j_data_item") {
+            //title
+            data.push({title:"\"" + $(item).find("h2").text() + "\""});
+        }
+        else if ($(item).attr("class") == "add_pic _j_data_item") {
+            //pic
+            data.push({pic:"\"" + $(item).find("img").attr("src") + "\""});
+        }
+        else {
+            //text
+            if (!testBlank($(item).find(".textarea").val())) {
+                var str = $(item).find(".textarea").val();
+                var reg = /\n+/g;
+                str = str.replace(reg, "<br/>");
+                data.push({text: "\"" + str + "\""});
+            }
+            else {
+                data.push({text: "\"\""});
+            }
+        }
+    });
+    return data;
+}
+
+function addPoiTag(name, id) {
+    var poi = $("<li class='pi-tagitem _j_tagitem' poi-id=" + id + " role='button'>" + name + "</li>");
+    $(".pi-otherTag").append(poi);
+    poi.click(function () {
+        if (poi.attr("class") == 'pi-tagitem on _j_tagitem') {
+            poiId = null;
+            poi.attr("class", "pi-tagitem _j_tagitem");
+        }
+        else {
+            $(".pi-tagitem").attr("class", "pi-tagitem _j_tagitem");
+            poi.attr("class", "pi-tagitem on _j_tagitem");
+            poiId = poi.attr("poi-id");
+        }
+    });
 }
 
 $(function () {
@@ -290,10 +439,41 @@ $(function () {
         $(".add-panel-title").fadeOut(250);
     });
 
+    //发表游记
+    $(".btn-publish").click(function () {
+        clickSubmit();
+    });
+
+    //提交弹出框
+    $("#date-input").calendar();
+    $("#popup_close").click(function () {
+        $("#submit-mask").fadeOut(250);
+    });
+    $(".btn-submit").click(function () {
+        if (!testNum($("#days-input").val())) {
+            logError("请输入正确的天数");
+            return;
+        }
+        if (!testNum($("#money-input").val())) {
+            logError("请输入正确的花费金额");
+            return;
+        }
+        if (testBlank($("#date-input").val())) {
+            logError("请输入正确的开始日期");
+            return;
+        }
+        submitNote();
+    });
+
+    //保存草稿
+    $(".btn-save").click(function () {
+        saveNote();
+    });
+
     $(".textarea").txtaAutoHeight();// 调用
 
 
-    //滚动锦亭事件
+    //滚动事件
     $(window).scroll(function(event){
         if ($(window).scrollTop() > $("#sidebar").offset().top) {
             $("#sidebar").css({'padding-top':($(window).scrollTop() - $("#sidebar").offset().top + 10) + "px"});
@@ -301,26 +481,32 @@ $(function () {
     });
 });
 
-
-function logSuccess(msg) {
-    spop({
-        template: msg,
-        position  : 'top-center',
-        style: 'success',
-        autoclose: 1500
-    });
-}
-
-function logError(msg) {
-    spop({
-        template: msg,
-        position  : 'top-center',
-        style: 'errors',
-        autoclose: 3000
-    });
-}
-
 function testBlank(str) {
     str = str.replace(" ", "");
+    var reg = /\n/g;
+    str = str.replace(reg, "");
     return str.length == 0;
+}
+
+function testNum(str) {
+    var r = /^([^0][0-9]+|0)$/;　　//正整数
+    return flag=r.test(str);
+}
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+        + " " + date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds();
+    return currentdate;
 }
