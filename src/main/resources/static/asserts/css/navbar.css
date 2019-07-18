@@ -42,9 +42,162 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
 
 
 .head-search-zy{float:left;width:130px;height:68px;position:relative}
-.head-search-wrapper-zy{position:absolute;right:0;top:0;width:130px;padding:16px 8px 15px;height:36px;background-color:#fff;border-bottom:1px solid #d6d6d6;-webkit-transition:width .5s ease 0s;transition:width .5s ease 0s}
+.head-search-wrapper-zy{position:absolute;right:0;top:0;width:130px;padding:16px 13px 15px;height:36px;background-color:#fff;border-bottom:1px solid #d6d6d6;-webkit-transition:width .5s ease 0s;transition:width .5s ease 0s}
 .head-searchform-zy{height:36px;position:relative}
 .head-searchform-zy input{border:1px solid #efefef;background-color:#efefef;width:108px;height:34px;padding:0 10px;line-height:34px;font-size:14px;color:#666;border-radius:4px;-webkit-transition:width .5s ease 0s;transition:width .5s ease 0s}
 .head-searchform-zy input:focus{border-color:#ff9d00;box-shadow:0 0 3px rgba(255,157,0,.5);background-color:#fff}
 .head-search-zy .icon-search-zy{position:absolute;top:8px;right:8px;width:20px;height:20px;background-image:url(https://css.mafengwo.net/images/header-sprites15.png);background-position:-30px -110px!important;overflow:hidden}
 
+
+
+/* message 消息提醒 */
+.head-msg {
+    float: right;
+    display: inline;
+    margin-right: 15px;
+    line-height: 68px;
+}
+.header-place-default .login-info a {
+    color: #fff;
+}
+
+.drop-trigger {
+    display: inline-block;
+    height: 68px;
+    padding-right: 13px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: top;
+}
+.drop-trigger{
+    color: #666;
+    font-size: 14px;
+   
+}
+.header-place-default .icon-caret-down {
+    border-top-color: #fff;
+}
+.drop-trigger .icon-caret-down {
+    position: absolute;
+    right: 0;
+    top: 32px;
+}
+.icon-caret-down {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 4px solid #666;
+    border-left: 4px dashed transparent;
+    border-right: 4px dashed transparent;
+    overflow: hidden;
+}
+
+.header-place-default .login-info a {
+    color: #fff;
+}
+.login-info a {
+    color: #666;
+    font-size: 14px;
+}
+
+.head-msg-new {
+    position: absolute;
+    z-index: 2;
+    right: 30px;
+    top: 16px;
+    height: 16px;
+    background-color: #ff9d00;
+    border-radius: 8px;
+    color: #fff;
+    padding: 0 5px;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: nowrap;
+}
+
+.zy-header .dropdown-group .dropdown-menu {
+    right: 50%;
+    margin-right: -500px;
+}
+.zy-header .dropdown-msg {
+    z-index: 2;
+}
+.zy-header .dropdown-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 320px;
+    border: 1px solid #d6d6d6;
+    background-color: #fff;
+    z-index: 10;
+    margin-top: 68px; 
+}
+.zy-header .dropdown-menu ul {
+    margin-bottom: 10px;
+}
+.zy-header .dropdown-menu li {
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
+    color: #666;
+    position: relative;
+    vertical-align: top;
+}
+
+.zy-header .dropdown-menu li a {
+    display: block;
+    height: 36px;
+    padding-top: 7px;
+    padding: 0 10px 0 20px;
+    color: #666;
+    cursor: pointer;
+}
+.zy-header .dropdown-menu li a:hover{
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+}
+
+.zy-header .dropdown-menu .message-clear{
+    height: 12px;
+    font-size: 10px;
+    line-height: 12px;
+    color: #666;
+    position: relative;
+    vertical-align: top;
+}
+.message-clear a{
+    
+    color: #666;
+    position: relative;
+    vertical-align: bottom;
+}
+
+.head-logo .mfw-logo, .mfw-header .dropdown-user [class|="icon"], .searchtab i, .search-group .icon-search, .search-group .icon-cal, .login-out .weibo-login, .login-out .qq-login, .login-out .weixin-login, .head-search .icon-search {
+    background: url(https://css.mafengwo.net/images/header-sprites15@2x.png) no-repeat;
+    background-size: 200px;
+}
+.zy-header .dropdown-user li a {
+    padding-left: 53px;
+}
+
+.zy-header .dropdown-user [class|="icon"] {
+    position: absolute;
+    left: 23px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+    background: url(https://css.mafengwo.net/images/header-sprites15.png) no-repeat -60px -50px;
+}
+.zy-header .dropdown-user .icon-wo {
+    height: 17px;
+    background-position: -90px -50px!important;
+}
+.zy-header .dropdown-user .icon-settings {
+    width: 18px;
+    height: 18px;
+    background-position: -90px -110px!important;
+}
+.zy-header .dropdown-user .icon-logout {
+    background-position: -120px -110px!important;
+}

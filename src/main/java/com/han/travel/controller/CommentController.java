@@ -1,6 +1,8 @@
 package com.han.travel.controller;
 
+import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.CommentService;
+import com.han.travel.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,8 @@ public class CommentController
 {
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private MessageService messageService;
 
 
     /**
@@ -53,6 +58,7 @@ public class CommentController
      *          userId：用户id
      *          type:评论对象类型（游记、攻略、结伴）
      *          pid:评论对象id
+     *          title: 评论对象title
      *          content：评论内容
      *          score：评分（仅景点和旅游项目有，其他均为0）
      *           }
@@ -60,9 +66,9 @@ public class CommentController
      **/
     @PostMapping("/addComment")
     @ResponseBody
-    public Integer addComment(@RequestBody Map<String, Object> map)
+    public Integer addComment(@RequestBody Map<String, Object> map, HttpSession session)
     {
-        System.out.println(map);
+        messageService.comment(session.getAttribute(SessionConfig.USER_NAME), String.valueOf(map.get("type")), map.get("title"),map.get("rUserId"),map.get("pid"));
         return commentService.addComment(map);
     }
 
@@ -99,7 +105,8 @@ public class CommentController
     @ResponseBody
     public Integer addReply(@RequestBody Map<String, Object> map)
     {
-        System.out.println(map);return commentService.addReply(map);
+        System.out.println(map);
+        return commentService.addReply(map);
     }
 
 

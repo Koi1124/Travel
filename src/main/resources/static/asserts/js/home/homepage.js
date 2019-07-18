@@ -83,7 +83,7 @@ function setNotes(data) {
         scroll();
     });
 
-    $("._j_tag_choose_container a").click(function () {
+    $("._j_tag_choose_container i").click(function () {
         var mid=0;
         $(this).remove();
         getNotes(mid,s_type);

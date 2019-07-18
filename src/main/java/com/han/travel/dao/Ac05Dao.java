@@ -13,7 +13,7 @@ public interface Ac05Dao
 
     boolean changeAppState(@Param("id") int id,@Param("state") int state);
 
-    Integer getCompCount(int cid);
+    Integer getAppCountByCId(int cid);
 
     Map<String,Object> getAppCountAndPNameAndPIdByPId(int id);
 
