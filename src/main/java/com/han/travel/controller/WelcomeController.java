@@ -33,7 +33,7 @@ public class WelcomeController
     public String noteTest(HttpSession session)
     {
         session.setAttribute(SessionConfig.USER_ID, 1);
-        return "note/edit";
+        return "note/mine";
     }
 
 }

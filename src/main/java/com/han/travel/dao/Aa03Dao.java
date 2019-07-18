@@ -23,4 +23,6 @@ public interface Aa03Dao
     List<Map<String,Object>> getNamesAndPicsByComp(int cid);
 
     List<Map<String,Object>> getAllKidNamesAndId();
+
+    List<Map<String, Object>> getAllNameAndId();
 }

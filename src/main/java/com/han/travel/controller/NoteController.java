@@ -2,12 +2,10 @@ package com.han.travel.controller;
 
 import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.NoteService;
+import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -112,14 +110,67 @@ public class NoteController
     @RequestMapping("/note/writeNote")
     public String addNote(Map<String, Object> dto, HttpSession session)
     {
-        //TODO
-        session.setAttribute(SessionConfig.USER_ID, 1);
-
         Map<String, Object> map = new HashMap<>();
         map.put("uid", (int)session.getAttribute(SessionConfig.USER_ID));
         noteService.addNote(map);
         dto.putAll(map);
         return "note/edit";
+    }
+
+
+    /**
+     * @Author Saki
+     * @Description 草稿编辑
+     * @Date 2019/7/17
+     * @param
+     * @return
+     **/
+    @RequestMapping("/note/editNote/{id}")
+    public String editNote(Map<String, Object> dto,@PathVariable("id") int id, HttpSession session)
+    {
+        Map<String, Object> map = noteService.getMyNoteById(id, (int)session.getAttribute(SessionConfig.USER_ID));
+        dto.putAll(map);
+        return "note/edit";
+    }
+
+    /**
+     * @Author Saki
+     * @Description 获得草稿
+     *  返回参数 list[map{
+     *              nid:游记id
+     *              title:标题
+     *              editTime:上次保存时间
+     *              topImg:头图
+     *          }]
+     * @Date 2019/7/17 
+     * @param session
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>> 
+     **/
+    @PostMapping("/note/myDraft")
+    @ResponseBody
+    public List<Map<String, Object>> getDraft(HttpSession session)
+    {
+        return noteService.getDraftByUid((int)session.getAttribute(SessionConfig.USER_ID));
+    }
+
+
+    /**
+     * @Author Saki
+     * @Description 发布游记是获取相关地点
+     * @Date 2019/7/17
+     * @param map {
+     *            content:内容
+     *        }
+     * 返回参数map {
+     *           省市:省市id
+     *        }
+     * @return java.util.Map<java.lang.String,java.lang.Integer>
+     **/
+    @PostMapping("/note/getPlace")
+    @ResponseBody
+    public Map<String, Integer> getPlace(@RequestBody Map<String, String> map)
+    {
+        return noteService.getPlace(map.get("content"));
     }
 
     /**
@@ -132,6 +183,7 @@ public class NoteController
      *            time:预计时间 ,*
      *            money:评价消费 ,*
      *            poi:地点,*
+     *            status:状态,*
      *            content:内容 ,
      *            topImg:头图 ,
      *            intro:简介 ,
@@ -146,4 +198,20 @@ public class NoteController
         return noteService.updateNote(map);
     }
 
+    /**
+     * @Author Saki
+     * @Description 改变游记状态
+     * @Date 2019/7/17
+     * @param map {
+     *            nid:游记id,
+     *            status:状态
+     *        }
+     * @return boolean
+     **/
+    @PostMapping("/note/changeStatus")
+    @ResponseBody
+    public boolean changeStatus(@RequestBody Map<String, Object> map)
+    {
+        return noteService.changeStatus(map);
+    }
 }
