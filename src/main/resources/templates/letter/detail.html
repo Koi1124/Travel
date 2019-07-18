@@ -4,7 +4,7 @@
 <head>
     <title>私信</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="asserts/css/navbar.css">
+
     <link rel="stylesheet"  th:href="@{/asserts/css/scrollbar.css}">
     <link rel="stylesheet"  th:href="@{/asserts/css/letter.css}" />
 
@@ -23,14 +23,15 @@
 </head>
 
 <body>
-<div id="header" th:insert="~{homepage :: navbar}"></div>
-
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+    <div class="back"><a style="color:#333" href="/msg/sms/index" th:href="@{/letter}">&lt; 返回</a></div>
     <div class="letterwrap">
 
         <div class="panel">
             <div class="title" th:text="${toClient.name}">用户id</div>
-            <div id="voiceText">
-                <div id="all_dialog" th:each="letter:${detail}">
+            <div id="container">
+                <div id="all_content">
+                    <div id="all_dialog" th:each="letter:${detail}">
                     <div class="item-time" th:text="${letter.time}"></div>
                     <div class="item item-left" th:if="${session.user_id} ne ${letter.userId}">
                         <div class="img-head"><img src="image/headL.png" th:src="${toClient.pic}" alt="头像"></div>
@@ -41,7 +42,8 @@
                         <div class="content" th:text="${letter.content}"></div>
                     </div>
                 </div>
-        </div>
+                </div>
+            </div>
             <div class="edit_block">
                 <div class="txt">
                     <textarea id="send_message"></textarea>

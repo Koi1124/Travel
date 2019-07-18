@@ -19,7 +19,9 @@
 <div id="header" th:fragment="navbar">
 
     <script th:inline="javascript">
+        /*<![CDATA[*/
         var user_id=[[${session.user_id}]];
+        /*]]>*/
     </script>
 
     <div class="zy-header">
@@ -54,10 +56,10 @@
 
 
             <div class="head-msg" id="_j_head_private_letter">
-                <a class="drop-trigger" href="javascript:"  style="text-decoration: none;">
+                <a class="drop-trigger" href="javascript:"  th:href="@{/letter}" style="text-decoration: none;">
                     <i class="icon-letter"></i>
                     私信
-                    <span class="head-msg-new _head_private_letter" style="display: none;">0</span>
+                    <span class="head-msg-new _head_private_letter" style="display: none;">&nbsp;&nbsp;</span>
                 </a>
             </div>
 

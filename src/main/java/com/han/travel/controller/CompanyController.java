@@ -199,7 +199,6 @@ public class CompanyController
 //            dto.put("mddPic",session.getAttribute("c_mddPic"));
 //            System.out.println(dto);
 //        }
-
         Map<String,Object> detail=companyService.getCompPartialDetail(id);
         map.putAll(detail);
         map.put("view",companyService.handleView(id,(Integer) detail.get("view")));

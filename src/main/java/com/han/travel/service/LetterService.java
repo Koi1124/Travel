@@ -22,7 +22,12 @@ public class LetterService
 
 
     /**
-     *@discription:
+     *@discription: 通过用户id得到最新消息 dto->
+     * toClient: 发送给的用户-> name: 名字, pic: 头像, id: id
+     * time: 时间
+     * content: 私信内容
+     * state: 已读未读状态
+     * helper_id: 帮助删除最新的id
      *@param cid 
      *@date: 2019/7/10 17:03
      *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
@@ -80,10 +85,6 @@ public class LetterService
             af01Dao.deleteChatBar(isExist);
             tag=true;
         }
-        else
-        {
-            System.out.println("有问题");
-        }
         af01Dao.insertChatBar(letterId);
         return tag;
     }
@@ -92,7 +93,29 @@ public class LetterService
     {
         return ae01Dao.getDetailByClientAndToClient(cid,tocid);
     }
-
-
+    
+    /**
+     *@discription: 根据letter id删除chatBar
+     *@param id 
+     *@date: 2019/7/18 19:22
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean removeChat(Integer id)
+    {
+        return af01Dao.deleteChatBar(id);
+    }
+    
+    /**
+     *@discription: 根据letter_id 改变私信状态，设为已读
+     *@param id 
+     *@date: 2019/7/18 21:33
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean readLetter(Integer id)
+    {
+        return ae01Dao.readDone(id);
+    }
 
 }

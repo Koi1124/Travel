@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>我的私信</title>
+    <meta name="renderer" content="webkit" />
+
+    <link href="letterhome.css" th:href="@{/asserts/css/letterhome.css}" rel="stylesheet" type="text/css" />
+
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css" rel="stylesheet" type="text/css" />
+    <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1^alI^1545682406.css" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var info=[[${info}]];
+        /*]]>*/
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/letter/letterhome.js}"></script>
+
+</head>
+
+<body style="padding-top: 0px !important">
+
+<!-- navbar -->
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+    <!-- 私信板块 s -->
+    <div class="wrap">
+        <div class="mian dialogue">
+            <div class="th">
+                <span class="news">
+                    <!-- 点击 默认去掉on-->
+                    <i class="checkbox" id="_check_unread" data-type="0"></i>只看未读消息
+                </span>
+            </div>
+            <div class="dia_list" th:each="letter:${info}">
+
+                <!-- 私信 s-->
+                <div class="item clearfix" th:data-item="${letter.letter_id}" th:data-state="${letter.state}">
+                    <div class="author">
+                        <a href="用户空间"><img src="头像" th:src="${letter.toClient.pic}" width="48" height="48"></a>
+                    </div>
+                    <div class="con">
+                        <div class="title clearfix">
+                            <span>
+                                与 <a href="用户空间" class="name" th:text="${letter.toClient.name}">茄子</a> 的对话</span>
+                            <span class="time" th:text="${letter.time}">2019-07-17 21:40:45</span>
+                        </div>
+                        <a th:href="@{'/letter/detail/'+${letter.toClient.id}}" target="_self" th:onclick="'read('+ ${letter.letter_id} +')'"><p th:text="${letter.content}">我带你们打gknmlgbcnmd</p></a>
+                    </div>
+
+                    <div class="tool_right">
+                        <!-- 关闭 -->
+                        <a class="delete" th:data-id="${letter.letter_id}" th:onclick="'removeChat('+${letter.letter_id}+')'"></a>
+                        <!-- 气泡 -->
+                        <span class="tips" th:if="${letter.state} eq 0">未读</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

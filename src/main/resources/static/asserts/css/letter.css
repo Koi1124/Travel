@@ -9,6 +9,14 @@
     *zoom: 1; position: relative;
 }
 
+.back {
+    color: #333;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 20px 0;
+}
+
+
 .letterwrap .panel {
     margin-left: 280px;
     margin-right: 280px;
@@ -25,7 +33,7 @@
     background-color: #f8f8f8;
 }
 
-#voiceText {
+#container {
     padding-top: 2em;
     padding-left: 1.2em;
     padding-right: 1.2em;

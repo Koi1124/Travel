@@ -44,14 +44,20 @@ if(typeof(WebSocket) == "undefined") {
     };
 //获得消息事件
     socket.onmessage = function(msg) {
-        if (msg.data==user_id)
-        {
+        if (msg.data==user_id) {
             var num=$("._head_msg").text();
             var updateNum=Number(num)+1;
             changeTitle(updateNum);
             $("._head_msg").show();
         }
-    };
+        if (Number(msg.data.split(",")[0])==user_id) {
+            $("._head_private_letter").show();
+            $(document).attr("title","[收到私信]"+origin);
+        }
+
+    }
+
+    ;
     //关闭事件
     socket.onclose = function() {
         console.log("Socket已关闭");
@@ -141,10 +147,10 @@ $(function () {
             success:function (result) {
                 if (tag){
                     $(result).each(function (i,message) {
-                        $("#_j_msg_panel ul").append('<li class=""><a href="'+ message.url +'" target="_blank" onclick="checkout('+ message.mid +')" style="text-decoration: none;">'+ message.msg +'</a></li>')
+                        $("#_j_msg_panel ul").append('<li class=""><a href="'+ message.url +'" target="_self" onclick="checkout('+ message.mid +')" style="text-decoration: none;">'+ message.msg +'</a></li>')
                         $("#_j_msg_panel").show(250);
                     });
-                    $("#_j_msg_panel ul").append('<li class="" style="height: 12px"><a onclick="checkAll()" target="_blank" style="height: 12px;font-size: 10px;line-height: 12px;color: #666;position: relative;">全部标记为已读</a></li>');
+                    $("#_j_msg_panel ul").append('<li class="" style="height: 12px"><a onclick="checkAll()" style="height: 12px;font-size: 10px;line-height: 12px;color: #666;position: relative;">全部标记为已读</a></li>');
                     tag=false;
                 }
             },
