@@ -84,11 +84,13 @@ function clickReplySubmit(e) {
 
     var data;
     if (replyStyle == 0) {
+        var temp=$(e).closest("li").attr("u_id");
+        var rid=Number(temp);
         //回复评论
         data = {
             commentId:commentId,
             replyId:-1,
-            rUserId:$(e).closest("li").attr("u_id"),
+            rUserId: rid,
             content:$(e).prev("textarea").val(),
             userId:$("#user_id").val(),
             title:r_content,
@@ -210,9 +212,11 @@ function clickDelete(e) {
 }
 
 function clickThumbsUp(e) {
+    var temp=$(e).closest("li").attr("u_id");
+    var rid=Number(temp);
     var data = {
         pid: $(e).closest("li").attr("c_id"),
-        rUserId: $(e).closest("li").attr("u_id"),
+        rUserId: rid,
         title: $(e).closest("li").find("p").text(),
         jump_type: type,
         type: "3",

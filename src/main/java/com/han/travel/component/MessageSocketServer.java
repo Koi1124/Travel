@@ -53,7 +53,7 @@ public class MessageSocketServer
     {
         for (MessageSocketServer m:messageSet)
         {
-            m.session.getAsyncRemote().sendText(String.valueOf(rid)+","+"letter");
+            m.session.getAsyncRemote().sendText("letter,"+String.valueOf(rid));
         }
     }
 
