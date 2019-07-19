@@ -1,18 +1,17 @@
-var itemL = '<div class="item item-left">\n' +
+var itemL = '<div class="item-time">'+ curentTime() +'</div>' +
+    '       <div class="item item-left">\n' +
     '            <div class="img-head"><img src="'+ toClientPic +'" alt="头像"></div>\n' +
-    '            <div>'+ curentTime() +'</div>' +
     '            <div class="content">\n' +
     '                CONTENT-LEFT\n' +
     '            </div>\n' +
     '        </div>';
-var itemR = '<div class="item item-right">\n' +
+var itemR = '<div class="item-time">'+ curentTime() +'</div>' +
+    '           <div class="item item-right">\n' +
     '            <div class="img-head"><img src="'+ user_logo +'" alt="头像"></div>\n' +
-    '            <div>'+ curentTime() +'</div>' +
     '            <div class="content">\n' +
     '                CONTENT-RIGHT\n' +
     '            </div>\n' +
     '        </div>';
-var voiceTextDiv = null;
 var ws = null;
 //获取当前网址，如： http://localhost:80/ybzx/index.jsp  
 var curPath=window.document.location.href;
@@ -26,8 +25,17 @@ var wsUrl = (localhostPaht+"/socket/"+user_id).replace("http","ws");//websocket�
 
 
 $(function () {
+
+
+
+    $("#container,html").animate({
+        scrollTop:$("#container")[0].scrollHeight //让body的scrollTop等于pos的top，就实现了滚动
+    },500);
+
+
     //转文本框
-    voiceTextDiv = document.getElementById("voiceText");
+    //$("#voiceText").scrollTop($("#voiceText")[0].scrollHeight);
+
 
 
     //连接websocket 对接时用
@@ -125,8 +133,8 @@ function output(type,content) {
         html = itemR.replace("CONTENT-RIGHT", content);
     }
     var item = $(html);
-    $("#voiceText").append(item);
-    // $(item).hide();
-    // $(item).show(250);
-    voiceTextDiv.scrollTop = voiceTextDiv.scrollHeight;
+    $("#all_content").append(item);
+    $("#container,html").animate({
+        scrollTop:$("#container")[0].scrollHeight //让body的scrollTop等于pos的top，就实现了滚动
+    },500);
 }

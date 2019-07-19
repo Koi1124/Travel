@@ -115,6 +115,16 @@ $(document).ready(function () {
         },400);
     });
 
+
+    // 私信点击事件
+    $(".btn-privateLetter").click(function () {
+        var id=$(".btn-privateLetter").attr("data-to_uid");
+        id=Number(id);
+        var url="/letter/detail/"+id;
+        window.location.replace(url);
+    });
+
+
     // 结伴关注点击事件
     $(".btn-collect").click(function () {
         var collectNum=$(".total span:eq(2)").text();
@@ -122,7 +132,9 @@ $(document).ready(function () {
         var data={
             userId:userId,
             collectId:pid,
-            type:5
+            rUserId:rUserId,
+            title:title,
+            type:"5"
         };
         if ($(this).attr("class") == "btn-collect _j_together_care") {
             $.ajax({
@@ -158,6 +170,12 @@ $(document).ready(function () {
                 },
                 error: function (e) {
                     console.log(e);
+                    spop({
+                        template: '网络故障，请稍后再试',
+                        position  : 'top-center',
+                        style: 'error',
+                        autoclose: 1500
+                    });
                 }
             });
         }

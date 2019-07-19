@@ -1,0 +1,965 @@
+.a {
+    background-color: transparent;
+    text-decoration: none;
+    color: #ff9d00;
+    cursor: pointer;
+}
+#mask {
+    position: fixed;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left:0;
+    height: 100%;
+    background-color: rgba(15, 15, 15, 0.63);
+    z-index: 1000;
+}
+.hide {
+    display: none;
+}
+
+.i, cite, em, var, address, dfn {
+    font-style: italic;
+
+}
+.set_index {
+    height: 480px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/page_bg.jpg) center 0 no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.set_bg {
+    background-size: cover;
+}
+
+.set_bg, .set_map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.set_page {
+    display: block;
+}
+
+.set_page {
+    height: 67px;
+    padding: 200px 0 0 275px;
+    width: 705px;
+    margin: 0 auto;
+    position: relative;
+}
+.set_page a.set_add {
+    width: 67px;
+    height: 67px;
+    float: left;
+    margin-right: 20px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/nn_sprite_v29.png) -10px 0 no-repeat;
+    position: relative;
+}
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    /* overflow: hidden; */
+}
+
+.set_page h2 {
+    margin-top: 2px;
+}
+
+.set_page h2, .set_page h2 a {
+    font-size: 24px;
+    color: #333;
+    font-weight: normal;
+}
+.set_page p {
+    margin-top: 12px;
+    font-size: 16px;
+}
+.set_title {
+    width: 938px;
+    padding: 20px 20px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #fff;
+    line-height: 20px;
+    position: absolute;
+    bottom: 25px;
+    z-index: 1;
+    left: 50%;
+    margin-left: -489px;
+    box-shadow: 0 2px 2px rgba(110,98,85,.5);
+    transition: .2s linear 0s;
+    -webkit-transition: .2s linear 0s;
+}
+.set_title input {
+    width: 868px;
+    height: 20px;
+    line-height: 22px;
+    font-size: 18px;
+    border: 0;
+
+    color: #666;
+    float: left;
+}
+
+
+.set_btn a {
+    width: 162px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 34px;
+    overflow: hidden;
+    color: #fff;
+    display: block;
+}
+
+.set_btn {
+    width: 162px;
+    position: absolute;
+    left: 50%;
+    bottom: 95px;
+    margin-left: -489px;
+    background-color: #8b8b8b;
+    background-color: rgba(0,0,0,.7);
+    z-index: 11;
+    overflow: hidden;
+}
+.set_btn a i {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v35.png) -83px -630px no-repeat;
+    vertical-align: -2px;
+    float: left;
+    margin: 7px 10px 0 13px;
+}
+
+.set_btn a:hover, .set_btn a.on, .set_btn a.a_set, .set_btn li:hover .a_add {
+    background: #6a6a6a;
+    background-color: rgba(0,0,0,.2);
+    text-decoration: none;
+    color: #ff8a00;
+}
+
+
+
+
+.container {
+    margin-bottom: 0;
+}
+
+.container {
+    width: 980px;
+    margin: 40px auto;
+}
+
+.content {
+    min-height: 350px;
+    padding-bottom: 100px;
+}
+
+.content {
+    float: left;
+    width: 680px;
+    font-size: 15px;
+    color: #444;
+    line-height: 28px;
+    position: relative;
+}
+
+
+.textarea {
+    width: 100%;
+    min-height: 26px;
+    display: block;
+    border: 0;
+    resize: none;
+    line-height: 1.8;
+    padding: 0;
+}
+
+
+#textarea {
+    display: block;
+    overflow: hidden;
+    height: 18px;
+}
+
+
+
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    outline:none;
+}
+
+.sidebar {
+    position: relative;
+    z-index: 11;
+    float: right;
+    width: 240px;
+    padding-top: 10px;
+}
+
+.sidebar-fixed {
+    position: fixed;
+    z-index: 11;
+    float: right;
+    width: 240px;
+    padding-top: 10px;
+    left: 65%;
+    top:10px;
+}
+
+.sidebar-item {
+    margin-bottom: 25px;
+    position: relative;
+    line-height: 28px;
+}
+.add-btn {
+    color: #333;
+    display: block;
+    font-size: 18px;
+    color: #333;
+}
+
+.add-btn .i{
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+
+    float: left;
+    margin-right: 10px;
+    width: 28px;
+    height: 28px;
+}
+
+.add-btn .icon-photo {
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+
+    float: left;
+    margin-right: 10px;
+    width: 28px;
+    height: 28px;
+}
+.add-btn:hover .icon-photo {
+    background-position: 0 -30px;
+}
+
+
+
+
+.add-btn .icon-title {
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+    background-position: -60px 0;
+    float: left;margin-right: 10px;
+    width: 28px;
+    height: 28px;
+}
+.add-btn:hover .icon-title {
+    background-position: -60px -30px;
+}
+
+
+.side-save .btn-save:hover {
+    text-decoration: none;
+    background-color: #ff9d00;
+    color: #fff;
+    border-color: #e6e6e6;
+}
+
+.side-save .btn-save {
+    margin-top: 5px;
+    display: block;
+    width: 138px;
+    height: 32px;
+    border: 1px solid #e6e6e6;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 16px;
+    line-height: 32px;
+    transition: all .1s linear;
+}
+
+
+.side-save {
+    margin: 20px 0 30px;
+    color: #999;
+    line-height: 20px;
+}
+.side_title {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+    line-height: 15px;
+}
+
+.catalog_content {
+    line-height: 26px;
+    font-size: 14px;
+}
+.catalog_content li a {
+    color: #999;
+}
+.catalog_content .catalog_num {
+    float: left;
+
+    color: #ccc;
+}
+
+
+
+
+.add-panel {
+    position: absolute;
+    right: 250px;
+    top: -5px;
+    width: 678px;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+}
+.add-panel-title .inner {
+    padding: 40px 35px;
+}
+.a-form {
+    margin: 10px 0;
+}
+.a-inpwrap {
+    float: left;
+    width: 500px;
+    position: relative;
+}
+
+.a-inptxt {
+    width: 460px;
+    height: 20px;
+    padding: 19px 20px;
+    background-color: #efefef;
+    border: 1px solid #efefef;
+    line-height: 20px;
+    font-size: 18px;
+    color: #333;
+    border-radius: 30px;
+    transition: all .2s linear;
+}
+.a-inpwrap input:focus{
+    outline: 0;
+    background-color: #fff;
+    border-color: #ff9d00;
+    box-shadow: 0 0 2px rgba(255,157,0,.5);
+}
+
+.a-btn {
+    float: left;
+    margin-left: 8px;
+    line-height: 58px;
+    width: 98px;
+    border: 1px solid #ff9d00;
+    text-align: center;
+    font-size: 20px;
+    color: #ff9d00;
+    border-radius: 30px;
+    transition: all .2s linear;
+}
+
+
+.content .add_pic, .content {
+    margin: 0;
+    padding: 20px 0;
+}
+
+
+.add_pic {
+    position: relative;
+    background-color: #fff;
+    margin-bottom: 18px;
+}
+.content .turn {
+    padding: 0 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #000;
+    background: rgba(0,0,0,0.7);
+}
+.turn .right {
+    background-position: -439px -61px;
+}
+.turn .close {
+    background-position: -460px -50px;
+    margin-right: 0;
+}
+.turn .go_set_page {
+    font-weight: normal;
+    color: #fff;
+    margin: 0 8px;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.turn i {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v35.png) -439px -36px no-repeat;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.action-ft {
+    height: 60px;
+    padding: 30px 0;
+}
+.action-wrap {
+    margin: 0 auto;
+    position: relative;
+}
+.action-ft .item-btn {
+    width: 300px;
+    padding-right: 300px;
+    text-align: right;
+    margin: auto;
+}
+
+
+
+.btn-publish {
+    display: inline-block;
+    margin-left: 25px;
+    padding: 0 55px;
+    height: 60px;
+    background: -webkit-linear-gradient(-30deg,transparent 0,rgba(255,138,0,.3) 30%,rgba(255,138,0,1) 90%);
+    background-color: #ff9d00;
+    border-radius: 30px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    line-height: 60px;
+    text-align: center;
+    box-shadow: 0 0 7px rgba(0,0,0,0.15);
+    vertical-align: middle;
+}
+.btn-publish:hover {
+    text-decoration: none;
+    background-color: #ff9d00;
+    color: rgb(255, 255, 255);
+
+}
+
+.article_title {
+    margin: 20px 0;
+    position: relative;
+}
+.article_title h2 {
+    height: 50px;
+    overflow: hidden;
+    color: #222;
+    font-size: 24px;
+    line-height: 50px;
+}
+.article_title .handle {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+}
+
+
+
+.article_title .handle a {
+    margin-left: 10px;
+    width: 22px;
+    height: 23px;
+    line-height: 100px;
+    overflow: hidden;
+    display: none;
+
+}
+
+.article_title:hover .handle a {
+    display: inline-block;
+}
+.add-panel:after, .img-mobile .a-question, .pl-schbar i, .pub-last a.close-btn i, .tit-style .add i, .video-hd .item i, .article_title .handle a, .side-save .btn-save i, .edit-btn-music .icon-music, .edit-btn-music .icon-pen {
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/n_publish4@2x.png) no-repeat 0 0;
+    background-size: 200px auto;
+}
+
+
+
+.article_title .handle .edit {
+    background-position: -150px -90px;
+}
+
+
+.article_title .handle .delete {
+    background-position: -150px -60px;
+}
+
+
+/* 提交弹出框 */
+
+.pop_no_margin {
+
+    width: 600px;
+}
+.popup-box {
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    margin: auto;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+
+}
+.prop-info {
+    width: 540px;
+    padding: 40px 30px 30px;
+    color: #444;
+}
+.pi-title {
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+form {
+    display: block;
+    margin-top: 0em;
+}
+input {
+    background: transparent;
+}
+input {
+    line-height: normal;
+}
+.pi-base {
+    margin: 30px -10px 25px;
+    border-top: 1px solid #e5e5e5;
+}
+.pi-row {
+    padding: 12px 10px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    font-size: 16px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.pi-date {
+    position: relative;
+}
+.pi-col {
+    float: left;
+    width: 250px;
+    height: 40px;
+}
+.pi-input {
+    float: right;
+    border: 0 none;
+    text-align: right;
+    padding: 0;
+    width: 125px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #444;
+}
+
+.pi-date .pi-input {
+    padding-right: 20px;
+}
+.pi-icon-cal {
+    position: absolute;
+    right: 0;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/151204sprite1.png) no-repeat 0 -88px;
+    cursor: pointer;
+}
+.pi-col {
+    float: left;
+    width: 530px;
+    height: 40px;
+}
+
+.pi-otherTitle {
+    margin-bottom: 15px;
+    color: #999;
+    font-size: 14px;
+}
+
+.pi-otherTag li {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+.pi-tagitem {
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    padding: 0 19px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    color: #666;
+    border-radius: 13px;
+    background-color: #f6f6f8;
+}
+.pi-tagitem:hover, .pi-tagitem.on {
+    text-decoration: none;
+    background-color: #ff9d00;
+    border-color: #ff9d00;
+    color: #fff;
+}
+.pi-tags label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.pop-action {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.pop-action>a {
+    display: inline-block;
+    margin-left: 20px;
+    width: 112px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 5px;
+}
+.pop-action .btn-cancel {
+    background-color: #efefef;
+    color: #999;
+}
+.pop-action .btn-submit {
+    background-color: #ff9e00;
+    color: #fff;
+}
+.pop-action .btn-submit:hover {
+    background-color: #ff8a00;
+}
+.pop-action .btn-cancel:hover {
+    background-color: #e1e1e1;
+}
+.pop-action a:hover {
+    text-decoration: none;
+}
+
+
+.popup-box a.close-btn {
+    width: 36px;
+    height: 26px;
+    background: url(https://css.mafengwo.net/images/other/popctn_bg2.png) no-repeat 0 -280px;
+    padding: 0;
+    outline: 0;
+    position: absolute;
+    right: 0;
+    top: 11px;
+    display: block;
+}
+.popup-box a.close-btn i {
+    margin: 8px;
+    width: 22px;
+    height: 22px;
+    background: url(https://css.mafengwo.net/images/other/popctn_bg2.png) no-repeat -40px -280px;
+    overflow: hidden;
+}
+.popup-box a.close-btn i {
+    width: 9px;
+    height: 9px;
+    background: url(https://css.mafengwo.net/images/other/i_cross.gif) no-repeat;
+    display: block;
+    transition: 1s ease-in-out 0s;
+    -moz-transition: 1s ease-in-out 0s;
+    -webkit-transition: 1s ease-in-out 0s;
+    -o-transition: 1s ease-in-out 0s;
+    -webkit-backface-visibility: hidden;
+}
+.popup-box a.close-btn:hover i {
+    -moz-transform: scale(1.1) rotate(360deg);
+    -webkit-transform: scale(1.1) rotate(360deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -moz-transition: 1s ease-in-out 0s;
+    -webkit-transition: 1s ease-in-out 0s;
+}
+
+
+/* 显示页面 */
+.title_bg {
+    height: 119px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/nn_v2/title_bg.png) 0 bottom repeat-x;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+.view_info {
+    width: 100%;
+    height: 90px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 15;
+}
+.vi_con {
+    width: 830px;
+    padding: 0 0 10px 150px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+.vi_con h1.lh80 {
+    line-height: 80px;
+}
+.vi_con h1 {
+    width: 710px;
+    height: 80px;
+    font-size: 26px;
+    line-height: 38px;
+    overflow: hidden;
+}
+.view_title {
+    height: 80px;
+    border-bottom: 1px solid #d7d7d7;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 16;
+}
+.vt_center {
+    width: 1000px;
+    margin: 0 auto;
+}
+.view_title .ding {
+    position: absolute;
+    right: 50%;
+    margin-right: -475px;
+    color: rgb(0, 0, 0);
+    z-index: 4;
+}
+.ding {
+    width: 70px;
+    position: absolute;
+    right: 20px;
+    top: 14px;
+    text-align: center;
+}
+.ding a {
+    width: 37px;
+    height: 33px;
+    display: inline-block;
+    margin-bottom: 5px;
+    text-align: center;
+    line-height: 32px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v35.png) -293px -236px no-repeat;
+    font-size: 18px;
+    color: #fff;
+    text-shadow: 1px 0 1px #fcaf54;
+}
+.view_title .ding .num {
+    font-size: 14px;
+}
+.person {
+    width: 480px;
+    padding: 20px 0 0 150px;
+    float: left;
+    position: relative;
+}
+.person a.per_pic {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: -80px;
+    left: 0;
+    z-index: 88;
+}
+.person a {
+    display: inline-block;
+    margin-right: 5px;
+}
+.person a.per_name {
+    color: #ff7200;
+    font-size: 14px;
+    font-weight: normal;
+}
+.vc_time {
+    color: #acacac;
+    display: inline;
+    margin-left: 10px;
+}
+.vc_time .time, .vc_time span {
+    font-family: Verdana,Arial,Helvetica,STHeiti;
+}
+.vc_time span {
+    display: inline-block;
+    margin-right: 10px;
+}
+.vc_time span i {
+    width: 18px;
+    height: 14px;
+    display: inline-block;
+    background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v35.png) -51px -327px no-repeat;
+    margin-right: 4px;
+    vertical-align: -2px;
+}
+.person-edit {
+    margin-top: 5px;
+}
+.person a.per_pic img {
+    border-radius: 50%;
+}
+.bar_share {
+    float: right;
+    width: 245px;
+}
+.view_title .bs_collect, .view_title .bs_share {
+    width: 120px;
+    height: 65px;
+    padding-top: 15px;
+    text-align: center;
+    /* border-left: 1px solid #e8e8e6; */
+}
+.bs_collect, .bs_share {
+    float: right;
+}
+.view_title .bar_share a.bs_btn {
+    width: auto;
+}
+.bar_share a.bs_btn {
+    display: block;
+    line-height: 24px;
+    font-size: 14px;
+    color: #666;
+    width: 80px;
+    position: relative;
+    z-index: 1;
+}
+.view_title .bar_share a.bs_btn i {
+    display: block;
+    margin: 0 auto 7px;
+}
+
+.bar_share a.bs_btn i {
+    width: 25px;
+    height: 24px;
+    background: url(https://css.mafengwo.net/images/post/new_notes/notes-share-collect@2x.png) no-repeat;
+    background-size: 100px auto;
+}
+.collected a.bs_btn i {
+    background-position: -30px 0;
+}
+.bar_share .bs_btn span, .bar_share .bs_btn strong {
+    width: 30px;
+    font-weight: normal;
+}
+.travel_directory {
+    border: 1px dashed #d7d7d7;
+    padding-bottom: 18px;
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    position: relative;
+}
+.tarvel_dir_list ul li i {
+    font-family: Arial,Helvetica,sans-serif;
+    font-style: normal;
+}
+.tarvel_dir_list {
+    margin-left: 20px;
+}
+.tarvel_dir_list ul {
+    width: 100%;
+}
+
+.tarvel_dir_list ul li {
+    width: 170px;
+    margin-top: 18px;
+    float: left;
+    display: inline;
+    font-size: 14px;
+    height: 22px;
+    line-height: 22px;
+    color: #666;
+    padding-left: 5%;
+    background: url(http://css.mafengwo.net/images/post/new_notes/151204sprite1.png) no-repeat;
+    cursor: pointer;
+}
+.tarvel_dir_list ul li span {
+    color: #ff9d00;
+    margin: 0 5px;
+}
+.tarvel_dir_list ul li.time {
+    background-position: -22px 0;
+}
+.tarvel_dir_list ul li.day {
+    background-position: -22px -22px;
+}
+.tarvel_dir_list ul li.cost {
+    background-position: -22px -66px;
+}
+.tra_edit {
+    color: #ff9d00;
+    font-size: 12px;
+    position: absolute;
+    top: 14px;
+    bottom: 20px;
+    right: 20px;
+}
+
+.slide-right-container {
+    position: relative;
+}
+.relation_mdd {
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+.relation_mdd a {
+    color: #ff8a00;
+}
+.its_others {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.mdd_info {
+    width: 240px;
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+}
+.mdd_info i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    background: url(http://css.mafengwo.net/images/post/new_notes/nn_v2/cover_bg.png) 0 bottom repeat-x;
+}
+
+.va_con, .va_con p {
+    line-height: 28px;
+    font-size: 15px;
+    color: #444;
+}

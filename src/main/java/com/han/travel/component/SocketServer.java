@@ -63,6 +63,7 @@ public class SocketServer
     @OnMessage
     public void onMessage(String message,Session session)
     {
+        // 从前端send接受来的消息，进行数据处理
         JSONObject jsonObject=JSONObject.fromObject(message);
         int clientId=Integer.parseInt(sessionIds.get(session.getId()));
         int toClientId=Integer.parseInt(jsonObject.get("To").toString());
@@ -71,11 +72,24 @@ public class SocketServer
         dto.put("clientId",clientId);
         dto.put("toClientId",toClientId);
         dto.put("content",content);
+
+        // 判断是否在一个聊天框内
+        Session s=sessionPool.get(String.valueOf(toClientId));
+        if (s==null)
+        {
+            // 离线状态发送私信提醒消息，设置未读
+            dto.put("type",0);
+            MessageSocketServer.sendLetter(toClientId);
+        }
+        else
+        {
+            // 在线状态设置已读
+            dto.put("type",1);
+        }
+        // 私信添加
         letterService.insertLettter(dto);
 
         sendMessageTo(content,String.valueOf(toClientId),String.valueOf(clientId));
-
-        MessageSocketServer.sendMessage(toClientId);
 
     }
 

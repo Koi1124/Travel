@@ -50,4 +50,10 @@
         WHERE aaa304 <![CDATA[ <> ]]> 0
         ;
     </select>
+
+    <select id="getAllNameAndId" resultType="java.util.HashMap">
+        SELECT aaa301 AS 'id', aaa302 AS 'name' FROM aa03
+        WHERE aaa302 <![CDATA[ <> ]]> "Ö±Ï½ÊÐ"
+        ;
+    </select>
 </mapper>

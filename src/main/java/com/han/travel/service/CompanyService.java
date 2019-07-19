@@ -69,8 +69,6 @@ public class CompanyService
 //                break;
 //            }
 //        }
-
-
         List<Map<String,Object>> top8MDD=ac07Dao.getTop8MDD();
         for (Map<String,Object> dto:top8MDD)
         {
@@ -102,7 +100,7 @@ public class CompanyService
         List<Integer> compList=ac07Dao.getCompByMDD(pid);
         for (Integer cid:compList)
         {
-            count=count+ac05Dao.getCompCount(cid);
+            count=count+ac05Dao.getAppCountByCId(cid);
         }
         return count;
     }
@@ -129,16 +127,13 @@ public class CompanyService
             for (Integer cid:cities)
             {
                 Map<String,Object> cityInfo=ac05Dao.getAppCountAndPNameAndPIdByPId(cid);
-//                Map<String,Object> cityInfo=new HashMap<>();
-//                cityInfo.put("name",aa03Dao.getNameById(cid));
-//                cityInfo.put("id",cid);
-//                cityInfo.put("app",calculateAppCount(cid));
                 cityInfo.put("count",ac07Dao.placeCount(cid));
                 dto.put(String.valueOf(index++),cityInfo);
             }
             result.add(dto);
         }
         long endTime=System.nanoTime();
+        System.out.println("mddInfo:"+result);
         System.out.println(endTime-startTime);
         return result;
     }
@@ -162,11 +157,11 @@ public class CompanyService
     }
 
     /**
-     *@discription: 根据选择的目的地显示对应结伴，地点用|隔开
+     *@discription: 根据选择的目的地显示对应结伴
      *@param pid
 	 *@param order
      *@date: 2019/7/3 19:20
-     *@reviseDate: 2019/7/8
+     *@reviseDate: 2019/7/17
      *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      *@author: Han
      */
@@ -189,46 +184,8 @@ public class CompanyService
         }
 
         long startTime=System.nanoTime();
-//        List<Map<String,Object>> result=new ArrayList<>();
-//        List<Integer> compList=ac07Dao.getCompByMDD(pid);
-//        for (Integer cid:compList)
-//        {
-//            Map<String,Object> dto=new HashMap<>();
-//            List<Integer> MDDList=ac07Dao.getMDDByComp(cid);
-//            Map<String,Object> comp=ab05Dao.queryById(cid);
-//            String intro= (String) comp.get("intro");
-//            int authorId= (int) comp.get("authorId");
-//            Date date= (Date) comp.get("date");
-//            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-//            String currentDate = simpleDateFormat.format(new Date());
-//            int days=0;
-//            try
-//            {
-//                days=calculateDays(currentDate,date);
-//            }
-//            catch (Exception e)
-//            {
-//                e.printStackTrace();
-//            }
-//            Map<String,String> author=aa01Dao.getNameAndPicById(authorId);
-//            StringBuilder mddName=new StringBuilder();
-//            for (Integer p:MDDList)
-//            {
-//                mddName.append(aa03Dao.getNameById(p)+"|");
-//            }
-//            mddName.deleteCharAt(mddName.length()-1);
-//            dto.put("id",cid);
-//            dto.put("name",mddName.toString());
-//            dto.put("intro",intro);
-//            dto.put("days",days);
-//            dto.put("authorName",author.get("name"));
-//            dto.put("authorPic",author.get("pic"));
-//            result.add(dto);
-//        }
-
         Map<String,Object> result=new HashMap<>(2);
         List<Map<String,Object>> info=ab05Dao.getSearchCompInfoByMDD(pid,order,page,offset);
-        System.out.println("info:"+info);
         for (Map<String,Object> m:info)
         {
             Date date=(Date)m.get("date");
@@ -244,17 +201,7 @@ public class CompanyService
                 e.printStackTrace();
             }
             m.put("days",days);
-            List<Map<String,Object>> nameAndPicList=aa03Dao.getNamesAndPicsByComp((Integer) m.get("id"));
-            StringBuilder mddName=new StringBuilder();
-            for (Map<String,Object> map:nameAndPicList)
-            {
-                mddName.append(map.get("name")+"|");
-            }
-            mddName.deleteCharAt(mddName.length()-1);
-            m.put("name",mddName.toString());
-            m.put("mddPic",nameAndPicList.get(0).get("pic"));
         }
-        System.out.println("after info:"+info);
         long endTime=System.nanoTime();
         result.put("count",ab05Dao.getCompTotalCountByMDD(pid));
         result.put("info",info);
@@ -402,24 +349,43 @@ public class CompanyService
 
     
     /**
-     *@discription: 补充传入信息，丰富细节
+     *@discription: 添加结伴报名表信息
      *@param dto 
      *@date: 2019/7/8 15:34
      *@return: java.util.Map<java.lang.String,java.lang.Object>
      *@author: Han
      */
-    public Map<String,Object> getCompDetail(Map<String,Object> dto)
+    private Map<String,Object> getAppDetailByCId(Map<String,Object> dto)
     {
-        int id= Integer.parseInt((String) dto.get("id"));
+        int id= (Integer) dto.get("id");
         Map<String,Object> detail=ab05Dao.queryById(id);
-        for (Map.Entry m:detail.entrySet())
-        {
-            dto.put((String) m.getKey(),m.getValue());
-        }
-        int app=ac05Dao.getCompCount(id);
+        dto.putAll(detail);
+        int app=ac05Dao.getAppCountByCId(id);
         dto.put("app",app);
         dto.put("applicants",ac05Dao.getApplicantsIdAndNameAndPicByCId(id));
         return dto;
+    }
+    
+    /**
+     *@discription: 得到结伴细节页面部分细节
+     *@param cid 
+     *@date: 2019/7/17 16:21
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    public Map<String,Object> getCompPartialDetail(int cid)
+    {
+        Map<String,Object> dto=ab05Dao.getOriginDataByCid(cid);
+        return getAppDetailByCId(dto);
+    }
+
+
+
+    public Integer handleView(int id,Integer view)
+    {
+        if (view==null)view=0;
+        ab05Dao.updateViewByComp(id,++view);
+        return view;
     }
 
 

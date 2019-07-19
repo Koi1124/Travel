@@ -39,11 +39,22 @@ public class MessageSocketServer
         e.printStackTrace();
     }
 
-    public static void sendMessage(int rid)
+
+
+    public static void sendMessage(Integer rid)
     {
         for (MessageSocketServer m:messageSet)
         {
             m.session.getAsyncRemote().sendText(String.valueOf(rid));
         }
     }
+
+    public static void sendLetter(Integer rid)
+    {
+        for (MessageSocketServer m:messageSet)
+        {
+            m.session.getAsyncRemote().sendText(String.valueOf(rid)+","+"letter");
+        }
+    }
+
 }

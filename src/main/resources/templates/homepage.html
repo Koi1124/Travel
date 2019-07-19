@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>周游旅行平台</title>
+    <link href="navslider.css" th:href="@{/asserts/css/navslider.css}" rel="stylesheet" type="text/css" />
+    <link href="travelnotes.css" th:href="@{/asserts/css/travelnotes.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
+    <link rel="stylesheet" th:href="@{/asserts/css/style.css}" />
+
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
+    <script th:src="@{/asserts/js/home/homepage.js}"></script>
+</head>
+
+<body>
+
+<div id="header" th:fragment="navbar">
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var user_id=[[${session.user_id}]];
+        /*]]>*/
+    </script>
+
+    <div class="zy-header">
+        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
+            <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="主页"></a></div>
+            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-zy-index"><a href="#">首页</a></li>
+                <li class="head-nav-zy-place"><a href="##">目的地</a></li>
+                <li class="head-nav-zy-gonglve"><a href="##">旅游攻略</a></li>
+                <li class="head-nav-zy-sales"><a href="##">跟团游</a></li>
+                <li class="head-nav-zy-flight"><a href="" th:href="@{/together}">结伴</a></li>
+            </ul>
+
+            <div class="head-user-zy" id="_j_head_user">
+                <a href="##" title="个人空间">
+                    <div class="user-image">
+                        <img th:src="${session.user_logo}"
+                             src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                             height="32" width="32" alt="wdnmd的窝">
+                    </div>
+                </a>
+            </div>
+
+            <div class="head-msg" id="_j_head_msg">
+                <a class="drop-trigger _drop_msg_detail" href="javascript:" style="text-decoration: none;">
+                    <i class="icon-msg"></i>
+                    消息
+                    <i class="icon-caret-down"></i>
+                    <span class="head-msg-new _head_msg" style="display: inline;">0</span>
+                </a>
+            </div>
+
+
+            <div class="head-msg" id="_j_head_private_letter">
+                <a class="drop-trigger" href="javascript:"  th:href="@{/letter}" style="text-decoration: none;">
+                    <i class="icon-letter"></i>
+                    私信
+                    <span class="head-msg-new _head_private_letter" style="display: none;">&nbsp;&nbsp;</span>
+                </a>
+            </div>
+
+
+            <div class="dropdown-group">
+                <!-- 消息下拉菜单 begin 修改display属性为block为显示-->
+                <div class="dropdown-menu dropdown-msg" id="_j_msg_panel"
+                     style="display: none;right: 545px">
+                    <ul>
+                        <!--TODO-->
+                    </ul>
+                </div>
+                <!-- 消息下拉菜单 end -->
+
+
+
+
+
+                <!-- 用户下拉菜单 begin 修改display属性为block为显示-->
+                <div class="dropdown-menu dropdown-user hide" id="_j_user_panel" data-cs-t="user_nav"
+                     style="display: none;width: 200px;right: 500px">
+                    <ul>
+                        <li><a href="" title="个人空间" rel="nofollow"><i class="icon-wo"></i>个人空间</a></li>
+                        <li><a href="" title="我的设置" target="_blank" rel="nofollow" data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
+                        <li><a href="" title="退出登录" rel="nofollow"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
+                    </ul>
+                </div>
+                <!-- 用户下拉菜单 end -->
+            </div>
+
+
+            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
+                <div class="head-search-wrapper-zy">
+                    <div class="head-searchform-zy">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
+                               style="outline:none;">
+                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <link href="navbar.css" th:href="@{/asserts/css/navbar.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/asserts/js/message/message.js}"></script>
+
+</div>
+
+
+
+
+
+
+
+    <!-- 轮播图及搜索 s-->
+    <div class="zy-focus" id="_j_zy_focus">
+        <div class="show-slider" id="_j_top_pic_container" style="height: 506px;">
+            <ul class="show-image">
+                <li class="first" style="display: none;">
+                    <a href="/i/14664438.html" target="_blank" class="show-pic"><img
+                            src="https://p3-q.mafengwo.net/s14/M00/7F/59/wKgE2l0omDmAQZzsAAfRxm-6BHI137.jpg?imageMogr2%2Finterlace%2F1"></a>
+                    <a href="/i/14664438.html" target="_blank" class="show-title dark">
+                        <div class="date">
+                            <span class="day">13</span>/Jul.2019
+                        </div>
+                        <h3>【勇敢者的游戏】喜马拉雅山谷里的歌</h3>
+                    </a>
+
+                </li>
+                <li style="display: none;">
+                    <a href="/i/14663337.html" target="_blank" class="show-pic"><img
+                            src="https://p2-q.mafengwo.net/s14/M00/24/BF/wKgE2l0nE6yAMjcxAAvidR8YTa8493.jpg?imageMogr2%2Finterlace%2F1"></a>
+                    <a href="/i/14663337.html" target="_blank" class="show-title dark">
+                        <div class="date">
+                            <span class="day">12</span>/Jul.2019
+                        </div>
+                        <h3>跟着中国“最丑雕塑”艺术家，揭开云南小众艺术建筑之旅</h3>
+                    </a>
+
+                </li>
+                <li style="display: none;">
+                    <a href="/i/14452534.html" target="_blank" class="show-pic"><img
+                            src="https://b1-q.mafengwo.net/s14/M00/AD/AB/wKgE2l0l4jqABaLXAAmhkHAeWuE829.jpg?imageMogr2%2Finterlace%2F1"></a>
+                    <a href="/i/14452534.html" target="_blank" class="show-title dark">
+                        <div class="date">
+                            <span class="day">11</span>/Jul.2019
+                        </div>
+                        <h3>11天穿越摩洛哥与撒哈拉的超脱之旅</h3>
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="/i/12045558.html" target="_blank" class="show-pic"><img
+                            src="https://b3-q.mafengwo.net/s14/M00/6A/E4/wKgE2l0kUVCASblgAAjYCizZqHQ589.jpg?imageMogr2%2Finterlace%2F1"></a>
+                    <a href="/i/12045558.html" target="_blank" class="show-title dark">
+                        <div class="date">
+                            <span class="day">10</span>/Jul.2019
+                        </div>
+                        <h3>从珠峰到东极岛，73天1万公里，属于我的毕业日记</h3>
+                    </a>
+
+                </li>
+                <li style="display: none;">
+                    <a href="/i/13859283.html" target="_blank" class="show-pic"><img
+                            src="https://p4-q.mafengwo.net/s14/M00/19/79/wKgE2l0jGq-AIOeeAAnZXBjzj1I338.jpg?imageMogr2%2Finterlace%2F1"></a>
+                    <a href="/i/13859283.html" target="_blank" class="show-title dark">
+                        <div class="date">
+                            <span class="day">9</span>/Jul.2019
+                        </div>
+                        <h3>「 日 记 东 京 」</h3>
+                    </a>
+
+                </li>
+            </ul>
+            <ul class="show-nav">
+                <li class=""><a href="javascript:"><img
+                            src="https://p1-q.mafengwo.net/s14/M00/7F/3E/wKgE2l0omDCAJrllAASaCwlpEtA249.jpg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90"
+                            height="62" width="110"><span></span></a></li>
+                <li class=""><a href="javascript:"><img
+                            src="https://p1-q.mafengwo.net/s14/M00/22/78/wKgE2l0nEsuAYxClAAUvtCGQTdw687.jpg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90"
+                            height="62" width="110"><span></span></a></li>
+                <li class=""><a href="javascript:"><img
+                            src="https://n4-q.mafengwo.net/s14/M00/AD/8E/wKgE2l0l4jSAKQlSAAU_QiKzuvg291.jpg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90"
+                            height="62" width="110"><span></span></a></li>
+                <li class="active"><a href="javascript:"><img
+                            src="https://b3-q.mafengwo.net/s14/M00/6A/B3/wKgE2l0kUTqAXym-AAPKCWC_5MU771.jpg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90"
+                            height="62" width="110"><span></span></a></li>
+                <li class=""><a href="javascript:"><img
+                            src="https://n4-q.mafengwo.net/s14/M00/19/5D/wKgE2l0jGqOAUIkBAAJKOA5Cw5o284.jpg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90"
+                            height="62" width="110"><span></span></a></li>
+            </ul>
+
+        </div>
+
+        <div class="search-container" id="_j_index_search">
+            <div class="search-group">
+                <div class="searchtab" id="_j_index_search_tab">
+                    <ul class="clearfix">
+                        <li data-index="1" class=""><i></i>目的地</li>
+                        <li data-index="2" class=""><i></i>游记</li>
+                        <li data-index="3" class=""><i></i>结伴</li>
+                        <li data-index="4" class=""><i></i>旅游项目</li>
+                    </ul>
+                </div>
+
+
+
+                <!-- 目的地 begin -->
+                <div class="searchbar hide" id="_j_index_search_bar_mdd">
+                    <form action="/search/s.php" method="get">
+                        <div class="search-wrapper">
+                            <div class="search-input">
+                                <input name="q" type="text" placeholder="我要去..." id="_j_index_search_input_mdd"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="search-button" id="_j_index_search_btn_mdd">
+                            <a role="button" href="javascript:"><i class="icon-search"></i></a>
+                        </div>
+                    </form>
+                </div>
+                <!-- 目的地 end -->
+
+
+            </div>
+        </div>
+    </div>
+    <!-- 轮播图及搜索 e-->
+
+    <div class="zy-container">
+        <div class="zy-wrapper">
+            <div class="zy-travelnotes">
+                <!-- 游记navbar s-->
+                <div class="navbar clearfix">
+                    <ul class="tn-nav" id="_j_tn_nav">
+
+                        <li class="active _j_gs_tab tn-nav-hot">
+                            <a data-type="2" data-objid="0">热门游记</a>
+                        </li>
+                        <li class="_j_gs_tab tn-nav-new">
+                            <a data-type="1">最新发表</a>
+                        </li>
+                    </ul>
+                    <div class="tn-write"><a class="btn-add" href="" target="_blank" rel="nofollow"><i></i>写游记</a></div>
+
+                </div>
+                <!-- 游记navbar e-->
+                <div class="tn-selected _j_tag_choose_container" style="display: block;"></div>
+                <!-- 内容本体 s-->
+                <div class="pagelet-block __web-inspector-hide-shortcut__" data-params="{&quot;type&quot;:&quot;0&quot;}" data-async="1">
+                    <div id="_j_tn_content">
+                        <div class="tn-list">
+                            <!--TODO-->
+                        </div>
+                        <div align="right" class="m-pagination" id="_j_tn_pagination" data-type="0" data-objid="0">
+                            <div id="pagination" class="page f1" style="text-align: center;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 内容本体 e -->
+            </div>
+            
+
+        </div>
+        <!-- 侧栏 s-->
+        <div class="zy-aside">
+            <div class="asidebox box-gonglve">
+                <div class="asidebox-hd">
+                    <h2 class="hd-title">旅游攻略推荐</h2>
+                    <a class="hd-right" href="/gonglve/">更多</a>
+                </div>
+                <div class="asidebox-bd">
+                    <div class="gonglve-item">
+                        <div class="img">
+                            <a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank"><img
+                                    src="https://b1-q.mafengwo.net/s12/M00/B2/13/wKgED1wCyCSAL0T1AAJgo-aF1Wo64.jpeg?imageMogr2%2Fthumbnail%2F%21260x139r%2Fgravity%2FCenter%2Fcrop%2F%21260x139%2Fquality%2F100"></a>
+                        </div>
+                        <h3><a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank">度假的正确打开方式——吃泡三亚</a>
+                        </h3>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="asidebox box-gonglve">
+                    <div class="asidebox-hd">
+                        <h2 class="hd-title">旅游攻略推荐</h2>
+                        <a class="hd-right" href="/gonglve/">更多</a>
+                    </div>
+                    <div class="asidebox-bd">
+                        <div class="gonglve-item">
+                            <div class="img">
+                                <a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank"><img
+                                        src="https://b1-q.mafengwo.net/s12/M00/B2/13/wKgED1wCyCSAL0T1AAJgo-aF1Wo64.jpeg?imageMogr2%2Fthumbnail%2F%21260x139r%2Fgravity%2FCenter%2Fcrop%2F%21260x139%2Fquality%2F100"></a>
+                            </div>
+                            <h3><a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank">度假的正确打开方式——吃泡三亚</a>
+                            </h3>
+                        </div>
+    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 侧栏 s-->
+    </div>
+</body>
+
+</html>

@@ -24,7 +24,12 @@
 
 
     <script th:inline="javascript">
+        /*<![CDATA[*/
         var telephone = [[${telephone}]];
+        var title=[[${title}]];
+        var rUserId=[[${authorId}]];
+        var type = '5';
+        /*]]>*/
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
@@ -45,6 +50,7 @@
 <input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
 <input id="comment_count" th:value="${commentCount}" type="hidden"/>
 <div class="container">
+    <div id="header" th:replace="~{homepage :: navbar}"></div>
     <div class="detail-hd">
         <div class="cover" th:style="'background-image:url(' + ${mddPic} + ')'" style="background-image:url(https://n3-q.mafengwo.net/s5/M00/E5/67/wKgB3FHlDx2AeOipAAMkkOmX8pg42.jpeg?imageMogr2%2Fthumbnail%2F%211280x280r%2Fgravity%2FCenter%2Fcrop%2F%211280x280%2Fquality%2F100)">
             <div class="bg"></div>
@@ -55,7 +61,7 @@
                 <div class="middle">
                     <h1 th:text="${title}">一起去新疆，有一起的么？</h1>
                     <div class="total">
-                        <span>5016</span>人浏览
+                        <span th:text="${view}">5016</span>人浏览
                         <em class="dot"></em>
                         <span th:text="${app}">10</span>人报名
                         <em class="dot"></em>
@@ -95,7 +101,7 @@
             <div class="detail-content">
                 <div class="sponsor clearfix">
                     <a class="avatar" href="#" target="_blank"><img th:src="${authorPic}" height="90" width="90"></a>
-                    <a class="name" href="#" target="_blank"><p th:text="${authorName}"></p></a>
+                    <a class="name _publisher_name" href="#" th:data_id="${authorId}" target="_blank"><p th:text="${authorName}"></p></a>
 
                     <div th:if="${session.user_id ne authorId}" class="opt">
 
@@ -104,12 +110,8 @@
                             <span class="followed" th:unless="${isFollow==null}">已关注</span>
                             <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
                         </a>
-<<<<<<< HEAD
-                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
 
-=======
-                            <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
->>>>>>> 2ed84e590578dac6c9395f3d0798cc80ecf543d5
+                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:href="'/letter/detail/' + ${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
                     </div>
                 </div>
                 <div class="desc _j_description">

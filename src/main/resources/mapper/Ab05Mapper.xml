@@ -3,11 +3,11 @@
 <mapper namespace="com.han.travel.dao.Ab05Dao">
     <select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT authorId, title, date, setout, period,
-            count, telephone, intro, commentCount
+            count, telephone, intro, commentCount, view
         from
             (SELECT
                  aab501, aaa101 AS "authorId", aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
-                         aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
+                         aab506 AS "count", aab507 AS "telephone",aab508 AS "intro", aab510 AS "view"
              FROM ab05
              WHERE aab509=1 AND aab501=#{id}) t1
             LEFT JOIN
@@ -74,15 +74,25 @@
     </select>
 
     <select id="getSearchCompInfoByMDD" resultType="java.util.HashMap">
-        SELECT t1.id, t1.intro, t1.date, t1.authorName, t1.authorPic, IFNULL(t2.star,0) 'star' FROM
+        SELECT t1.id, t1.intro, t1.date, t1.authorName, t1.authorPic,
+         IFNULL(t2.star,0) 'star', t3.name, t3.mddPic
+        FROM
         (SELECT a.aab501 AS 'id', a.aab508 AS 'intro', a.aab503 AS 'date', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic'
-                FROM ab05 a, ac07 b, aa01 c
-                WHERE a.aaa101=c.aaa101 AND a.aab501=b.aab501 AND a.aab509=1
-                AND b.aaa301=#{pid}) t1 LEFT JOIN
-        (SELECT a.aab501 AS 'id' ,count(b.aad404) AS 'star' FROM ab05 a, ad04 b, ac07 c
+				FROM ab05 a, ac07 b, aa01 c
+				WHERE a.aaa101=c.aaa101 AND a.aab501=b.aab501 AND a.aab509=1
+				AND b.aaa301=#{pid}) t1
+				LEFT JOIN
+        (SELECT a.aab501 AS 'id' ,count(b.aad404) AS 'star'
+				FROM ab05 a, ad04 b, ac07 c
         WHERE a.aab501=b.aad404 AND a.aab501=c.aab501 AND b.aad403=5 AND c.aaa301=#{pid}
         GROUP BY id) t2
         ON t1.id=t2.id
+        LEFT JOIN
+        (SELECT a.aab501 AS 'id', b.aaa305 AS 'mddPic',GROUP_CONCAT(DISTINCT(b.aaa302) SEPARATOR '|') AS 'name'
+        FROM ac07 a, aa03 b
+        WHERE a.aaa301=b.aaa301
+        GROUP BY id) t3
+        ON t1.id=t3.id
         ORDER BY ${order}
         LIMIT #{page},#{offset};
         ;
@@ -99,6 +109,28 @@
         GROUP BY id) t2
         ON t1.id=t2.id
         ;
+    </select>
+    
+    <update id="updateViewByComp">
+        UPDATE ab05 SET aab510=#{view}
+        WHERE aab501=#{cid}
+        ;
+    </update>
+
+    <select id="getOriginDataByCid" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT t1.id, t1.authorName, t1.authorPic, t1.mddPic, t1.name ,IFNULL(t2.star,0) AS star
+        FROM
+        (SELECT a.aab501 AS 'id', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic', b.aaa305 AS 'mddPic', GROUP_CONCAT(DISTINCT(b.aaa302) SEPARATOR '|') AS 'name'
+        FROM ab05 a, aa03 b,aa01 c,ac07 d
+        WHERE a.aaa101=c.aaa101 AND a.aab501=d.aab501 AND d.aaa301 = b.aaa301 AND a.aab501=#{id}
+        GROUP BY id
+        ) t1
+        LEFT JOIN
+        (SELECT aad404 AS 'id', count(aad404) AS 'star'
+        FROM ad04
+        WHERE aad403=5 AND aad404=#{id}
+        ) t2
+        ON t1.id=t2.id
     </select>
 
 </mapper>

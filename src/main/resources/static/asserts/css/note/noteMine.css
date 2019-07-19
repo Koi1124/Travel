@@ -1,0 +1,376 @@
+ul, li, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+    clear: both;
+    padding: 115px 0 0;
+}
+.wrapper li.btn1 {
+    width: 450px;
+}
+.wrapper .btns li {
+    float: left;
+    position: relative;
+    height: 410px;
+}
+.wrapper li.btn1 a.btn {
+    position: relative;
+}
+.wrapper li.btn2 {
+    width: 450px;
+    padding-left: 100px;
+}
+.wrapper li.btn1 a.btn {
+    background-color: #c8e6e5;
+    color: #507675;
+    box-shadow: 0px 0px 0px #b4dddb inset, 0px 5px 0px 0px #b4dddb, 0px 5px 0px #b4dddb;
+}
+
+.wrapper li.btn2 a.btn {
+    background-color: #fac662;
+    color: #a1601b;
+    box-shadow: 0px 0px 0px #f4b02e inset, 0px 5px 0px 0px #f4b02e, 0px 5px 0px #f4b02e;
+}
+
+.wrapper .btns a.btn {
+    display: inline-block;
+    border-radius: 10px;
+    width: 450px;
+    height: 155px;
+    padding-top: 5px;
+    font-size: 42px;
+    text-align: left;
+}
+.wrapper li.btn1 .icon {
+    background: url(https://css.mafengwo.net/images/post/selectcats/btnbg.png) no-repeat;
+}
+.wrapper li.btn2 .icon {
+    background: url(https://css.mafengwo.net/images/post/selectcats/btnbg.png) -120px 0 no-repeat;
+}
+
+.wrapper .btns .icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 38px 0 56px;
+    width: 120px;
+    height: 155px;
+    position: relative;
+}
+.wrapper li.btn1 .icon i {
+    width: 65px;
+    height: 76px;
+    background: url(https://css.mafengwo.net/images/post/selectcats/btn1.gif) no-repeat;
+    top: 40px;
+    left: 30px;
+}
+.wrapper .btns .icon i {
+    display: inline-block;
+    position: absolute;
+}
+.wrapper li.btn2 .icon i {
+    width: 74px;
+    height: 56px;
+    background: url(https://css.mafengwo.net/images/post/selectcats/btn2.gif) no-repeat;
+    top: 55px;
+    left: 25px;
+}
+
+
+.wrapper .btns a.btn:hover {
+    text-decoration: none;
+}
+.wrapper li.btn1 a.btn:hover {
+    background-color: #b4dddb;
+}
+.wrapper li.btn2 a.btn:hover {
+    background-color: #FCBD44;
+    box-shadow: 0px 0px 0px #FCBD44 inset, 0px 5px 0px 0px #FCBD44, 0px 5px 0px #FCBD44;
+}
+
+.draft-panel {
+    position: absolute;
+    right: 0;
+    bottom: -21px;
+    width: 998px;
+    min-height: 500px;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    box-shadow: 0 2px 3px rgba(0,0,0,.1);
+}
+.draft-panel .action {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.draft-panel .inner {
+    padding: 30px 20px 20px 30px;
+}
+.draft-panel .hd {
+    margin-bottom: 15px;
+    height: 20px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #333;
+    font-weight: normal;
+}
+.draft-panel .hd span {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #ef523d;
+}
+b, strong {
+    font-weight: bold;
+}
+.draft-panel .bd {
+    margin: 0 -15px;
+    height: 390px;
+}
+.draft-panel .bd li {
+    float: left;
+    width: 440px;
+    height: 100px;
+    padding: 15px;
+}
+.draft-panel li:hover {
+    background-color: #f8f8f8;
+}
+.draft-panel .bd .img {
+    float: left;
+    width: 150px;
+    position: relative;
+    margin-right: 20px;
+}
+.draft-panel .detail {
+    float: left;
+    width: 270px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+.draft-panel .title {
+    margin-bottom: 5px;
+}
+.draft-panel .title a {
+    display: block;
+    width: 270px;
+    height: 22px;
+    font-size: 16px;
+    line-height: 22px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #666;
+}
+.draft-panel .title a:hover {
+    text-decoration: none
+}
+.draft-panel .time {
+    color: #999;
+}
+.draft-panel .action {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.draft-panel .btn-continue {
+    display: inline-block;
+    margin-right: 20px;
+    border: 1px solid #e5e5e5;
+    line-height: 24px;
+    padding: 0 20px;
+    font-size: 12px;
+    color: #666;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+.draft-panel .btn-continue:hover {
+    color: #fff;
+    background-color: #ff9a00;
+    border-color: #ff9d00;
+    text-decoration: none;
+}
+.drafts .trigger i, .drafts .close i, .draft-panel .btn-continue i, .draft-panel .i-delete, .draft-panel .mark-appoint {
+    background-image: url(https://css.mafengwo.net/images/post/selectcats/drafts-icon@2x.png);
+    background-size: 200px auto;
+}
+.draft-panel .btn-continue i {
+    display: inline-block;
+    float: left;
+    margin: 4px 4px 0 0;
+    width: 16px;
+    height: 16px;
+    background: url(https://css.mafengwo.net/images/post/selectcats/drafts-icon.png) no-repeat -120px 0;
+}
+.draft-panel .btn-continue:hover i{
+    background-position: -120px -40px;
+}
+.draft-panel .i-delete {
+    display: none;
+    width: 14px;
+    height: 17px;
+    background: url(https://css.mafengwo.net/images/post/selectcats/drafts-icon.png) no-repeat -160px 0;
+    line-height: 100px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.draft-panel li:hover .i-delete {
+    display: inline-block;
+}
+.draft-panel .ft {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+.draft-panel .close {
+    padding: 0;
+    color: #666;
+}
+.drafts .trigger, .drafts .close {
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    line-height: 32px;
+}
+.draft-panel .close i {
+
+    background-position: 0 -40px;
+}
+.draft-panel .close:hover i {
+    background-position: -40px -40px;
+}
+.drafts .trigger i, .drafts .close i {
+    display: inline-block;
+    margin-left: 5px;
+    float: right;
+    width: 32px;
+    height: 32px;
+}
+
+a:hover {
+    cursor:pointer;
+}
+
+.popup-box {
+
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    position: fixed;
+    top: 60%;
+    left: 0;
+    right: 0;
+
+}
+.new-popbox .pop-ico, .new-popbox .pop-ctn, .new-popbox .pop-con {
+    background: 0;
+}
+.popup-box .pop-ico, .popup-box .pop-ctn {
+
+    text-align: center;
+}
+.popup-box a.close-btn {
+    width: 36px;
+    height: 26px;
+    background: url(https://css.mafengwo.net/images/other/popctn_bg2.png) no-repeat 0 -280px;
+    padding: 0;
+    outline: 0;
+    position: absolute;
+    right: 0;
+    top: 11px;
+    display: block;
+}
+.popup-box a.close-btn i {
+    margin: 8px;
+    width: 22px;
+    height: 22px;
+    background: url(https://css.mafengwo.net/images/other/popctn_bg2.png) no-repeat -40px -280px;
+    overflow: hidden;
+}
+.popup-box a.close-btn i {
+    width: 9px;
+    height: 9px;
+    background: url(https://css.mafengwo.net/images/other/i_cross.gif) no-repeat;
+    display: block;
+    transition: 1s ease-in-out 0s;
+    -moz-transition: 1s ease-in-out 0s;
+    -webkit-transition: 1s ease-in-out 0s;
+    -o-transition: 1s ease-in-out 0s;
+    -webkit-backface-visibility: hidden;
+}
+.popup-box a.close-btn:hover i {
+    -moz-transform: scale(1.1) rotate(360deg);
+    -webkit-transform: scale(1.1) rotate(360deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -moz-transition: 1s ease-in-out 0s;
+    -webkit-transition: 1s ease-in-out 0s;
+}
+
+.new-popbox .pop-btns {
+    border-top: 1px solid #e5e5e5;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    padding: 0;
+}
+.new-popbox .pop-ctn {
+    margin-bottom: 20px;
+}
+.new-popbox .pop-ctn p.hd {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8em;
+}
+.new-popbox .popbtn-submit.popbtn-half {
+    border-radius: 0 0 4px 0;
+}
+.new-popbox .popbtn+.popbtn {
+    border-left: 1px solid #e5e5e5;
+    margin-left: -1px;
+}
+.new-popbox .popbtn-submit {
+    color: #ff9d00;
+}
+.new-popbox .popbtn-half {
+    float: left;
+    width: 50%;
+    display: inline;
+}
+.new-popbox .popbtn-cancel.popbtn-half {
+    border-radius: 0 0 0 4px;
+}
+
+.new-popbox .popbtn-cancel {
+    color: #999;
+}
+
+.new-popbox .popbtn-cancel:hover {
+    color: #999;
+    background-color: #f6f6f6;
+}
+.new-popbox .popbtn:hover {
+    text-decoration: none;
+}
+
+.new-popbox .popbtn-submit.popbtn-half:hover {
+    border-left-color: #ff9d00;
+}
+.new-popbox .popbtn-submit:hover {
+    color: #fff;
+    background-color: #ff9d00;
+    margin-top: -1px;
+    border-top: 1px solid #ff9d00;
+}
+
+a{
+    text-decoration:none;
+}

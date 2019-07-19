@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/asserts/css/note/noteEdit.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/dateSelect.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var nid = [[${nid}]];
+        var content = [[${content}]];
+        var uid = [[${uid}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/tools/dateSelect.js}"></script>
+    <script th:src="@{/asserts/js/note/edit.js}"></script>
+</head>
+
+
+<body>
+
+<!-- 头图 s -->
+<div id="topic" class="pagelet-block">
+    <div class="set_index" id="_j_cover_box" style="height: 506.333px;">
+        <div class="set_bg _j_toppiccnt">
+            <!-- 这里插入头图  <img> -->
+            <img id="top_image" class="" th:src="${topImg}" style="width: 100%">
+        </div>
+        <!-- 添加后将set_page替换为hide -->
+        <div class="set_page" id="_j_pluplader_btn_container_1" th:style="${'display:' + (topImg eq ''?'block':'none')}">
+            <a role="button" onclick="top_image_input.click();" class="set_add  _j_uploaderattop _j_upload_toppic" id="_j_upload_toppic"></a>
+            <h2>设置游记头图</h2>
+            <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+            <div class="clear"></div>
+        </div>
+        <!--头图input-->
+        <input type="file" value="" id="top_image_input" style="display: none" accept="image/jpg,image/jpeg,image/png,image/bmp"/>
+        <div class="set_title ">
+            <input type="text" autocomplete="off" id="_j_title" th:value="${title}" placeholder="填写游记标题" maxlength="48" style="outline:none;">
+
+            <div class="clear"></div>
+        </div>
+        <!-- 添加后显示 去除hide-->
+        <div class="set_btn" id="_j_cover_do" th:style="${'display:' + (topImg ne ''?'block':'none')}">
+            <a role="button" onclick="top_image_input.click();" title="设置头图" class="a_set _j_addtoppiclabel"><i></i><span>重新上传头图</span></a>
+
+        </div>
+
+    </div>
+</div>
+<!-- 头图 e -->
+
+<!-- 本体 s -->
+<div class="container clearfix">
+    <div id="" class="content pagelet-block">
+        <div class="block-loading loading_backward"></div>
+        <div id="_j_content_box" class="_j_content_box">
+
+
+            <!-- 正文 文本框 s -->
+            <div>
+                <textarea cols="30" rows="1" class="textarea _j_data_item" id="textarea" style="overflow: hidden; height: 48px;"
+                          placeholder="请在这里输入正文"></textarea>
+            </div>
+
+
+            <!-- 正文 文本框 e -->
+
+        </div>
+        <div class="block-loading loading_forward"></div>
+    </div>
+
+
+
+
+    <!-- 右侧bar s -->
+    <div id="sidebar" class="sidebar">
+        <div style="height: 395px; display: none;"></div>
+        <!-- 插入图片 -->
+        <div class="sidebar-item _j_sidebar_item">
+            <a role="button" class="add-btn add-pic" onclick="file.click();" style="text-decoration:none;">
+                <i class="icon-photo"></i>插入图片</a>
+            <input style="display:none" type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">
+        </div>
+        <!-- 插入段落 -->
+        <div class="sidebar-item _j_sidebar_item">
+            <a role="button" class="add-btn add-title" style="text-decoration:none;">
+                <i class="icon-title"></i>插入段落标题</a>
+
+
+        </div>
+
+        <!-- 保存草稿 -->
+        <div class="side-save" id="_j_draft_save_block"><span class="_j_draft_save_time"></span><a
+                class="btn-save _j_btn_save" role="button"><i></i><hhh th:text="${status eq 0?'保存草稿':'保存'}">保存草稿</hhh></a></div>
+
+
+
+        <!-- 目录 -->
+        <div id="pagelet-block-233edf4f0cda04bed5d15ac86fbe2ff4" class="pagelet-block">
+            <div class="notes_catalog">
+                <div class="side_title" id="_j_catalogtitle">游记目录</div>
+                <div id="_j_catalog_list_wrap" style="position: relative; height: 36px;">
+                    <ul class="catalog_content" style="position: relative; overflow-y: auto; max-height: 198px;">
+
+                    </ul>
+                    <div class="scrollbar"
+                         style="position: absolute; right: 0px; top: 0px; width: 5px; height: 100px; background-color: rgb(214, 214, 214); border-radius: 10px; cursor: pointer; opacity: 0; display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 右侧bar e -->
+
+
+    <!-- 底端发表按钮 -->
+</div>
+<div class="clear"></div>
+<div class="action-ft">
+    <div class="action-wrap">
+        <div class="item-btn">
+            <a class="btn-publish" role="button">发表游记</a>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+<!-- 插入段落弹出框  -->
+<div class="add-panel add-panel-title" style="display: none;">
+    <div class="inner clearfix">
+        <div class="a-form clearfix">
+            <div class="a-inpwrap"><input class="a-inptxt " type="text" maxlength="24" placeholder="请输入段落名称"><span
+                    class="limit _j_limit_tip"></span></div>
+            <a class="a-btn _j_submit_paragraph" role="button">确定</a>
+        </div>
+
+    </div>
+</div>
+
+<div id="loading" class="loading mop-load-div">
+    <div class="mask" style="display: block"></div>
+    <div class="wandering-cubes">
+        <div class="cube1"></div>
+        <div class="cube2"></div>
+    </div>
+</div>
+
+<!-- mask -->
+<div id="mask" class="mask"></div>
+
+
+<div id="submit-mask" class="mask">
+    <div class="popup-box layer_dialog _j_dialog pop_no_margin dialog_overflow"
+         style="opacity: 1; background: rgb(255, 255, 255); z-index: 1;">
+        <div class="dialog_title" style="display:block">
+            <div class="_j_title title"></div>
+        </div>
+        <div class="dialog_body _j_content">
+            <div class="prop-info">
+                <h3 class="pi-title">提交游记</h3>
+                <form class="_j_exform"> <input type="hidden" name="iid" value="14943927">
+                    <div class="pi-base">
+                        <div class="pi-row">
+                            <div class="pi-col pi-date"> <label>出发时间</label>
+                                <input id="date-input" class="pi-input _j_dateinput hasDatepicker" th:value="${date}"
+                                    style="z-index: 551; position: relative;">
+                                <i class="pi-icon-cal"></i> </div>
+
+                        </div>
+                        <div class="pi-row">
+                            <div class="pi-col pi-day"> <label>出行天数</label>
+                                <input id="days-input" class="pi-input" type="text" th:value="${days}" placeholder="输入天数" name="dayscount">
+                            </div>
+                        </div>
+                        <div class="pi-row">
+                            <div class="pi-col pi-day"> <label>人均花费/RMB</label>
+                                <input id="money-input" class="pi-input" type="text" th:value="${money}" placeholder="输入花费" name="expense">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pi-tags">
+                        <label>游记标签</label>
+
+                        <div class="_j_tagcommon hide" style="display: block;">
+
+                            <ul class="pi-otherTag clearfix">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pop-action">
+                        <a class="btn-submit _j_submit" role="button">确定</a>
+                    </div>
+                </form>
+            </div>
+        </div> <a id="popup_close" class="close-btn _j_close"><i></i></a>
+    </div>
+</div>
+</body>
+</html>

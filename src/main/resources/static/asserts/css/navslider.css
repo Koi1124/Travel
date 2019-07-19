@@ -1,0 +1,150 @@
+.zy-focus {
+    position: relative;
+    z-index: 20;
+    margin-bottom: 20px;
+    clear: both;
+}
+.show-slider {
+    position: relative;
+    overflow: hidden;
+    background-color: #f1f4f5;
+}
+.show-slider .show-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 2;
+}
+.show-slider .show-image li img {
+    width: 100%;
+    margin: 0!important;
+    vertical-align: middle;
+}
+
+
+.show-slider .show-image li {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.show-slider .show-pic {
+    display: block;
+    height: 100%;
+}
+.show-slider .show-title {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    margin-left: -500px;
+    color: #fff;
+    font-size: 26px;
+    text-shadow: 0 1px 3px rgba(0,0,0,.4);
+    text-align: left;
+    min-width: 1000px;
+}
+
+.search-wrapper {
+    float: left;
+    width: 546px;
+}
+.search-container {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    margin-left: -320px;
+    width: 632px;
+    z-index: 5;
+}
+.searchbar {
+    height: 46px;
+    overflow: hidden;
+}
+.search-group {
+    padding: 15px;
+    background-color: #000;
+    background-color: rgba(0,0,0,.6);
+    border-radius: 4px;
+}
+.searchtab {
+    margin-bottom: 7px;
+    color: #fff;
+    line-height: 26px;
+    font-size: 14px;
+}
+.searchtab li {
+    float: left;
+    display: inline;
+    margin-right: 30px;
+    cursor: pointer;
+}
+.searchtab i {
+    float: left;
+    margin: 5px 5px 0 0;
+    width: 16px;
+    height: 16px;
+    background-image: url(https://css.mafengwo.net/images/header-sprites13.png);
+    background-position: -60px -110px!important;
+}
+.search-group .search-input {
+    height: 46px;
+    overflow: hidden;
+}
+.search-group .search-input input {
+    width: 504px;
+    height: 46px;
+    border: 0 none;
+    padding: 0 21px;
+    margin: 0;
+    line-height: 46px;
+    font-size: 16px;
+    color: #666;
+    border-radius: 4px;
+}
+
+.search-group .search-button {
+    float: left;
+    margin-left: 6px;
+    width: 50px;
+    height: 46px;
+}
+.search-group .search-button a {
+    display: block;
+    height: 46px;
+    background-color: #ff9d00;
+    border-radius: 4px;
+    text-align: center;
+}
+.search-group .icon-search {
+    display: inline-block;
+    margin-top: 11px;
+    width: 24px;
+    height: 24px;
+    background-image: url(https://css.mafengwo.net/images/header-sprites13.png);
+    background-position: 0 -110px!important;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+
+
+.show-slider .show-nav {
+    position: absolute;
+    right: 40px;
+    top: 45%;
+    margin-top: -166px;
+    width: 110px;
+    z-index: 2;
+}
+.show-slider .show-nav li {
+    height: 62px;
+    margin-bottom: 6px;
+    position: relative;
+    overflow: hidden;
+}

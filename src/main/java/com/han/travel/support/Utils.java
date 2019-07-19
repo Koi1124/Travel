@@ -15,6 +15,9 @@ public class Utils
             "data:image/jpeg;base64"
     };
 
+    //保存省市信息
+    public static Map<String, Integer> place = null;
+
     /**
      *@discription:  将文本信息中的景点地点自动替换为跳转链接
      * 1.0 弱智方法 ->长文本效率极低

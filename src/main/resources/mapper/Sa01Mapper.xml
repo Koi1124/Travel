@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Sa01Dao">
     
-    <insert id="insertMessage">
-        INSERT INTO sa01(aaa101,ssa102)
-        VALUES (#{userId},#{content})
+    <insert id="insertMessage" parameterType="java.util.HashMap">
+        INSERT INTO sa01(aaa101,ssa102,ssa103,ssa104)
+        VALUES (#{dto.userId},#{dto.content},#{dto.type},#{dto.pid})
         ;
     </insert>
 
@@ -21,11 +21,16 @@
         ;
     </select>
     
-    <select id="messageByUId" parameterType="java.lang.Integer" resultType="java.lang.String">
-        SELECT ssa102
+    <select id="messageByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT ssa102 AS 'msg', ssa103 AS 'type', ssa101 AS 'mid', ssa104 AS 'pid'
         FROM sa01
         WHERE aaa101=#{uid}
         ;
     </select>
 
+    <delete id="clearAllByUId" parameterType="java.lang.Integer">
+        DELETE FROM sa01
+        WHERE aaa101=#{uid}
+        ;
+    </delete>
 </mapper>
