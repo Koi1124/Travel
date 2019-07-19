@@ -32,9 +32,6 @@ public class MessageService
             case "1":
                 type="游记攻略";
                 break;
-            case "3":
-                type="评论";
-                break;
             case "4":
                 type="旅行项目";
                 break;
@@ -67,15 +64,50 @@ public class MessageService
         operate(userName,type,detail,"点赞",rUserId,pid);
     }
 
+    public void thumbsUpComment(Object userName, String jump_type, Object detail, Object rUserId, Object pid)
+    {
+        Map<String,Object> dto=new HashMap<>(4);
+        dto.put("userId",rUserId);
+        dto.put("type",jump_type);
+        StringBuilder content=new StringBuilder()
+                .append("用户")
+                .append(userName)
+                .append("点赞")
+                .append("了您的评论：")
+                .append(detail)
+                ;
+        dto.put("content",content.toString());
+        dto.put("pid",pid);
+        if (sa01Dao.insertMessage(dto))
+        {
+            MessageSocketServer.sendMessage(Integer.parseInt((String)rUserId));
+        }
+    }
+
 
     public void comment(Object userName, String type, Object detail, Object rUserId, Object pid)
     {
         operate(userName,type,detail,"评论",rUserId, pid);
     }
 
-    public void reply(Object userName, String type, Object detail, Object rUserId, Object pid)
+    public void reply(Object userName, String type,Object detail, Object rUserId, Object pid)
     {
-        operate(userName,"评论",detail,"回复",rUserId, pid);
+        Map<String,Object> dto=new HashMap<>(4);
+        dto.put("userId",rUserId);
+        dto.put("type",type);
+        StringBuilder content=new StringBuilder()
+                .append("用户")
+                .append(userName)
+                .append("回复")
+                .append("了您的评论：")
+                .append(detail)
+                ;
+        dto.put("content",content.toString());
+        dto.put("pid",pid);
+        if (sa01Dao.insertMessage(dto))
+        {
+            MessageSocketServer.sendMessage(Integer.parseInt((String)rUserId));
+        }
     }
 
     public void collect(Object userName, String type, Object detail, Object rUserId, Object pid)
@@ -88,7 +120,6 @@ public class MessageService
         return sa01Dao.getCount(uid);
     }
 
-    
     /**
      *@discription: 得到所有未读消息 map->
      * url: 点击消息后跳转的链接
@@ -110,10 +141,10 @@ public class MessageService
             switch ((String)m.get("type"))
             {
                 case "1":
-                    url="/note/"+m.get("id")+".html";
+                    url="/note/"+m.get("pid")+".html";
                     break;
                 case "5":
-                    url="/together/company/detail/"+m.get("id")+".html";
+                    url="/together/company/detail/"+m.get("pid")+".html";
                     break;
                 default:
                     url="##";
@@ -121,7 +152,7 @@ public class MessageService
             }
             dto.put("url",url);
             dto.put("msg",m.get("msg"));
-            dto.put("id",m.get("id"));
+            dto.put("mid",m.get("mid"));
             result.add(dto);
         }
         return result;
@@ -138,5 +169,19 @@ public class MessageService
     {
         return sa01Dao.deleteMessage(id);
     }
+
+
+    /**
+     *@discription: 已读所有消息
+     *@param uid 
+     *@date: 2019/7/17 19:28
+     *@return: boolean
+     *@author: Han
+     */
+    public boolean doneAllMessage(int uid)
+    {
+        return sa01Dao.clearAllByUId(uid);
+    }
+
 
 }

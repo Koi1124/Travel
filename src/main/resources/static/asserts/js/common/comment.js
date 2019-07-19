@@ -41,6 +41,7 @@ var replyStyle = 0;
 var replyId = 0;
 var replyName = 0;
 var commentId = 0;
+var r_content=null;
 function clickReply(e) {
     var li = $(e).closest("li");
     var input = $(e).closest(".rev-item").find(".reply-form");
@@ -55,6 +56,7 @@ function clickReply(e) {
         replyStyle = 0;
         commentId = li.attr("c_id");
         replyName = "";
+        r_content = li.find("p").text();
     }
     else {
         //回复回复
@@ -67,6 +69,7 @@ function clickReply(e) {
         replyId = li.attr("u_id");
         commentId = li.attr("c_id");
         replyName = li.attr("u_name");
+        r_content = li.find("haha").text().replace("：","");
     }
     input.show(200);
     input.find("textarea").focus();
@@ -85,8 +88,12 @@ function clickReplySubmit(e) {
         data = {
             commentId:commentId,
             replyId:-1,
+            rUserId:$(e).closest("li").attr("u_id"),
             content:$(e).prev("textarea").val(),
-            userId:$("#user_id").val()
+            userId:$("#user_id").val(),
+            title:r_content,
+            pid:pid,
+            type:type
         };
     }
     else {
@@ -94,8 +101,12 @@ function clickReplySubmit(e) {
         data = {
             commentId:commentId,
             replyId:replyId,
+            rUserId:replyId,
             content:$(e).prev("textarea").val(),
-            userId:$("#user_id").val()
+            userId:$("#user_id").val(),
+            title:r_content,
+            pid:pid,
+            type:type
         }
     }
     $.ajax({
@@ -119,7 +130,7 @@ function clickReplySubmit(e) {
                 if (replyName != "") {
                     str += " 回复 <a u_id=" + replyId +">" + replyName + "</a>"
                 }
-                str += " ：" + data.content +
+                str += "<haha> ：" + data.content+"</haha>\n"+
                     "    <a class=\"_j_reply re_reply\" onclick='clickReply(this)' title=\"添加回复\">回复</a>\n" +
                     "    <a class='_j_reply re_reply' style='color: red' onclick='clickDelete(this)' title='删除'>删除</a>\n" +
                     "    <br><span class=\"time\">刚刚</span>" +
@@ -199,17 +210,21 @@ function clickDelete(e) {
 }
 
 function clickThumbsUp(e) {
-    var data = JSON.stringify({
-        pid:$(e).closest("li").attr("c_id"),
-        type:"3",
-        uid:userId
-    });
+    var data = {
+        pid: $(e).closest("li").attr("c_id"),
+        rUserId: $(e).closest("li").attr("u_id"),
+        title: $(e).closest("li").find("p").text(),
+        jump_type: type,
+        type: "3",
+        uid: userId,
+        jump_pid:pid
+    };
     if ($(e).attr("class") == "useful") {
         $.ajax({
             type: "post",
             url: "/thumbsUp",
             contentType: "application/json",
-            data:data,
+            data:JSON.stringify(data),
             dataType: "json",
             async: true,
             success: function (result) {
@@ -240,7 +255,7 @@ function clickThumbsUp(e) {
             type: "post",
             url: "/thumbsDown",
             contentType: "application/json",
-            data:data,
+            data:JSON.stringify(data),
             dataType: "json",
             async: true,
             success: function (result) {
@@ -392,7 +407,7 @@ function setComment(data) {
             if (r.respondedName != "") {
                 str += " 回复 <a u_id=" + r.respondedId +">" + r.respondedName + "</a>"
             }
-            str += " ：" + r.content +
+            str += "<haha> ：" + r.content + "</haha>" +
                 "    <a class='_j_reply re_reply' onclick='clickReply(this)' title='添加回复'>回复</a>\n";
             if (r.replierId == userId) {
                 str += "<a class='_j_reply re_reply' style='color: red;' onclick='clickDelete(this)' title='删除'>删除</a>\n";

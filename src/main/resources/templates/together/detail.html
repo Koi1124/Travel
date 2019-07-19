@@ -24,10 +24,12 @@
 
 
     <script th:inline="javascript">
+        /*<![CDATA[*/
         var telephone = [[${telephone}]];
         var title=[[${title}]];
         var rUserId=[[${authorId}]];
-        var type = 5;
+        var type = '5';
+        /*]]>*/
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
@@ -43,12 +45,12 @@
     </style>
 </head>
 <body>
-<div id="header" th:insert="~{homepage :: navbar}"></div>
 <input id="user_id" th:value="${session.user_id}" type="hidden"/>
 <input id="user_name" th:value="${session.user_name}" type="hidden"/>
 <input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
 <input id="comment_count" th:value="${commentCount}" type="hidden"/>
 <div class="container">
+    <div id="header" th:replace="~{homepage :: navbar}"></div>
     <div class="detail-hd">
         <div class="cover" th:style="'background-image:url(' + ${mddPic} + ')'" style="background-image:url(https://n3-q.mafengwo.net/s5/M00/E5/67/wKgB3FHlDx2AeOipAAMkkOmX8pg42.jpeg?imageMogr2%2Fthumbnail%2F%211280x280r%2Fgravity%2FCenter%2Fcrop%2F%211280x280%2Fquality%2F100)">
             <div class="bg"></div>
@@ -109,7 +111,7 @@
                             <span class="unfollow" th:unless="${isFollow==null}">取消关注</span>
                         </a>
 
-                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:data-to_uname="${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
+                        <a class="btn-privateLetter" data-japp="send_message" th:data-to_uid="${authorId}" th:href="'/letter/detail/' + ${authorId}" data-tpl="_j_together_sendmsg">发私信</a>
                     </div>
                 </div>
                 <div class="desc _j_description">

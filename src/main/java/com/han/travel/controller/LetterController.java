@@ -1,16 +1,13 @@
 package com.han.travel.controller;
 
-import com.han.travel.component.SocketServer;
+import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.LetterService;
 import com.han.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -19,23 +16,45 @@ import java.util.Map;
 public class LetterController
 {
     @Autowired
-    private SocketServer socketServer;
-
-    @Autowired
     LetterService letterService;
     @Autowired
     UserService userService;
 
-    @RequestMapping("")
-    public String toHomePage(Map<String,Object> dto)
+
+    @RequestMapping("/readLetter")
+    @ResponseBody
+    public boolean readDone(@RequestBody Map<String,Object> dto)
     {
-        dto.put("content","私信测试");
-        dto.put("clientId",2);
-        dto.put("toClientId",3);
-        letterService.insertLettter(dto);
-        List<Map<String,Object>> test=letterService.getLatestLettersByClient(2);
-        System.out.println(test);
-        return "letter/homepage";
+        return letterService.readLetter((Integer)dto.get("letter_id"));
+    }
+
+
+    @RequestMapping("/removeChatBar")
+    @ResponseBody
+    public boolean removeHelper(@RequestBody Map<String,Object> dto)
+    {
+        return letterService.removeChat((Integer)dto.get("letter_id"));
+    }
+
+
+    /**
+     *@discription: 向私信主页传递数据
+     * toClient: 发送给的用户-> name: 名字, pic: 头像, id: id
+     * time: 时间
+     * content: 私信内容
+     * state: 已读未读状态
+     * letter_id: 帮助删除最新的id
+     *@param dto 
+     *@date: 2019/7/18 15:35
+     *@return: java.lang.String
+     *@author: Han
+     */
+    @RequestMapping({"","/"})
+    public String toHomePage(Map<String,Object> dto, HttpSession session)
+    {
+        List<Map<String,Object>> info=letterService.getLatestLettersByClient((Integer) session.getAttribute(SessionConfig.USER_ID));
+        dto.put("info",info);
+        return "letter/letterhome";
     }
 
 

@@ -7,7 +7,7 @@ var pos=curPath.indexOf(pathName);
 var localhostPaht=curPath.substring(0,pos);
 
 var tag=true;
-
+var origin=$(document).attr("title");
 console.log(user_id);
 $(document).ready(function () {
     $.ajax({
@@ -20,10 +20,7 @@ $(document).ready(function () {
             user_id:user_id
         }),
         success:function (result) {
-            $("._head_msg").text(result);
-            if (result==0) {
-                $("._head_msg").hide();
-            }
+            changeTitle(result);
         },
         error:function (e) {
             console.log(e);
@@ -47,17 +44,20 @@ if(typeof(WebSocket) == "undefined") {
     };
 //获得消息事件
     socket.onmessage = function(msg) {
-        console.log(msg.data);
-        console.log(user_id);
-        if (msg.data==user_id)
-        {
+        if (msg.data==user_id) {
             var num=$("._head_msg").text();
             var updateNum=Number(num)+1;
-            $("._head_msg").text(updateNum);
-            var origin=$(document).attr("title");
-            $(document).attr("title","["+updateNum+"条新消息]"+origin);
+            changeTitle(updateNum);
+            $("._head_msg").show();
         }
-    };
+        if (Number(msg.data.split(",")[0])==user_id) {
+            $("._head_private_letter").show();
+            $(document).attr("title","[收到私信]"+origin);
+        }
+
+    }
+
+    ;
     //关闭事件
     socket.onclose = function() {
         console.log("Socket已关闭");
@@ -74,6 +74,15 @@ if(typeof(WebSocket) == "undefined") {
     //});
 }
 
+function changeTitle(data) {
+    if (data==0){
+        $(document).attr("title",origin);
+        $("._head_msg").hide();
+    } else {
+        $(document).attr("title","["+data+"条新消息]"+origin);
+    }
+    $("._head_msg").text(data);
+}
 
 
 $(function () {
@@ -92,18 +101,38 @@ $(function () {
                 if (result) {
                     var num=$("._head_msg").text();
                     var updateNum=Number(num)-1;
-                    $("._head_msg").text(updateNum);
+                    changeTitle(updateNum);
                     $("#_j_msg_panel").hide(250);
                 }
             },
             error:function (e) {
                 console.log(e);
             }
-        })
-
-
+        });
     }
 
+    checkAll=function () {
+        $.ajax({
+            type: "post",
+            url: localhostPaht + "/message/clearAll",
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            data:JSON.stringify({
+                user_id:user_id
+            }),
+            success:function (result) {
+                if (result){
+                    changeTitle(0);
+                    $("#_j_msg_panel").hide(250);
+                }
+            },
+            error:function (e) {
+                console.log(e);
+            }
+
+        });
+    }
 
     $("._drop_msg_detail").click(function () {
         $.ajax({
@@ -118,9 +147,10 @@ $(function () {
             success:function (result) {
                 if (tag){
                     $(result).each(function (i,message) {
-                        $("#_j_msg_panel ul").append('<li class=""><a href="'+ message.url +'" target="_blank" onclick="checkout('+ message.id +')" style="text-decoration: none;">'+ message.msg +'</a></li>')
+                        $("#_j_msg_panel ul").append('<li class=""><a href="'+ message.url +'" target="_self" onclick="checkout('+ message.mid +')" style="text-decoration: none;">'+ message.msg +'</a></li>')
                         $("#_j_msg_panel").show(250);
-                    })
+                    });
+                    $("#_j_msg_panel ul").append('<li class="" style="height: 12px"><a onclick="checkAll()" style="height: 12px;font-size: 10px;line-height: 12px;color: #666;position: relative;">全部标记为已读</a></li>');
                     tag=false;
                 }
             },

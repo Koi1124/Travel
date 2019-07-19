@@ -3,9 +3,11 @@
 <mapper namespace="com.han.travel.dao.Ae01Dao">
     
     <select id="getLatestLetterByClient" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae106 AS 'state', a.aae104 AS 'client1', a.aae105 AS 'client2'
+        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae106 AS 'state', a.aae104 AS 'client1', a.aae105 AS 'client2',
+                b.aae101 AS 'letter_id'
         FROM ae01 a, af01 b
         WHERE a.aae101=b.aae101 AND (a.aae104=#{id} OR a.aae105=#{id})
+        ORDER BY time DESC
         ;
     </select>
     
@@ -14,7 +16,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO ae01(aae102,aae103,aae104,aae105,aae106)
-        VALUES (#{dto.content},CURRENT_TIME ,#{dto.clientId},#{dto.toClientId},0)
+        VALUES (#{dto.content},CURRENT_TIME ,#{dto.clientId},#{dto.toClientId},#{dto.type})
         ;
     </insert>
 

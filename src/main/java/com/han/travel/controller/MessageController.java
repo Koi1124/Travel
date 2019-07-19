@@ -40,5 +40,11 @@ public class MessageController
         return messageService.readDoneMessage((Integer)dto.get("msg_id"));
     }
 
+    @RequestMapping("/clearAll")
+    @ResponseBody
+    public boolean clear(@RequestBody Map<String,Object> dto)
+    {
+        return messageService.doneAllMessage((Integer)dto.get("user_id"));
+    }
 
 }

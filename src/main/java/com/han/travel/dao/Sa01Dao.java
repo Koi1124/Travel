@@ -19,7 +19,8 @@ public interface Sa01Dao
      *@discription: map->
      * msg: 消息内容
      * type: 消息类型
-     * id: 消息id
+     * mid: 消息id
+     * pid: 消息跳转对象id
      *@param uId 
      *@date: 2019/7/16 18:59
      *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
@@ -27,5 +28,5 @@ public interface Sa01Dao
      */
     List<Map<String,Object>> messageByUId(int uId);
 
-
+    boolean clearAllByUId(int uId);
 }

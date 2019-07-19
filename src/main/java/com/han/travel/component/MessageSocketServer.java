@@ -39,6 +39,8 @@ public class MessageSocketServer
         e.printStackTrace();
     }
 
+
+
     public static void sendMessage(Integer rid)
     {
         for (MessageSocketServer m:messageSet)
@@ -46,4 +48,13 @@ public class MessageSocketServer
             m.session.getAsyncRemote().sendText(String.valueOf(rid));
         }
     }
+
+    public static void sendLetter(Integer rid)
+    {
+        for (MessageSocketServer m:messageSet)
+        {
+            m.session.getAsyncRemote().sendText(String.valueOf(rid)+","+"letter");
+        }
+    }
+
 }
