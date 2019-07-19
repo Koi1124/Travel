@@ -81,7 +81,7 @@
                     <span><i class="ico_view"></i><hhh th:text="${views + '/' + (commentCount eq null?0:commentCount)}">45/2</hhh></span>
                 </div>
                 <div th:if="${uid eq session.user_id}" class="person-edit">
-                    <a th:href="@{'/note/editote/' + nid}" title="编辑">编辑</a>|
+                    <a th:href="'/note/editNote/' + ${nid}" title="编辑">编辑</a>|
                     <a id="btn-delete" title="删除">删除</a>
                 </div>
             </div>

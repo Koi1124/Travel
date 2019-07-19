@@ -8,7 +8,6 @@ var localhostPaht=curPath.substring(0,pos);
 
 var tag=true;
 var origin=$(document).attr("title");
-console.log(user_id);
 $(document).ready(function () {
     $.ajax({
         type: "post",
@@ -53,6 +52,15 @@ if(typeof(WebSocket) == "undefined") {
         if (Number(msg.data.split(",")[1])==user_id) {
             $("._head_private_letter").show();
             $(document).attr("title","[收到私信]"+origin);
+        }
+        if (Number(msg.data.split(",")[2])==user_id) {
+            if (msg.data.split(",")[1]=="single") {
+                var num=$("._head_msg").text();
+                var updateNum=Number(num)-1;
+                changeTitle(updateNum)
+            }else {
+                changeTitle(0);
+            }
         }
 
     }
@@ -99,9 +107,11 @@ $(function () {
             success:function (result) {
                 console.log(result);
                 if (result) {
-                    var num=$("._head_msg").text();
-                    var updateNum=Number(num)-1;
-                    changeTitle(updateNum);
+                    var jsonMsg={
+                        type:0,
+                        id:user_id
+                    }
+                    socket.send(JSON.stringify(jsonMsg));
                     $("#_j_msg_panel").hide(250);
                 }
             },
@@ -123,7 +133,11 @@ $(function () {
             }),
             success:function (result) {
                 if (result){
-                    changeTitle(0);
+                    var jsonMsg={
+                        type:1,
+                        id:user_id
+                    }
+                    socket.send(JSON.stringify(jsonMsg));
                     $("#_j_msg_panel").hide(250);
                 }
             },

@@ -178,6 +178,7 @@ public class NoteController
     @RequestMapping("/note/{id}")
     public String getNote(Map<String, Object> dto, @PathVariable("id") int id, HttpSession session)
     {
+        noteService.addViews(id);
         Map<String, Object> map = noteService.getNoteById(id, 2, (Integer)session.getAttribute(SessionConfig.USER_ID));
         if (Utils.isNotEmpty(map))
         {
