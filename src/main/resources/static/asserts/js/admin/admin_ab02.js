@@ -1,11 +1,12 @@
 //注册登录页面
 $(document).ready(function() {
 	var currPage=$("#pageNum");
-	toastr.options = {
-	        positionClass: "toast-top-center",
-	        hideDuration: "500",
-	        closeButton: true,
-	    };
+	toastr.options = 
+	{
+        positionClass: "toast-top-center",
+        closeButton: true,
+        timeOut:"1000",
+    };
 	
 	function fuzzyQuery(city,name){
 		var count=0;
@@ -28,7 +29,7 @@ $(document).ready(function() {
 		            	html="<tr><td>"+ls.aab201+"</td><td>"+ls.aab301+"</td><td>"+ls.aab202+"</td><td>"+ls.aab203+
 		            	     "</td><td>"+ls.aab204+"</td><td>"+ls.aab205+"</td>"+
 		            	     "<td class='td-manage'>"+
-		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editStrategy?id="+ls.aab201+"&operation=2    \")'>"+
+		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editStrategy?id="+ls.aab201+"&operation=2    \",500,500)'>"+
 		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button>"+
 	                         "<button class='layui-btn-danger layui-btn layui-btn-xs'  onclick='delStrategy("+ls.aab201+")'>"+
 	                         "<i class='layui-icon'>&#xe640;</i>删除</button>"+

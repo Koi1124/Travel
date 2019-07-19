@@ -1,11 +1,12 @@
 //注册登录页面
 $(document).ready(function() {
 	var currPage=$("#pageNum");
-	toastr.options = {
-	        positionClass: "toast-top-center",
-	        hideDuration: "500",
-	        closeButton: true,
-	    };
+	toastr.options = 
+	{
+        positionClass: "toast-top-center",
+        closeButton: true,
+        timeOut:"1000",
+    };
 	
 	function fuzzyQuery(name,intro){
 		var count=0;
@@ -29,7 +30,7 @@ $(document).ready(function() {
 		            	     "</td><td>"+ls.aab304+"</td><td>"+ls.aab305+"</td><td>"+ls.aab306+
 		            	     "</td><td>"+ls.aab307+"</td><td>"+ls.aab308+"</td><td>"+ls.aab309+"</td><td>"+ls.aab310+"</td>"+
 		            	     "<td class='td-manage'>"+
-		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editAttraction?id="+ls.aab301+"&operation=2    \")'>"+
+		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editAttraction?id="+ls.aab301+"&operation=2    \",600,600)'>"+
 		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button>"+
 	                         "<button class='layui-btn-danger layui-btn layui-btn-xs'  onclick='delAttraction("+ls.aab301+")'>"+
 	                         "<i class='layui-icon'>&#xe640;</i>删除</button>"+
@@ -95,7 +96,6 @@ function delAttraction(id)
 function find(name,intro)
 {
 	var count=fuzzyQueryTest(name,intro);
-	console.log("count:"+count);
 	if(count>0)
 	{
 		toastr.success('查询成功');

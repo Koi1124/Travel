@@ -2,11 +2,12 @@
 $(document).ready(function() {
 	var a_id=$("#strategy_id");
 	var a_op=$("#strategy_operation");
-	toastr.options = {
-		        positionClass: "toast-top-center",
-		        hideDuration: "1000",
-		        closeButton: true,
-		    };
+	toastr.options = 
+	{
+        positionClass: "toast-top-center",
+        closeButton: true,
+        timeOut:"1000",
+    };
 
 	$(function() { 
 		if(a_op.val()==2)

@@ -2,11 +2,14 @@ package com.han.travel.service;
 
 
 import com.han.travel.dao.Aa01Dao;
+import com.han.travel.dao.Aa04Dao;
 import com.han.travel.support.Utils;
 
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import java.util.Map;
 
 
@@ -15,7 +18,7 @@ public class AdminService
 {
 
     @Resource
-    private Aa01Dao aa01Dao;
+    private Aa04Dao aa04Dao;
 
     /**
      * @Author 
@@ -24,25 +27,28 @@ public class AdminService
      * @param map
      * @return boolean
      **/
-    public boolean adminCheck(Map<String, Object> map)
+    public String adminCheck(Map<String, Object> map)
     {
         String username=map.get("username").toString();
         String password=map.get("password").toString();
-        if(username.equals("admin") && Utils.encode(password).substring(0,18).equals(aa01Dao.getPwdByName(username)))
+        Map<String,Object> result=aa04Dao.getPwdAndRoleByName(username);
+        if(Utils.encode(password).substring(0,18).equals(result.get("pwd").toString()))
         {
-        	return true;
+        	return result.get("role").toString();
         }
         else
         {
-        	return false;
+        	return null;
         }
     }
     
     public boolean updatePwd(Map<String, Object> map)
     {
-    	String newPassword=Utils.encode(map.get("newPassword").toString()).substring(0,18);
-    	String oldPassword=Utils.encode(map.get("oldPassword").toString()).substring(0,18);
-    	return aa01Dao.updateAdminPwd(newPassword,oldPassword);
+    	map.put("newPassword",Utils.encode(map.get("newPassword").toString()).substring(0,18));
+    	map.put("oldPassword",Utils.encode(map.get("oldPassword").toString()).substring(0,18));
+    	return aa04Dao.updateAdminPwd(map);
     }
+    
+    
 
 }

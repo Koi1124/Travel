@@ -13,8 +13,8 @@ public interface CheckDao
     
     boolean changeStateById(@Param("id") int id,@Param("state") int state);
     
-    List<Map<String,Object>> fuzzyGet(@Param("name") String name,@Param("intro") String intro,@Param("begin") int begin,@Param("num") int num);
+    List<Map<String,Object>> fuzzyGet(Map<String,Object>map);
     
-    Integer fuzzySelectCount(@Param("name") String name,@Param("intro") String intro);
+    Integer fuzzySelectCount(Map<String,Object>map);
     
 }

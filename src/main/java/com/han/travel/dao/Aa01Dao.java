@@ -20,9 +20,7 @@ public interface Aa01Dao
 
     Integer updatePassword(Map<String, String> map);
     
-    boolean updateAdminPwd(@Param("newPassword") String newPassword,@Param("oldPassword") String oldPassword);
-
     boolean addUser(Map<String, Object> map);
     
-    String getPwdByName(String name);
+    
 }

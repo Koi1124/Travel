@@ -75,21 +75,22 @@ public class PageBean
     	return result;
 	}
 	
-	public static Map<String,Object> fuzzyQuery(int currPage,CheckDao check,String tableName,String param1,String param2)
+	public static Map<String,Object> fuzzyQuery(CheckDao check,String tableName,Map<String,Object>map)
 	{
-		PageBean bean=new PageBean(currPage, 5, check.fuzzySelectCount(param1,param2));
+		PageBean bean=new PageBean(Integer.parseInt(map.get("currPage").toString()), 5, check.fuzzySelectCount(map));
     	int begin=(bean.getCurrPage()-1)*bean.getPageSize();
     	if(begin<=0)         //没有数据时,防止begin小于零
     	{
     		begin=0;
     	}
     	int num=bean.getPageSize();
-    	Map<String,Object>param=new HashMap<>(4);
+    	int mapSize=map.size()+2;
+    	int initSize=((int)(mapSize/0.75))+1;
+    	Map<String,Object>param=new HashMap<>(initSize);
     	param.put("begin", begin);
     	param.put("num", num);
-    	param.put("name", param1);
-    	param.put("intro", param2);
-    	List<Map<String,Object>>data=check.fuzzyGet(param1,param2,begin,num);
+    	param.putAll(map);
+    	List<Map<String,Object>>data=check.fuzzyGet(param);
     	Map<String,Object> result=new HashMap<>();
     	result.put("data", data);
     	result.put("currPage",bean.getCurrPage());

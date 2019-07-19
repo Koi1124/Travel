@@ -5,11 +5,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.han.travel.dao.Aa02Dao;
+import com.han.travel.dao.Aa04Dao;
 import com.han.travel.dao.Ab01Dao;
 import com.han.travel.dao.Ab04Dao;
 import com.han.travel.dao.Ab05Dao;
@@ -34,6 +37,8 @@ public class AdminController
 	@Autowired
     private Ab01Dao ab01Dao;
 	
+	@Autowired
+    private Aa04Dao aa04Dao;
 	
 	@RequestMapping("/admin")
     public String toAdminLogin(Map<String,Object> dto)
@@ -47,13 +52,23 @@ public class AdminController
     	return "admin/editPassword";
     }
 	
+	@RequestMapping("/editInfo")
+    public String toEditInfo(Model model,@RequestParam(name = "adminname") String adminname)
+    {
+		model.addAttribute("adminname",adminname);
+    	return "admin/editInfo";
+    }
+	
+	
 	@RequestMapping("/admin/login")
-    public String toIndex(HttpServletRequest request)
+    public String toIndex(Model model,HttpServletRequest request)
     {	
-		String username=(String) request.getSession().getAttribute("username");
-		
-		if(username!=null &&username.equals("admin"))
+		String username=(String) request.getSession().getAttribute("adminusername");	
+		if(username!=null)
 		{
+			String role=(String)request.getSession().getAttribute("role");
+			model.addAttribute("adminusername",username);
+			model.addAttribute("role",role);
 			return "admin/index";
 		}
 		else
@@ -62,7 +77,18 @@ public class AdminController
 		}
     	
     }
-
+	
+	@RequestMapping("/administrator")
+    public String toAdministrator(Map<String,Object> dto)
+    {
+    	return "admin/administrator";
+    }
+	
+	@RequestMapping("/admin_add")
+    public String toaddAdmin(Map<String,Object> dto)
+    {
+    	return "admin/admin_add";
+    }
 	
 	@RequestMapping("/company_list")
     public String toCompany_List(Map<String,Object> dto)
@@ -150,14 +176,23 @@ public class AdminController
 		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab01Dao, "ab01");
     }
 	
+	@PostMapping("/admin/aa04/fuzzyQuery")
+    @ResponseBody					
+    public Map<String,Object> selectAa04ByPage(@RequestBody Map<String, Object> map)
+    {
+		return PageBean.fuzzyQuery(aa04Dao, "aa04", map);
+    }
+	
 	@PostMapping("/admin/check")
     @ResponseBody					
     public boolean loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {
-		 if(adminService.adminCheck(map))
+		String result=adminService.adminCheck(map);
+		 if(result!=null)
 		 {
-			 request.getSession().setAttribute("username", map.get("username"));
-			 request.getSession().setAttribute("password", map.get("password"));
+			 request.getSession().setAttribute("adminusername", map.get("username"));
+			 request.getSession().setAttribute("adminpassword", map.get("password"));
+			 request.getSession().setAttribute("role",result);
 			 return true;
 		 }else
 		 {
@@ -167,8 +202,9 @@ public class AdminController
 	
 	@PostMapping("/admin/editPassword")
     @ResponseBody					
-    public boolean editPassword(@RequestBody Map<String, Object> map)
+    public boolean editPassword(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {
+		map.put("username",request.getSession().getAttribute("adminusername"));
 		 if(adminService.updatePwd(map))
 		 {
 			 return true;
@@ -214,5 +250,40 @@ public class AdminController
     }
 	
 	
+	@PostMapping("/admin/aa04/changeState")
+    @ResponseBody
+    public boolean changeAa04State(@RequestBody Map<String, Object> map)
+    {	
+			return aa04Dao.changeState(map);		
+    }
 	
+	@PostMapping("/admin/aa04/del")
+    @ResponseBody
+    public boolean delAa04(@RequestBody Map<String, Object> map)
+    {	
+			return aa04Dao.del(map);		
+    }
+	
+	
+	@PostMapping("/admin/aa04/insertAdmin")
+    @ResponseBody
+    public boolean insertAa04(@RequestBody Map<String, Object> map)
+    {	
+			return aa04Dao.insert(map);		
+    }
+	
+	@PostMapping("/admin/aa04/changeRole")
+    @ResponseBody
+    public boolean changeRoleAa04(@RequestBody Map<String, Object> map)
+    {	
+			return aa04Dao.changeRole(map);		
+    }
+	
+	
+	@PostMapping("/admin/aa04/updateInfo")
+    @ResponseBody
+    public boolean updateInfoAa04(@RequestBody Map<String, Object> map)
+    {	
+			return aa04Dao.updateInfo(map);		
+    }
 }

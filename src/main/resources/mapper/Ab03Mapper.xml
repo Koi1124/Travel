@@ -7,14 +7,14 @@
 				aab310
 		FROM ab03 
 	<where>
-	<if test="name!=null and name!=''">
-		and aab302 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	<if test="map.name!=null and map.name!=''">
+		and aab302 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
 	</if>
-	<if test="intro!=null and intro!=''">
-		and aab303 LIKE CONCAT(CONCAT('%',#{intro}),'%')
+	<if test="map.intro!=null and map.intro!=''">
+		and aab303 LIKE CONCAT(CONCAT('%',#{map.intro}),'%')
 	</if>
 	</where>
-	limit #{begin}, #{num}
+	limit #{map.begin}, #{map.num}
 	</select>
 	
 	<insert id="insertAttraction" parameterType="java.util.HashMap" >
@@ -39,11 +39,11 @@
 		SELECT count(*) 
 		FROM ab03
 	<where>
-	<if test="name!=null and name!=''">
-		and aab303 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	<if test="map.name!=null and map.name!=''">
+		and aab303 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
 	</if>
-	<if test="intro!=null and intro!=''">
-		and aab303 LIKE CONCAT(CONCAT('%',#{intro}),'%')
+	<if test="map.intro!=null and map.intro!=''">
+		and aab303 LIKE CONCAT(CONCAT('%',#{map.intro}),'%')
 	</if>
 	</where>
 	</select>
