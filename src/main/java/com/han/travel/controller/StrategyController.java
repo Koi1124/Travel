@@ -58,8 +58,7 @@ public class StrategyController
     @ResponseBody					
     public Map<String,Object> fuzzyQuery(@RequestBody Map<String,Object>map)
     {
-		int currPage=Integer.parseInt(map.get("currPage").toString());
-		return PageBean.fuzzyQuery(currPage, ab02Dao, "ab02",map.get("city").toString(),map.get("name").toString());
+		return PageBean.fuzzyQuery(ab02Dao, "ab02",map);
     }
 	
 	@PostMapping("/ab02/queryById")

@@ -1,11 +1,12 @@
 //注册登录页面
 $(document).ready(function() {
 	var currPage=$("#pageNum");
-	toastr.options = {
-	        positionClass: "toast-top-center",
-	        hideDuration: "1000",
-	        closeButton: true,
-	    };
+	toastr.options = 
+	{
+        positionClass: "toast-top-center",
+        closeButton: true,
+        timeOut:"1000",
+    };
 	$(function() { 
 		ab01Select();
 	})
@@ -27,10 +28,10 @@ $(document).ready(function() {
 	            for(var i=0;i<count;i++)
 	            {
 	            	var ls=data[i];
-	            	html="<tr><td>"+ls.aab101+"</td><td>"+ls.aaa101+"</td><td>"+ls.aab102+
+	            	html="<tr><td>"+ls.aaa101+"</td><td>"+ls.aab102+
 	            	     "</td><td>"+ls.aab104+"</td><td>"+ls.aab105+"</td><td>"+ls.aab106+
-	            	     "</td><td>"+ls.aab107+"</td><td>"+ls.aab108+"</td><td>"+ls.aab109+
-	            	     "</td><td>"+ls.aab110+"</td><td>"+ls.aab111+"</td>"+
+	            	     "</td><td>"+ls.aab107+"</td><td>"+ls.aab108+
+	            	     "</td><td>"+ls.aab110+"</td>"+
 						 "<td class='td-manage'>"+
                          "<a title=\"通过\" onclick='check("+ls.aab101+",1)' href=\"javascript:;\">"+
                          "<i class=\"iconfont\" style='float:left' >&#xe6b1;</i></a>"+

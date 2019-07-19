@@ -69,10 +69,10 @@
         t1.authorId, t1.authorName,t1.authorPic,IFNULL(t2.thumbsUpCount,0) AS thumbsUpCount,IFNULL(t3.collectCount,0) AS collectCount,
         IFNULL(t4.commentCount,0) AS commentCount,t1.coverPic, t1.view
         FROM
-        (SELECT b.aab101 AS 'id',b.aab102 AS 'title', b.aab110 AS 'content', c.aaa302 AS 'mddName', c.aaa301 AS 'mddId',
+        (SELECT b.aab101 AS 'id',b.aab102 AS 'title', b.aab112 AS 'content', c.aaa302 AS 'mddName', c.aaa301 AS 'mddId',
         a.aaa101 AS 'authorId', a.aaa102 AS 'authorName',a.aaa106 AS 'authorPic', b.aab111 AS 'coverPic', b.aab109 AS 'view'
         FROM aa01 a, ab01 b, aa03 c
-        WHERE b.aaa101=a.aaa101 AND b.aaa301=c.aaa301 AND ${mdd}
+        WHERE b.aaa101=a.aaa101 AND b.aaa301=c.aaa301 AND b.aab103=2 AND ${mdd}
         GROUP BY id )t1
         LEFT JOIN
         (SELECT aad203 AS 'id', count(aad203) AS 'thumbsUpCount'

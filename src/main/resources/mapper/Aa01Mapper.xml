@@ -40,16 +40,11 @@
         ;
     </update>
 	
-	<update id="updateAdminPwd" parameterType="java.lang.String">
-	UPDATE aa01 SET aaa108=#{newPassword}
-	WHERE aaa102='admin' and aaa108=#{oldPassword};
-	</update>
-	
     <insert id="addUser" parameterType="java.util.HashMap">
         INSERT INTO aa01(aaa102, aaa103, aaa105, aaa106, aaa107, aaa108)
         VALUES (#{name}, 0, current_time(), "/asserts/img/common/default_logo.jpg", #{mail}, #{password});
     </insert>
-    
+
     <select id="getPwdByName" parameterType="java.lang.String" resultType="java.lang.String">
     	SELECT aaa108
     	FROM aa01

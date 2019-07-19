@@ -21,7 +21,7 @@ public interface Ab02Dao extends CheckDao
 	
 	Integer selectCount();
 	
-	Integer fuzzySelectCount(@Param("city") String city,@Param("name") String name);
+	Integer fuzzySelectCount(@Param("map")Map<String,Object>map);
 	
-	List<Map<String,Object>> fuzzyGet(@Param("city") String city,@Param("name") String name,@Param("begin") int begin,@Param("num") int num);
+	List<Map<String,Object>> fuzzyGet(@Param("map")Map<String,Object>map);
 }

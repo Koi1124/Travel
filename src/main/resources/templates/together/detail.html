@@ -25,6 +25,8 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
+        var together_id=[[${id}]];
+        var user= [[${session.user_id}]];
         var telephone = [[${telephone}]];
         var title=[[${title}]];
         var rUserId=[[${authorId}]];
@@ -72,7 +74,10 @@
         </div>
         <div class="event-btns">
             <div class="cell-join">
-                <a class="btn-join _j_together_add"><i></i><span>我要报名</span></a>
+                <a class="btn-join _j_together_add"><i></i>
+                    <span th:if="${session.user_id ne authorId}">我要报名</span>
+                    <span th:if="${session.user_id eq authorId}">审核申请</span>
+                </a>
             </div>
             <div class="cell-collect">
                 <a class="btn-collect _j_together_care" th:if="${isCollect==null}"><i></i><span class="_j_together_text">关注此结伴</span></a>
@@ -91,9 +96,9 @@
             </ul>
             <div class="contact _j_contact">
                 联系方式
-                <span class="invisible" >
-        ------报名后可见-------
-    </span>
+                <span class="invisible">
+                    ------报名后可见-------
+                </span>
 
             </div>
         </div>
@@ -116,8 +121,7 @@
                 </div>
                 <div class="desc _j_description">
                     <div class="title" ><p th:text="${title}">一起去新疆，有一起的么？</p></div>
-                    <p th:text="${intro}">
-                    </p>
+                    <p th:text="${intro}"></p>
                 </div>
                 <div th:if="${session.user_id ne authorId}" class="mod-joinform">
                     <h3 class="mod-title">我要报名</h3>
@@ -158,29 +162,75 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="mod-joinform" th:if="${session.user_id eq authorId}">
+                        <h3 class="mod-title">报名信息</h3>
+                        <div class="bd" th:data-id="${app.aid}" th:each="app:${appInfo}" style="background: #fff;
+                                                    width: 560px;
+                                                    border: 1px solid #e5e5e5;
+                                                    border-radius: 5px;
+                                                    padding: 20px;
+                                                    margin-bottom: 20px;
+                                                    -webkit-transition: box-shadow 0.25s linear 0s;
+                                                    transition: box-shadow 0.25s linear 0s;">
+                            <div class="item">
+                                <span class="label">用户</span>
+                                <div class="ui-input inp-tel" ><a href="##"><p th:text="${app.name}">茄子</p></a></div>
+                            </div>
+                            <div class="item">
+                                <span class="label">联系电话</span>
+                                <div class="ui-input inp-tel"><span th:text="${app.tel}">110</span></div>
+                            </div>
+                            <div class="item">
+                                <span class="label">性别</span>
+                                <div class="num" style="width: 200px">
+                                    <div class="ui-input inp-num">
+                                        <span th:if="${app.sex} eq 1">男</span>
+                                        <span th:if="${app.sex} eq 2">女</span>
+                                    </div>
+                                </div>
+                                <span class="label">同行人数</span>
+                                <div class="num">
+                                    <div class="ui-input inp-num"><span th:text="${app.count}">wdnmd</span></div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">同行名单</span>
+                                <div class="ui-input inp-list" style="width: 460px;"><span th:text="${app.nlist}">wdnmd wrng saki koi soul
+                                        giiubiub ibiuiuubib ubiubihbhb ucytgcytctcu</span></div>
+                            </div>
+                            <div class="item">
+                                <span class="label">备注</span>
+                                <div class="ui-input inp-list" style="width: 460px;"><span th:text="${app.addition}">wdnmd
+                                        wdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmdwdnmd</span>
+                                </div>
+                            </div>
+                            <div class="item" th:if="${app.state} ne 1">
+                                <a class="btn _j_submit_agree" th:onclick="'pass('+ ${app.aid} +','+ ${app.uid} +')'">同意</a>
+                                <a class="btn _j_submit_disagree" th:onclick="'reject('+ ${app.aid} +','+ ${app.uid} +')'" style="margin:0 0 0 40px;">拒绝</a>
+                            </div>
+                        </div>
+                    </div>
+        </div>
             <div class="detail-side">
                 <div class="mod-joinlist">
                     <div class="hd">
-                        <span><em th:text="${app}">10</em> 人报名</span>
+                        <span id="_apply_num"><em th:text="${app}">10</em> 人报名</span>
                         <i class="icon-arrow"></i>
                     </div>
                     <div class="bd">
-                        <ul class="clearfix" th:each="applicant,appStatus:${applicants}">
-                            <li>
+                        <ul class="clearfix" id="_apply_user_list">
+                            <li th:each="applicant,appStatus:${applicants}">
                                 <a class="avatar" href="#" target="_blank"><img th:src="${applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
                                 <a class="name" href="#" target="_blank"><p th:text="${applicant.applicantName}">时光吹老了好少年</p></a>
                             </li>
                         </ul>
                     </div>
                     <!--<div class="ft toggle _j_show_more_add_btn">-->
-                        <!--<a><i class="icon-arrow"></i></a>-->
+                    <!--<a><i class="icon-arrow"></i></a>-->
                     <!--</div>-->
                 </div>
-
             </div>
-        </div>
         <div class="row">
             <div class="wrapper clearfix">
                 <div class="mod-comment">

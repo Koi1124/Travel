@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Aa04Dao">
+    
+	<select id="fuzzyGet" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT aaa401,aaa402, aaa403, aaa404, aaa405, aaa406,aaa407
+        FROM aa04
+	<where>
+		aaa404>0
+	<if test="map.name!=null and map.name!=''">
+		and aaa402 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
+	</if>
+	<if test="map.beginTime!=null and map.beginTime!=''">
+		and aaa406 >= #{map.beginTime}
+	</if>
+	<if test="map.endTime!=null and map.endTime!=''">
+		and #{map.endTime} >= aaa406
+	</if>
+	</where>
+		limit #{map.begin}, #{map.num}
+	</select>
+	
+	<select id="fuzzySelectCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM aa04 
+	<where>
+	<if test="map.name!=null and map.name!=''">
+		and aaa402 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
+	</if>
+	<if test="map.beginTime!=null and map.beginTime!=''">
+		and aaa406 >= #{map.beginTime}
+	</if>
+	<if test="map.endTime!=null and map.endTime!=''">
+		and #{map.endTime} >= aaa406
+	</if>
+		and aaa404>0;
+	</where>
+	</select>
+	
+	<update id="changeState" parameterType="java.util.HashMap">
+	UPDATE aa04
+	SET aaa407=#{map.state}
+	WHERE aaa401=#{map.id}
+	</update>
+	
+	<delete id="del" parameterType="java.util.HashMap">
+	DELETE FROM aa04
+	WHERE aaa401=#{map.id}
+	</delete>
+	
+	<insert id="insert" parameterType="java.util.HashMap">
+	INSERT INTO aa04(aaa402,aaa403,aaa404,aaa405,aaa406,aaa407)
+	VALUES (#{map.username},#{map.password},#{map.role},#{map.email},CURRENT_DATE,0)
+	</insert>
+	
+	<update id="changeRole" parameterType="java.util.HashMap">
+	UPDATE aa04 SET aaa404=${map.role}
+	WHERE aaa401=#{map.id}
+	</update>
+	
+	<select id="getPwdAndRoleByName" parameterType="java.lang.String" resultType="java.util.HashMap">
+    	SELECT aaa403 AS pwd,aaa404 AS role
+    	FROM aa04
+    	WHERE aaa402=#{name};
+    </select>
+    
+    <update id="updateAdminPwd" parameterType="java.util.HashMap">
+	UPDATE aa04 SET aaa403=#{map.newPassword}
+	WHERE aaa402=#{map.username} and aaa403=#{map.oldPassword};
+	</update>
+	
+	<update id="updateInfo" parameterType="java.util.HashMap">
+	UPDATE aa04 SET aaa402=#{map.newname},aaa405=#{map.email}
+	WHERE aaa402=#{map.oldname};
+	</update>
+</mapper>

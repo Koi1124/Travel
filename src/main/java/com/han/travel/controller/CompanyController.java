@@ -17,11 +17,15 @@ import java.util.Map;
 public class CompanyController
 {
     @Autowired
+    private UserService userService;
+    @Autowired
     private CompanyService companyService;
     @Autowired
     private CollectService collectService;
     @Autowired
     private FollowService followService;
+    @Autowired
+    private MessageService messageService;
 
 
     /**
@@ -125,13 +129,16 @@ public class CompanyController
      *           addition: 备注,
      *           uid: 用户id,
      *           sex:性别
+     *           rUserId: 接受消息用户id
+     *           title: 结伴标题
      *        }
      * @return boolean
      **/
     @PostMapping("/join_update")
     @ResponseBody
-    public boolean joinUpdate(@RequestBody Map<String, Object> map)
+    public boolean joinUpdate(@RequestBody Map<String, Object> map,HttpSession session)
     {
+        messageService.applyUpdate(session.getAttribute(SessionConfig.USER_NAME),map.get("rUserId"),map.get("tid"),map.get("title"));
         return companyService.joinUpdate(map);
     }
 
@@ -147,13 +154,16 @@ public class CompanyController
      *            addition: 备注,
      *            uid: 用户id,
      *            sex:性别
+     *            rUserId: 接受消息用户id
+     *            title: 结伴标题
      *        }
      * @return boolean
      **/
     @PostMapping("/join")
     @ResponseBody
-    public boolean joinCompany(@RequestBody Map<String, Object> map)
+    public boolean joinCompany(@RequestBody Map<String, Object> map,HttpSession session)
     {
+        messageService.apply(session.getAttribute(SessionConfig.USER_NAME),map.get("rUserId"),map.get("tid"),map.get("title"));
         return companyService.joinComp(map);
     }
 
@@ -170,6 +180,7 @@ public class CompanyController
      * setout: 出发地  view: 浏览量  intro: 结伴介绍  app: 报名数
      * id: 结伴id  period: 大约用时天数  name: 结伴目的地合集
      * applicants: 报名表信息-> applicantPic: 报名人头像  applicantName: 报名人名  applicantId: 报名人ID
+     * appInfo: 申请表信息-> aid: 报名表id  name: 申请用户名  tel: 联系电话  count: 同行人数  nlist: 同行名单  addition: 备注  uid:申请用户id  sex: 申请用户性别  state: 状态
      *@param id
 	 *@param map
 	 *@param session 
@@ -208,6 +219,8 @@ public class CompanyController
         isCollectDto.put("type",'5');
         map.put("isCollect",collectService.isCollect(isCollectDto));
         map.put("isFollow",followService.isFollow((Integer) map.get("authorId"), (Integer) session.getAttribute(SessionConfig.USER_ID)));
+        map.put("appInfo",companyService.getAppInfoByCId(id));
+        System.out.println(map);
 
         return "together/detail";
     }
@@ -221,6 +234,39 @@ public class CompanyController
         return "together/homepage";
     }
 
+
+    /**
+     *@discription: 审核通过申请 dto->
+     * rUserId: 接受消息用户id
+     * pid: 结伴id
+     * title: 结伴标题
+     * aid: 结伴申请表id
+     *@param dto 
+     *@date: 2019/7/19 14:27
+     *@return: boolean
+     *@author: Han
+     */
+    @RequestMapping("/passApp")
+    @ResponseBody
+    public Map<String,Object> agreeApp(@RequestBody Map<String,Object> dto)
+    {
+        Map<String,Object> result=new HashMap<>(3);
+        messageService.passApply(dto.get("rUserId"),dto.get("pid"),dto.get("title"));
+        if (companyService.passApp((Integer) dto.get("aid")))
+        {
+            Map<String,Object> temp=userService.getUserPicAndNameById((Integer) dto.get("rUserId"));
+            result.putAll(temp);
+        }
+        return result;
+    }
+
+    @RequestMapping("/rejectApp")
+    @ResponseBody
+    public boolean rejectApp(@RequestBody Map<String,Object> dto)
+    {
+        messageService.rejectApply(dto.get("rUserId"),dto.get("pid"),dto.get("title"));
+        return companyService.rejectApp((Integer) dto.get("aid"));
+    }
 
 
 }

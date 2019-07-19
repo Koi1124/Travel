@@ -42,7 +42,7 @@ if(typeof(WebSocket) == "undefined") {
         console.log("Socket 已打开");
         //socket.send("这是来自客户端的消息" + location.href + new Date());
     };
-//获得消息事件
+    //获得消息事件
     socket.onmessage = function(msg) {
         if (msg.data==user_id) {
             var num=$("._head_msg").text();
@@ -50,7 +50,7 @@ if(typeof(WebSocket) == "undefined") {
             changeTitle(updateNum);
             $("._head_msg").show();
         }
-        if (Number(msg.data.split(",")[0])==user_id) {
+        if (Number(msg.data.split(",")[1])==user_id) {
             $("._head_private_letter").show();
             $(document).attr("title","[收到私信]"+origin);
         }
@@ -147,7 +147,7 @@ $(function () {
             success:function (result) {
                 if (tag){
                     $(result).each(function (i,message) {
-                        $("#_j_msg_panel ul").append('<li class=""><a href="'+ message.url +'" target="_self" onclick="checkout('+ message.mid +')" style="text-decoration: none;">'+ message.msg +'</a></li>')
+                        $("#_j_msg_panel ul").prepend('<li class=""><a href="'+ message.url +'" target="_self" onclick="checkout('+ message.mid +')" style="text-decoration: none; word-wrap: break-word;" >'+ message.msg +'</a></li>')
                         $("#_j_msg_panel").show(250);
                     });
                     $("#_j_msg_panel ul").append('<li class="" style="height: 12px"><a onclick="checkAll()" style="height: 12px;font-size: 10px;line-height: 12px;color: #666;position: relative;">全部标记为已读</a></li>');

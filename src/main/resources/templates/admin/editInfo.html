@@ -21,27 +21,21 @@
             <div class="signup-forms">
                 <div class="signup-box">
                     <div class="add-info">
-                        <div class="hd">设置新密码</div>
-                            <div class="alert alert-info">安全提示:密码长度为8-16位。
+                        <div class="hd">修改个人信息</div>
+                            <div class="alert alert-info">
                             </div>
 							<form method="post" class="layui-form" >
                             <div class="form-field">
-                                <input id="oldPassword" name="oldPassword" type="password" lay-verify="pass" placeholder="原来的密码" autocomplete="off"
-                                        class="" />
+                            	<input id="adminname" type="hidden" th:value=${adminname}>
+                                <input id="name"  type="text" th:value=${adminname} placeholder="昵称" lay-verify="nikename" autocomplete="off" class="" />
                                 
                             </div>
                             <div class="form-field">
-                                <input id="newPassword" name="newPassword" type="password" lay-verify="pass" placeholder="新的密码" autocomplete="off"
-                                        class="" />
-                                
-                            </div>
-                            <div class="form-field">
-                                <input id="rnewPassword" name="rnewPassword" type="password" lay-verify="repass" placeholder="确认密码" autocomplete="off"
-                                        class="">
+                                <input id="email"  type="email" lay-verify="email" placeholder="新的邮箱" autocomplete="off" class="" />
                                 
                             </div>
                             <div class="submit-btn">
-                                <button type="submit" lay-submit lay-filter="update">完成</button>
+                                <button  lay-submit lay-filter="update" type="submit" >修改</button>
                             </div>
                         </form>
                     </div>
@@ -62,49 +56,46 @@
           
           //检测是否符合规范
           form.verify({
-              pass: [/(.+){8,16}$/, '密码必须8到16位'],
-              repass: function(value) {
-                  if ($('#newPassword').val() != $('#rnewPassword').val()) {
-                      return '两次密码不一致';
+              nikename: function(value) {
+                  if (value.length < 5) {
+                      return '昵称至少得5个字符';
                   }
-              }
+              },
+              
           });
           
         //监听提交
           form.on('submit(update)', function(data){
         	  $.ajax({
-					type:"post",
-					url: "http://localhost:8080/admin/editPassword",
-					data: JSON.stringify({oldPassword:$("#oldPassword").val(),newPassword:$("#newPassword").val()}),
-				    contentType: "application/json",
-				    dataType: "json",
-				    async: true,
-				    success: function (data) {
-				    	if(data)
-				    	{
-				    		toastr.success('修改成功!1s后跳转');
-				    		setTimeout(function () {
-				        		xadmin.close();
-			    	        	xadmin.father_reload();}, 1000);	
-				    	}
-				    	else
-				    	{
-				    		toastr.warning('网络故障:修改失败！');
-				    	}
-				    	
-				    },
-				    error: function (e) {
-				    	toastr.error('网络错误！')
-				    }	
-				});  
+  				type:"post",
+  				url: "http://localhost:8080/admin/aa04/updateInfo",
+  				data: JSON.stringify({oldname:$("#adminname").val(),newname:$("#name").val(),email:$("#email").val()}),
+  			    contentType: "application/json",
+  			    dataType: "json",
+  			    async: true,
+  			    success: function (data) {
+  			    	if(data)
+  			    	{
+  			    		toastr.success('修改成功!');
+  			    		setTimeout(function () {
+  			        		xadmin.close();
+  		    	        	xadmin.father_reload();}, 1000);
+  			    	}
+  			    	else
+  			    	{
+  			    		toastr.warning('修改失败！');
+  			    	}
+  			    },
+  			    error: function (e) {
+  			    	toastr.error('网络错误！')
+  			    }	
+  			});  
         	  return false;
             });
           
           
     });
     })
-    
-    
     
     </script>
 </body>

@@ -17,6 +17,7 @@ public class MessageService
     @Resource
     private Sa01Dao sa01Dao;
 
+
     @Autowired
     MessageSocketServer messageSocketServer;
 
@@ -39,16 +40,18 @@ public class MessageService
                 type="结伴";
                 break;
             default:
-                type="";
                 break;
         }
         StringBuilder content=new StringBuilder()
-                .append("用户")
+                .append("用户[")
                 .append(userName)
+                .append("]")
                 .append(action)
                 .append("了您的")
-                .append(type+"：")
+                .append(type)
+                .append("[")
                 .append(detail)
+                .append("]")
                 ;
         dto.put("content",content.toString());
         dto.put("pid",pid);
@@ -70,17 +73,18 @@ public class MessageService
         dto.put("userId",rUserId);
         dto.put("type",jump_type);
         StringBuilder content=new StringBuilder()
-                .append("用户")
+                .append("用户[")
                 .append(userName)
-                .append("点赞")
-                .append("了您的评论：")
+                .append("]点赞")
+                .append("了您的评论[")
                 .append(detail)
+                .append("]")
                 ;
         dto.put("content",content.toString());
         dto.put("pid",pid);
         if (sa01Dao.insertMessage(dto))
         {
-            MessageSocketServer.sendMessage(Integer.parseInt((String)rUserId));
+            MessageSocketServer.sendMessage((Integer) rUserId);
         }
     }
 
@@ -96,17 +100,18 @@ public class MessageService
         dto.put("userId",rUserId);
         dto.put("type",type);
         StringBuilder content=new StringBuilder()
-                .append("用户")
+                .append("用户[")
                 .append(userName)
-                .append("回复")
-                .append("了您的评论：")
+                .append("]回复")
+                .append("了您的评论[")
                 .append(detail)
+                .append("]")
                 ;
         dto.put("content",content.toString());
         dto.put("pid",pid);
         if (sa01Dao.insertMessage(dto))
         {
-            MessageSocketServer.sendMessage(Integer.parseInt((String)rUserId));
+            MessageSocketServer.sendMessage((Integer) rUserId);
         }
     }
 
@@ -114,6 +119,87 @@ public class MessageService
     {
         operate(userName,type,detail,"收藏",rUserId, pid);
     }
+
+    public void follow(Object userName, Object rUserId)
+    {
+        Map<String,Object> dto=new HashMap<>();
+        StringBuilder content=new StringBuilder()
+                .append("用户[")
+                .append(userName)
+                .append("]关注了您")
+                ;
+        dto.put("content",content.toString());
+        dto.put("userId",rUserId);
+        dto.put("type","0");
+        if (sa01Dao.insertMessage(dto))
+        {
+            MessageSocketServer.sendMessage(Integer.parseInt((String) rUserId));
+        }
+    }
+
+    // 结伴申请综合操作
+    private void applyOperate(Object rUserId, Object pid, String content)
+    {
+        Map<String,Object> dto=new HashMap<>();
+        dto.put("content",content);
+        dto.put("userId",rUserId);
+        dto.put("pid",pid);
+        dto.put("type","5");
+        if (sa01Dao.insertMessage(dto))
+        {
+            MessageSocketServer.sendMessage(Integer.parseInt(rUserId.toString()));
+        }
+    }
+
+    // 申请结伴
+    public void apply(Object userName,Object rUserId, Object pid, Object detail)
+    {
+        StringBuilder content=new StringBuilder()
+                .append("用户[")
+                .append(userName)
+                .append("]申请了您的结伴[")
+                .append(detail)
+                .append("]")
+                ;
+        applyOperate(rUserId,pid,content.toString());
+    }
+
+    // 更新申请信息
+    public void applyUpdate(Object userName, Object rUserId, Object pid, Object detail)
+    {
+        StringBuilder content=new StringBuilder()
+                .append("用户[")
+                .append(userName)
+                .append("]在您的结伴[")
+                .append(detail)
+                .append("]报名申请中修改了报名信息")
+                ;
+        applyOperate(rUserId,pid,content.toString());
+    }
+
+    // 通过结伴申请
+    public void passApply(Object rUserId, Object pid, Object detail)
+    {
+        StringBuilder content=new StringBuilder()
+                .append("您在结伴[")
+                .append(detail)
+                .append("]中的结伴申请已通过")
+                ;
+        applyOperate(rUserId,pid,content.toString());
+    }
+
+    // 拒绝结伴申请
+    public void rejectApply(Object rUserId, Object pid, Object detail)
+    {
+        StringBuilder content=new StringBuilder()
+                .append("您在结伴[")
+                .append(detail)
+                .append("]中的结伴申请被拒绝")
+                ;
+        applyOperate(rUserId,pid,content.toString());
+    }
+
+
 
     public Integer getNumByUId(int uid)
     {

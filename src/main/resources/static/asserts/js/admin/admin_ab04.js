@@ -1,11 +1,12 @@
 //注册登录页面
 $(document).ready(function() {
 	var currPage=$("#pageNum");
-	toastr.options = {
-	        positionClass: "toast-top-center",
-	        hideDuration: "1000",
-	        closeButton: true,
-	    };
+	toastr.options = 
+	{
+        positionClass: "toast-top-center",
+        closeButton: true,
+        timeOut:"1000",
+    };
 	$(function() { 
 		ab04Select();
 	})

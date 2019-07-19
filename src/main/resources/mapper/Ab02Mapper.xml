@@ -6,14 +6,14 @@
 			aab205
 		FROM ab02
 	<where>
-	<if test="city!=null and city!=''">
-		and aab301 LIKE CONCAT(CONCAT('%',#{city}),'%')
+	<if test="map.city!=null and map.city!=''">
+		and aab301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
 	</if>
-	<if test="name!=null and name!=''">
-		and aab202 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	<if test="map.name!=null and map.name!=''">
+		and aab202 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
 	</if>
 	</where>
-	limit #{begin}, #{num}
+	limit #{map.begin}, #{map.num}
 	</select>
 	
 	<insert id="insertStrategy" parameterType="java.util.HashMap" >
@@ -38,11 +38,11 @@
 		SELECT count(*) 
 		FROM ab02
 	<where>
-	<if test="city!=null and city!=''">
-		and aab301 LIKE CONCAT(CONCAT('%',#{city}),'%')
+	<if test="map.city!=null and map.city!=''">
+		and aab301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
 	</if>
-	<if test="name!=null and name!=''">
-		and aab202 LIKE CONCAT(CONCAT('%',#{name}),'%')
+	<if test="map.name!=null and map.name!=''">
+		and aab202 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
 	</if>
 	</where>
 	</select>

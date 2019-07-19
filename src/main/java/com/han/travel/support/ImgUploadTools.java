@@ -54,7 +54,7 @@ public class ImgUploadTools
             // 去掉头部
             image = image.substring(header.length() + 1);
             //获取项目路径到E:/upload/images
-            String filepath = "E:" + File.separator + "upload" + File.separator + "images" + File.separator ;
+            String filepath = "D:" + File.separator + "upload" + File.separator + "images" + File.separator ;
             File file = new File(filepath);
             if (!file.exists())
             {//目录不存在就创建

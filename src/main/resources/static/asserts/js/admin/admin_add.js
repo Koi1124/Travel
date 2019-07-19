@@ -1,20 +1,21 @@
 //注册登录页面
 $(document).ready(function() {
-	var a_id=$("#attraction_id");
-	var a_op=$("#attraction_operation");
+	var username=$("#username");
+	var pwd=$("#password");
+	var rpwd=$("#rpassword");
+	var email=$("#email");
+	var role=$('input:radio:checked');
 	toastr.options = 
 	{
         positionClass: "toast-top-center",
         closeButton: true,
         timeOut:"1000",
     };
-
 	$(function() { 
-		if(a_op.val()==2)
-		{
-			ab03Select(a_id.val());
-		}
 	})
+	
+	
+	
 	
 	function ab03Select(id){
 		$.ajax({

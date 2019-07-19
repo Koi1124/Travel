@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title>编辑游记</title>
     <meta charset="UTF-8">
     <link th:href="@{/asserts/css/note/noteEdit.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
@@ -22,6 +23,8 @@
 
 
 <body>
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+
 
 <!-- 头图 s -->
 <div id="topic" class="pagelet-block">

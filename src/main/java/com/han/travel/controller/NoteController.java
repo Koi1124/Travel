@@ -77,12 +77,6 @@ public class NoteController
     }
 
 
-    @RequestMapping("/home")
-    public String toHome(Map<String,Object> dto)
-    {
-        return "homepage";
-    }
-
     /**
      * @Author Saki
      * @Description 上传图片

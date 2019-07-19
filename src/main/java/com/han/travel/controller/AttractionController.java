@@ -60,8 +60,7 @@ public class AttractionController
     @ResponseBody					
     public Map<String,Object> fuzzyQuery(@RequestBody Map<String,Object>map)
     {
-		int currPage=Integer.parseInt(map.get("currPage").toString());
-		return PageBean.fuzzyQuery(currPage, ab03Dao, "ab03",map.get("name").toString(),map.get("intro").toString());
+		return PageBean.fuzzyQuery(ab03Dao, "ab03",map);
     }
 	
 	@PostMapping("/ab03/queryById")
