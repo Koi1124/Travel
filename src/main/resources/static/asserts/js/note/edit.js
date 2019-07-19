@@ -286,7 +286,10 @@ function submitNote() {
         async: true,
         success: function (result) {
             if (result) {
-                $("._j_draft_save_time").text("已于" + getNowFormatDate() + "保存");
+                logSuccess("发布成功");
+                setTimeout(function () {
+                    document.location.href="/note/" + nid;
+                }, 1000);
             }
             else {
                 logError("网络故障，请稍后再试");
@@ -322,6 +325,7 @@ function saveNote() {
         success: function (result) {
             if (result) {
                 $("._j_draft_save_time").text("已于" + getNowFormatDate() + "保存");
+                logSuccess("保存成功");
             }
             else {
                 logError("网络故障，请稍后再试");
@@ -332,8 +336,6 @@ function saveNote() {
         }
     });
 }
-
-
 
 //获取文章主题内容
 function getContent() {
@@ -351,7 +353,9 @@ function getContent() {
             //text
             if (!testBlank($(item).find(".textarea").val())) {
                 var str = $(item).find(".textarea").val();
-                var reg = /\n+/g;
+                var reg = /\n\n+/g;
+                str = str.replace(reg, "<br/><br/>");
+                reg = /\n/g;
                 str = str.replace(reg, "<br/>");
                 data.push({text: "\"" + str + "\""});
             }
@@ -472,14 +476,106 @@ $(function () {
 
     $(".textarea").txtaAutoHeight();// 调用
 
-
+    setContent();
+    autoSave();
     //滚动事件
+    var sideTopOffset = $("#sidebar").offset().top;
+    var sideLeftOffset = $("#sidebar").offset().left;
     $(window).scroll(function(event){
-        if ($(window).scrollTop() > $("#sidebar").offset().top) {
-            $("#sidebar").css({'padding-top':($(window).scrollTop() - $("#sidebar").offset().top + 10) + "px"});
+        if ($(window).scrollTop() > sideTopOffset) {
+            $("#sidebar").attr("class", "sidebar-fixed");
+            $("#sidebar").css({left:sideLeftOffset});
+        }
+        else {
+            $("#sidebar").attr("class", "sidebar");
+            $("#sidebar").css({left:0});
         }
     });
 });
+
+//自动保存
+var saveTime = 10;
+function autoSave() {
+    if (saveTime === 0) {
+        saveNote();
+        saveTime = 60;
+    } else {
+        saveTime--;
+        setTimeout(function () {autoSave();},1000);
+    }
+}
+
+
+
+//页面加载的时候设置内容
+function setContent() {
+    var first = true;
+    $(content).each(function (i, item) {
+        if (item['text'] != undefined) {
+            var text = item['text'].replace(/<br\/>/g, "\n");
+            if (first) {
+                $("#textarea").val(text);
+                setAutoHeight($("#textarea"));
+                first = false;
+            }
+            else {
+                var newText = $(textBox);
+                newText.find("textarea").txtaAutoHeight();
+                newText.find("textarea").val(text);
+                newText.find("textarea").focus(function () {
+                    activeText = newText.find("textarea");
+                });
+                $("#_j_content_box").append(newText);
+                setAutoHeight(newText.find("textarea"));
+            }
+        }
+        else if (item['title'] != undefined) {
+            var title = $(titleBox);
+            title.attr("id", "title-" + index);
+            index++;
+            title.find("h2 span").text(item['title']);
+            title.find("h2").show();
+            //添加点击事件
+            title.find("._j_paragraph_title_delete").click(function () {
+                title.hide(250, function () {
+                    title.prev().find("textarea").val(title.prev().find("textarea").val() + "\n" + title.next().find("textarea").val());
+                    setAutoHeight(title.prev().find("textarea"));
+                    title.next().remove();
+                    title.remove();
+                    refreshTitle();
+                });
+            });
+            title.find("._j_paragraph_title_edit").click(function () {
+                activeTitle = title;
+                $(".a-inptxt").val(title.find("h2 span").text());
+                $("#mask").fadeIn(250);
+                $(".add-panel-title").fadeIn(250);
+                refreshTitle();
+            });
+            $("#_j_content_box").append(title);
+        }
+        else {
+            var pic = $(picBox);
+            pic.find("img").attr("src", item['pic']);
+            //点击事件
+            pic.find(".go_set_page").click(function () {
+                $("#top_image").attr("src", pic.find("img").attr("src"));
+                $(".set_page").hide();
+                $(".set_btn").show();
+            });
+            pic.find("i").click(function () {
+                pic.hide(250, function () {
+                    pic.prev().find("textarea").val(pic.prev().find("textarea").val() + "\n" + pic.next().find("textarea").val());
+                    setAutoHeight(pic.prev().find("textarea"));
+                    pic.next().remove();
+                    pic.remove();
+                });
+            });
+            $("#_j_content_box").append(pic);
+        }
+    });
+    refreshTitle();
+}
 
 function testBlank(str) {
     str = str.replace(" ", "");

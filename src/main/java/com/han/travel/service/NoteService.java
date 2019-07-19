@@ -5,7 +5,6 @@ import com.han.travel.dao.Ab01Dao;
 import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.Utils;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -165,21 +164,12 @@ public class NoteService
      * @Author Saki
      * @Description 获取所有省市的名字和编号
      * @Date 2019/7/17
-     * @param
+     * @param content 文章内容
      * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      **/
     public Map<String, Integer> getPlace(String content)
     {
-        if (!Utils.isNotEmpty(Utils.place))
-        {
-            List<Map<String, Object>> list = aa03Dao.getAllNameAndId();
-            Map<String, Integer> map = new HashMap<>((int)(list.size() / 0.75) + 1);
-            for (Map<String, Object> place : list)
-            {
-                map.put((String)place.get("name"), (int)place.get("id"));
-            }
-            Utils.place = map;
-        }
+        setPlace();
         Map<String, Integer> result = new HashMap<>();
         for (Map.Entry<String, Integer> entry : Utils.place.entrySet())
         {
@@ -191,6 +181,28 @@ public class NoteService
         return result;
     }
 
+    /**
+     * @Author Saki
+     * @Description 获得城市列表
+     * @Date 2019/7/18 
+     * @param 
+     * @return void 
+     **/
+    private void setPlace()
+    {
+        if (!Utils.isNotEmpty(Utils.place))
+        {
+            List<Map<String, Object>> list = aa03Dao.getAllNameAndId();
+            Map<String, Integer> map = new HashMap<>((int)(list.size() / 0.75) + 1);
+            for (Map<String, Object> place : list)
+            {
+                map.put((String)place.get("name"), (int)place.get("id"));
+            }
+            Utils.place = map;
+        }
+    }
+    
+    
     /**
      * @Author Saki
      * @Description 根据用户id获取草稿列表
@@ -206,6 +218,7 @@ public class NoteService
     /**
      * @Author Saki
      * @Description 根据游记id获得游记详情
+     *            编辑页面使用，判断用户是否游记编写者
      * @Date 2019/7/17
      * @param nid
      * @param uid
@@ -223,6 +236,39 @@ public class NoteService
         return null;
     }
 
+
+    /**
+     * @Author Saki
+     * @Description 根据游记id获得游记详情
+     * @Date 2019/7/18
+     * @param nid
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     **/
+    public Map<String, Object> getNoteById(int nid, Integer status, Integer myId)
+    {
+        Map<String, Object> result = ab01Dao.getNoteByIdAndStatus(nid, status);
+        if (Utils.isNotEmpty(result))
+        {
+            //分词以及序列化
+            setPlace();
+            String content = (String) result.get("content");
+            for (Map.Entry<String, Integer> entry : Utils.place.entrySet())
+            {
+                content = content.replaceAll(entry.getKey(), "<a href='/mdd/" + entry.getValue() + "' class='link _j_keyword_mdd' target='_blank'>"
+                        + entry.getKey() + "</a>");
+            }
+
+            JSONArray jsonArray = JSONArray.fromObject(content);
+            result.put("content", jsonArray);
+            if (myId != null)
+            {
+                result.putAll(ab01Dao.getNoteExtraMsgByIdAndUid(nid, (int) result.get("uid"), myId));
+            }
+        }
+        return result;
+    }
+
+
     /**
      * @Author Saki
      * @Description 改变游记状态
@@ -232,6 +278,18 @@ public class NoteService
      **/
     public boolean changeStatus(Map<String, Object> map)
     {
-        return ab01Dao.changeStateById((int)map.get("nid"), (int)map.get("status"));
+        return ab01Dao.changeStateById(Integer.valueOf((String)map.get("nid")), (int)map.get("status"));
+    }
+
+    /**
+     * @Author Saki
+     * @Description 增加浏览量
+     * @Date 2019/7/18
+     * @param nid
+     * @return void
+     **/
+    public void addViews(int nid)
+    {
+        ab01Dao.addViews(nid);
     }
 }

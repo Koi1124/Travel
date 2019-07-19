@@ -10,6 +10,7 @@
 
     <script th:inline="javascript">
         var nid = [[${nid}]];
+        var content = [[${content}]];
         var uid = [[${uid}]];
     </script>
 
@@ -27,10 +28,10 @@
     <div class="set_index" id="_j_cover_box" style="height: 506.333px;">
         <div class="set_bg _j_toppiccnt">
             <!-- 这里插入头图  <img> -->
-            <img id="top_image" class="" src="" style="width: 100%">
+            <img id="top_image" class="" th:src="${topImg}" style="width: 100%">
         </div>
         <!-- 添加后将set_page替换为hide -->
-        <div class="set_page" id="_j_pluplader_btn_container_1">
+        <div class="set_page" id="_j_pluplader_btn_container_1" th:style="${'display:' + (topImg eq ''?'block':'none')}">
             <a role="button" onclick="top_image_input.click();" class="set_add  _j_uploaderattop _j_upload_toppic" id="_j_upload_toppic"></a>
             <h2>设置游记头图</h2>
             <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
@@ -39,12 +40,12 @@
         <!--头图input-->
         <input type="file" value="" id="top_image_input" style="display: none" accept="image/jpg,image/jpeg,image/png,image/bmp"/>
         <div class="set_title ">
-            <input type="text" id="_j_title" value="" placeholder="填写游记标题" maxlength="48" style="outline:none;">
+            <input type="text" autocomplete="off" id="_j_title" th:value="${title}" placeholder="填写游记标题" maxlength="48" style="outline:none;">
 
             <div class="clear"></div>
         </div>
         <!-- 添加后显示 去除hide-->
-        <div class="set_btn" id="_j_cover_do" style="display: none">
+        <div class="set_btn" id="_j_cover_do" th:style="${'display:' + (topImg ne ''?'block':'none')}">
             <a role="button" onclick="top_image_input.click();" title="设置头图" class="a_set _j_addtoppiclabel"><i></i><span>重新上传头图</span></a>
 
         </div>
@@ -77,7 +78,7 @@
 
 
     <!-- 右侧bar s -->
-    <div id="sidebar" class="sidebar pagelet-block" data-controller="/js/note/ControllerEditSidebar">
+    <div id="sidebar" class="sidebar">
         <div style="height: 395px; display: none;"></div>
         <!-- 插入图片 -->
         <div class="sidebar-item _j_sidebar_item">
@@ -95,7 +96,7 @@
 
         <!-- 保存草稿 -->
         <div class="side-save" id="_j_draft_save_block"><span class="_j_draft_save_time"></span><a
-                class="btn-save _j_btn_save" role="button"><i></i>保存草稿</a></div>
+                class="btn-save _j_btn_save" role="button"><i></i><hhh th:text="${status eq 0?'保存草稿':'保存'}">保存草稿</hhh></a></div>
 
 
 
@@ -163,24 +164,24 @@
         </div>
         <div class="dialog_body _j_content">
             <div class="prop-info">
-                <h3 class="pi-title">完善出行信息可以让游记被更多人看到哦</h3>
+                <h3 class="pi-title">提交游记</h3>
                 <form class="_j_exform"> <input type="hidden" name="iid" value="14943927">
                     <div class="pi-base">
                         <div class="pi-row">
                             <div class="pi-col pi-date"> <label>出发时间</label>
-                                <input id="date-input" class="pi-input _j_dateinput hasDatepicker"
+                                <input id="date-input" class="pi-input _j_dateinput hasDatepicker" th:value="${date}"
                                     style="z-index: 551; position: relative;">
                                 <i class="pi-icon-cal"></i> </div>
 
                         </div>
                         <div class="pi-row">
                             <div class="pi-col pi-day"> <label>出行天数</label>
-                                <input id="days-input" class="pi-input" type="text" placeholder="输入天数" name="dayscount">
+                                <input id="days-input" class="pi-input" type="text" th:value="${days}" placeholder="输入天数" name="dayscount">
                             </div>
                         </div>
                         <div class="pi-row">
                             <div class="pi-col pi-day"> <label>人均花费/RMB</label>
-                                <input id="money-input" class="pi-input" type="text" placeholder="输入花费" name="expense">
+                                <input id="money-input" class="pi-input" type="text" th:value="${money}" placeholder="输入花费" name="expense">
                             </div>
                         </div>
                     </div>

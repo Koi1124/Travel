@@ -16,7 +16,17 @@ public class CollectController
     private CollectService collectService;
 
 
-
+    /**
+     * @Author Saki
+     * @Description 关注
+     * @Date 2019/7/15
+     * @param map {
+     *           userId:,
+     *           collectId:,
+     *           type:
+     *        }
+     * @return boolean
+     **/
     @RequestMapping("/collect")
     @ResponseBody
     public boolean collect(@RequestBody Map<String,Object> map)

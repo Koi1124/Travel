@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/asserts/css/note/details.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/navbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var content = [[${content}]];
+        var nid = [[${nid}]];
+        var uid = [[${session.user_id}]];
+        var type = 1;
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
+    <script th:src="@{/asserts/js/note/details.js}"></script>
+    <script th:src="@{/asserts/js/common/comment.js}"></script>
+
+</head>
+
+<body>
+
+<div id="header">
+    <div class="zy-header">
+        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
+            <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="主页"></a></div>
+            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-zy-index"><a href="">首页</a></li>
+                <li class="head-nav-zy-place"><a href="">目的地</a></li>
+                <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
+                <li class="head-nav-zy-sales"><a href="">跟团游</a></li>
+                <li class="head-nav-zy-flight"><a href="">结伴</a></li>
+            </ul>
+
+            <div class="head-user-zy" id="_j_head_user">
+                <a href="" title="个人空间">
+                    <div class="user-image"><img
+                            src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                            height="32" width="32" alt="wdnmd的窝"></div>
+                </a>
+            </div>
+
+            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
+                <div class="head-search-wrapper-zy">
+                    <div class="head-searchform-zy">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
+                               style="outline:none;">
+                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+
+
+<div class="set_index" id="_j_cover_box" style="height: 519.667px;">
+    <div class="set_bg _j_load_cover">
+        <img th:src="${topImg}">
+    </div>
+
+    <div class="fully_loading" style="display: none;">
+        <p vtip="头图加载中...">头图加载中...</p>
+        <img src="http://images.mafengwo.net/images/post/new_notes/fully_loading_v2.gif" alt="loading">
+    </div>
+
+    <div class="_j_titlebg">
+        <div class="title_bg"></div>
+        <div class="view_info" data-length="6">
+            <div class="vi_con">
+                <h1 data-length="6" th:text="${title}" class="headtext lh80" style="white-space: nowrap; word-wrap: normal;">天津不如武汉
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="view_title clearfix">
+    <div class="pagelet-block">
+        <div class="vt_center">
+            <div class="person" data-cs-t="ginfo_person_operate">
+                <a href="/u/94362993.html" target="_blank" class="per_pic">
+                    <img width="120" height="120" th:src="${userPic}" alt="">
+                </a>
+                <strong>
+                    <a href="/u/94362993.html" target="_blank" class="per_name" th:title="${userName}" th:text="${userName}">Jack.Swift</a>
+                </strong>
+
+                <hhh th:if="${session.user_id ne uid}">
+                <a class="per_attention" th:if="${followId eq null}">
+                    <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13"
+                         border="0" title="关注TA">
+                </a>
+                </hhh>
+
+                <div class="vc_time">
+                    <span class="time" th:text="${editTime}">2019-07-09 14:41</span>
+                    <span><i class="ico_view"></i><hhh th:text="${views + '/' + (commentCount eq null?0:commentCount)}">45/2</hhh></span>
+                </div>
+                <div th:if="${uid eq session.user_id}" class="person-edit">
+                    <a th:href="@{'/note/editote/' + nid}" title="编辑">编辑</a>|
+                    <a id="btn-delete" title="删除">删除</a>
+                </div>
+            </div>
+
+            <div class="bar_share _j_share_father _j_top_share_group">
+                <div class="bs_share">
+                    <div class="ding">
+                        <a role="button" data-japp="articleding" rel="nofollow" th:hasThumbs="${thumbsUpId eq null?'0':'1'}"
+                           class="up_act " title="顶">顶</a>
+                        <div class="num _j_up_num" th:text="${thumbsUpCount eq null?0:thumbsUpCount}">8</div>
+                    </div>
+
+                </div>
+
+                <!-- 已收藏在class加collected -->
+                <div th:class="${starId eq null?'bs_collect':'bs_collect collected'}">
+
+                    <a rel="nofollow" title="收藏" class="bs_btn _j_do_fav"
+                       data-ctime="2019-07-09 14:41:15"><i></i>
+                        <span id="star-count" th:text="${starCount eq null?0:starCount}">2</span><strong>收藏</strong>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 本体 s -->
+<div class="container clearfix">
+    <div id="" class="content pagelet-block">
+        <div class="block-loading loading_backward"></div>
+        <div class="_j_content_box">
+
+
+            <div class="travel_directory _j_exscheduleinfo">
+                <div class="tarvel_dir_list clearfix">
+                    <ul>
+                        <li class="time">出发时间<span>/</span><hhh th:text="${date}">2019-07-02</hhh><i></i></li>
+                        <li class="day">出行天数<span>/</span><hhh th:text="${days}">5 天</hhh></li>
+                        <li class="cost">人均费用<span>/</span><hhh th:text="${money}">5000RMB</hhh></li>
+                    </ul>
+                </div>
+                <div th:if="${uid eq session.user_id}" class="tra_edit"><a role="button" tabindex="0" data-japp="setnoteex" data-iid="14943927">编辑</a>
+                </div>
+            </div>
+
+            <div class="vc_article">
+                <div class="va_con _j_master_content" data-cs-t="ginfo_kw_hotel">
+                    <div class="block-loading loading_backward"></div>
+                    <div class="_j_content_container">
+
+
+                        <!--文章主题-->
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- 评论 -->
+            <div th:if="${status eq 2}" class="row">
+                <div class="wrapper clearfix">
+                    <div class="mod-comment">
+                        <h3 class="mod-title">留言</h3>
+                        <div class="comment-form clearfix">
+                            <textarea class="_j_comment_content" style="height: 60px;"></textarea>
+                            <input class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
+                        </div>
+                        <div class="_j_commentlist">
+                            <div class="rev-list">
+                                <ul id="comment-list">
+                                    <!--评论列表-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="post_pagin" id="smallpager">
+                            <div id="pagination" class="page f1" style="text-align: center;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="block-loading loading_forward"></div>
+    </div>
+
+
+
+
+    <!-- 右侧bar s -->
+
+    <div id="sidebar" class="sidebar">
+        <div style="height: 395px; display: none;"></div>
+
+        <div th:if="${poiId ne null}" class="slide-right-container">
+            <div class="relation_mdd">相关目的地：
+                &nbsp;&nbsp;
+                <a href="/travel-scenic-spot/mafengwo/14731.html" target="_blank" th:title="${poiName}"
+                   th:text="${poiName}" class="_j_mdd_stas">湖北</a>
+            </div>
+            <div class="its_others">
+                <div class="mdd_info">
+                    <!--_j_mdd_sta为目的地点击统计，修改注意-->
+                    <a href="/travel-scenic-spot/mafengwo/10133.html" th:title="${poiName}" class="_j_mdd_stas"
+                       target="_blank">
+                        <img th:src="${poiPic}" width="240px">
+                        <i></i>
+                        <strong th:text="${poiName}">武汉</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 目录 -->
+        <div class="pagelet-block">
+            <div class="notes_catalog">
+                <div class="side_title" id="_j_catalogtitle">游记目录</div>
+                <div id="_j_catalog_list_wrap" style="position: relative; height: 36px;">
+                    <ul class="catalog_content" style="position: relative; overflow-y: hidden; max-height: 198px;">
+
+                    </ul>
+                    <div class="scrollbar"
+                         style="position: absolute; right: 0px; top: 0px; width: 5px; height: 100px; background-color: rgb(214, 214, 214); border-radius: 10px; cursor: pointer; opacity: 0; display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 右侧bar e -->
+
+
+
+
+</div>
+<!-- 本体 e -->
+</body>
+
+</html>

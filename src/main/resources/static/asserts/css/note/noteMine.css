@@ -370,3 +370,7 @@ a:hover {
     margin-top: -1px;
     border-top: 1px solid #ff9d00;
 }
+
+a{
+    text-decoration:none;
+}

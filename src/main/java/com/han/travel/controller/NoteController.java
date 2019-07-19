@@ -113,6 +113,8 @@ public class NoteController
         Map<String, Object> map = new HashMap<>();
         map.put("uid", (int)session.getAttribute(SessionConfig.USER_ID));
         noteService.addNote(map);
+        map.put("status", 0);
+        map.put("topMap", "");
         dto.putAll(map);
         return "note/edit";
     }
@@ -122,15 +124,121 @@ public class NoteController
      * @Author Saki
      * @Description 草稿编辑
      * @Date 2019/7/17
-     * @param
+     * @param dto {
+     *            poi:地点
+     *            title:标题
+     *            editTime:上次修改时间
+     *            date:出发日期
+     *            days:持续天数
+     *            money:预算
+     *            content:主题内容
+     *            topImg:头图
+     *        }
      * @return
      **/
     @RequestMapping("/note/editNote/{id}")
-    public String editNote(Map<String, Object> dto,@PathVariable("id") int id, HttpSession session)
+    public String editNote(Map<String, Object> dto, @PathVariable("id") int id, HttpSession session)
     {
         Map<String, Object> map = noteService.getMyNoteById(id, (int)session.getAttribute(SessionConfig.USER_ID));
+        if (Utils.isNotEmpty(map))
+        {
+            dto.putAll(map);
+            dto.put("nid", id);
+            return "note/edit";
+        }
+        return "note/mine";
+    }
+
+    /**
+     * @Author Saki
+     * @Description 游记详情页面
+     * @Date 2019/7/18
+     * @param dto {
+     *            uid:作者id,
+     *            nid:游记id,
+     *            poiId:相关地点id,
+     *            title:标题,
+     *            editTIme:最后编辑时间,
+     *            date:出发日期,
+     *            days:天数,
+     *            money:大约花费,
+     *            content:主题内容,
+     *            topImg:头图,
+     *            userName:作者昵称,
+     *            userPic:作者头像,
+     *            poiName:地点名称,
+     *            commentCount:评论数,
+     *            starCount:收藏数,
+     *            thumbsUpCount:点赞数,
+     *            views:浏览数,
+     *            poiPic:地点图片,
+     *            status:游记状态,
+     *            starId:用户是否收藏本游记（不为空即为收藏，下同）,
+     *            thumbsUpId:用户是否点赞本游记,
+     *            followId:用户是否关注作者
+     *        }
+     * @param id
+     * @param session
+     * @return java.lang.String
+     **/
+    @RequestMapping("/note/{id}")
+    public String getNote(Map<String, Object> dto, @PathVariable("id") int id, HttpSession session)
+    {
+        Map<String, Object> map = noteService.getNoteById(id, 2, (Integer)session.getAttribute(SessionConfig.USER_ID));
+        if (Utils.isNotEmpty(map))
+        {
+            dto.putAll(map);
+            return "note/details";
+        }
+        //TODO
+        return "404";
+    }
+
+
+    /**
+     * @Author Saki
+     * @Description 游记详情页面
+     * @Date 2019/7/18
+     * @param dto {
+     *            uid:作者id,
+     *            nid:游记id,
+     *            poiId:相关地点id,
+     *            title:标题,
+     *            editTIme:最后编辑时间,
+     *            date:出发日期,
+     *            days:天数,
+     *            money:大约花费,
+     *            content:主题内容,
+     *            topImg:头图,
+     *            userName:作者昵称,
+     *            userPic:作者头像,
+     *            poiName:地点名称,
+     *            commentCount:评论数,
+     *            starCount:收藏数,
+     *            thumbsUpCount:点赞数,
+     *            views:浏览数,
+     *            poiPic:地点图片,
+     *            status:游记状态,
+     *            starId:用户是否收藏本游记（不为空即为收藏，下同）,
+     *            thumbsUpId:用户是否点赞本游记,
+     *            followId:用户是否关注作者
+     *        }
+     * @param id
+     * @param session
+     * @return java.lang.String
+     **/
+    @RequestMapping("/preview/{id}")
+    public String getPreview(Map<String, Object> dto, @PathVariable("id") int id, HttpSession session)
+    {
+        Map<String, Object> map = noteService.getNoteById(id, null, (Integer)session.getAttribute(SessionConfig.USER_ID));
+        //用户权限判断
+        if (!Utils.isNotEmpty(map) || session.getAttribute(SessionConfig.USER_ID) != map.get("uid"))
+        {
+            //TODO 跳转404或者首页
+            return "";
+        }
         dto.putAll(map);
-        return "note/edit";
+        return "note/details";
     }
 
     /**

@@ -19,7 +19,7 @@ function getComment(page) {
         data:JSON.stringify({
             start:(page - 1) * itemCount,
             pageCount:itemCount,
-            type:5,
+            type:type,
             id:pid,
             uid:$("#user_id").val()
         }),
@@ -288,7 +288,7 @@ function clickCommentSubmit() {
         contentType: "application/json",
         data:JSON.stringify({
             userId:userId,
-            type:5,
+            type:type,
             pid:pid,
             title:title,
             rUserId:rUserId,

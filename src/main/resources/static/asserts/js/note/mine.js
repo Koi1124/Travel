@@ -13,6 +13,7 @@ $(function () {
     $(".popbtn-cancel").click(function () {
         $("#_j_layer_0").fadeOut(250);
     });
+    //删除，即把状态该成9
     $(".popbtn-submit").click(function () {
         $.ajax({
             type: "post",
@@ -26,9 +27,11 @@ $(function () {
             async: true,
             success: function (result) {
                 if (result) {
+                    $("#_j_layer_0").fadeOut(250);
                     activeDraft.hide(250, function () {
                         activeDraft.remove();
                         activeDraft = null;
+                        logSuccess("删除成功");
                     });
                 }
                 else {
@@ -50,15 +53,19 @@ $(function () {
         dataType: "json",
         async: true,
         success: function (result) {
-            if (result) {
+            if (result != null) {
+                $("._j_roughcount").text(result.length);
+                if (result.length == 0) {
+                    $("#todo-draft").html("还没有草稿哦，快去写游记吧~");
+                }
                 $(result).each(function (i, item) {
                     var li = $("<li data-nid=" + item.nid + ">\n" +
                                "    <span class='img'><img\n" +
-                               "                src='/asserts/img/date_bg.png'\n" +
+                               "                src='/asserts/img/common/page_bg.jpg'\n" +
                                "                style='height: 100px;width: 150px;'></span>\n" +
                                "    <div class='detail'>\n" +
                                "        <div class='title'><a\n" +
-                               "                href='/note/editNote/" + item.nid + "'>" + item.title +
+                               "                href='/note/editNote/" + item.nid + "'>未命名草稿" +
                                "           </a></div>\n" +
                                "        <span class='time'>" + item.editTime + "</span>\n" +
                                "        <div class='action'>\n" +
@@ -71,10 +78,14 @@ $(function () {
                     if (item.topImg != "") {
                         li.find("img").attr("src", item.topImg);
                     }
+                    if (!testBlank(item.title)) {
+                        li.find(".title").find("a").text(item.title);
+                    }
                     li.find(".i-delete").click(function () {
                         activeDraft = li;
                         $("#_j_layer_0").fadeIn(250);
                     });
+                    $("#darft-container").append(li);
                 });
             }
         },
@@ -83,3 +94,10 @@ $(function () {
         }
     });
 });
+
+function testBlank(str) {
+    str = str.replace(" ", "");
+    var reg = /\n/g;
+    str = str.replace(reg, "");
+    return str.length == 0;
+}

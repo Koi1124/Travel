@@ -49,8 +49,9 @@
         SET aab102=#{title}, aab104=CURRENT_TIME,
             <if test="date != null">aab105=#{date},</if>
             <if test="time != null">aab106=#{time},</if>
-            <if test="poi != null">aab108=#{poi},</if>
+            <if test="poi != null">aaa301=#{poi},</if>
             <if test="money != null">aab107=#{money},</if>
+            <if test="status != null">aab103=#{status},</if>
             aab110=#{content}, aab111=#{topImg},
             aab112=#{intro}
         WHERE aab101=#{nid};
@@ -97,10 +98,54 @@
         SELECT
             aaa101 as 'uid', aaa301 as 'poi', aab102 as 'title', aab104 as 'editTime',
             aab105 as 'date',aab106 as 'days' ,aab107 as 'money', aab110 as 'content',
-            aab111 as 'topImg'
+            aab111 as 'topImg', aab103 as 'status'
         FROM ab01
         WHERE aab101=#{nid}
         ;
+    </select>
+
+    <!--基础信息和评论数、收藏数、点赞数-->
+    <select id="getNoteByIdAndStatus" resultType="java.util.HashMap">
+        SELECT uid, nid, poiId, title, editTIme,
+            date, days, money, content, topImg,
+            userName, userPic, aaa302 as 'poiName', commentCount, starCount,
+            thumbsUpCount, views, aaa305 as 'poiPic', status
+        FROM(SELECT u.aaa101 as 'uid', aab101 as 'nid', note.aaa301 as 'poiId', aab102 as 'title',
+                    aab104 as 'editTime', aab105 as 'date', aab106 as 'days', aab107 as 'money', aab110 as 'content',
+                    aab111 as 'topImg', aaa102 as 'userName', aaa106 as 'userPic', aab109 as 'views', aab103 as 'status'
+             FROM ab01 note, aa01 u
+             WHERE note.aab101=#{nid}
+                   <if test="status != null">AND note.aab103=#{status}</if>
+                   AND note.aaa101=u.aaa101) t
+            LEFT JOIN aa03 ON t.poiId=aa03.aaa301
+            LEFT JOIN (SELECT aac003, count(aac001) AS "commentCount"
+                       FROM ac00
+                       WHERE ac00.aac002="1" AND aac003=#{nid} AND aac006=1
+                       GROUP BY aac003) t2 ON t.nid=t2.aac003
+            LEFT JOIN (SELECT aad404, count(aad401) AS "starCount"
+                       FROM ad04
+                       WHERE aad403=1 AND aad404=#{nid}
+                       GROUP BY aad404) t3 ON t.nid=t3.aad404
+            LEFT JOIN (SELECT aad203, count(aad201) AS "thumbsUpCount"
+                       FROM ad02
+                       WHERE aad202=1 AND aad203=#{nid}
+                       GROUP BY aad203) t4 ON t.nid=t4.aad203
+    </select>
+    <!--目前用户有没有点赞或者收藏-->
+    <select id="getNoteExtraMsgByIdAndUid" resultType="java.util.HashMap">
+        SELECT nid, starId, thumbsUpId, followId
+        FROM(SELECT ${nid} as 'nid',  ${uid} as 'uid') t
+            LEFT JOIN(SELECT aad404, aaa101 AS "starId"
+                      FROM ad04
+                      WHERE aad403=1 AND aad404=#{nid} AND aaa101=#{myId}
+                      GROUP BY aad404) t3 on t.nid=t3.aad404
+            LEFT JOIN (SELECT aad203, aaa101 AS "thumbsUpId"
+                       FROM ad02
+                       WHERE aad202=1 AND aad203=#{nid} AND aaa101=#{myId}
+                       GROUP BY aad203) t4 on t.nid=t4.aad203
+            LEFT JOIN (SELECT aad302, aad303 AS 'followId'
+                       FROM ad03
+                       WHERE aad302=#{myId} AND aad303=#{uid}) t5 ON t.uid=t5.followId
     </select>
 
     <select id="getDraftByUid" parameterType="java.lang.Integer" resultType="java.util.HashMap">
@@ -111,5 +156,10 @@
         ORDER BY editTime DESC
         ;
     </select>
+
+    <update id="addViews" parameterType="java.lang.Integer">
+        UPDATE ab01 SET aab109=aab109+1
+        WHERE aab101=#{nid};
+    </update>
 
 </mapper>

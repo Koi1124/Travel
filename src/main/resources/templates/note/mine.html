@@ -24,7 +24,7 @@
 <div class="wrapper">
     <ul class="btns clearfix" data-cs-t="note_create_entrance">
         <li class="btn1">
-            <a class="btn _jump">
+            <a class="btn _jump" th:href="@{/note/writeNote}">
                 <div class="icon"><i></i></div>新游记
             </a>
         </li>
@@ -33,144 +33,17 @@
                 <div class="icon"><i></i></div>草稿箱</a>
 
 
-            <div class="drafts _j_save_pop " style="">
+            <div class="drafts _j_save_pop " style="display: none">
                 <div class="draft-panel">
                     <div class="inner">
-                        <h3 class="hd">我的草稿 <b class="_j_roughcount">5</b>
-                            <span>你还有<b class="_j_roughcount">5</b>篇草稿没有完成，快来完成吧~</span>
+                        <h3 class="hd">我的草稿 <b class="_j_roughcount">0</b>
+                            <span id="todo-draft">你还有<b class="_j_roughcount">0</b>篇草稿没有完成，快来完成吧~</span>
                         </h3>
                         <div class="draft-list">
                             <div style="position: relative; height: 390px;">
                                 <div class="bd" style="position: relative; overflow-y: hidden;">
-                                    <ul class="clearfix" style="overflow-y:auto; max-height:390px">
+                                    <ul id="darft-container" class="clearfix" style="overflow-y:auto; max-height:390px">
 
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                    { color: #999; }</a></div>
-                                                <span class="time">2019-07-11 19:50:25</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                    { color: #999; }</a></div>
-                                                <span class="time">2019-07-11 19:50:25</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                    { color: #999; }</a></div>
-                                                <span class="time">2019-07-11 19:50:25</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                    { color: #999; }</a></div>
-                                                <span class="time">2019-07-11 19:50:25</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                    { color: #999; }</a></div>
-                                                <span class="time">2019-07-11 19:50:25</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                                </div>
-                                            </div>
-                                        </li><li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                        <div class="detail">
-                                            <div class="title"><a
-                                                    href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                { color: #999; }</a></div>
-                                            <span class="time">2019-07-11 19:50:25</span>
-                                            <div class="action">
-                                                <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                        class="icon-write"></i>继续写</a>
-                                                <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://b2-q.mafengwo.net/s14/M00/BE/72/wKgE2l0m8T6AAp86AByPHuY3k_c272.png?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71756327">.catalog_content li a
-                                                    { color: #999; }</a></div>
-                                                <span class="time">2019-07-11 19:50:25</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71756327"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71756327">删除</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                                <span class="img"><img
-                                                        src="http://p2-q.mafengwo.net/s14/M00/99/34/wKgE2l0m5cuALDo_AAHMxQqdixo33.jpeg?imageMogr2%2Fthumbnail%2F%21300x200r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21300x200%2Fquality%2F90"
-                                                        style="height: 100px;width: 150px;"></span>
-                                            <div class="detail">
-                                                <div class="title"><a
-                                                        href="/ginfo/create.php?rid=71405621">1111134324生物学仍然是</a>
-                                                </div>
-                                                <span class="time">2019-07-11 22:02:41</span>
-                                                <div class="action">
-                                                    <a class="btn-continue" href="/ginfo/create.php?rid=71405621"><i
-                                                            class="icon-write"></i>继续写</a>
-                                                    <a class="i-delete _j_del_rough" data-rid="71405621">删除</a>
-                                                </div>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                                 <div class="scrollbar"
