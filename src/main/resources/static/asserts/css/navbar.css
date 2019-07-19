@@ -136,16 +136,17 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
     margin-bottom: 10px;
 }
 .zy-header .dropdown-menu li {
+    display: table;
     height: 36px;
     font-size: 14px;
-    line-height: 36px;
+    line-height: 26px;
     color: #666;
     position: relative;
     vertical-align: top;
 }
 
 .zy-header .dropdown-menu li a {
-    display: block;
+    display: table;
     height: 36px;
     padding-top: 7px;
     padding: 0 10px 0 20px;
