@@ -56,6 +56,10 @@ public interface Ab01Dao extends CheckDao
                                                   @Param("myId") int myId);
 
 
+    Integer getNoteCountByUid(@Param("uid") int uid);
+
+    List<Map<String, Object>> getNoteByUid(@Param("uid") int uid);
+
     /**==============================================================================
      *                              首页查询
      * ==============================================================================

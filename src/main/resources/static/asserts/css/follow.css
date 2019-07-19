@@ -1,0 +1,178 @@
+.wrap {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+a {
+    color: #ff9d00;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover{
+    text-decoration: none;
+}
+.aside {
+    width: 220px;
+    float: left;
+}
+.aside a.on {
+    background-color: #ffa800;
+    color: #fff;
+}
+.aside a {
+    width: 220px;
+    display: block;
+    line-height: 46px;
+    font-size: 14px;
+    color: #666;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    position: relative;
+    overflow: hidden;
+}
+.aside a.on .i1 {
+    background-position: -24px 0;
+}
+.aside .i2 {
+    background-position: 0 -24px;
+}
+
+
+.aside i {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url(https://css.mafengwo.net/images/home_new2015/icon_left.png) no-repeat;
+    margin: 0 10px 0 20px;
+    vertical-align: middle;
+}
+.content {
+    width: 741px;
+    float: right;
+    background: #fff;
+}
+.searchLeft {
+    float: left;
+    font-size: 18px;
+    line-height: 34px;
+}
+.firedInfom {
+    padding-top: 20px;
+}
+
+ul {
+    list-style:none;
+    -webkit-padding-start: 0px;
+}
+
+.firedInfom li {
+    width: 225px;
+    height: 180px;
+    float: left;
+    border: 1px solid #e5e5e5;
+    margin: 0 20px 28px 0;
+    padding: 20px 0;
+}
+.firedInfom .author {
+    text-align: center;
+}
+.firedInfom .author a {
+    width: 90px;
+    height: 90px;
+    padding: 2px;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+}
+.firedInfom .name {
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    padding-top: 10px;
+    height: 40px;
+}
+.firedInfom .author img {
+    border-radius: 50%;
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+.firedInfom .name a {
+    color: #666;
+    max-width: 165px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+.firedInfom .female, .firedInfom .male {
+    width: 20px;
+    height: 20px;
+    background: url(https://css.mafengwo.net/images/home_new2015/icon_sprites.png) no-repeat 0 0;
+    display: inline-block;
+    vertical-align: 10px;
+    margin-left: 10px;
+}
+.firedInfom .male {
+    background-position: -20px 0;
+}
+.firedInfom .female {
+    background-position: 0 0;
+}
+.firedInfom .btn {
+    text-align: center;
+}
+.firedInfom .btn .btn_qx {
+    position: relative;
+    background-color: #999;
+    color: #fff;
+    border-color: #999;
+}
+.firedInfom .btn a {
+    font-size: 14px;
+    color: #fff;
+    width: 74px;
+    height: 22px;
+    border: 1px solid #ff9d00;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 0 5px;
+    background-color: #ff9d00;
+}
+.firedInfom .btn a:hover {
+    color: #fff;
+    background-color: #ff8a00;
+    border-color: #ff8a00;
+}
+.firedInfom .btn i {
+    font-style: normal;
+}
+.firedInfom .btn_qx span, .firedInfom .btn_qx i {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.firedInfom .btn_qx i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    color: #ff9d00;
+    display: none;
+    font-style: normal;
+}
+.firedInfom .btn .btn_sx {
+    color: #ff9d00;
+    background-color: #fff;
+}
+.firedInfom .btn_qx i{position:absolute; left:0; top:0; background-color:#fff; color:#ff9d00; display:none; font-style: normal;}
+.aside a:hover{ background-color:#f0f0f0; text-decoration: none;}
+.firedInfom .btn_qx:hover{background-color:#fff; border-color:#ff9d00;}
+.firedInfom .btn_qx:hover i{display: block;}
+.aside a.on:hover {
+    text-decoration: none;
+}

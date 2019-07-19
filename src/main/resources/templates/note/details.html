@@ -14,6 +14,8 @@
         var content = [[${content}]];
         var nid = [[${nid}]];
         var uid = [[${session.user_id}]];
+        var rUserId = [[${uid}]];
+        var title = [[${title}]];
         var type = '1';
     </script>
 
@@ -27,6 +29,11 @@
 
 <body>
 <div id="header" th:replace="~{homepage :: navbar}"></div>
+<input id="comment_count" type="hidden" th:value="${commentCount}"/>
+<input id="user_id" type="hidden" th:value="${session.user_id}"/>
+<input id="user_name" type="hidden" th:value="${session.user_name}"/>
+<input id="user_pic" type="hidden" th:value="${session.user_logo}"/>
+
 
 <div class="set_index" id="_j_cover_box" style="height: 519.667px;">
     <div class="set_bg _j_load_cover">
@@ -139,7 +146,7 @@
             </div>
 
             <!-- 评论 -->
-            <div th:if="${status eq 2}" class="row">
+            <div th:if="${status eq '2'}" class="row">
                 <div class="wrapper clearfix">
                     <div class="mod-comment">
                         <h3 class="mod-title">留言</h3>

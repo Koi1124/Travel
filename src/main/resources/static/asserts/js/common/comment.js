@@ -12,6 +12,7 @@ $(function () {
 function getComment(page) {
     var path = window.location.pathname;
     pid = path.substr(path.lastIndexOf("/") + 1).split(".")[0];
+    console.log(pid);
     $.ajax({
         type: "post",
         url: "/comment",

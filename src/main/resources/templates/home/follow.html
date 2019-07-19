@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <link th:href="@{/asserts/css/follow.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var myId = [[${session.user_id}]];
+        var followCount = [[${followCount}]];
+        var fanCount = [[${fanCount}]];
+        var isFan = [[${isFan}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/home/follow.js}"></script>
+</head>
+
+<body>
+
+
+<div class="wrap clearfix">
+    <div class="aside">
+        <a id="btn-follow" class="on"><i class="i1"></i><dnmd th:text="${uid eq session.user_id?'我':'TA'}">我</dnmd>的关注</a>
+        <a id="btn-fan"><i class="i2"></i><dnmd th:text="${uid eq session.user_id?'我':'TA'}">我</dnmd>的粉丝</a>
+    </div>
+    <div class="content">
+        <div class="search clearfix">
+            <div class="searchLeft">
+                <dnmd th:text="${uid eq session.user_id?'我':'TA'}">我</dnmd>的<hhh>关注</hhh> <b id="count" th:text="${followCount}">5</b>
+            </div>
+        </div>
+        <ul id="myfollow" class="firedInfom clearfix">
+            <dnmd th:each="follow:${follows}">
+                <li th:userId="${follow.uid}">
+                    <div class="author">
+                        <a th:href="@{'/u/' + ${follow.uid} + '/note'}">
+                            <img style="width: 90px;height: 90px;" th:src="${follow.pic}">
+                        </a>
+                    </div>
+                    <div class="name">
+                        <a th:href="@{'/u/' + ${follow.uid} + '/note'}" th:text="${follow.userName}">wdnmd</a>
+                        <i th:if="${follow.sex eq '1'}" class="male"></i>
+                        <i th:if="${follow.sex eq '2'}" class="female"></i>
+                    </div>
+
+                    <div class="btn">
+                        <a th:if="${follow.followId ne null}" class="btn_qx _j_add_friend" data-uid="461006" data-flag="1">
+                            <span class="_j_change">已关注</span>
+                            <i class="_j_do_change">取消关注</i>
+                        </a>
+                        <a th:if="${follow.followId eq null}" class="_j_add_friend">
+                            <i class="_j_do_change">关注</i>
+                        </a>
+                        <a class="btn_sx" th:to-name="${follow.userName}" th:to-id="${follow.uid}">发私信</a>
+                    </div>
+                </li>
+            </dnmd>
+        </ul>
+        <ul id="myfan" class="firedInfom clearfix" style="display: none">
+            <dnmd th:each="fan:${fans}">
+                <li th:userId="${fan.uid}">
+                    <div class="author">
+                        <a th:href="@{'/u/' + ${fan.uid} + '/note'}">
+                            <img style="width: 90px;height: 90px;" th:src="${fan.pic}">
+                        </a>
+                    </div>
+                    <div class="name">
+                        <a th:href="@{'/u/' + ${fan.uid} + '/note'}" th:text="${fan.userName}">wdnmd</a>
+                        <i th:if="${fan.sex eq '1'}" class="male"></i>
+                        <i th:if="${fan.sex eq '2'}" class="female"></i>
+                    </div>
+
+                    <div class="btn">
+                        <a th:if="${fan.followId ne null}" class="btn_qx _j_add_friend" data-uid="461006" data-flag="1">
+                            <span class="_j_change">已关注</span>
+                            <i class="_j_do_change">取消关注</i>
+                        </a>
+                        <a th:if="${fan.followId eq null}" class="_j_add_friend">
+                            <i class="_j_do_change">关注</i>
+                        </a>
+                        <a class="btn_sx" th:to-name="${fan.userName}" th:to-id="${fan.uid}">发私信</a>
+                    </div>
+                </li>
+            </dnmd>
+        </ul>
+        <div class="pagin" id="smallpager"></div>
+    </div>
+</div>
+</body>
+</html>
