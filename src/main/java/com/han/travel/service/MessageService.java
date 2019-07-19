@@ -141,7 +141,7 @@ public class MessageService
             switch ((String)m.get("type"))
             {
                 case "1":
-                    url="/note/"+m.get("pid")+".html";
+                    url="/note/"+m.get("pid");
                     break;
                 case "5":
                     url="/together/company/detail/"+m.get("pid")+".html";

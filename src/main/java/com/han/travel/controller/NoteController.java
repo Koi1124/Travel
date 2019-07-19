@@ -114,7 +114,7 @@ public class NoteController
         map.put("uid", (int)session.getAttribute(SessionConfig.USER_ID));
         noteService.addNote(map);
         map.put("status", 0);
-        map.put("topMap", "");
+        map.put("topImg", "");
         dto.putAll(map);
         return "note/edit";
     }
@@ -261,6 +261,12 @@ public class NoteController
         return noteService.getDraftByUid((int)session.getAttribute(SessionConfig.USER_ID));
     }
 
+    @PostMapping("/note/notesDescription")
+    @ResponseBody
+    public List<Map<String, Object>> getNotesDescriptionByUid(@RequestBody Map<String, Object> map)
+    {
+        return noteService.getNoteByUid((Integer) map.get("uid"));
+    }
 
     /**
      * @Author Saki

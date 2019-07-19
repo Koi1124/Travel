@@ -9,7 +9,7 @@
     </select>
 
     <select id="getUserById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT aaa102 AS "name", aaa103 AS "sex", aaa104 AS "address", aaa106 AS "pic", aaa120 AS "addtion"
+        SELECT aaa102 AS "name", aaa103 AS "sex", aaa104 AS "address", aaa106 AS "pic", aaa120 AS "addition"
         FROM aa01
         WHERE aaa101=#{id}
         ;
@@ -55,4 +55,5 @@
     	FROM aa01
     	WHERE aaa102=#{name};
     </select>
+
 </mapper>

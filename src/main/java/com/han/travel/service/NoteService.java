@@ -283,6 +283,18 @@ public class NoteService
 
     /**
      * @Author Saki
+     * @Description 获得用户的所有游记概览
+     * @Date 2019/7/19
+     * @param uid
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    public List<Map<String, Object>> getNoteByUid(int uid)
+    {
+        return ab01Dao.getNoteByUid(uid);
+    }
+
+    /**
+     * @Author Saki
      * @Description 增加浏览量
      * @Date 2019/7/18
      * @param nid

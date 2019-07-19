@@ -17,7 +17,7 @@ import java.util.Map;
  * @Description 用户信息管理controller
  * @Author Saki
  * @Date 2019/7/3
- * @LastUpdate 2019/7/4
+ * @LastUpdate 2019/7/19
  **/
 
 @Controller
@@ -29,6 +29,14 @@ public class UserController
     @Autowired
     private UserService userService;
 
+    /**
+     * @Author Saki
+     * @Description 个人设置页面
+     * @Date 2019/7/19
+     * @param session
+     * @param dto
+     * @return java.lang.String
+     **/
     @RequestMapping("/setting")
     public String setting(HttpSession session, Map<String, Object> dto)
     {
@@ -141,7 +149,8 @@ public class UserController
      **/
     @PostMapping("/change_logo")
     @ResponseBody
-    public boolean updateLogo(@RequestBody Map<String, String> map, HttpSession session) {
+    public boolean updateLogo(@RequestBody Map<String, String> map, HttpSession session)
+    {
         map.put("id", String.valueOf(session.getAttribute(SessionConfig.USER_ID)));
         String path = userService.updateLogo(map);
         if (path.equals(""))
@@ -162,8 +171,62 @@ public class UserController
      **/
     @PostMapping("/change_password")
     @ResponseBody
-    public boolean updatePassword(@RequestBody Map<String, String> map, HttpSession session) {
+    public boolean updatePassword(@RequestBody Map<String, String> map, HttpSession session)
+    {
         map.put("id", String.valueOf(session.getAttribute(SessionConfig.USER_ID)));
         return userService.updatePassword(map);
+    }
+
+    /**
+     * @Author Saki
+     * @Description 用户个人中心
+     * @Date 2019/7/19
+     * @param id
+     * @param part
+     * @return java.lang.String
+     **/
+    @RequestMapping("/u/{id}/{part}")
+    public String userHome(@PathVariable("id") int id, @PathVariable("part") String part,
+                           Map<String, Object> dto, HttpSession session)
+    {
+        dto.put("part", part);
+        dto.put("uid", id);
+        dto.putAll(userService.getUserDetailsById(id, (Integer)session.getAttribute(SessionConfig.USER_ID), part));
+        return "/home/userHome/" + part;
+    }
+
+    /**
+     * @Author Saki
+     * @Description 获取用户关注页面
+     * @Date 2019/7/19
+     * @param id 用户id
+     * @param dto
+     * @param session
+     * @return java.lang.String
+     **/
+    @RequestMapping("/follow/{id}")
+    public String userFollowsAndFans(@PathVariable("id") int id, Map<String, Object> dto, HttpSession session)
+    {
+        dto.put("uid", id);
+        dto.putAll(userService.getUserFollowsAndFans(id, (Integer)session.getAttribute(SessionConfig.USER_ID)));
+        return "/home/follow";
+    }
+
+    /**
+     * @Author Saki
+     * @Description 获取用户关注页面
+     * @Date 2019/7/19
+     * @param id 用户id
+     * @param dto
+     * @param session
+     * @return java.lang.String
+     **/
+    @RequestMapping("/fan/{id}")
+    public String userFansAndFollows(@PathVariable("id") int id, Map<String, Object> dto, HttpSession session)
+    {
+        dto.put("uid", id);
+        dto.put("isFan", true);
+        dto.putAll(userService.getUserFollowsAndFans(id, (Integer)session.getAttribute(SessionConfig.USER_ID)));
+        return "/home/follow";
     }
 }

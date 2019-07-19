@@ -3,6 +3,8 @@ package com.han.travel.service;
 import com.han.travel.configuration.SessionConfig;
 import com.han.travel.dao.Aa01Dao;
 import com.han.travel.dao.Aa03Dao;
+import com.han.travel.dao.Ab01Dao;
+import com.han.travel.dao.Ad03Dao;
 import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.MailTools;
 import com.han.travel.support.Utils;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +30,12 @@ public class UserService {
 
     @Autowired
     private Aa03Dao aa03Dao;
+
+    @Autowired
+    private Ab01Dao ab01Dao;
+
+    @Autowired
+    private Ad03Dao ad03Dao;
 
     /**
      * @Author Saki
@@ -116,7 +125,7 @@ public class UserService {
 
     /**
      * @Author Saki
-     * @Description //TODO
+     * @Description 更新头像
      * @Date 2019/7/10
      * @param map
      * @return boolean
@@ -138,7 +147,7 @@ public class UserService {
 
     /**
      * @Author Saki
-     * @Description //TODO
+     * @Description 更新密码
      * @Date 2019/7/10
      * @param map
      * @return boolean
@@ -146,6 +155,105 @@ public class UserService {
     public boolean updatePassword(Map<String, String> map)
     {
         return aa01Dao.updatePassword(map) > 0;
+    }
+
+
+    /**
+     * @Author Saki
+     * @Description 获得详细信息，对应个人空间中信息
+     * @Date 2019/7/19
+     * @param uid 空间主人id
+     * @param myId 自己id
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     **/
+    public Map<String, Object> getUserDetailsById(int uid, Integer myId, String part)
+    {
+        Map<String, Object> map = getUserById(uid);
+        if (map.get("address") == null)
+        {
+            map.put("address", "保密");
+        }
+        else
+        {
+            Integer poi = Integer.valueOf((String) map.get("address"));
+            if (poi != null)
+            {
+                map.put("address", aa03Dao.getNameById(poi));
+            }
+        }
+        if (myId != null && ad03Dao.isFollow(myId, uid) != null)
+        {
+            map.put("followId", 1);
+        }
+        map.put("noteCount", ab01Dao.getNoteCountByUid(uid));
+        List<Map<String, Object>> list = ad03Dao.getFollows(uid);
+        if (list == null)
+        {
+            map.put("followCount", 0);
+        }
+        else
+        {
+            map.put("followCount", list.size());
+        }
+        map.put("follows", list);
+        list = ad03Dao.getFans(uid);
+        if (list == null)
+        {
+            map.put("fanCount", 0);
+        }
+        else
+        {
+            map.put("fanCount", list.size());
+        }
+        map.put("fans", list);
+
+
+        switch (part) {
+            case "note":
+                map.put("notes", ab01Dao.getNoteByUid(uid));
+                break;
+            default:
+                break;
+        }
+        return map;
+    }
+
+    /**
+     * @Author Saki
+     * @Description 用户关注和被关注，额外获取自己有没有关注
+     * @Date 2019/7/19
+     * @param uid
+     * @param myId
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     **/
+    public Map<String, Object> getUserFollowsAndFans(Integer uid, Integer myId)
+    {
+        if (myId == null)
+        {
+            myId = -1;
+        }
+        Map<String, Object> map = new HashMap<>();
+        List<Map<String, Object>> list = ad03Dao.getUserFollows(uid, myId);
+        if (list == null)
+        {
+            map.put("followCount", 0);
+        }
+        else
+        {
+            map.put("followCount", list.size());
+        }
+        map.put("follows", list);
+        list = ad03Dao.getUserFans(uid, myId);
+        if (list == null)
+        {
+            map.put("fanCount", 0);
+        }
+        else
+        {
+            map.put("fanCount", list.size());
+        }
+        map.put("fans", list);
+        return map;
     }
 
     /**
