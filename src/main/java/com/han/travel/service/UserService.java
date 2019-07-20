@@ -181,7 +181,7 @@ public class UserService {
                 map.put("address", aa03Dao.getNameById(poi));
             }
         }
-        if (myId != null && ad03Dao.isFollow(myId, uid) != null)
+        if (myId != null && ad03Dao.isFollow(uid, myId) != null)
         {
             map.put("followId", 1);
         }

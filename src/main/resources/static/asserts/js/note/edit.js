@@ -265,11 +265,16 @@ function clickSubmit() {
 
 //确认提交
 function submitNote() {
+    var intro = $("#textarea").val();
+    var reg = /\n\n+/g;
+    intro = intro.replace(reg, "<br/><br/>");
+    reg = /\n/g;
+    str = intro.replace(reg, "<br/>");
     var data = {
         title:$("#_j_title").val(),
         content:getContent(),
         topImg:$("#top_image").attr("src"),
-        intro:$("#textarea").val(),
+        intro:intro,
         nid:nid,
         poi:poiId,
         date:$("#date-input").val(),
@@ -288,7 +293,7 @@ function submitNote() {
             if (result) {
                 logSuccess("发布成功");
                 setTimeout(function () {
-                    document.location.href="/note/" + nid;
+                    document.location.href="/preview/" + nid;
                 }, 1000);
             }
             else {
@@ -304,10 +309,10 @@ function submitNote() {
 //保存草稿
 function saveNote() {
     var intro = $("#textarea").val();
-    // if (testBlank(intro)) {
-    //     intro = $("._j_content_box").find(".article_title")[0].find("h2").text();
-    //     intro += "  " + $("._j_content_box").find(".textarea")[1].val();
-    // }
+    var reg = /\n\n+/g;
+    intro = intro.replace(reg, "<br/><br/>");
+    reg = /\n/g;
+    str = intro.replace(reg, "<br/>");
     var data = {
             title:$("#_j_title").val(),
             content:getContent(),
@@ -454,11 +459,11 @@ $(function () {
         $("#submit-mask").fadeOut(250);
     });
     $(".btn-submit").click(function () {
-        if (!testNum($("#days-input").val())) {
+        if (!testNum($("#days-input").val()) || $("#days-input").val() == 0) {
             logError("请输入正确的天数");
             return;
         }
-        if (!testNum($("#money-input").val())) {
+        if (!testNum($("#money-input").val()) ||  $("#money-input").val() == 0) {
             logError("请输入正确的花费金额");
             return;
         }
@@ -585,8 +590,8 @@ function testBlank(str) {
 }
 
 function testNum(str) {
-    var r = /^([^0][0-9]+|0)$/;　　//正整数
-    return flag=r.test(str);
+    var re = /^[0-9]+$/ ;
+    return re.test(str)
 }
 
 function getNowFormatDate() {

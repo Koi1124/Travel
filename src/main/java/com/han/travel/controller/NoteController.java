@@ -257,6 +257,13 @@ public class NoteController
         return noteService.getDraftByUid((int)session.getAttribute(SessionConfig.USER_ID));
     }
 
+    /**
+     * @Author Saki
+     * @Description 个人空间的游记展示
+     * @Date 2019/7/17
+     * @param map
+     * @return java.util.Map<java.lang.String,java.lang.Integer>
+     **/
     @PostMapping("/note/notesDescription")
     @ResponseBody
     public List<Map<String, Object>> getNotesDescriptionByUid(@RequestBody Map<String, Object> map)

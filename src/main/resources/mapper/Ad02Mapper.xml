@@ -13,4 +13,18 @@
         WHERE aaa101=#{uid} AND aad202=#{type} AND aad203=#{pid}
         ;
     </delete>
+
+    <select id="isThumbsUp" resultType="java.lang.Integer">
+        SELECT aaa101
+        FROM ad02
+        WHERE aaa101=#{uid} AND aad202=#{type} AND aad203=#{pid}
+        ;
+    </select>
+
+
+    <select id="getThumbsCountByTypeAndId" resultType="java.lang.Integer">
+        SELECT COUNT(aad203)
+        FROM ad02
+        WHERE aad202=#{type} AND aad203=#{id};
+    </select>
 </mapper>

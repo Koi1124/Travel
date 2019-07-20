@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css" rel="stylesheet" type="text/css">
+    <link href="https://css.mafengwo.net/css/cv/css+mdd+line-details2:css+mdd+map-mark.v2^Z1Q^1550459378.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var routes = [[${routes}]];
+        var rid = [[${rid}]];
+        var uid = [[${session.user_id}]];
+        var type = "2";
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
+    <script th:src="@{/asserts/js/poi/route.js}"></script>
+
+    <style type="text/css">
+        #header {
+            margin-bottom: 0;
+        }
+
+        .crumb {
+            width: 1000px;
+            font: 12px Arial, "Microsoft Yahei", "\5FAE\8F6F\96C5\9ED1", Tahoma, Helvetica, STHeiti, "Hiragino Sans GB";
+            height: 20px;
+            padding: 15px 0;
+            color: #666;
+            line-height: 20px;
+            margin: 0 auto;
+        }
+
+        .crumb .item a {
+            color: #666;
+            font-size: 12px;
+        }
+
+
+        .locationmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-weight: 600;
+            font-family: "PingFangSC-Regular";
+        }
+    </style>
+
+
+</head>
+
+<body>
+<div id="header">
+    <div class="zy-header">
+        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
+            <div class="head-logo-zy"><a class="zy-logo" title="马蜂窝自由行" href="https://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-zy-index"><a href="">首页</a></li>
+                <li class="head-nav-zy-place"><a href="">目的地</a></li>
+                <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
+                <li class="head-nav-zy-sales"><a href="">跟团游</a></li>
+                <li class="head-nav-zy-flight"><a href="">结伴</a></li>
+            </ul>
+
+            <div class="head-user-zy" id="_j_head_user">
+                <a href="" title="个人空间">
+                    <div class="user-image"><img
+                            src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                            height="32" width="32" alt="wdnmd的窝"></div>
+                </a>
+            </div>
+
+            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
+                <div class="head-search-wrapper-zy">
+                    <div class="head-searchform-zy">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
+                               style="outline:none;">
+                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div class="row row-lineTop row-bg">
+    <div class="wrapper">
+
+        <div class="crumb">
+
+            <div class="item"><a href="/mdd/" target="_blank">目的地</a><em>&gt;</em></div>
+
+            <div class="item">
+                <div class="drop">
+                    <span><a th:href="@{'/c/' + ${pid}}" th:text="${pname}">成都</a></span>
+                </div>
+                <em>&gt;</em>
+            </div>
+            <div class="item cur"><strong th:text="${pname}">成都</strong></div>
+        </div>
+
+
+
+        <dl class="line-summary">
+            <dt class="clearfix">
+
+                <div class="pagelet-block">
+                    <div class="action-btns">
+                        <a class="btn-item btn-likes">
+                            <i class="icon-like"></i>
+                            <div>点赞
+                                <span th:text="${thumbsUpCount}">964422</span>
+                            </div>
+                        </a>
+                        <a class="btn-item btn-fav">
+                            <i class="icon-collect"></i>
+                            <div>收藏 <span th:text="${starCount}">13029</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <h1 th:text="${name}">成都市区4日经典线路</h1>
+
+            </dt>
+        </dl>
+        <div class="r-line-nav" id="poi-navbar" data-cs-p="快捷导航">
+            <ul class="clearfix">
+                <li class="on" data-scroll="overview"><a title="行程概况">行程概况</a></li>
+                <li data-scroll="detail" class=""><a title="行程详情">行程详情</a></li>
+
+                <li data-scroll="comments" class=""><a title="评论区">评论区</a></li>
+                <li class="nav-right" data-scroll="comments"><a class="btn-reviews" tittle="点评"
+                                                                style="color: #fff">点评</a></li>
+            </ul>
+            <div class="line"></div>
+        </div>
+    </div>
+</div>
+<!-- 快捷导航滚动 s-->
+<script type="text/javascript">
+    (function () {
+
+        //导航
+        var $navbar = $('#poi-navbar'),
+            offset_top,
+            $lis = $navbar.find("li").not('.nav-right');
+        $('<div/>').insertBefore($navbar).append($navbar).height($navbar.outerHeight(true));
+        $(function () {
+            offset_top = $navbar.offset().top;
+            $(window).bind('scroll.poinav', setFixed).trigger("scroll.poinav");
+        });
+        $(document).delegate("[data-scroll]", "click", function () {
+            scrollTo($(this));
+        });
+        function setFixed() {
+            var $rows = $('body >.container >[data-anchor]'),
+                scrolltop = $(document).scrollTop(),
+                h,
+                _lis = $lis.filter(":visible"),
+                currIndex;
+            if (scrolltop > offset_top) {
+                if (!$navbar.hasClass('fixed')) {
+                    $navbar.addClass('fixed');
+                }
+                h = $navbar.outerHeight(true);
+                for (var $li, $row, top, i = 0, j = _lis.length; i < j; i++) {
+                    $row = $rows.filter("[data-anchor=" + ($li = _lis.eq(i)).attr("data-scroll") + "]");
+                    if ($row[0] && (top = $row.offset().top) && ( /*i == (j - 1) ||*/
+                            ((top - h <= scrolltop) && (top + $row.outerHeight() - h > scrolltop)))) {
+                        currIndex = i;
+                        break;
+                    }
+                }
+                if (i == j) {
+                    _lis.removeClass("on");
+                } else {
+                    _lis.eq(currIndex || 0).addClass("on").siblings().removeClass("on");
+                }
+            } else {
+                if ($navbar.hasClass('fixed')) {
+                    $navbar.removeClass('fixed');
+                }
+                _lis.eq(0).addClass("on").siblings().removeClass("on");
+            }
+        }
+
+        function scrollTo(target, pos) {
+            pos = target ? target.data('scroll') : pos;
+            var $target = $('[data-anchor=' + pos + ']'), top;
+            if ($target[0]) {
+                top = $target.offset().top;
+                if (top > offset_top) {
+                    top -= $navbar.outerHeight();
+                }
+                $('html,body').animate({
+                    scrollTop: Math.ceil(top)
+                }, 500);
+            }
+        }
+
+        $(function () {
+            if (location.hash) {
+                scrollTo(null, location.hash.replace(/^#/, ''));
+            }
+        });
+
+    })();
+</script>
+<!-- 快捷导航滚动 e -->
+
+
+<div class="row row-overview" data-anchor="overview">
+    <div class="line-intro clearfix">
+        <div class="intro-word">
+            <dl class="view">
+                <dt>
+                    路线概览
+                </dt>
+                <dd>
+                    <div class="J_overview overview" style="visibility: visible; height: auto">
+                        <p class="day">
+                            <span class="num">D1</span>
+                            <a href="/poi/87950.html" target="_blank">宽窄巷子景区(2小时)</a>
+                            <span class="arrow">→</span>
+                            <a href="/poi/1241.html" target="_blank">武侯祠(2小时)</a>
+                            <span class="arrow">→</span>
+                            <a href="/poi/1242.html" target="_blank">锦里(3小时)</a>
+                        </p>
+                    </div>
+                </dd>
+            </dl>
+            <ul th:if="${summary ne ''}" class="notes clearfix">
+                <li class="tips onetip">
+                    <h3>总结</h3>
+                    <p th:text="${summary}">按照景点的热度和位置来安排，是一条经典的线路，能更全面的了解成都市区。</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="intro-maps">
+            <div id="locationmap" style="width:400px;height:285px;border:#ccc solid 1px;">
+            </div>
+            <script>
+                var map = new BMap.Map("locationmap"); // 百度地图API功能
+                map.centerAndZoom(new BMap.Point(116.417854, 39.921988), 15);// 设置地图显示的城市和地图级别
+                map.enableScrollWheelZoom(); // 启用滚轮放大缩小，默认禁用
+                map.enableContinuousZoom(); // 启用地图惯性拖拽，默认禁用
+                map.addControl(new BMap.ScaleControl()); // 添加比例尺控件
+            </script>
+        </div>
+    </div>
+    <div class="line-intro-shadow"></div>
+</div>
+
+<div class="row row-lineDetail" data-anchor="detail" data-cs-p="路线详情">
+    <div class="wrapper">
+        <!-- Day list -->
+        <div class="day-list">
+
+
+            <!-- day1 s -->
+            <div class="day-item" th:each="route,routeStatus:${routes}">
+                <div class="J_playpois">
+                    <div class="day-hd">
+                        <span class="day-num" th:text="${'D' + (routeStatus.index + 1)}">D1</span>
+                        <span class="tit"><i class="i-scenic"></i>游玩攻略</span>
+                    </div>
+                    <div class="poi-txt" th:utext="${route.play}">今天到达成都后，先去预定好的酒店办理入住，稍作休整。中午去宽窄巷子吃饭，下午逛武侯祠，感受一下悠远的历史。晚上到锦里体验成都的夜生活。</div>
+                    <div>
+                        <div class="poi-name">
+                            <ul class="clearfix">
+                                <li class="route-line">
+                                    <!--路线地点顺序-->
+                                    <hhh th:each="poi,poiStatus:${route.pois}">
+                        <span class="place">
+                            <i class="i-place"></i>
+                            <a class="p-link" target="_blank" th:href="@{'/sight/' + ${poi.sid}}" th:text="${poi.name}">宽窄巷子景区</a>
+                        </span>
+                                        <span th:if="${poiStatus.index ne poiStatus.count}" class="transport ">
+                            <i class="i-arrow"></i>
+                        </span>
+                                    </hhh>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="poi-figure poi-play figure-slide">
+                            <ul class="play-list figure-box" style="width: 855px; left: 0px;">
+                                <!--图片-->
+                                <li class="figure" th:each="poi,poiStatus:${route.pois}">
+                                    <a data-t="poi" class="figure" target="_blank" th:href="@{'/sight/' + ${poi.sid}}">
+                                        <img class="lazy" height="180" width="270"
+                                             th:src="${poi.pic}" style="display: inline;">
+                                        <div class="mask-title">
+
+                                            <h3 th:text="${poi.name}">宽窄巷子景区</h3>
+                                        </div>
+                                        <div class="mask-info">
+                                            <dl class="middle">
+                                                <dt>
+
+                                                    <h3 th:text="${poi.name}">宽窄巷子景区</h3>
+
+                                                </dt>
+                                                <dd th:text="${poi.summary}">
+                                                    成都最具特色的街道，体验地道成都休闲生活的绝佳地点
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="J_trafficpois hide" th:if="${route.traffic ne ''}" style="display: block;">
+                    <div class="day-hd mt30">
+                        <span class="tit"><i class="i-traffic"></i>交通攻略</span>
+                    </div>
+                    <div class="poi-txt">
+                        <p th:utext="${route.traffic}">成都市内各景点都有很多公交车，非常方便。目前大多数公交车为无人售票车，请自备零钞。普通车1元，空调车和高档车2元。<br>
+                            宽窄巷子到武侯祠需坐公交车约30分钟，从商业街口站上车，武侯祠站下车，再步行80米即可到达。</p>
+                    </div>
+                    <div class="ticket-box clearfix">
+                    </div>
+                </div>
+
+                <div class="J_hotelpois hide" th:if="${route.stay ne ''}" style="display: block;">
+                    <div class="day-hd mt30">
+                        <span class="tit"><i class="i-hotel"></i>住宿攻略</span>
+                    </div>
+                    <div class="poi-txt" th:text="${route.stay}">天府广场-春熙路是成都最繁华的商圈，吃饭、购物、娱乐应有尽有，美女也常在此扎堆出现。地铁一、二号线在此交会，交通十分便利。</div>
+                    <div class="poi-figure figure-slide">
+                        <ul class="figure-box">
+                            <li class="figure">
+                                <a data-t="hotel" class="figure">
+                                    <img th:src="${route.stayPic}" height="180" width="270">
+                                    <div class="mask-title">
+                                        <span class="tag tag-blue">住宿</span>
+                                        <h3 th:text="${route.stayName}">天府广场</h3>
+                                    </div>
+                                    <div class="mask-info">
+                                        <dl class="middle">
+                                            <dt>
+                                                <span class="tag tag-blue">住宿</span>
+                                                <h3 th:text="${route.stayName}">天府广场</h3>
+                                            </dt>
+                                            <dd th:utext="${route.stayIntro}">有152家酒店。本区是成都最繁华的商圈，吃饭、购物、娱乐应有尽有。
+                                                这里商场林立，美女也常在此扎堆出现。
+                                                ...</dd>
+
+                                        </dl>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- day1 e -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row row-comments " data-anchor="comments">
+    <div class="wrapper">
+        <div class="r-title">
+            <h2>线路讨论区</h2>
+        </div>
+        <div class="comment-form clearfix">
+            <textarea></textarea> <input type="button" value="发布" id="submitComment">
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+
+
+
+</html>

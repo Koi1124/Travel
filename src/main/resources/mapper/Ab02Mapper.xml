@@ -51,7 +51,16 @@
 		SELECT aab201,aab301,aab202,aab203,aab204,
 			aab205
 		FROM ab02
-		where aab201=#{id}
+		where aab201=#{id};
 	</select>
-	
+
+
+
+	<select id="getRouteDetailByRId" resultType="java.util.HashMap">
+		SELECT aab201 as 'rid', aa03.aaa301 as 'pid', aa03.aaa302 as 'pname', aab202 as 'name', aab203 as 'routes',
+		       aab204 as 'summary'
+		FROM ab02, aa03
+		WHERE aab201=#{rid} AND aa03.aaa301=ab02.aaa301;
+	</select>
+
 </mapper>

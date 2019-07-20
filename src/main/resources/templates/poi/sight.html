@@ -24,17 +24,21 @@
 
     <link href="https://css.mafengwo.net/css/mdd/mfw-reviews.css?1530619858" rel="stylesheet" type="text/css">
     <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         var longitude = [[${longitude}]];
         var latitude = [[${latitude}]];
+        var sid = [[${sid}]];
         var uid = [[${session.user_id}]];
+        var type = "3";
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
     <script type="text/javascript"
             src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/poi/sight.js}"></script>
 
 
@@ -50,9 +54,9 @@
             <!-- 收藏 S-->
             <div class="action _j_rside want-been">
 
-                <a class="_j_favpoi btn-collect" title="添加收藏">
+                <a  th:class="${'_j_favpoi btn-collect' + (collectId eq null?'':' on')}" title="添加收藏">
                     <i class="icon"></i>
-                    <span class="txt">收藏</span>
+                    <span id="text-collect" th:text="${collectId eq null?'收藏':'已收藏'}" class="txt">收藏</span>
                 </a>
             </div>
             <!-- 收藏 E-->
@@ -256,8 +260,8 @@
                 <script>
                     // 百度地图API功能
                     //GPS坐标
-                    var x = 114.30232644081116;
-                    var y = 30.544632567523042;
+                    var x = longitude;
+                    var y = latitude;
                     var ggPoint = new BMap.Point(x, y);
 
                     //地图初始化
@@ -280,7 +284,7 @@
                         var convertor = new BMap.Convertor();
                         var pointArr = [];
                         pointArr.push(ggPoint);
-                        convertor.translate(pointArr, 1, 5, translateCallback)
+                        convertor.translate(pointArr, 3, 5, translateCallback)
                     }, 1000);
 
                 </script>
@@ -517,12 +521,11 @@
                     <div id="_j_commentform_cnt">
                         <h2>
                             <strong th:text="${name}">茄子妙妙屋</strong>
-                            <em>*</em>为必填选项
                         </h2>
                         <form action="" method="post" class="_j_commentdialogform" data-typeid="3">
 
                             <div class="review-item item-star">
-                                <div class="label"><em>*</em>总体评价</div>
+                                <div class="label">总体评价</div>
                                 <div class="review-star _j_rankblock" data-star="" name="rank">
                                     <input type="hidden" name="rank" value="" essential="1" data-inputname="总体评价">
 
@@ -546,7 +549,7 @@
                             </div>
 
                             <div class="review-item item-comment">
-                                <div class="label"><em>*</em>评价</div>
+                                <div class="label">评价</div>
                                 <div class="content">
                                         <textarea class="_j_commentarea" name="comment" essential="1"
                                                   data-inputname="点评内容" placeholder="写下你的评价" data-minlen="15"
@@ -555,18 +558,6 @@
                                 </div>
                             </div>
 
-                            <div class="review-item item-photo">
-                                <div class="label">上传照片</div>
-                                <div class="content">
-                                    <dl class="upload-box _j_piclist">
-                                        <dd data-commentid="" id="_j_addpicbtns" ids="0"
-                                            style="position: relative;">
-                                            <a class="add-place"><i></i></a>
-
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
                             <div class="review-item item-action">
                                 <a class="btn-large _j_submit" role="button" title="提交点评">提交点评</a>
                             </div>

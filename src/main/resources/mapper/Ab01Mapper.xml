@@ -145,15 +145,16 @@
         FROM(SELECT ${nid} as 'nid',  ${uid} as 'uid') t
             LEFT JOIN(SELECT aad404, aaa101 AS "starId"
                       FROM ad04
-                      WHERE aad403=1 AND aad404=#{nid} AND aaa101=#{myId}
-                      GROUP BY aad404) t3 on t.nid=t3.aad404
+                      WHERE aad403=1 AND aad404=#{nid} AND aaa101=#{myId}) t3
+                ON t.nid=t3.aad404
             LEFT JOIN (SELECT aad203, aaa101 AS "thumbsUpId"
                        FROM ad02
-                       WHERE aad202=1 AND aad203=#{nid} AND aaa101=#{myId}
-                       GROUP BY aad203) t4 on t.nid=t4.aad203
+                       WHERE aad202=1 AND aad203=#{nid} AND aaa101=#{myId}) t4
+                ON t.nid=t4.aad203
             LEFT JOIN (SELECT aad302, aad303 AS 'followId'
                        FROM ad03
-                       WHERE aad302=#{myId} AND aad303=#{uid}) t5 ON t.uid=t5.followId
+                       WHERE aad302=#{myId} AND aad303=#{uid}) t5
+                ON t.uid=t5.followId
     </select>
 
 

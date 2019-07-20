@@ -16,5 +16,8 @@ public interface Ad04Dao
 
     Integer isCollect(@Param("map")Map<String,Object> map);
 
+    Integer hasCollect(@Param("uid") int uid, @Param("type") int type,
+                       @Param("pid") int pid);
+
     boolean deleteCollect(@Param("map") Map<String, Object> map);
 }

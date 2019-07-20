@@ -84,4 +84,11 @@
 		     WHERE ac00.aac002=3 AND aac003=#{sid} AND aac006=1
 		     GROUP BY aac003) t3 ON t.sid=t3.aac003
 	</select>
+
+	<select id="getSightIntroById" resultType="java.util.HashMap">
+		SELECT aab301 as 'sid', aab302 as 'name', aab303 as 'summary',
+			   aab311 as 'longitude', aab312 as 'latitude', aab313 as 'pic'
+		FROM ab03
+		WHERE aab301=#{sid}
+	</select>
 </mapper>
