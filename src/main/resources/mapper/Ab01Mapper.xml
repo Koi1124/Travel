@@ -19,12 +19,11 @@
     </update>
     
     <select id="getAll" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT
-          aab101,aaa101,aab102,aab103,aab104,
-          aab105,aab106,aab107,aab108,aab109,
-          aab110,aab111
-        FROM ab01
-        WHERE aab103=0 limit #{begin},#{num};
+        select aab101,b.aaa102 AS author ,aab102,aab104,
+       	aab105,aab106,aab107
+		from ab01 a,aa01 b
+		where a.aaa101=b.aaa101 and a.aab103=0
+        limit #{begin},#{num};
     </select>
     
     <select id="selectCount" resultType="java.lang.Integer">

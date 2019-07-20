@@ -77,7 +77,12 @@ public class PageBean
 	
 	public static Map<String,Object> fuzzyQuery(CheckDao check,String tableName,Map<String,Object>map)
 	{
-		PageBean bean=new PageBean(Integer.parseInt(map.get("currPage").toString()), 5, check.fuzzySelectCount(map));
+		int currPage=0;
+		if(map.get("currPage").toString()!=null&&!map.get("currPage").toString().equals(""))
+		{
+			currPage=Integer.parseInt(map.get("currPage").toString());
+		}
+		PageBean bean=new PageBean(currPage, 5, check.fuzzySelectCount(map));
     	int begin=(bean.getCurrPage()-1)*bean.getPageSize();
     	if(begin<=0)         //没有数据时,防止begin小于零
     	{

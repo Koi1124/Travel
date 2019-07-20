@@ -8,6 +8,10 @@ $(document).ready(function() {
         timeOut:"1000",
     };
 	
+	$(function() { 
+		fuzzyQuery($('#name').val(),$('#intro').val());
+	})
+	
 	function fuzzyQuery(name,intro){
 		var count=0;
 		$.ajax({
