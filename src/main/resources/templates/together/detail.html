@@ -35,10 +35,10 @@
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
-    <script th:src="@{/asserts/js/common/comment.js}"></script>
-    <script th:src="@{/asserts/js/together/detail.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
+    <script th:src="@{/asserts/js/common/comment.js}"></script>
+    <script th:src="@{/asserts/js/together/detail.js}"></script>
 
     <style>
         .rev-item {
@@ -121,7 +121,8 @@
                 </div>
                 <div class="desc _j_description">
                     <div class="title" ><p th:text="${title}">一起去新疆，有一起的么？</p></div>
-                    <p th:text="${intro}"></p>
+                    <p th:utext="${intro}"></p>
+                    <img th:each="image:${images}" style="max-width: 600px" border="0" th:src="${image}">
                 </div>
                 <div th:if="${session.user_id ne authorId}" class="mod-joinform">
                     <h3 class="mod-title">我要报名</h3>

@@ -39,10 +39,10 @@
         </selectKey>
         INSERT INTO ab05
         (aaa101, aab502, aab503, aab504, aab505,
-         aab506, aab507, aab508, aab509)
+         aab506, aab507, aab508, aab509, aab510)
          VALUES
-         (#{dto.aaa101}, #{dto.aab502}, #{dto.aab503,jdbcType=DATE}, #{dto.aab504,jdbcType=VARCHAR}, #{dto.aab505,jdbcType=INTEGER},
-          #{dto.aab506,jdbcType=INTEGER}, #{dto.aab507,jdbcType=VARCHAR}, #{dto.aab508}, 0)
+         (#{dto.aaa101}, #{dto.aab503}, #{dto.aab503,jdbcType=DATE}, #{dto.aab504,jdbcType=VARCHAR}, #{dto.aab505,jdbcType=INTEGER},
+          #{dto.aab506,jdbcType=INTEGER}, #{dto.aab507,jdbcType=VARCHAR}, #{dto.aab508}, 0, 0)
          ;
     </insert>
 

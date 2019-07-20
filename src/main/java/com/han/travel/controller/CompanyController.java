@@ -90,6 +90,33 @@ public class CompanyController
         return "together/publish";
     }
 
+
+    /**
+     * @Author Saki
+     * @Description 发起结伴
+     * @Date 2019/7/20
+     * @param map {
+     *            aaa101:userID
+     *            aab502:name,
+     *            aab503:date,
+     *            aab504:出发地,
+     *            aab505:天数,
+     *            aab506:人数,
+     *            aab507:联系方式,
+     *            aab508:简介,
+     *            mdds:目的地id,
+     *            images:图片base64
+     *        }
+     * @return boolean
+     **/
+    @PostMapping("/addCompany")
+    @ResponseBody
+    public boolean addCompany(@RequestBody Map<String, Object> map)
+    {
+        return companyService.publishComp(map);
+    }
+
+
     /**
      * @Author Saki
      * @Description 获取用户之前的报名信息
@@ -220,6 +247,7 @@ public class CompanyController
         map.put("isCollect",collectService.isCollect(isCollectDto));
         map.put("isFollow",followService.isFollow((Integer) map.get("authorId"), (Integer) session.getAttribute(SessionConfig.USER_ID)));
         map.put("appInfo",companyService.getAppInfoByCId(id));
+        map.put("images", companyService.getCompanyPicsById(id));
         System.out.println(map);
 
         return "together/detail";

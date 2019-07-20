@@ -87,11 +87,13 @@ $(document).ready(function() {
 
     $("#_j_together_mdd_search").bind('input propertychange',function () {
         $("#drop-place").hide(250);
-    })
+    });
 
 
     initPagination(totalPage);
     initDropBar();
+    
+    initPublish();
 });
 
 function initDropBar() {

@@ -213,3 +213,12 @@ function logError(msg) {
         autoclose: 3000
     });
 }
+
+function pleaseLogin(msg) {
+    spop({
+        template: "登录后才能" + msg,
+        position  : 'top-center',
+        style: 'errors',
+        autoclose: 3000
+    });
+}

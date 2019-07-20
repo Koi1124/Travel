@@ -10,17 +10,6 @@
 ::-ms-clear,::-ms-reveal{
     display:none
 }
-textarea{
-    outline:0;
-    line-height:14px;
-    padding-left:4px;
-    padding-top:4px;
-    border:1px solid #ccc;
-    color:#444;
-    font-size:14px;
-    outline:0;
-    text-align:left
-}
 .overflow{
     overflow:hidden;
     text-overflow:ellipsis;
@@ -31,23 +20,9 @@ button{
     border:0;
     font-family:微软雅黑,pingfang sc,"arial, helvetica, sans-serif"
 }
-input{
-    font-family:微软雅黑,pingfang sc,"arial, helvetica, sans-serif";
-    outline:0
-}
-a{
-    outline:0
-}
-a,button{
-    cursor:pointer
-}
-body{
-    background:#f4f4f4;
-    font-size:14px;
-    font-family:微软雅黑,pingfang sc,"arial, helvetica, sans-serif"
-}
 .clear{
-    clear:both
+    clear:both;
+    height:auto;
 }
 .full{
     width:1210px;
@@ -93,10 +68,6 @@ body{
 .pic img{
     display:none
 }
-i,p,h1,h2,h3,h4,h5,h6,hr,br,em,dl,dd,li,ul,ol,td,th,pre,form,body,input,strong,textarea,select,figcaption,figure{
-    margin:0;
-    padding:0
-}
 em{
     font-style:normal
 }
@@ -130,7 +101,7 @@ a,button{
     color:#555
 }
 .z_photo{
-    padding:18px;
+    padding:0px;
     border:2px dashed #e7e6e6
 }
 .z_photo .z_file{

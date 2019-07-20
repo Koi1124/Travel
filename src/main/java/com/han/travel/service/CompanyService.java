@@ -1,6 +1,7 @@
 package com.han.travel.service;
 
 import com.han.travel.dao.*;
+import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.Utils;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +23,9 @@ public class CompanyService
     @Resource
     private Aa03Dao aa03Dao;
     @Resource
-    private Aa01Dao aa01Dao;
-    @Resource
     private Ad04Dao ad04Dao;
     @Resource
-    private Ac00Dao ac00Dao;
-    @Resource
-    private Ad00Dao ad00Dao;
+    private Ac08Dao ac08Dao;
 
     /**
      *@discription: 前8关注最多的结伴目的地
@@ -263,13 +260,28 @@ public class CompanyService
     public boolean publishComp(Map<String,Object> dto)
     {
         boolean tag=false;
-        if (getKey(dto)!=null)
+        Integer cid = getKey(dto);
+        if (cid !=null)
         {
-            dto.put("aab501",getKey(dto));
-            if (ac07Dao.insertMDD(dto))
+            List<String> imgPaths = ImgUploadTools.uploadImgs((ArrayList)dto.get("images"));
+            for (int i = 0; i < imgPaths.size(); i++)
             {
-                tag=true;
+                if (!ac08Dao.addCompanyPic(cid, imgPaths.get(i), i))
+                {
+                    return false;
+                }
             }
+
+            String[] mdds = (dto.get("mdds").toString()).split(";");
+            for (String mdd : mdds)
+            {
+                if (!ac07Dao.addCompMDD(cid, Integer.valueOf(mdd)))
+                {
+                    return false;
+                }
+            }
+
+            tag = true;
         }
         return tag;
     }
@@ -423,4 +435,15 @@ public class CompanyService
         return ac05Dao.getAppInfoByCId(cid);
     }
 
+    /**
+     * @Author Saki
+     * @Description 获得结伴的图片信息
+     * @Date 2019/7/20
+     * @param cid
+     * @return java.util.List<java.lang.String>
+     **/
+    public List<String> getCompanyPicsById(int cid)
+    {
+        return ac08Dao.getCompanyPicsByCid(cid);
+    }
 }

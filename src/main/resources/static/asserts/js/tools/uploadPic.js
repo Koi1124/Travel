@@ -17,10 +17,10 @@ $(function () {
         var numUp = imgContainer.find(".up-section").length;
         var totalNum = numUp + fileList.length;
 
-        if (fileList.length > 5 || totalNum > 5) {
-            alert("上传图片数目不可以超过5个，请重新选择");
+        if (fileList.length > 4 || totalNum > 4) {
+            logError("上传图片数目不可以超过4个，请重新选择");
         }
-        else if (numUp < 5) {
+        else if (numUp < 4) {
             fileList = validateUp(fileList);
             for (var i = 0; i < fileList.length; i++) {
                 var $section = $("<section class='up-section fl loading'>");
@@ -38,7 +38,7 @@ $(function () {
                     }
                     delParent.remove();
                 });
-                $img0.attr("src", "../img/upload/close.png").appendTo($section);
+                $img0.attr("src", "/asserts/img/upload/close.png").appendTo($section);
                 var $img = $("<img id=" + id + " class='up-img up-opcity'>");
                 id++;
                 $img.appendTo($section);
@@ -67,7 +67,7 @@ $(function () {
             $(".up-img").removeClass("up-opcity");
         }, 450);
         numUp = imgContainer.find(".up-section").length;
-        if (numUp >= 5) {
+        if (numUp >= 4) {
             $(this).parent().hide();
         }
         $(this).val("");
@@ -97,6 +97,10 @@ $(function () {
         return arrFiles;
     }
 });
+
+function removeAll() {
+    $(".close-upimg").click();
+}
 
 function upload() {
     var images = new Array();
