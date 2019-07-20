@@ -60,4 +60,20 @@ public class CollectController
         return collectService.deleteCollect(map);
     }
 
+
+    /**
+     *@discription: map->
+     * collectId: 收藏流水号id
+     *@param map 
+     *@date: 2019/7/20 12:23
+     *@return: boolean
+     *@author: Han
+     */
+    @RequestMapping("/deleteCollect")
+    @ResponseBody
+    public boolean dCo(@RequestBody Map<String,Object> map)
+    {
+        return collectService.dCByCId((Integer)map.get("collectId"));
+    }
+
 }

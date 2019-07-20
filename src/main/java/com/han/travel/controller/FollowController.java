@@ -35,14 +35,14 @@ public class FollowController
     public boolean follow(@RequestBody Map<String,Object>map, HttpSession session)
     {
         messageService.follow(session.getAttribute(SessionConfig.USER_NAME),map.get("userId"));
-        return followService.addFollow(Integer.parseInt((String) map.get("userId")),Integer.parseInt((String) map.get("followerId")));
+        return followService.addFollow((Integer) map.get("userId"),(Integer) map.get("followerId"));
     }
 
     @RequestMapping("/unfollow")
     @ResponseBody
     public boolean unfollow(@RequestBody Map<String,Object>map)
     {
-        return followService.removeFollow(Integer.parseInt((String) map.get("userId")),Integer.parseInt((String) map.get("followerId")));
+        return followService.removeFollow((Integer) map.get("userId"),(Integer) map.get("followerId"));
     }
 
 }

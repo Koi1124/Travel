@@ -34,4 +34,9 @@
         ;
     </delete>
 
+    <delete id="deleteCByCId" parameterType="java.lang.Integer">
+        DELETE FROM ad04
+        WHERE aad401=#{cid};
+    </delete>
+
 </mapper>

@@ -22,5 +22,12 @@
         OR (aae105=#{dto.clientId} AND aae104=#{dto.toClientId}))
         ;
     </select>
-    
+
+    <select id="haveReadLatest" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT b.aae101
+        FROM ae01 a, af01 b
+        WHERE a.aae101=b.aae101 AND aae106=0 AND (aae104=#{uid} OR aae105=#{uid})
+        ;
+    </select>
+
 </mapper>

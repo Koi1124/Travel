@@ -345,11 +345,9 @@ $(document).ready(function () {
     $(".btn-follow").click(function () {
         var isFollow=$(".btn-follow span:eq(0)").text();
         var data;
-        var userId=$(".btn-follow").attr("data-uid");
-        var followerId=$("#user_id").val();
         data={
-            userId:userId,
-            followerId:followerId
+            userId:rUserId,
+            followerId:user
         }
         console.log(data);
         if (isFollow=="加关注") {

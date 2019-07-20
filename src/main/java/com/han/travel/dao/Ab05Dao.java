@@ -66,4 +66,35 @@ public interface Ab05Dao extends CheckDao
      */
     Map<String,Object> getOriginDataByCid(int cid);
 
+
+    /**
+     *@discription: map->
+     * tid: 结伴id
+     * state: 结伴状态
+     * authorId: 用户id
+     * authorName: 用户名
+     * authorPic: 用户头像
+     * mddName: 目的地名合集
+     * setout: 出发地
+     * leftTime: 剩余天数
+     * isStar: 是否收藏
+     * type: 为发布者还是参与者
+     * title: 结伴标题
+     *@param uid 
+     *@date: 2019/7/20 8:51
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    List<Map<String,Object>> getCompInfoByPublishUId(int uid);
+
+
+    /**
+     *@discription:
+     *@param uid 
+     *@date: 2019/7/20 8:57
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    List<Map<String,Object>> getCompInfoByJoinUId(int uid);
+
 }

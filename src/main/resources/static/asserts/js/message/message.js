@@ -25,6 +25,23 @@ $(document).ready(function () {
             console.log(e);
         }
     });
+
+    $.ajax({
+        type: "post",
+        url: "/letter/haveLetter",
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success:function (result) {
+            if (result) {
+                $("._head_private_letter").show();
+                $(document).attr("title","[收到私信]"+origin);
+            }
+        },
+        error:function (e) {
+            console.log(e);
+        }
+    });
 });
 
 
@@ -88,6 +105,7 @@ function changeTitle(data) {
         $("._head_msg").hide();
     } else {
         $(document).attr("title","["+data+"条新消息]"+origin);
+        $("._head_msg").show();
     }
     $("._head_msg").text(data);
 }

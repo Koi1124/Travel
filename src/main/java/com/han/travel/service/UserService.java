@@ -1,10 +1,7 @@
 package com.han.travel.service;
 
 import com.han.travel.configuration.SessionConfig;
-import com.han.travel.dao.Aa01Dao;
-import com.han.travel.dao.Aa03Dao;
-import com.han.travel.dao.Ab01Dao;
-import com.han.travel.dao.Ad03Dao;
+import com.han.travel.dao.*;
 import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.MailTools;
 import com.han.travel.support.Utils;
@@ -36,6 +33,9 @@ public class UserService {
 
     @Autowired
     private Ad03Dao ad03Dao;
+
+    @Autowired
+    private Ab05Dao ab05Dao;
 
     /**
      * @Author Saki
@@ -181,7 +181,7 @@ public class UserService {
                 map.put("address", aa03Dao.getNameById(poi));
             }
         }
-        if (myId != null && ad03Dao.isFollow(myId, uid) != null)
+        if (myId != null && ad03Dao.isFollow(uid, myId) != null)
         {
             map.put("followId", 1);
         }
@@ -211,6 +211,15 @@ public class UserService {
         switch (part) {
             case "note":
                 map.put("notes", ab01Dao.getNoteByUid(uid));
+                break;
+            case "together":
+                List<Map<String,Object>> compInfo=ab05Dao.getCompInfoByPublishUId(uid);
+                List<Map<String,Object>> compCInfo=ab05Dao.getCompInfoByJoinUId(uid);
+                compInfo.addAll(compCInfo);
+                map.put("companies",compInfo);
+                break;
+            case "collectNote":
+                map.put("collectNotes",ab01Dao.getCollectNotesByUId(uid));
                 break;
             default:
                 break;
