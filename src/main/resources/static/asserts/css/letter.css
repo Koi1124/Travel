@@ -9,12 +9,7 @@
     *zoom: 1; position: relative;
 }
 
-.back {
-    color: #333;
-    font-size: 16px;
-    line-height: 24px;
-    padding: 20px 0;
-}
+
 
 
 .letterwrap .panel {
@@ -23,14 +18,37 @@
 
 }
 
-
-
 .title {
     padding: 5px;
     font-size: 25px;
+
+}
+.title .name{
     font-weight: bold;
     text-align: center;
     background-color: #f8f8f8;
+}
+
+
+.title .back{
+    height: 0px;
+}
+.title .back a{
+    position: relative;
+    bottom: 1px;
+    width: 70px;
+    text-align: left;
+    color: #333;
+    font-size: 16px;
+}
+.title .back a:hover{
+    text-decoration: none;
+    color: #daac50;
+}
+.title .back a{
+    position: relative;
+    margin-left: 10px;
+    width: 50px;
 }
 
 #container {
@@ -128,10 +146,10 @@
     font-size: 20px;
     line-height: 24px;
     height: 100%;
-    padding: 5px 20px;
+    padding: 5px 10px;
     border: none;
     outline: none;
-    width: 900px;
+    width: 700px;
     background-color: #fafafa;
     resize: none;
 }

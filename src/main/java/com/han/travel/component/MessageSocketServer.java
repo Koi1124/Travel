@@ -1,6 +1,7 @@
 package com.han.travel.component;
 
 
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -30,7 +31,24 @@ public class MessageSocketServer
     @OnMessage
     public void onMessage(String message)
     {
-
+        JSONObject jsonObject=JSONObject.fromObject(message);
+        int rid=(Integer) jsonObject.get("id");
+        int type=(Integer) jsonObject.get("type");
+        // 0去除一条消息 1去除所有消息
+        if (type==0)
+        {
+            for (MessageSocketServer m:messageSet)
+            {
+                m.session.getAsyncRemote().sendText("remove,single,"+String.valueOf(rid));
+            }
+        }
+        else
+        {
+            for (MessageSocketServer m:messageSet)
+            {
+                m.session.getAsyncRemote().sendText("remove,all,"+String.valueOf(rid));
+            }
+        }
     }
 
     @OnError
