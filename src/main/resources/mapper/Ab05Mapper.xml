@@ -133,4 +133,43 @@
         ON t1.id=t2.id
     </select>
 
+    <select id="getCompInfoByPublishUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+            SELECT t1.tid, t1.state, t1.authorId, t1.authorName, t1.authorPic,
+			        t1.mddName, t1.setout, t1.leftTime, IFNULL(t2.star,'unstar') AS isStar, 'publisher' AS 'type',
+			        t1.title
+		    FROM
+			(SELECT a.aab501 AS 'tid', a.aab509 AS 'state', c.aaa101 AS 'authorId',c.aaa102 AS 'authorName',c.aaa106 AS 'authorPic',
+			 		 GROUP_CONCAT(DISTINCT(b.aaa302) SEPARATOR '|') AS 'mddName', a.aab504 AS 'setout', DATEDIFF(a.aab503,NOW()) AS 'leftTime',
+			 		 a.aab502 AS 'title'
+			FROM ab05 a, aa03 b,aa01 c,ac07 d
+			WHERE a.aaa101=c.aaa101 AND a.aab501=d.aab501 AND d.aaa301 = b.aaa301 AND a.aaa101=#{uid}
+			GROUP BY tid)t1 LEFT JOIN
+			(SELECT b.aad404 AS 'tid', 'star'
+			FROM ab05 a, ad04 b
+			WHERE a.aaa101=b.aaa101 AND b.aad403=5 AND a.aaa101=#{uid}
+			GROUP BY tid)t2
+			ON t1.tid=t2.tid
+			;
+    </select>
+
+    <select id="getCompInfoByJoinUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+
+			SELECT t1.tid, t1.state, t1.authorId, t1.authorName, t1.authorPic,
+			        t1.mddName, t1.setout, t1.leftTime, IFNULL(t2.star,'unstar') AS isStar, 'participator' AS 'type',
+			        t1.title
+		    FROM
+			(SELECT a.aab501 AS 'tid', a.aab509 AS 'state', c.aaa101 AS 'authorId',c.aaa102 AS 'authorName',c.aaa106 AS 'authorPic',
+			GROUP_CONCAT(DISTINCT(b.aaa302) SEPARATOR '|') AS 'mddName', a.aab504 AS 'setout', DATEDIFF(a.aab503,NOW()) AS 'leftTime',
+			a.aab502 AS 'title'
+            FROM ab05 a, aa03 b,aa01 c,ac07 d, ac05 e
+            WHERE a.aaa101=c.aaa101 AND a.aab501=d.aab501 AND d.aaa301 = b.aaa301 AND a.aab501=e.aab501 AND e.aaa101=#{uid}
+            GROUP BY tid)t1 LEFT JOIN
+			(SELECT b.aad404 AS 'tid', 'star'
+			FROM ab05 a, ad04 b
+			WHERE a.aaa101=b.aaa101 AND b.aad403=5 AND a.aaa101=#{uid}
+			GROUP BY tid)t2
+			ON t1.tid=t2.tid
+			;
+    </select>
+    
 </mapper>

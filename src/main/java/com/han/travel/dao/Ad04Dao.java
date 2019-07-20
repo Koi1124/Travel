@@ -20,4 +20,6 @@ public interface Ad04Dao
                        @Param("pid") int pid);
 
     boolean deleteCollect(@Param("map") Map<String, Object> map);
+
+    boolean deleteCByCId(int cid);
 }

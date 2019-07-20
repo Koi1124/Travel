@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title th:text="${name + '的个人中心'}">wdnmd的个人中心</title>
     <meta name="renderer" content="webkit" />
-    <link href="userhome.css" rel="stylesheet" type="text/css" />
     <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css"
           rel="stylesheet" type="text/css" />
     <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1^alI^1545682406.css"
@@ -18,7 +17,15 @@
         var part = [[${part}]];
     </script>
 
+    <link rel="stylesheet" th:href="@{/asserts/css/togetherhome.css}" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/home/userHome/comprehension.js}"></script>
+
+
+    <script th:src="@{/asserts/js/home/userHome/together.js}"></script>
+
 
 </head>
 
@@ -33,134 +40,23 @@
         <div class="tags_bar second_tags_bar">
             <div class="center clearfix">
                 <ul class="flt2" style="float: left;margin-left:280px;">
-                    <li class="on"><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
-                                      th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
-                    <li><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
+                    <li><a class="tags_link _collect_choose" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
-                    <li><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
-                    <li><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
-                           th:text="${(uid eq session.user_id?'我':'TA') + '的结伴'}">我的结伴</a></li>
+                    <li class="on"><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/together'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
+                                      th:text="${(uid eq session.user_id?'我':'TA') + '的结伴'}">我的结伴</a></li>
                 </ul>
             </div>
         </div>
-
+        <div th:replace="~{home/userHome/note :: collectExtend}"></div>
     </div>
 
     <div class="center clearfix">
         <!-- sidebar -->
-        <div class="side_bar flt1">
-            <div class="MAvatar">
-                <div class="MAvaImg hasAva">
-                    <img th:src="${pic}"
-                         height="120" width="120">
-                </div>
-                <div class="MAvaName" th:text="${name}">Jack.Swift
-                    <i th:if="${sex eq '2'}" class="MGenderFemale"></i>
-                    <i th:if="${sex eq '1'}" class="MGenderMale"></i>
-                </div>
-
-
-                <div class="MAvaInfo clearfix MAvaMyInfo">
-                    <span
-                            class="MAvaLevel flt1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="MAvaPlace flt1" th:title="${address}" th:text="${'现居：' + address}">现居：武汉</span> <span class="MAvaSet">
-                    <a th:if="${uid eq session.user_id}" title="编辑信息" href="/setting" target="_blank"></a></span>
-                </div>
-
-
-                <!-- 在他人空间显示 -->
-                <div th:if="${uid ne session.user_id}" class="MAvaAction">
-                    <!-- 已关注在class加 MAvaAttentioned -->
-                    <a role="button" data-japp="following" data-uid="62964992" th:hasFollowed="${followId eq null?'0':'1'}"
-                       th:class="${'MAvaBtn MAvaAttention' + (followId eq null?'':' MAvaAttentioned')}"
-                       class="MAvaBtn MAvaAttention MAvaAttentioned">
-                        <span class="MAing">关注</span>
-                        <span class="MAed">已关注</span>
-                        <span class="MAcancel">取消关注</span>
-                    </a>
-                    <a role="button" data-japp="send_message" data-to_uid="62964992" data-to_uname="Soul" class="MAvaBtn MAvaEmail" title="私信">私信</a>
-                </div>
-
-
-
-                <div id="_j_profilearea" class="MAvaProfile">
-                    <div class="MProfile _j_showintrobox" data-intro="wdnmd">
-                        <pre th:text="${addition}">addition</pre>
-                    </div>
-                </div>
-
-                <div class="MAvaMore clearfix">
-                    <div class="MAvaNums">
-                        <strong><a th:text="${followCount eq null?'0':followCount}">4</a></strong>
-                        <p>关注</p>
-                    </div>
-                    <div class="MAvaNums">
-                        <strong><a th:text="${fanCount eq null?'0':fanCount}">4</a></strong>
-                        <p>粉丝</p>
-                    </div>
-                    <div class="MAvaNums last">
-                        <strong><a th:text="${noteCount eq null?'0':noteCount}">4</a></strong>
-                        <p>游记</p>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="MUsers" style="padding-top: 10px">
-                <div class="MUsersTitle" th:if="${followCount gt 0}"
-                     th:text="${(uid eq session.user_id?'我':'TA') + '的关注'}">我的关注</div>
-                <div class="MUsersDetail" id="_j_followcnt">
-                    <div class="MUsersAtom">
-                        <ul class="clearfix _j_followlist">
-                            <hhh th:each="follow,followStatus:${follows}">
-                                <li th:if="${followStatus.index lt 7}">
-                                    <a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank">
-                                        <img th:src="${follow.pic}" height="48" width="48" th:title="${follow.userName}">
-                                    </a>
-                                    <p><a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank" th:title="${follow.userName}"
-                                          th:text="${follow.userName}">sb</a></p>
-                                </li>
-
-                                <li th:if="${followStatus.index eq 7}">
-                                    <a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank">
-                                        <img th:src="${follow.pic}" height="48" width="48" th:title="${follow.userName}">
-                                    </a>
-                                    <p><a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank">查看更多</a></p>
-                                </li>
-                            </hhh>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="MUsersTitle" th:if="${fanCount gt 0}"
-                     th:text="${(uid eq session.user_id?'我':'TA') + '的粉丝'}">我的粉丝</div>
-                <div class="MUsersDetail" id="_j_fancnt">
-                    <div class="MUsersAtom">
-                        <ul class="clearfix _j_followlist">
-                            <hhh th:each="fan,fanStatus:${fans}">
-                                <li th:if="${fanStatus.index lt 7}">
-                                    <a th:href="@{'/u/' + ${fan.uid} + '/note'}" target="_blank">
-                                        <img th:src="${fan.pic}" height="48" width="48" th:title="${fan.userName}">
-                                    </a>
-                                    <p><a th:href="@{'/u/' + ${fan.uid} + '/note'}" target="_blank" th:title="${fan.userName}"
-                                          th:text="${fan.userName}">sb</a></p>
-                                </li>
-
-                                <li th:if="${fanStatus.index eq 7}">
-                                    <a th:href="" target="_blank">
-                                        <img th:src="${fan.pic}" height="48" width="48" th:title="查看更多">
-                                    </a>
-                                    <p><a th:href="" target="_blank">查看更多</a></p>
-                                </li>
-                            </hhh>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <div th:replace="~{home/userHome/note :: side_bar}"></div>
 
 
 
@@ -175,76 +71,45 @@
                     <div class="th">
                         <span class="news">
                             <!-- 点击  on-->
-                            <i class="checkbox"></i> 发起
+                            <i class="checkbox _publish_btn"></i> 发起
                         </span>
                         <span class="news">
                             <!-- 点击  on-->
-                            <i class="checkbox"></i> 加入
+                            <i class="checkbox _join_btn"></i> 加入
                         </span>
                         <span class="news">
                             <!-- 点击  on-->
-                            <i class="checkbox"></i> 关注
+                            <i class="checkbox _star_btn"></i> 关注
                         </span>
 
                     </div>
                     <div class="dia_list ">
 
                         <!-- 结伴 s-->
-                        <div class="item clearfix">
+                        <div class="item clearfix" th:action-type="${company.type}" th:star-type="${company.isStar}" th:each="company:${companies}">
                             <div class="author">
-                                <a href="用户空间">
-                                    <img src="头像" width="48" height="48"></a>
+                                <a href="用户空间" th:href="@{'/u/'+${company.authorId}}">
+                                    <img src="头像" th:src="${company.authorPic}" width="48" height="48"></a>
                             </div>
                             <div class="con">
                                 <div class="title clearfix">
                                     <!-- 判断发起人是否为自己 -->
                                     <!-- <span><a href="用户空间" class="name">茄子</a>的 <a href="结伴页面" class="name">茂名白给之旅</a></span> -->
-                                    <span>我 的 <a href="结伴页面" class="name">茂名白给之旅</a></span>
+                                    <span><p th:text="${company.authorName}">我</p> 发起的结伴 <a href="结伴页面" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" class="name"><p th:text="${company.title}">茂名白给之旅</p></a></span>
                                     <!-- 状态 -->
-                                    <span class="state">审核中/新申请//申请中/已加入/关注中</span>
+                                    <span class="state" th:if="${company.state eq '0'}">审核中</span>
+                                    <span class="state" th:if="${company.state eq '1'}">结伴中</span>
+                                    <span class="state" th:if="${company.state eq '2'}">审核未通过</span>
                                 </div>
-                                <p>出发地：<span>天津</span></p>
-                                <p>目的地：<span>武汉/茂名</span></p>
+                                <p>出发地：<span th:text="${company.setout}">天津</span></p>
+                                <p>目的地：<span th:text="${company.mddName}">武汉/茂名</span></p>
                                 <!-- 过时间显示已过期 -->
-                                <p>出发时间：<span>3</span>天后</p>
-                            </div>
-
-                            <div class="tool_right">
-                                <!-- 只是关注中显示关闭按钮 显示去掉_off -->
-                                <span class="delete_off" data-mid="254718131"></span>
-                                <!-- 有申请时显示气泡 -->
-                                <span class="tips">2</span>
+                                <p th:if="${company.leftTime ge 0}">出发时间：<span th:text="${company.leftTime}">3</span>天后</p>
+                                <p th:if="${company.leftTime lt 0}" th:text="'出发时间：已过期'"></p>
                             </div>
                         </div>
                         <!-- 结伴 e-->
 
-
-                        <!-- 结伴 s-->
-                        <div class="item clearfix">
-                            <div class="author">
-                                <a href="用户空间">
-                                    <img src="头像" width="48" height="48"></a>
-                            </div>
-                            <div class="con">
-                                <div class="title clearfix">
-                                    <span><a href="用户空间" class="name">茄子</a>的 <a href="结伴页面" class="name">茂名白给之旅</a></span>
-                                    <span class="state">申请中/已加入/关注中</span>
-                                </div>
-                                <p>出发地：<span>天津</span></p>
-                                <p>目的地：<span>武汉/茂名</span></p>
-                                <!-- 过时间显示已过期 -->
-                                <p>出发时间：已过期</p>
-
-                            </div>
-
-                            <div class="tool_right">
-                                <!-- 关闭 -->
-                                <span class="delete" data-mid="254718131"></span>
-                                <!-- 气泡 -->
-                                <span class="tips_off">2</span>
-                            </div>
-                        </div>
-                        <!-- 结伴 e-->
 
 
 

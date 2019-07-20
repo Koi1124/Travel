@@ -193,4 +193,12 @@
         WHERE aab101=#{nid};
     </update>
 
+    <select id="getCollectNotesByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT a.aab102 AS 'title', a.aab104 AS 'time', a.aaa101 AS 'authorId', c.aaa102 AS 'authorName',
+			    b.aad401 as 'collectId', a.aab101 AS 'nid'
+        FROM ab01 a, ad04 b, aa01 c
+        WHERE a.aab101=b.aad404 AND b.aad403=1 AND a.aaa101=c.aaa101
+        AND b.aaa101=#{uid};
+    </select>
+
 </mapper>

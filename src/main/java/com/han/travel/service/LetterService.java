@@ -118,4 +118,15 @@ public class LetterService
         return ae01Dao.readDone(id);
     }
 
+
+    public boolean haveLetter(Integer uid)
+    {
+        boolean tag=false;
+        if (af01Dao.haveReadLatest(uid)!=null)
+        {
+            tag=true;
+        }
+        return tag;
+    }
+
 }

@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title th:text="${name + '的个人中心'}">wdnmd的个人中心</title>
     <meta name="renderer" content="webkit" />
-    <link href="userhome.css" rel="stylesheet" type="text/css" />
     <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css"
           rel="stylesheet" type="text/css" />
     <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1^alI^1545682406.css"
@@ -18,7 +17,11 @@
         var part = [[${part}]];
     </script>
 
+
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/home/userHome/comprehension.js}"></script>
 
 </head>
 
@@ -33,23 +36,29 @@
         <div class="tags_bar second_tags_bar">
             <div class="center clearfix">
                 <ul class="flt2" style="float: left;margin-left:280px;">
-                    <li class="on"><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
+                    <li class="on"><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
                                       th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
-                    <li><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
+                    <li><a class="tags_link _collect_choose" tabindex="1" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
-                    <li><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
-                    <li><a class="tags_link" href="" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/together'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的结伴'}">我的结伴</a></li>
                 </ul>
             </div>
         </div>
-
+        <div class="dropdown-menu dropdown-collect" id="_j_user_panel" data-cs-t="user_nav" style="width: 100px;right: 33.9%;display: none" th:fragment="collectExtend">
+            <ul>
+                <li><a href="" th:href="@{'/u/'+${uid}+'/collectNote'}" target="_self" title="游记" rel="nofollow">游记</a></li>
+                <li><a href="" th:href="@{'/u/'+${uid}+'/collectRoute'}" target="_self" title="路线" rel="nofollow">路线</a></li>
+                <li><a href="" th:href="@{'/u/'+${uid}+'/collectSight'}" target="_self" title="景点" rel="nofollow">景点</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="center clearfix">
         <!-- sidebar -->
-        <div class="side_bar flt1">
+        <div class="side_bar flt1" th:fragment="side_bar">
             <div class="MAvatar">
                 <div class="MAvaImg hasAva">
                     <img th:src="${pic}"
@@ -72,14 +81,14 @@
                 <!-- 在他人空间显示 -->
                 <div th:if="${uid ne session.user_id}" class="MAvaAction">
                     <!-- 已关注在class加 MAvaAttentioned -->
-                    <a role="button" data-japp="following" data-uid="62964992" th:hasFollowed="${followId eq null?'0':'1'}"
+                    <a role="button" data-japp="following" id="_follow_user" data-uid="62964992" th:hasFollowed="${followId eq null?'0':'1'}"
                        th:class="${'MAvaBtn MAvaAttention' + (followId eq null?'':' MAvaAttentioned')}"
                        class="MAvaBtn MAvaAttention MAvaAttentioned">
                         <span class="MAing">关注</span>
                         <span class="MAed">已关注</span>
                         <span class="MAcancel">取消关注</span>
                     </a>
-                    <a role="button" data-japp="send_message" data-to_uid="62964992" data-to_uname="Soul" class="MAvaBtn MAvaEmail" title="私信">私信</a>
+                    <a role="button" th:href="'/letter/detail/' + ${uid}" data-japp="send_message" data-to_uid="62964992" data-to_uname="Soul" class="MAvaBtn MAvaEmail" title="私信">私信</a>
                 </div>
 
 

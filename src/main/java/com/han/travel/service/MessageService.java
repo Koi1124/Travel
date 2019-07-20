@@ -133,7 +133,7 @@ public class MessageService
         dto.put("type","0");
         if (sa01Dao.insertMessage(dto))
         {
-            MessageSocketServer.sendMessage(Integer.parseInt((String) rUserId));
+            MessageSocketServer.sendMessage((Integer) rUserId);
         }
     }
 
