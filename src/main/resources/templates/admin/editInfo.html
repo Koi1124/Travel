@@ -27,11 +27,11 @@
 							<form method="post" class="layui-form" >
                             <div class="form-field">
                             	<input id="adminname" type="hidden" th:value=${adminname}>
-                                <input id="name"  type="text" th:value=${adminname} placeholder="昵称" lay-verify="nikename" autocomplete="off" class="" />
+                                <input id="name"  type="text" th:value=${adminname}  placeholder="昵称" lay-verify="nikename" autocomplete="off" class="" />
                                 
                             </div>
                             <div class="form-field">
-                                <input id="email"  type="email" lay-verify="email" placeholder="新的邮箱" autocomplete="off" class="" />
+                                <input id="email"  type="email"   lay-verify="email" placeholder="新的邮箱" autocomplete="off" class="" />
                                 
                             </div>
                             <div class="submit-btn">
@@ -51,6 +51,26 @@
 	        closeButton: true,
 	        timeOut:"1000",
 	    };
+    	
+    	
+    		$.ajax({
+				type:"post",
+				url: "http://localhost:8080/admin/aa04/getAdminEmail",
+				data: JSON.stringify({adminname:$('#adminname').val()}),
+			    contentType: "application/json",
+			    dataType: "text",
+			    async: false,
+			    success: function (data) {
+					$("#email").val(data);
+			    },
+			    error: function (e) {
+			    	toastr.error('网络错误！');
+			    }	
+			});
+
+    	
+
+    	
         layui.use('form', function(){
           var form = layui.form;
           
@@ -71,19 +91,23 @@
   				url: "http://localhost:8080/admin/aa04/updateInfo",
   				data: JSON.stringify({oldname:$("#adminname").val(),newname:$("#name").val(),email:$("#email").val()}),
   			    contentType: "application/json",
-  			    dataType: "json",
+  			    dataType: "text",
   			    async: true,
   			    success: function (data) {
-  			    	if(data)
+  			    	if(data=="修改成功")
   			    	{
   			    		toastr.success('修改成功!');
   			    		setTimeout(function () {
   			        		xadmin.close();
   		    	        	xadmin.father_reload();}, 1000);
   			    	}
-  			    	else
+  			    	else if(data=="修改失败")
   			    	{
   			    		toastr.warning('修改失败！');
+  			    	}
+  			    	else
+  			    	{
+  			    		toastr.warning('名称重复！');
   			    	}
   			    },
   			    error: function (e) {

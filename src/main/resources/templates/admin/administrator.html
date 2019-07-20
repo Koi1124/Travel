@@ -54,13 +54,12 @@
                                     <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" id="name">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <button onclick="find($('#beginTime').val(),$('#endTime').val(),$('#name').val())" class="layui-btn"   lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    <button onclick="find()" class="layui-btn"   lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加管理员','/admin_add',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick='xadmin.open("添加管理员","/admin_add?",600,400 )'><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body ">
                             <table class="layui-table layui-form" id="aa04Result">

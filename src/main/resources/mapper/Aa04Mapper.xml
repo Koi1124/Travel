@@ -73,4 +73,16 @@
 	UPDATE aa04 SET aaa402=#{map.newname},aaa405=#{map.email}
 	WHERE aaa402=#{map.oldname};
 	</update>
+	
+	<select id="getEmailByName" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT aaa405
+	FROM aa04
+	WHERE aaa402=#{adminname};
+	</select>
+	
+	<select id="hasOne" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT count(1) as count 
+	FROM aa04 
+	WHERE aaa402 =#{adminname};
+	</select>
 </mapper>

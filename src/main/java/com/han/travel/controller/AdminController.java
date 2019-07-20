@@ -21,28 +21,17 @@ import com.han.travel.support.PageBean;
 
 @Controller
 public class AdminController 
-{
-	@Autowired
-    private Ab05Dao ab05Dao;
-	
+{   
 	@Autowired
     private AdminService adminService;
-	
-	@Autowired
-	private Aa02Dao aa02Dao;
-	
-	@Autowired
-	private Ab04Dao ab04Dao;
-	
-	@Autowired
-    private Ab01Dao ab01Dao;
-	
-	@Autowired
-    private Aa04Dao aa04Dao;
-	
+
 	@RequestMapping("/admin")
-    public String toAdminLogin(Map<String,Object> dto)
+    public String toAdminLogin(Map<String,Object> dto,HttpServletRequest request)
     {
+		if(request.getSession().getAttribute("adminusername")!=null)
+		{
+			request.getSession().removeAttribute("adminusername");
+		}
     	return "admin/adminLogin";
     }
 	
@@ -57,25 +46,6 @@ public class AdminController
     {
 		model.addAttribute("adminname",adminname);
     	return "admin/editInfo";
-    }
-	
-	
-	@RequestMapping("/admin/login")
-    public String toIndex(Model model,HttpServletRequest request)
-    {	
-		String username=(String) request.getSession().getAttribute("adminusername");	
-		if(username!=null)
-		{
-			String role=(String)request.getSession().getAttribute("role");
-			model.addAttribute("adminusername",username);
-			model.addAttribute("role",role);
-			return "admin/index";
-		}
-		else
-		{
-			return "admin/error";
-		}
-    	
     }
 	
 	@RequestMapping("/administrator")
@@ -96,37 +66,6 @@ public class AdminController
     	return "admin/company_list";
     }
 	
-	@RequestMapping("/agency_list")
-    public String toAgency_List(Map<String,Object> dto)
-    {
-    	return "admin/agency_list";
-    }
-	@RequestMapping("/log")
-    public String toLog(Map<String,Object> dto)
-    {
-    	return "admin/log";
-    }
-	@RequestMapping("/member_del")
-    public String toMember_Del(Map<String,Object> dto)
-    {
-    	return "admin/member_del";
-    }
-	@RequestMapping("/member_list")
-    public String toMemberList(Map<String,Object> dto)
-    {
-    	return "admin/member_list";
-    }
-	@RequestMapping("/statistic")
-    public String toStatistic(Map<String,Object> dto)
-    {
-    	return "admin/statistic";
-    }
-	
-	@RequestMapping("/travel_item_list")
-    public String toTravel_Item(Map<String,Object> dto)
-    {
-    	return "admin/travel_item_list";
-    }
 	@RequestMapping("/travel_note")
     public String toTravel_Note(Map<String,Object> dto)
     {
@@ -137,50 +76,95 @@ public class AdminController
     {
     	return "admin/welcome";
     }
+	@RequestMapping("/admin/login")
+    public String toIndex(Model model,HttpServletRequest request)
+    {	
+		String username=(String) request.getSession().getAttribute("adminusername");	
+		if(username!=null)
+		{
+			String role=(String)request.getSession().getAttribute("role");
+			model.addAttribute("adminusername",username);
+			model.addAttribute("role",role);
+			return "admin/index";
+		}
+		else
+		{
+			return "admin/error";
+		}
+    	
+    }
 	
+	@RequestMapping("/strategy")
+    public String toStrategey(Map<String,Object> dto)
+    {
+    	return "admin/strategy";
+    }
 	
+	@RequestMapping("/editStrategy")
+    public String toStrategy_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
+    {
+		model.addAttribute("id",id);
+		model.addAttribute("operation",operation);
+    	return "admin/strategy_edit";
+    }
 	
+	@RequestMapping("/attraction")
+    public String toAttraction(Map<String,Object> dto)
+    {
+    	return "admin/attraction";
+    }
+
+	@RequestMapping("/editAttraction")
+    public String toAttraction_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
+    {
+		model.addAttribute("id",id);
+		model.addAttribute("operation",operation);
+    	return "admin/attraction_edit";
+    }
 	/**
      * @Author ayds
-     * @Description 获取分页的结伴数据
+     * @Description 
      * @Date 2019/7/8
      * @param map
      * @return boolean
      **/
+	//===========================结伴(ab05)和游记(ab01)模块=====================
 	@PostMapping("/admin/ab05/selectByPage")
     @ResponseBody					
     public Map<String,Object> selectAb05ByPage(@RequestBody Map<String, Object> map)
     {
-		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab05Dao, "ab05");
-    }
-	
-	@PostMapping("/admin/aa02/selectByPage")
-    @ResponseBody
-    public Map<String,Object> selectAa02ByPage(@RequestBody Map<String, Object> map)
-    {
-		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), aa02Dao, "aa02");
-    }
-	
-	
-	@PostMapping("/admin/ab04/selectByPage")
-    @ResponseBody
-    public Map<String,Object> selectAb04ByPage(@RequestBody Map<String, Object> map)
-    {
-		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab04Dao, "ab04");
+		return adminService.selectAb05(map);
     }
 	
 	@PostMapping("/admin/ab01/selectByPage")
     @ResponseBody					
     public Map<String,Object> selectAb01ByPage(@RequestBody Map<String, Object> map)
     {
-		return PageBean.seleceByPage(Integer.parseInt(map.get("currPage").toString()), ab01Dao, "ab01");
+		return adminService.selectAb01(map);
     }
 	
+	@PostMapping("/admin/ab05/changeState")
+    @ResponseBody
+    public boolean changeAb05State(@RequestBody Map<String, Object> map)
+    {	
+		return adminService.changeAb05State(map);
+    }
+	
+	@PostMapping("/admin/ab01/changeState")
+    @ResponseBody
+    public boolean changeAb01State(@RequestBody Map<String, Object> map)
+    {	
+		return adminService.changeAb01State(map);
+    }
+	
+	
+	
+	//======================管理员模块相关功能=========================
 	@PostMapping("/admin/aa04/fuzzyQuery")
     @ResponseBody					
     public Map<String,Object> selectAa04ByPage(@RequestBody Map<String, Object> map)
     {
-		return PageBean.fuzzyQuery(aa04Dao, "aa04", map);
+		return adminService.selectAa04(map);
     }
 	
 	@PostMapping("/admin/check")
@@ -188,6 +172,7 @@ public class AdminController
     public boolean loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {
 		String result=adminService.adminCheck(map);
+		System.out.println("2");
 		 if(result!=null)
 		 {
 			 request.getSession().setAttribute("adminusername", map.get("username"));
@@ -213,77 +198,139 @@ public class AdminController
 			 return false;
 		 }
     }
-	
-    /**
-     * @Author ayds
-     * @Description 审核改变数据状态
-     * @Date 2019/7/9
-     * @param int,String
-     * @return
-     */
-	@PostMapping("/admin/ab05/changeState")
-    @ResponseBody
-    public boolean changeAb05State(@RequestBody Map<String, Object> map)
-    {	
-		return ab05Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
-    }
-	
-	@PostMapping("/admin/aa02/changeState")
-    @ResponseBody
-    public boolean changeAa02State(@RequestBody Map<String, Object> map)
-    {	
-		return aa02Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
-    }
-	
-	@PostMapping("/admin/ab04/changeState")
-    @ResponseBody
-    public boolean changeAb04State(@RequestBody Map<String, Object> map)
-    {	
-		return ab04Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
-    }
-	
-	@PostMapping("/admin/ab01/changeState")
-    @ResponseBody
-    public boolean changeAb01State(@RequestBody Map<String, Object> map)
-    {	
-		return ab01Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
-    }
-	
-	
+
 	@PostMapping("/admin/aa04/changeState")
     @ResponseBody
     public boolean changeAa04State(@RequestBody Map<String, Object> map)
     {	
-			return aa04Dao.changeState(map);		
+		return adminService.changeAa04State(map);		
     }
 	
 	@PostMapping("/admin/aa04/del")
     @ResponseBody
     public boolean delAa04(@RequestBody Map<String, Object> map)
     {	
-			return aa04Dao.del(map);		
+			return adminService.delAa04(map);		
     }
 	
 	
 	@PostMapping("/admin/aa04/insertAdmin")
     @ResponseBody
-    public boolean insertAa04(@RequestBody Map<String, Object> map)
+    public String insertAa04(@RequestBody Map<String, Object> map)
     {	
-			return aa04Dao.insert(map);		
+		if(adminService.hasOne(map.get("username").toString()))
+		{
+			return "名称重复!";
+		}
+		else
+		{
+			if(adminService.insertAdmin(map))
+			{
+				return "插入成功!";
+			}
+			else
+			{
+				return "插入失败!";
+			}
+		}
+					
     }
 	
 	@PostMapping("/admin/aa04/changeRole")
     @ResponseBody
     public boolean changeRoleAa04(@RequestBody Map<String, Object> map)
     {	
-			return aa04Dao.changeRole(map);		
+			return adminService.changeRoleAa04(map);		
+    }
+
+	@PostMapping("/admin/aa04/getAdminEmail")
+    @ResponseBody
+    public String getEmailAa04(@RequestBody Map<String, Object> map)
+    {	
+			return adminService.getEmailAa04(map);		
     }
 	
 	
 	@PostMapping("/admin/aa04/updateInfo")
     @ResponseBody
-    public boolean updateInfoAa04(@RequestBody Map<String, Object> map)
+    public String updateInfoAa04(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {	
-			return aa04Dao.updateInfo(map);		
+		
+		return adminService.updateInfoAa04(map, request);
+					
+    }
+	
+	
+	
+	
+	//======================攻略(ab02)和景点(ab03)模块=============================
+	@PostMapping("/ab02/insertStrategy")
+    @ResponseBody					
+    public boolean insertStrategy(@RequestBody Map<String,Object>map)
+    {
+		return adminService.insertStrategy(map);
+    }
+	
+	@PostMapping("/ab02/updateById")
+    @ResponseBody					
+    public boolean updateStrategy(@RequestBody Map<String,Object>map)
+    {
+		return adminService.updateStrategy(map);
+    }
+	
+	@PostMapping("/ab02/delStrategy")
+    @ResponseBody					
+    public boolean delStrategy(@RequestBody Map<String,Object>map)
+    {
+		return adminService.delStrategy(map);
+    }
+	
+	@PostMapping("/ab02/fuzzyQuery")
+    @ResponseBody					
+    public Map<String,Object> ab02fuzzyQuery(@RequestBody Map<String,Object>map)
+    {
+		return adminService.ab02fuzzyQuery(map);
+    }
+	
+	@PostMapping("/ab02/queryById")
+    @ResponseBody					
+    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
+    {
+		return adminService.ab02queryById(map);
+    }
+	
+	@PostMapping("/ab03/insertAttraction")
+    @ResponseBody					
+    public boolean insertAttraction(@RequestBody Map<String,Object>map)
+    {
+		return adminService.insertAttraction(map);
+    }
+	
+	@PostMapping("/ab03/delAttraction")
+    @ResponseBody					
+    public boolean delAttraction(@RequestBody Map<String,Object>map)
+    {
+		return adminService.delAttraction(map);
+    }
+	
+	@PostMapping("/ab03/updateById")
+    @ResponseBody					
+    public boolean updateAttraction(@RequestBody Map<String,Object>map)
+    {
+		return adminService.updateAttraction(map);
+    }
+	
+	@PostMapping("/ab03/fuzzyQuery")
+    @ResponseBody					
+    public Map<String,Object> ab03fuzzyQuery(@RequestBody Map<String,Object>map)
+    {
+		return adminService.ad03fuzzyQuery(map);
+    }
+	
+	@PostMapping("/ab03/queryById")
+    @ResponseBody					
+    public Map<String,Object> ab03queryById(@RequestBody Map<String,Object>map)
+    {
+		return adminService.ab03queryById(map);
     }
 }

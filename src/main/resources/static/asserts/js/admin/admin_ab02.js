@@ -7,6 +7,9 @@ $(document).ready(function() {
         closeButton: true,
         timeOut:"1000",
     };
+	$(function(){
+		fuzzyQuery($('#city').val(),$('#name').val());
+	})
 	
 	function fuzzyQuery(city,name){
 		var count=0;

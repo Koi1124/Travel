@@ -26,4 +26,8 @@ public interface Aa04Dao extends CheckDao
 	boolean updateAdminPwd(@Param("map") Map<String,Object>map);
 	
 	boolean updateInfo(@Param("map") Map<String,Object>map);
+	
+	String getEmailByName(@Param("adminname") String adminname);
+	
+	Integer hasOne(@Param("adminname") String adminname);
 }

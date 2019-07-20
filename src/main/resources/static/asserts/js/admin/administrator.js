@@ -10,7 +10,12 @@ var name=$("#name");
 	        closeButton: true,
 	        timeOut:"1000",
 	    };
-
+	$(function() { 
+		console.log("again");
+		fuzzyQuery();
+	})
+	
+	
 	function fuzzyQuery(){
 		var count=0;
 		$.ajax({
@@ -140,7 +145,7 @@ function decrease(page)
 
 
 
-function find(beginTime,endTime,name)
+function find()
 {
 	var count=fuzzyQueryTest();	
 	if(count>0)
@@ -223,4 +228,9 @@ function icon(id)
 	{
 		return "&#xe62f;";
 	}
+}
+
+function show(id)
+{
+ console.log(id);	
 }
