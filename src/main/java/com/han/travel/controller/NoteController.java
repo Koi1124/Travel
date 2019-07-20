@@ -181,6 +181,7 @@ public class NoteController
         Map<String, Object> map = noteService.getNoteById(id, 2, (Integer)session.getAttribute(SessionConfig.USER_ID));
         if (Utils.isNotEmpty(map))
         {
+            noteService.addViews(id);
             dto.putAll(map);
             return "note/details";
         }
