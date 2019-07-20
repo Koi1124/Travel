@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 个人空间 -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="${name + '的个人中心'}">wdnmd的个人中心</title>
+    <meta name="renderer" content="webkit" />
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css"
+          rel="stylesheet" type="text/css" />
+    <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1^alI^1545682406.css"
+          rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var uid = [[${uid}]];
+        var myId = [[${session.user_id}]];
+        var part = [[${part}]];
+    </script>
+
+    <link rel="stylesheet" th:href="@{/asserts/css/togetherhome.css}" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/home/userHome/comprehension.js}"></script>
+
+
+    <script th:src="@{/asserts/js/home/userHome/together.js}"></script>
+
+
+</head>
+
+<body style="padding-top: 0px !important">
+
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+
+<div class="main">
+    <div class="banner">
+        <div class="banner_img banner_note" id="_j_banner">
+        </div>
+        <div class="tags_bar second_tags_bar">
+            <div class="center clearfix">
+                <ul class="flt2" style="float: left;margin-left:280px;">
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
+                    <li><a class="tags_link _collect_choose" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
+                    <li class="on"><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/together'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
+                                      th:text="${(uid eq session.user_id?'我':'TA') + '的结伴'}">我的结伴</a></li>
+                </ul>
+            </div>
+        </div>
+        <div th:replace="~{home/userHome/note :: collectExtend}"></div>
+    </div>
+
+    <div class="center clearfix">
+        <!-- sidebar -->
+        <div th:replace="~{home/userHome/note :: side_bar}"></div>
+
+
+
+
+
+
+        <div class="content flt2">
+
+            <!-- 结伴板块 -->
+            <div class="wrap">
+                <div class="mian dialogue">
+                    <div class="th">
+                        <span class="news">
+                            <!-- 点击  on-->
+                            <i class="checkbox _publish_btn"></i> 发起
+                        </span>
+                        <span class="news">
+                            <!-- 点击  on-->
+                            <i class="checkbox _join_btn"></i> 加入
+                        </span>
+                        <span class="news">
+                            <!-- 点击  on-->
+                            <i class="checkbox _star_btn"></i> 关注
+                        </span>
+
+                    </div>
+                    <div class="dia_list ">
+
+                        <!-- 结伴 s-->
+                        <div class="item clearfix" th:action-type="${company.type}" th:star-type="${company.isStar}" th:each="company:${companies}">
+                            <div class="author">
+                                <a href="用户空间" th:href="@{'/u/'+${company.authorId}}">
+                                    <img src="头像" th:src="${company.authorPic}" width="48" height="48"></a>
+                            </div>
+                            <div class="con">
+                                <div class="title clearfix">
+                                    <!-- 判断发起人是否为自己 -->
+                                    <!-- <span><a href="用户空间" class="name">茄子</a>的 <a href="结伴页面" class="name">茂名白给之旅</a></span> -->
+                                    <span><p th:text="${company.authorName}">我</p> 发起的结伴 <a href="结伴页面" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" class="name"><p th:text="${company.title}">茂名白给之旅</p></a></span>
+                                    <!-- 状态 -->
+                                    <span class="state" th:if="${company.state eq '0'}">审核中</span>
+                                    <span class="state" th:if="${company.state eq '1'}">结伴中</span>
+                                    <span class="state" th:if="${company.state eq '2'}">审核未通过</span>
+                                </div>
+                                <p>出发地：<span th:text="${company.setout}">天津</span></p>
+                                <p>目的地：<span th:text="${company.mddName}">武汉/茂名</span></p>
+                                <!-- 过时间显示已过期 -->
+                                <p th:if="${company.leftTime ge 0}">出发时间：<span th:text="${company.leftTime}">3</span>天后</p>
+                                <p th:if="${company.leftTime lt 0}" th:text="'出发时间：已过期'"></p>
+                            </div>
+                        </div>
+                        <!-- 结伴 e-->
+
+
+
+
+                    </div>
+                    <div class="pagin" id="smallpager"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

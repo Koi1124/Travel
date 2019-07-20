@@ -28,10 +28,21 @@
         ;
     </select>
 
+    <select id="hasCollect" resultType="java.lang.Integer">
+        SELECT aad401 FROM ad04
+        WHERE aaa101=#{uid} AND aad403=#{type} AND aad404=#{pid}
+        ;
+    </select>
+
     <delete id="deleteCollect" parameterType="java.util.HashMap">
         DELETE FROM ad04
         WHERE aaa101=#{map.userId} AND aad403=#{map.type} AND aad404=#{map.collectId}
         ;
+    </delete>
+
+    <delete id="deleteCByCId" parameterType="java.lang.Integer">
+        DELETE FROM ad04
+        WHERE aad401=#{cid};
     </delete>
 
 </mapper>

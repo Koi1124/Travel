@@ -61,7 +61,7 @@ $(function () {
                 $(result).each(function (i, item) {
                     var li = $("<li data-nid=" + item.nid + ">\n" +
                                "    <span class='img'><img\n" +
-                               "                src='/asserts/img/common/page_bg.jpg'\n" +
+                               "                src='/asserts/img/common/default_bg.jpg'\n" +
                                "                style='height: 100px;width: 150px;'></span>\n" +
                                "    <div class='detail'>\n" +
                                "        <div class='title'><a\n" +

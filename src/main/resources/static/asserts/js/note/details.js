@@ -55,6 +55,7 @@ function setContent() {
     refreshTitle();
 }
 
+//加载标题
 function refreshTitle() {
     $(".catalog_content").empty();
     $("._j_content_box").find(".article_title").each(function (i, item) {
@@ -70,10 +71,12 @@ function refreshTitle() {
     });
 }
 
+//初始化有关消息的点击事件
 function initClick() {
     if (uid != null) {
         initThumbs();
         initStar();
+        initFollow();
     }
     else {
         $("._j_do_fav").click(function () {
@@ -82,9 +85,13 @@ function initClick() {
         $(".up_act").click(function () {
             logError("请先登录");
         });
+        $(".per_attention").click(function () {
+            logError("请先登录");
+        });
     }
 }
 
+//点赞点击事件
 function initThumbs() {
     $(".up_act").click(function () {
         if ($(".up_act").attr("hasThumbs") == 0) {
@@ -94,14 +101,18 @@ function initThumbs() {
                 contentType: "application/json",
                 data:JSON.stringify({
                     uid:uid,
-                    type:1,
-                    pid:nid
+                    type:type,
+                    pid:nid,
+                    rUserId:rUserId,
+                    jump_type:type,
+                    title:title,
+                    jump_pid:nid
                 }),
                 dataType: "json",
                 async: true,
                 success: function (result) {
                     if (result) {
-                        $("._j_up_num").text($("._j_up_num").text() + 1);
+                        $("._j_up_num").text(parseInt($("._j_up_num").text()) + 1);
                         $(".up_act").attr("hasThumbs", "1")
                         logSuccess("点赞成功");
                     }
@@ -122,14 +133,14 @@ function initThumbs() {
                 contentType: "application/json",
                 data:JSON.stringify({
                     uid:uid,
-                    type:1,
+                    type:type,
                     pid:nid
                 }),
                 dataType: "json",
                 async: true,
                 success: function (result) {
                     if (result) {
-                        $("._j_up_num").text($("._j_up_num").text() - 1);
+                        $("._j_up_num").text(parseInt($("._j_up_num").text()) - 1);
                         $(".up_act").attr("hasThumbs", "0")
                         logSuccess("取消成功");
                     }
@@ -146,6 +157,7 @@ function initThumbs() {
     });
 }
 
+//收藏点击事件
 function initStar() {
     $("._j_do_fav").click(function () {
          if ($(".bs_collect").attr("class") == "bs_collect collected") {
@@ -156,13 +168,13 @@ function initStar() {
                  data:JSON.stringify({
                      userId:uid,
                      collectId:nid,
-                     type:1
+                     type:type
                  }),
                  dataType: "json",
                  async: true,
                  success: function (result) {
                      if (result) {
-                         $("#star-count").text($("#star-count").text() - 1);
+                         $("#star-count").text(parseInt($("#star-count").text()) - 1);
                          $(".bs_collect").attr("class", "bs_collect")
                          logSuccess("取消收藏成功");
                      }
@@ -184,13 +196,15 @@ function initStar() {
                  data:JSON.stringify({
                      userId:uid,
                      collectId:nid,
-                     type:1
+                     type:type,
+                     rUserId:rUserId,
+                     title:title
                  }),
                  dataType: "json",
                  async: true,
                  success: function (result) {
                      if (result) {
-                         $("#star-count").text($("#star-count").text() + 1);
+                         $("#star-count").text(parseInt($("#star-count").text()) + 1);
                          $(".bs_collect").attr("class", "bs_collect collected")
                          logSuccess("收藏成功");
                      }
@@ -207,7 +221,43 @@ function initStar() {
     });
 }
 
+//关注作者点击事件
+function initFollow() {
+    $(".per_attention").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/follow",
+            contentType: "application/json",
+            data:JSON.stringify({
+                userId:rUserId,
+                followerId:uid
+            }),
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result) {
+                    $(".per_attention").remove();
+                    logSuccess("关注成功");
+                }
+                else {
+                    logError('网络故障，请稍后再试');
+                }
+            },
+            error: function (e) {
+                console.log(e);
+                logError('网络繁忙，请稍后再试');
+            }
+        });
+    });
+}
 
+//==============作者操作==================================================
+function initDelete() {
+
+}
+
+//==============工具方法==================================================
+//检验字符串是否为空
 function testBlank(str) {
     str = str.replace(" ", "");
     var reg = /<br\/>/g;

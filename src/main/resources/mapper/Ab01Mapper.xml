@@ -43,6 +43,12 @@
                    "", "");
     </insert>
 
+    <select id="getNoteCountByUid" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM ab01
+        WHERE aaa101=#{uid} AND aab103=2;
+    </select>
+
     <update id="updateNote" parameterType="java.util.HashMap">
         UPDATE ab01
         SET aab102=#{title}, aab104=CURRENT_TIME,
@@ -62,10 +68,10 @@
         t1.authorId, t1.authorName,t1.authorPic,IFNULL(t2.thumbsUpCount,0) AS thumbsUpCount,IFNULL(t3.collectCount,0) AS collectCount,
         IFNULL(t4.commentCount,0) AS commentCount,t1.coverPic, t1.view
         FROM
-        (SELECT b.aab101 AS 'id',b.aab102 AS 'title', b.aab110 AS 'content', c.aaa302 AS 'mddName', c.aaa301 AS 'mddId',
+        (SELECT b.aab101 AS 'id',b.aab102 AS 'title', b.aab112 AS 'content', c.aaa302 AS 'mddName', c.aaa301 AS 'mddId',
         a.aaa101 AS 'authorId', a.aaa102 AS 'authorName',a.aaa106 AS 'authorPic', b.aab111 AS 'coverPic', b.aab109 AS 'view'
         FROM aa01 a, ab01 b, aa03 c
-        WHERE b.aaa101=a.aaa101 AND b.aaa301=c.aaa301 AND ${mdd}
+        WHERE b.aaa101=a.aaa101 AND b.aaa301=c.aaa301 AND b.aab103=2 AND ${mdd}
         GROUP BY id )t1
         LEFT JOIN
         (SELECT aad203 AS 'id', count(aad203) AS 'thumbsUpCount'
@@ -111,8 +117,9 @@
             userName, userPic, aaa302 as 'poiName', commentCount, starCount,
             thumbsUpCount, views, aaa305 as 'poiPic', status
         FROM(SELECT u.aaa101 as 'uid', aab101 as 'nid', note.aaa301 as 'poiId', aab102 as 'title',
-                    aab104 as 'editTime', aab105 as 'date', aab106 as 'days', aab107 as 'money', aab110 as 'content',
-                    aab111 as 'topImg', aaa102 as 'userName', aaa106 as 'userPic', aab109 as 'views', aab103 as 'status'
+                    DATE_FORMAT(aab104,'%Y-%m-%d %H:%i') as 'editTime', aab105 as 'date', aab106 as 'days',
+                    aab107 as 'money', aab110 as 'content', aab111 as 'topImg', aaa102 as 'userName',
+                    aaa106 as 'userPic', aab109 as 'views', aab103 as 'status'
              FROM ab01 note, aa01 u
              WHERE note.aab101=#{nid}
                    <if test="status != null">AND note.aab103=#{status}</if>
@@ -137,15 +144,38 @@
         FROM(SELECT ${nid} as 'nid',  ${uid} as 'uid') t
             LEFT JOIN(SELECT aad404, aaa101 AS "starId"
                       FROM ad04
-                      WHERE aad403=1 AND aad404=#{nid} AND aaa101=#{myId}
-                      GROUP BY aad404) t3 on t.nid=t3.aad404
+                      WHERE aad403=1 AND aad404=#{nid} AND aaa101=#{myId}) t3
+                ON t.nid=t3.aad404
             LEFT JOIN (SELECT aad203, aaa101 AS "thumbsUpId"
                        FROM ad02
-                       WHERE aad202=1 AND aad203=#{nid} AND aaa101=#{myId}
-                       GROUP BY aad203) t4 on t.nid=t4.aad203
+                       WHERE aad202=1 AND aad203=#{nid} AND aaa101=#{myId}) t4
+                ON t.nid=t4.aad203
             LEFT JOIN (SELECT aad302, aad303 AS 'followId'
                        FROM ad03
-                       WHERE aad302=#{myId} AND aad303=#{uid}) t5 ON t.uid=t5.followId
+                       WHERE aad302=#{myId} AND aad303=#{uid}) t5
+                ON t.uid=t5.followId
+    </select>
+
+
+    <select id="getNoteByUid" resultType="java.util.HashMap">
+        SELECT nid, title, editTIme,
+               intro, topImg, aaa302 as 'poiName', starCount,
+               thumbsUpCount, views
+        FROM(SELECT aab101 as 'nid', aaa301 as 'poiId', aab102 as 'title',
+             DATE_FORMAT(aab104,'%Y-%m-%d %H:%i:%S') as 'editTime',
+             aab112 as 'intro', aab111 as 'topImg', aab109 as 'views'
+             FROM ab01
+             WHERE aaa101=#{uid} AND aab103=2
+             ORDER BY editTime DESC) t
+             LEFT JOIN aa03 ON t.poiId=aa03.aaa301
+             LEFT JOIN (SELECT aad404, count(aad401) AS "starCount"
+             FROM ad04
+             WHERE aad403=1
+             GROUP BY aad404) t3 ON t.nid=t3.aad404
+             LEFT JOIN (SELECT aad203, count(aad201) AS "thumbsUpCount"
+             FROM ad02
+             WHERE aad202=1
+             GROUP BY aad203) t4 ON t.nid=t4.aad203
     </select>
 
     <select id="getDraftByUid" parameterType="java.lang.Integer" resultType="java.util.HashMap">
@@ -161,5 +191,13 @@
         UPDATE ab01 SET aab109=aab109+1
         WHERE aab101=#{nid};
     </update>
+
+    <select id="getCollectNotesByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT a.aab102 AS 'title', a.aab104 AS 'time', a.aaa101 AS 'authorId', c.aaa102 AS 'authorName',
+			    b.aad401 as 'collectId', a.aab101 AS 'nid'
+        FROM ab01 a, ad04 b, aa01 c
+        WHERE a.aab101=b.aad404 AND b.aad403=1 AND a.aaa101=c.aaa101
+        AND b.aaa101=#{uid};
+    </select>
 
 </mapper>

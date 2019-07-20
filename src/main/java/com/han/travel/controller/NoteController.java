@@ -77,12 +77,6 @@ public class NoteController
     }
 
 
-    @RequestMapping("/home")
-    public String toHome(Map<String,Object> dto)
-    {
-        return "homepage";
-    }
-
     /**
      * @Author Saki
      * @Description 上传图片
@@ -114,7 +108,7 @@ public class NoteController
         map.put("uid", (int)session.getAttribute(SessionConfig.USER_ID));
         noteService.addNote(map);
         map.put("status", 0);
-        map.put("topMap", "");
+        map.put("topImg", "");
         dto.putAll(map);
         return "note/edit";
     }
@@ -184,9 +178,11 @@ public class NoteController
     @RequestMapping("/note/{id}")
     public String getNote(Map<String, Object> dto, @PathVariable("id") int id, HttpSession session)
     {
+        noteService.addViews(id);
         Map<String, Object> map = noteService.getNoteById(id, 2, (Integer)session.getAttribute(SessionConfig.USER_ID));
         if (Utils.isNotEmpty(map))
         {
+            noteService.addViews(id);
             dto.putAll(map);
             return "note/details";
         }
@@ -261,6 +257,19 @@ public class NoteController
         return noteService.getDraftByUid((int)session.getAttribute(SessionConfig.USER_ID));
     }
 
+    /**
+     * @Author Saki
+     * @Description 个人空间的游记展示
+     * @Date 2019/7/17
+     * @param map
+     * @return java.util.Map<java.lang.String,java.lang.Integer>
+     **/
+    @PostMapping("/note/notesDescription")
+    @ResponseBody
+    public List<Map<String, Object>> getNotesDescriptionByUid(@RequestBody Map<String, Object> map)
+    {
+        return noteService.getNoteByUid((Integer) map.get("uid"));
+    }
 
     /**
      * @Author Saki

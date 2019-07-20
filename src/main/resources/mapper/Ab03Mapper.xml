@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="GBK" standalone="no"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Ab03Dao">
+	<!--管理员-->
 	<select id="fuzzyGet" resultType="java.util.HashMap">
 		SELECT aab301,aaa301,aab302,aab303,aab304,
 				aab305,aab306,aab307,aab308,aab309,
@@ -55,5 +56,39 @@
 		FROM ab03
 		where aab301=#{id}
 	</select>
-	
+
+
+	<!--普通查询-->
+	<select id="getSightDetailById" resultType="java.util.HashMap">
+		SELECT sid, name, pid, pname, summary, phone,
+		       site, commendTime, traffic, ticket, openTime,
+		       position, longitude, latitude, commentCount, pic
+			   <if test="uid != null">,collectId</if>
+		FROM
+			(SELECT aab301 as 'sid', aab302 as 'name', aa03.aaa301 as 'pid', aab303 as 'summary', aab304 as 'phone',
+			        aab305 as 'site', aab306 as 'commendTime', aab307 as 'traffic', aab308 as 'ticket',
+			        aab309 as 'openTime', aab310 as 'position', aab311 as 'longitude', aab312 as 'latitude',
+				    aaa302 as 'pname', aab313 as 'pic'
+			 FROM ab03, aa03
+			 WHERE aab301=#{sid} AND aa03.aaa301=ab03.aaa301) t
+			<if test="uid != null">
+		    LEFT JOIN
+			(SELECT aaa101 as 'collectId', aad404
+			 FROM ad04
+			 WHERE aaa101=#{uid} AND aad403=3 AND aad404=#{sid}) t2
+				ON t.sid=t2.aad404
+			</if>
+			LEFT JOIN
+		    (SELECT aac003, count(aac001) AS "commentCount"
+		     FROM ac00
+		     WHERE ac00.aac002=3 AND aac003=#{sid} AND aac006=1
+		     GROUP BY aac003) t3 ON t.sid=t3.aac003
+	</select>
+
+	<select id="getSightIntroById" resultType="java.util.HashMap">
+		SELECT aab301 as 'sid', aab302 as 'name', aab303 as 'summary',
+			   aab311 as 'longitude', aab312 as 'latitude', aab313 as 'pic'
+		FROM ab03
+		WHERE aab301=#{sid}
+	</select>
 </mapper>

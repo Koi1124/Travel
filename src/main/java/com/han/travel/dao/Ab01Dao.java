@@ -56,6 +56,25 @@ public interface Ab01Dao extends CheckDao
                                                   @Param("myId") int myId);
 
 
+    Integer getNoteCountByUid(@Param("uid") int uid);
+
+    List<Map<String, Object>> getNoteByUid(@Param("uid") int uid);
+
+    /**
+     *@discription: 根据用户id获取收藏游记信息 map->
+     * title: 游记标题
+     * time: 游记发布时间
+     * nid: 游记id
+     * authorId: 作者id
+     * authorName: 作者名
+     * collectId: 收藏id
+     *@param uid 
+     *@date: 2019/7/20 11:28
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    List<Map<String, Object>> getCollectNotesByUId(int uid);
+
     /**==============================================================================
      *                              首页查询
      * ==============================================================================

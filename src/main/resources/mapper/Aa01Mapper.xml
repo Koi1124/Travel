@@ -9,7 +9,7 @@
     </select>
 
     <select id="getUserById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT aaa102 AS "name", aaa103 AS "sex", aaa104 AS "address", aaa106 AS "pic", aaa120 AS "addtion"
+        SELECT aaa102 AS "name", aaa103 AS "sex", aaa104 AS "address", aaa106 AS "pic", aaa120 AS "addition"
         FROM aa01
         WHERE aaa101=#{id}
         ;
@@ -44,6 +44,11 @@
         INSERT INTO aa01(aaa102, aaa103, aaa105, aaa106, aaa107, aaa108)
         VALUES (#{name}, 0, CURRENT_TIMESTAMP(), "/asserts/img/common/default_logo.jpg", #{mail}, #{password});
     </insert>
-    
-    
+
+    <select id="getPwdByName" parameterType="java.lang.String" resultType="java.lang.String">
+    	SELECT aaa108
+    	FROM aa01
+    	WHERE aaa102=#{name};
+    </select>
+
 </mapper>

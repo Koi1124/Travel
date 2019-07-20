@@ -8,7 +8,6 @@ var localhostPaht=curPath.substring(0,pos);
 
 var tag=true;
 var origin=$(document).attr("title");
-console.log(user_id);
 $(document).ready(function () {
     $.ajax({
         type: "post",
@@ -21,6 +20,23 @@ $(document).ready(function () {
         }),
         success:function (result) {
             changeTitle(result);
+        },
+        error:function (e) {
+            console.log(e);
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: "/letter/haveLetter",
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success:function (result) {
+            if (result) {
+                $("._head_private_letter").show();
+                $(document).attr("title","[收到私信]"+origin);
+            }
         },
         error:function (e) {
             console.log(e);
@@ -42,7 +58,7 @@ if(typeof(WebSocket) == "undefined") {
         console.log("Socket 已打开");
         //socket.send("这是来自客户端的消息" + location.href + new Date());
     };
-//获得消息事件
+    //获得消息事件
     socket.onmessage = function(msg) {
         if (msg.data==user_id) {
             var num=$("._head_msg").text();
@@ -50,9 +66,18 @@ if(typeof(WebSocket) == "undefined") {
             changeTitle(updateNum);
             $("._head_msg").show();
         }
-        if (Number(msg.data.split(",")[0])==user_id) {
+        if (Number(msg.data.split(",")[1])==user_id) {
             $("._head_private_letter").show();
             $(document).attr("title","[收到私信]"+origin);
+        }
+        if (Number(msg.data.split(",")[2])==user_id) {
+            if (msg.data.split(",")[1]=="single") {
+                var num=$("._head_msg").text();
+                var updateNum=Number(num)-1;
+                changeTitle(updateNum)
+            }else {
+                changeTitle(0);
+            }
         }
 
     }
@@ -80,6 +105,7 @@ function changeTitle(data) {
         $("._head_msg").hide();
     } else {
         $(document).attr("title","["+data+"条新消息]"+origin);
+        $("._head_msg").show();
     }
     $("._head_msg").text(data);
 }
@@ -99,9 +125,11 @@ $(function () {
             success:function (result) {
                 console.log(result);
                 if (result) {
-                    var num=$("._head_msg").text();
-                    var updateNum=Number(num)-1;
-                    changeTitle(updateNum);
+                    var jsonMsg={
+                        type:0,
+                        id:user_id
+                    }
+                    socket.send(JSON.stringify(jsonMsg));
                     $("#_j_msg_panel").hide(250);
                 }
             },
@@ -123,7 +151,11 @@ $(function () {
             }),
             success:function (result) {
                 if (result){
-                    changeTitle(0);
+                    var jsonMsg={
+                        type:1,
+                        id:user_id
+                    }
+                    socket.send(JSON.stringify(jsonMsg));
                     $("#_j_msg_panel").hide(250);
                 }
             },
@@ -147,7 +179,7 @@ $(function () {
             success:function (result) {
                 if (tag){
                     $(result).each(function (i,message) {
-                        $("#_j_msg_panel ul").append('<li class=""><a href="'+ message.url +'" target="_self" onclick="checkout('+ message.mid +')" style="text-decoration: none;">'+ message.msg +'</a></li>')
+                        $("#_j_msg_panel ul").prepend('<li class=""><a href="'+ message.url +'" target="_self" onclick="checkout('+ message.mid +')" style="text-decoration: none; word-wrap: break-word;" >'+ message.msg +'</a></li>')
                         $("#_j_msg_panel").show(250);
                     });
                     $("#_j_msg_panel ul").append('<li class="" style="height: 12px"><a onclick="checkAll()" style="height: 12px;font-size: 10px;line-height: 12px;color: #666;position: relative;">全部标记为已读</a></li>');

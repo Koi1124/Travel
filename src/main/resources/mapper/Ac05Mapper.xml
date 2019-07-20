@@ -25,7 +25,7 @@
         WHERE aaa101=#{uid} AND aab501=#{tid};
     </update>
 
-    <update id="changeApplState">
+    <update id="changeAppState">
         UPDATE ac05
         SET aac506=#{state}
         WHERE aac501=#{id}
@@ -48,6 +48,16 @@
         FROM ac05 a, aa01 b
         WHERE a.aaa101=b.aaa101 AND a.aac506=1
         AND a.aab501=#{cid}
+        ;
+    </select>
+
+    <select id="getAppInfoByCId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT a.aac501 AS 'aid', b.aaa102 AS 'name', a.aac502 AS 'tel',a.aac503 AS 'count', a.aac504 AS 'nlist',
+                a.aac505 AS 'addition', a.aaa101 AS 'uid', a.aac507 AS 'sex', a.aac506 AS 'state'
+        FROM ac05 a, aa01 b
+        WHERE a.aaa101=b.aaa101 AND a.aac506 <![CDATA[ <> ]]> 2
+        AND a.aab501=#{cid}
+        ORDER BY state
         ;
     </select>
 </mapper>

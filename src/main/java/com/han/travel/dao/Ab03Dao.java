@@ -24,4 +24,9 @@ public interface Ab03Dao extends CheckDao
 	Integer fuzzySelectCount(@Param("map") Map<String,Object>map);
 	
 	List<Map<String,Object>> fuzzyGet(@Param("map") Map<String,Object>map);
+
+
+	Map<String, Object> getSightDetailById(@Param("sid") Integer sid, @Param("uid") Integer uid);
+
+	Map<String, Object> getSightIntroById(@Param("sid") Integer sid);
 }

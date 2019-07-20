@@ -1,0 +1,150 @@
+.row-reviewForm {
+    padding: 40px 0 50px;
+}
+body, p, div {
+    word-wrap: break-word;
+}
+.wrapper {
+    padding: 0;
+}
+.wrapper {
+    width: 980px;
+    margin: 0 auto;
+}
+.comment li {
+    border-bottom: 1px dotted #e7e7e7;
+    padding: 5px 10px 5px 35px;
+}
+.mod-comment {
+    width: 600px;
+}
+.mod-comment .mod-title {
+    font-size: 20px;
+    font-weight: normal;
+    color: #444;
+    margin-bottom: 20px;
+}
+.comment-form {
+    margin-bottom: 25px;
+}
+.mod-comment textarea {
+    float: left;
+    width: 503px;
+    height: 48px;
+    border: 1px solid #d6d6d6;
+    margin: 0 5px 0 0;
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #666;
+    line-height: 24px;
+    border-radius: 3px;
+}
+.mod-comment .btn {
+    float: left;
+    border: 0;
+    padding: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #ffa800;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.mod-comment .btn:hover{
+    background-color: #ff8700;
+    text-decoration: none;
+}
+.rev-list {
+    padding: 0 30px;
+    border-bottom: 1px solid #eee;
+}
+.rev-item {
+    padding: 25px 0 20px 40px;
+}
+.rev-item .user {
+    float: left;
+    margin-left: -70px;
+    display: inline;
+    text-align: center;
+}
+.rev-item .avatar {
+    display: block;
+    margin-bottom: 5px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+.rev-item .useful {
+    float: right;
+    font-size: 14px;
+    color: #666;
+    line-height: 22px;
+}
+.rev-item .useful i {
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    width: 20px;
+    height: 22px;
+    background: url(https://css.mafengwo.net/images/mdd/place/shopping-icons3.png) no-repeat 0 -110px;
+}
+
+.rev-item .useful.on i {
+    background-position: -30px -110px;
+}
+.rev-item .name {
+    font-size: 14px;
+}
+.rev-txt {
+    margin: 8px 0 10px;
+    font-size: 14px;
+    line-height: 22px;
+}
+.rev-item .info {
+    margin-top: 5px;
+    line-height: 20px;
+}
+.rev-item .btn-comment {
+    float: right;
+    line-height: 22px;
+}
+.rev-item .time {
+    color: #999;
+    margin-right: 20px;
+}
+.comment {
+    margin-top: 5px;
+    clear: both;
+    border-top: 1px solid #eaeaea;
+    line-height: 20px;
+}
+.add-comment {
+    padding: 5px 0;
+}
+
+
+.add-comment textarea {
+    
+    background-color: #fcfcfc;
+  
+    transition: height .5s ease 0s;
+}
+textarea {
+    resize: none;
+}
+
+.add-comment .btn {
+    float: right;
+    margin-top: 5px;
+    padding: 0 10px;
+    line-height: 26px;
+    background-color: #ffa800;
+    color: #fff;
+    font-size: 14px;
+}

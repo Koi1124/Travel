@@ -61,4 +61,12 @@ public class TESTController
         session.setAttribute(SessionConfig.USER_NAME,"user2");
         return "/homepage";
     }
+
+    @RequestMapping("/userTest3")
+    public String te3(HttpSession session)
+    {
+        session.setAttribute(SessionConfig.USER_ID,3);
+        session.setAttribute(SessionConfig.USER_NAME,"user3");
+        return "/homepage";
+    }
 }

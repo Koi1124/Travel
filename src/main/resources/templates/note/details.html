@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title th:text="${title}"></title>
     <meta charset="UTF-8">
     <link th:href="@{/asserts/css/note/details.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
@@ -13,6 +14,8 @@
         var content = [[${content}]];
         var nid = [[${nid}]];
         var uid = [[${session.user_id}]];
+        var rUserId = [[${uid}]];
+        var title = [[${title}]];
         var type = '1';
     </script>
 
@@ -25,46 +28,16 @@
 </head>
 
 <body>
-
-<div id="header">
-    <div class="zy-header">
-        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
-            <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="主页"></a></div>
-            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
-                <li class="head-nav-zy-index"><a href="">首页</a></li>
-                <li class="head-nav-zy-place"><a href="">目的地</a></li>
-                <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
-                <li class="head-nav-zy-sales"><a href="">跟团游</a></li>
-                <li class="head-nav-zy-flight"><a href="">结伴</a></li>
-            </ul>
-
-            <div class="head-user-zy" id="_j_head_user">
-                <a href="" title="个人空间">
-                    <div class="user-image"><img
-                            src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
-                            height="32" width="32" alt="wdnmd的窝"></div>
-                </a>
-            </div>
-
-            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
-                <div class="head-search-wrapper-zy">
-                    <div class="head-searchform-zy">
-                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
-                               style="outline:none;">
-                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="shadow"></div>
-    </div>
-</div>
-
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+<input id="comment_count" type="hidden" th:value="${commentCount}"/>
+<input id="user_id" type="hidden" th:value="${session.user_id}"/>
+<input id="user_name" type="hidden" th:value="${session.user_name}"/>
+<input id="user_pic" type="hidden" th:value="${session.user_logo}"/>
 
 
 <div class="set_index" id="_j_cover_box" style="height: 519.667px;">
-    <div class="set_bg _j_load_cover">
-        <img th:src="${topImg}">
+    <div class="set_bg _j_load_cover" style="width:100%;">
+        <img th:src="${topImg}" width="100%">
     </div>
 
     <div class="fully_loading" style="display: none;">
@@ -108,7 +81,7 @@
                     <span><i class="ico_view"></i><hhh th:text="${views + '/' + (commentCount eq null?0:commentCount)}">45/2</hhh></span>
                 </div>
                 <div th:if="${uid eq session.user_id}" class="person-edit">
-                    <a th:href="@{'/note/editote/' + nid}" title="编辑">编辑</a>|
+                    <a th:href="'/note/editNote/' + ${nid}" title="编辑">编辑</a>|
                     <a id="btn-delete" title="删除">删除</a>
                 </div>
             </div>
@@ -151,8 +124,6 @@
                         <li class="cost">人均费用<span>/</span><hhh th:text="${money}">5000RMB</hhh></li>
                     </ul>
                 </div>
-                <div th:if="${uid eq session.user_id}" class="tra_edit"><a role="button" tabindex="0" data-japp="setnoteex" data-iid="14943927">编辑</a>
-                </div>
             </div>
 
             <div class="vc_article">
@@ -173,7 +144,7 @@
             </div>
 
             <!-- 评论 -->
-            <div th:if="${status eq 2}" class="row">
+            <div th:if="${status eq '2'}" class="row">
                 <div class="wrapper clearfix">
                     <div class="mod-comment">
                         <h3 class="mod-title">留言</h3>

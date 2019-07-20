@@ -410,4 +410,17 @@ public class CompanyService
         }
         return null;
     }
+
+    /**
+     *@discription: 根据结伴id得到申请表信息
+     *@param cid 
+     *@date: 2019/7/19 13:00
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    public List<Map<String,Object>> getAppInfoByCId(int cid)
+    {
+        return ac05Dao.getAppInfoByCId(cid);
+    }
+
 }

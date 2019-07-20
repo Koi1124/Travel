@@ -1,6 +1,14 @@
 var joinUrl = "/together/join";
 var gender = "1";
+
+
 $(function () {
+
+    if (user==rUserId){
+        $(".invisible").text(telephone);
+    }
+
+
     $(".radio").click(function () {
         $(this).closest(".gender").find(".radio").attr("class", "radio _j_add_gender");
         $(this).attr("class", "radio on _j_add_gender");
@@ -69,9 +77,12 @@ function clickSubmit() {
         list: $("._j_together_names").val(),
         addition: $("._j_together_remark").val(),
         sex: gender,
-        uid: userId
+        uid: userId,
+        rUserId: rUserId,
+        title: title
     };
 
+    // 报名表信息
     $.ajax({
         type: "post",
         url: joinUrl,
@@ -98,8 +109,7 @@ function clickSubmit() {
 }
 
 //判断是否为数字
-function IsNum(s)
-{
+function IsNum(s) {
     if (s!=null && s!="")
     {
         return !isNaN(s);
@@ -114,6 +124,118 @@ $(document).ready(function () {
             scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
         },400);
     });
+
+
+    function doneOperate(aid) {
+        $(".bd").each(function () {
+            if ($(this).attr("data-id")==aid)
+            {
+                $(this).hide(300);
+            }
+        })
+    }
+
+
+    // 同意申请
+    pass=function (aid,uid) {
+        $.ajax({
+            type: "post",
+            url: localhostPaht+"/together/passApp",
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            data:JSON.stringify({
+                rUserId:uid,
+                pid:together_id,
+                title:title,
+                aid: aid
+            }),
+            success:function (result) {
+                if (result!=null){
+                    spop({
+                        template: '已同意申请',
+                        position  : 'top-center',
+                        style: 'success',
+                        autoclose: 1500
+                    });
+                    $(".bd").each(function () {
+                        if ($(this).attr("data-id")==aid)
+                        {
+                            $(this).find(".item").last().hide(300);
+                        }
+                    });
+                    var origin_num=$("#_apply_num em").text();
+                    var update_num=Number(origin_num)+1;
+                    $("#_apply_num em").text(update_num);
+                    $("#_apply_user_list").append('<li>\n' +
+                        '                                <a class="avatar" href="#" target="_blank"><img src="'+ result.pic +'" style="width: 68px;height: 68px;"></a>\n' +
+                        '                                <a class="name" href="#" target="_blank"><p>'+ result.name +'</p></a>\n' +
+                        '                          </li>');
+                }
+                else {
+                    spop({
+                        template: '网络故障，请稍后再试',
+                        position  : 'top-center',
+                        style: 'error',
+                        autoclose: 1500
+                    });
+                }
+            },
+            error:function (e) {
+                console.log(e);
+                spop({
+                    template: '网络故障，请稍后再试',
+                    position  : 'top-center',
+                    style: 'error',
+                    autoclose: 1500
+                });
+            }
+        })
+    }
+
+    // 拒绝申请
+    reject=function (aid,uid) {
+        $.ajax({
+            type: "post",
+            url: localhostPaht+"/together/rejectApp",
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            data:JSON.stringify({
+                rUserId:uid,
+                pid:together_id,
+                title:title,
+                aid: aid
+            }),
+            success:function (result) {
+                if (result){
+                    spop({
+                        template: '已拒绝申请',
+                        position  : 'top-center',
+                        style: 'success',
+                        autoclose: 1500
+                    });
+                    doneOperate(aid);
+                } else {
+                    spop({
+                        template: '网络故障，请稍后再试',
+                        position  : 'top-center',
+                        style: 'error',
+                        autoclose: 1500
+                    });
+                }
+            },
+            error:function (e) {
+                console.log(e);
+                spop({
+                    template: '网络故障，请稍后再试',
+                    position  : 'top-center',
+                    style: 'error',
+                    autoclose: 1500
+                });
+            }
+        });
+    }
 
 
     // 私信点击事件
@@ -223,11 +345,9 @@ $(document).ready(function () {
     $(".btn-follow").click(function () {
         var isFollow=$(".btn-follow span:eq(0)").text();
         var data;
-        var userId=$(".btn-follow").attr("data-uid");
-        var followerId=$("#user_id").val();
         data={
-            userId:userId,
-            followerId:followerId
+            userId:rUserId,
+            followerId:user
         }
         console.log(data);
         if (isFollow=="加关注") {
@@ -300,7 +420,7 @@ $(document).ready(function () {
         }
     })
 
-});
+})
 
 //关注结伴
 function star(data) {

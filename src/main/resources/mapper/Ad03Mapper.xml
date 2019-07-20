@@ -20,5 +20,43 @@
         WHERE aad302=#{followerId} AND aad303=#{userId}
         ;
     </select>
-    
+
+    <select id="getFollows" resultType="java.util.HashMap">
+        SELECT aa01.aaa101 as 'uid', aaa102 as 'userName', aaa103 as 'sex',
+               aaa106 as 'pic'
+        FROM ad03, aa01
+        WHERE ad03.aad302=#{uid} AND ad03.aad303=aa01.aaa101;
+    </select>
+
+    <select id="getFans" resultType="java.util.HashMap">
+        SELECT aa01.aaa101 as 'uid', aaa102 as 'userName', aaa103 as 'sex',
+        aaa106 as 'pic'
+        FROM ad03, aa01
+        WHERE ad03.aad303=#{uid} AND ad03.aad302=aa01.aaa101;
+    </select>
+
+    <select id="getUserFollows" resultType="java.util.HashMap">
+        SELECT uid, userName, sex, pic, followId FROM
+        (SELECT aa01.aaa101 as 'uid', aaa102 as 'userName', aaa103 as 'sex',
+        aaa106 as 'pic'
+        FROM ad03, aa01
+        WHERE ad03.aad302=#{uid} AND ad03.aad303=aa01.aaa101) t
+        LEFT JOIN (SELECT aad302 as 'followId', aad303
+            FROM ad03
+            WHERE aad302=#{myId}) t2
+        ON t.uid=t2.aad303;
+    </select>
+
+    <select id="getUserFans" resultType="java.util.HashMap">
+        SELECT uid, userName, sex, pic, followId FROM
+        (SELECT aa01.aaa101 as 'uid', aaa102 as 'userName', aaa103 as 'sex',
+        aaa106 as 'pic'
+        FROM ad03, aa01
+        WHERE ad03.aad303=#{uid} AND ad03.aad302=aa01.aaa101) t
+        LEFT JOIN (SELECT aad302 as 'followId', aad303
+        FROM ad03
+        WHERE aad302=#{myId}) t2
+        ON t.uid=t2.aad303;
+    </select>
+
 </mapper>

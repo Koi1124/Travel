@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 个人空间 -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="${name + '的个人中心'}">wdnmd的个人中心</title>
+    <meta name="renderer" content="webkit" />
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css"
+          rel="stylesheet" type="text/css" />
+    <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1^alI^1545682406.css"
+          rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var uid = [[${uid}]];
+        var myId = [[${session.user_id}]];
+        var part = [[${part}]];
+    </script>
+
+
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/home/userHome/comprehension.js}"></script>
+
+</head>
+
+<body style="padding-top: 0px !important">
+
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+
+<div class="main">
+    <div class="banner">
+        <div class="banner_img banner_note" id="_j_banner">
+        </div>
+        <div class="tags_bar second_tags_bar">
+            <div class="center clearfix">
+                <ul class="flt2" style="float: left;margin-left:280px;">
+                    <li class="on"><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
+                                      th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
+                    <li><a class="tags_link _collect_choose" tabindex="1" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
+                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/together'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
+                           th:text="${(uid eq session.user_id?'我':'TA') + '的结伴'}">我的结伴</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="dropdown-menu dropdown-collect" id="_j_user_panel" data-cs-t="user_nav" style="width: 100px;right: 33.9%;display: none" th:fragment="collectExtend">
+            <ul>
+                <li><a href="" th:href="@{'/u/'+${uid}+'/collectNote'}" target="_self" title="游记" rel="nofollow">游记</a></li>
+                <li><a href="" th:href="@{'/u/'+${uid}+'/collectRoute'}" target="_self" title="路线" rel="nofollow">路线</a></li>
+                <li><a href="" th:href="@{'/u/'+${uid}+'/collectSight'}" target="_self" title="景点" rel="nofollow">景点</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="center clearfix">
+        <!-- sidebar -->
+        <div class="side_bar flt1" th:fragment="side_bar">
+            <div class="MAvatar">
+                <div class="MAvaImg hasAva">
+                    <img th:src="${pic}"
+                         height="120" width="120">
+                </div>
+                <div class="MAvaName" th:text="${name}">Jack.Swift
+                    <i th:if="${sex eq '2'}" class="MGenderFemale"></i>
+                    <i th:if="${sex eq '1'}" class="MGenderMale"></i>
+                </div>
+
+
+                <div class="MAvaInfo clearfix MAvaMyInfo">
+                    <span
+                            class="MAvaLevel flt1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="MAvaPlace flt1" th:title="${address}" th:text="${'现居：' + address}">现居：武汉</span> <span class="MAvaSet">
+                    <a th:if="${uid eq session.user_id}" title="编辑信息" href="/setting" target="_blank"></a></span>
+                </div>
+
+
+                <!-- 在他人空间显示 -->
+                <div th:if="${uid ne session.user_id}" class="MAvaAction">
+                    <!-- 已关注在class加 MAvaAttentioned -->
+                    <a role="button" data-japp="following" id="_follow_user" data-uid="62964992" th:hasFollowed="${followId eq null?'0':'1'}"
+                       th:class="${'MAvaBtn MAvaAttention' + (followId eq null?'':' MAvaAttentioned')}"
+                       class="MAvaBtn MAvaAttention MAvaAttentioned">
+                        <span class="MAing">关注</span>
+                        <span class="MAed">已关注</span>
+                        <span class="MAcancel">取消关注</span>
+                    </a>
+                    <a role="button" th:href="'/letter/detail/' + ${uid}" data-japp="send_message" data-to_uid="62964992" data-to_uname="Soul" class="MAvaBtn MAvaEmail" title="私信">私信</a>
+                </div>
+
+
+
+                <div id="_j_profilearea" class="MAvaProfile">
+                    <div class="MProfile _j_showintrobox" data-intro="wdnmd">
+                        <pre th:text="${addition}">addition</pre>
+                    </div>
+                </div>
+
+                <div class="MAvaMore clearfix">
+                    <div class="MAvaNums">
+                        <strong><a th:text="${followCount eq null?'0':followCount}">4</a></strong>
+                        <p>关注</p>
+                    </div>
+                    <div class="MAvaNums">
+                        <strong><a th:text="${fanCount eq null?'0':fanCount}">4</a></strong>
+                        <p>粉丝</p>
+                    </div>
+                    <div class="MAvaNums last">
+                        <strong><a th:text="${noteCount eq null?'0':noteCount}">4</a></strong>
+                        <p>游记</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="MUsers" style="padding-top: 10px">
+                <div class="MUsersTitle" th:if="${followCount gt 0}"
+                     th:text="${(uid eq session.user_id?'我':'TA') + '的关注'}">我的关注</div>
+                <div class="MUsersDetail" id="_j_followcnt">
+                    <div class="MUsersAtom">
+                        <ul class="clearfix _j_followlist">
+                            <hhh th:each="follow,followStatus:${follows}">
+                            <li th:if="${followStatus.index lt 7}">
+                                <a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank">
+                                    <img th:src="${follow.pic}" height="48" width="48" th:title="${follow.userName}">
+                                </a>
+                                <p><a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank" th:title="${follow.userName}"
+                                      th:text="${follow.userName}">sb</a></p>
+                            </li>
+
+                            <li th:if="${followStatus.index eq 7}">
+                                <a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank">
+                                    <img th:src="${follow.pic}" height="48" width="48" th:title="${follow.userName}">
+                                </a>
+                                <p><a th:href="@{'/u/' + ${follow.uid} + '/note'}" target="_blank">查看更多</a></p>
+                            </li>
+                            </hhh>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="MUsersTitle" th:if="${fanCount gt 0}"
+                     th:text="${(uid eq session.user_id?'我':'TA') + '的粉丝'}">我的粉丝</div>
+                <div class="MUsersDetail" id="_j_fancnt">
+                    <div class="MUsersAtom">
+                        <ul class="clearfix _j_followlist">
+                            <hhh th:each="fan,fanStatus:${fans}">
+                            <li th:if="${fanStatus.index lt 7}">
+                                <a th:href="@{'/u/' + ${fan.uid} + '/note'}" target="_blank">
+                                    <img th:src="${fan.pic}" height="48" width="48" th:title="${fan.userName}">
+                                </a>
+                                <p><a th:href="@{'/u/' + ${fan.uid} + '/note'}" target="_blank" th:title="${fan.userName}"
+                                      th:text="${fan.userName}">sb</a></p>
+                            </li>
+
+                            <li th:if="${fanStatus.index eq 7}">
+                                <a th:href="" target="_blank">
+                                    <img th:src="${fan.pic}" height="48" width="48" th:title="查看更多">
+                                </a>
+                                <p><a th:href="" target="_blank">查看更多</a></p>
+                            </li>
+                            </hhh>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="content flt2">
+
+
+            <!-- 一篇游记的板块 -->
+
+            <div th:each="note,noteStauts:${notes}" class="common_block my_notes">
+                <div class="notes_list">
+                    <dl style="padding-bottom: 0px">
+                        <dt>
+                            <a th:href="@{'/note/' + ${note.nid}}" target="_blank">
+                                <img th:src="${note.topImg eq ''?'http://images.mafengwo.net/images/home_new2015/default.jpg':note.topImg}"
+                                     width="680">
+                            </a>
+                            <div class="hover_item">
+                                <div th:if="${note.poiName ne null}" class="thumb_description">
+                                    <strong th:text="${note.poiName}">武汉</strong>
+                                </div>
+                                <div th:if="${uid eq session.user_id}" class="notes_status">
+                                    <a th:href="@{'/note/editNote/' + ${note.nid}}" class="flt2 notes_handles edit" title="编辑"><i></i></a>
+                                </div>
+                            </div>
+                        </dt>
+                        <dd>
+                            <div class="note_title clearfix">
+                                <div class="note_info">
+                                    <h3>
+                                        <a th:href="@{'/note/' + ${note.nid}}" target="_blank" th:title="${note.title}"
+                                           th:text="${note.title}">天津不如武汉</a>
+                                    </h3>
+                                    <div class="note_more">
+                                        <span class="MInfoNum"><i class="MIcoView"></i><em th:text="${note.views eq null?'0':note.views}">3</em></span>
+                                        <span class="MInfoNum"><i class="MIcoStar"></i><em th:text="${note.starCount eq null?'0':note.starCount}">0</em></span>
+                                        <span class="MInfoNum"><em>顶 </em><em th:text="${note.thumbsUpCount eq null?'0':note.thumbsUpCount}">0</em></span>
+                                        <span class="time" th:text="${note.editTime}">2019-07-09 14:41:15</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="note_word" th:text="${note.intro}">
+                                contentcontentcontentcontentcontentcontent
+                                contentcontentcontentcontentcontentcontent
+                                contentcontentcontentcontentcontentcontent
+                                contentcontentcontentcontentcontentcontent
+                            </div>
+                        </dd>
+                    </dl>
+                    <div th:if="${uid eq session.user_id}" class="more_notes">
+                        <a class="btn_deleted" href="/u/note/delete.html"><i></i></a>
+                        <a href="" title="写游记" class="btn_write_zy"><i></i>写游记</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

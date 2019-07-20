@@ -24,11 +24,14 @@
 
 <body>
 <div id="header" th:replace="~{homepage :: navbar}"></div>
-    <div class="back"><a style="color:#333" href="/msg/sms/index" th:href="@{/letter}">&lt; 返回</a></div>
     <div class="letterwrap">
-
         <div class="panel">
-            <div class="title" th:text="${toClient.name}">用户id</div>
+
+            <div class="title">
+                <div class="back"><a style="color:#333" href="/msg/sms/index" th:href="@{/letter}">&lt; 返回</a></div>
+                <div class="name" th:text="${toClient.name}">用户id</div>
+            </div>
+
             <div id="container">
                 <div id="all_content">
                     <div id="all_dialog" th:each="letter:${detail}">

@@ -36,7 +36,7 @@
             </ul>
 
             <div class="head-user-zy" id="_j_head_user">
-                <a href="##" title="个人空间">
+                <a href="##" th:href="@{'/u/'+${session.user_id}+'/note'}" title="个人空间">
                     <div class="user-image">
                         <img th:src="${session.user_logo}"
                              src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
@@ -50,7 +50,7 @@
                     <i class="icon-msg"></i>
                     消息
                     <i class="icon-caret-down"></i>
-                    <span class="head-msg-new _head_msg" style="display: inline;">0</span>
+                    <span class="head-msg-new _head_msg" style="display: none;">0</span>
                 </a>
             </div>
 
@@ -244,7 +244,7 @@
                             <a data-type="1">最新发表</a>
                         </li>
                     </ul>
-                    <div class="tn-write"><a class="btn-add" href="" target="_blank" rel="nofollow"><i></i>写游记</a></div>
+                    <div class="tn-write"><a class="btn-add" href="" th:href="@{/note/writeNote}" target="_self" rel="nofollow"><i></i>写游记</a></div>
 
                 </div>
                 <!-- 游记navbar e-->

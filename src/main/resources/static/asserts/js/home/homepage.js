@@ -85,7 +85,7 @@ function setNotes(data) {
 
     $("._j_tag_choose_container i").click(function () {
         var mid=0;
-        $(this).remove();
+        $("._j_tag_choose_container").remove();
         getNotes(mid,s_type);
         scroll();
     })

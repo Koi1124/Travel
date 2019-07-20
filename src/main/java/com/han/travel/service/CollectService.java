@@ -26,4 +26,9 @@ public class CollectService
     {
         return ad04Dao.deleteCollect(dto);
     }
+
+    public boolean dCByCId(int cid)
+    {
+        return ad04Dao.deleteCByCId(cid);
+    }
 }

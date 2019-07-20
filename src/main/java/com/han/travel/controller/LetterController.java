@@ -20,6 +20,13 @@ public class LetterController
     @Autowired
     UserService userService;
 
+    @RequestMapping("/haveLetter")
+    @ResponseBody
+    public boolean haveLetter(HttpSession session)
+    {
+        return letterService.haveLetter((Integer)session.getAttribute(SessionConfig.USER_ID));
+    }
+
 
     @RequestMapping("/readLetter")
     @ResponseBody

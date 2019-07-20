@@ -24,4 +24,6 @@ public interface Ab02Dao extends CheckDao
 	Integer fuzzySelectCount(@Param("map")Map<String,Object>map);
 	
 	List<Map<String,Object>> fuzzyGet(@Param("map")Map<String,Object>map);
+
+	Map<String, Object> getRouteDetailByRId(@Param("rid") Integer rid);
 }
