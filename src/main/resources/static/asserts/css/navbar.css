@@ -203,6 +203,29 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
     background-position: -120px -110px!important;
 }
 
+
+.login-out {
+    float: right;
+    padding: 21px 10px;
+    height: 26px;
+    line-height: 26px;
+    color: #c9c9c9;
+    text-align: right;
+}
+.login-out a {
+    font-size: 14px;
+}
+.login-out .split {
+    display: inline-block;
+    margin: 0 10px;
+    width: 1px;
+    height: 14px;
+    background-color: #c9c9c9;
+    overflow: hidden;
+    vertical-align: -2px;
+}
+
+
 .banner .dropdown-menu {
     position: absolute;
     top: 0;

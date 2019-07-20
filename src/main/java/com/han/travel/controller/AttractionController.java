@@ -2,17 +2,18 @@ package com.han.travel.controller;
 
 
 import java.util.Map;
+
+import com.han.travel.configuration.SessionConfig;
+import com.han.travel.service.SightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.han.travel.dao.Ab03Dao;
 import com.han.travel.support.PageBean;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AttractionController 
@@ -20,7 +21,9 @@ public class AttractionController
 	@Autowired
     private Ab03Dao ab03Dao;
 	
-	
+	@Autowired
+    private SightService sightService;
+
 	@RequestMapping("/attraction")
     public String toAttraction(Map<String,Object> dto)
     {
@@ -70,6 +73,37 @@ public class AttractionController
 		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
     }
 	
-	
+
+    /**
+     * @Author Saki
+     * @Description 景点详细页面
+     * @Date 2019/7/19
+     * @param dto {
+     *            pic
+     *            summary
+     *            name
+     *            pid
+     *            pname
+     *            commentCount
+     *            longitude
+     *            latitude
+     *            phone
+     *            site
+     *            commendTime
+     *            traffic
+     *            ticket
+     *            openTime
+     *            position
+     *            collectId
+     *        }
+     * @param session
+     * @return java.lang.String
+     **/
+    @RequestMapping("/sight/{id}")
+    public String getSight(Map<String, Object> dto, @PathVariable("id") int id, HttpSession session)
+    {
+        dto.putAll(sightService.getSightDetailById(id, (Integer)session.getAttribute(SessionConfig.USER_ID)));
+        return "poi/sight";
+    }
 	
 }
