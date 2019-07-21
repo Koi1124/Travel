@@ -43,7 +43,7 @@
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
                     <li class="on"><a class="tags_link _collect_choose" tabindex="1" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
-                                       th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
+                                      th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/together'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
@@ -66,22 +66,25 @@
             <div class="wrap">
                 <div class="mian dialogue">
                     <div class="dia_list ">
-                        <!-- 收藏游记 s-->
-                        <div class="item clearfix _collect_item" th:data-id="${collectNote.collectId}" th:each="collectNote:${collectNotes}">
+                        <!-- 收藏景点 s-->
+                        <div class="sight_item clearfix">
 
-                            <div class="con">
-                                <div class="title clearfix">
-                                    <a href="游记页面" th:href="@{'/note/'+${collectNote.nid}}" class="name"><span th:text="${collectNote.title}">游记题目</span></a>
-                                </div>
-                                <p>发布时间：<span th:text="${collectNote.time}">2019.......</span></p>
-                                <p>作者：<a href="用户空间" th:href="@{'/u/'+${collectNote.authorId}+'/note'}" class="name"><hhh th:text="${collectNote.authorName}">茄子</hhh></a></p>
-                            </div>
-
-                            <div class="tool_right" th:if="${session.user_id eq collectNote.authorId}">
-                                <span class="delete" th:onclick="'deleteCollect('+ ${collectNote.collectId} +')'"></span>
-                            </div>
+                            <ul class="p-poi clearfix">
+                                <!-- 一个景点 s -->
+                                <li th:each="collectSight:${collectSights}">
+                                    <a href="/poi/3394.html" th:href="@{'/sight/'+${collectSight.id}}" target="_blank">
+                                        <div class="img"><img th:src="${collectSight.pic}" src="http://p2-q.mafengwo.net/s5/M00/05/FC/wKgB2lGxjzmAcwzxAAvgdfDYIU407.jpeg?imageMogr2%2Fthumbnail%2F%21240x240r%2Fgravity%2FCenter%2Fcrop%2F%21240x240%2Fquality%2F90" width="162" height="100"></div>
+                                        <!-- 取消收藏按钮 -->
+                                        <span class="p-btn-delete" th:onclick="'deleteCollect('+ ${collectSight.collectId} +')'"><i></i></span>
+                                        <div class="info">
+                                            <p class="title" th:text="${collectSight.name}">青岛邮电博物馆</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- 一个景点 e -->
+                            </ul>
                         </div>
-                        <!-- 收藏游记 e-->
+                        <!-- 收藏景点 e-->
 
 
 

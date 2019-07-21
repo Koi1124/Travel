@@ -187,13 +187,13 @@
         <div th:if="${poiId ne null}" class="slide-right-container">
             <div class="relation_mdd">相关目的地：
                 &nbsp;&nbsp;
-                <a href="/travel-scenic-spot/mafengwo/14731.html" target="_blank" th:title="${poiName}"
+                <a href="/travel-scenic-spot/mafengwo/14731.html" th:href="@{'/c/'+${poiId}}" target="_blank" th:title="${poiName}"
                    th:text="${poiName}" class="_j_mdd_stas">湖北</a>
             </div>
             <div class="its_others">
                 <div class="mdd_info" style="height:auto;">
                     <!--_j_mdd_sta为目的地点击统计，修改注意-->
-                    <a href="/travel-scenic-spot/mafengwo/10133.html" th:title="${poiName}" class="_j_mdd_stas"
+                    <a href="/travel-scenic-spot/mafengwo/10133.html" th:href="@{'/c/'+${poiId}}" th:title="${poiName}" class="_j_mdd_stas"
                        target="_blank">
                         <img th:src="${poiPic}" width="240px">
                         <i></i>

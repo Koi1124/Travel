@@ -44,5 +44,4 @@ public class FollowController
     {
         return followService.removeFollow((Integer) map.get("userId"),(Integer) map.get("followerId"));
     }
-
 }

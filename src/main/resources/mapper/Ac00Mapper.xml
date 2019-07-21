@@ -55,5 +55,21 @@
         AND a.aaa101=#{uid}
         ;
     </select>
+    
+    <select id="getSightCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aab301 AS 'toCId', b.aab302 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','¾°µã' AS 'type'
+        FROM ac00 a, ab03 b
+        WHERE a.aac002=3 AND a.aac003=b.aab301 AND a.aac006=1
+        AND a.aaa101=#{uid}
+        ;
+    </select>
+    
+    <select id="getSysCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aab201 AS 'toCId', b.aab202 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','ÏµÍ³¹¥ÂÔ' AS 'type'
+        FROM ac00 a, ab02 b
+        WHERE a.aac002=2 AND a.aac003=b.aab201 AND a.aac006=1
+        AND a.aaa101=#{uid}
+        ;
+    </select>
 
 </mapper>

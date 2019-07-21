@@ -4,6 +4,7 @@
 
 <head>
 
+    <title th:text="${name}"></title>
 
     <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css" rel="stylesheet" type="text/css">
     <link href="https://css.mafengwo.net/css/cv/css+mdd+line-details2:css+mdd+map-mark.v2^Z1Q^1550459378.css" rel="stylesheet" type="text/css">
@@ -15,12 +16,15 @@
     <script th:inline="javascript">
         var routes = [[${routes}]];
         var rid = [[${rid}]];
+        var title= [[${name}]];
         var uid = [[${session.user_id}]];
+        var user = uid;
         var type = "2";
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/common/comment.js}"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
     <script th:src="@{/asserts/js/poi/route.js}"></script>
@@ -90,13 +94,17 @@
 <body>
 
 <div id="header" th:replace="~{homepage :: navbar}"></div>
+<input id="user_id" th:value="${session.user_id}" type="hidden"/>
+<input id="user_name" th:value="${session.user_name}" type="hidden"/>
+<input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
+<input id="comment_count" th:value="${commentCount}" type="hidden"/>
 
 <div class="row row-lineTop row-bg">
     <div class="wrapper">
 
         <div class="crumb">
 
-            <div class="item"><a href="/mdd/" target="_blank">目的地</a><em>&gt;</em></div>
+            <div class="item"><a href="/mdd/" th:href="@{/mdd}" target="_self">目的地</a><em>&gt;</em></div>
 
             <div class="item">
                 <div class="drop">
@@ -112,13 +120,13 @@
 
                 <div class="pagelet-block">
                     <div class="action-btns">
-                        <a id="btn-thumbs-up" class="btn-item-route btn-likes" onclick="clickThumbsUp()" data-lineid="237">
+                        <a id="btn-thumbs-up" class="btn-item-route btn-likes" onclick="clickPoiThumbsUp()" data-lineid="237">
                             <i th:class="${thumbsUpId eq null?'icon-like':'icon-liked'}"></i>
                             <div>点赞
                                 <span th:text="${thumbsUpCount}">964422</span>
                             </div>
                         </a>
-                        <a id="btn-star" class="btn-item-route btn-collect" onclick="clickStar()" data-lineid="237">
+                        <a id="btn-star" class="btn-item-route btn-collect" onclick="clickPoiStar()" data-lineid="237">
                             <i th:class="${starId eq null?'icon-collect':'icon-collected'}"></i>
                             <div>收藏 <span th:text="${starCount}">13029</span>
                             </div>
@@ -370,16 +378,26 @@
 
 
 
-<div class="row row-comments " data-anchor="comments">
-    <div class="wrapper">
-        <div class="r-title">
-            <h2>线路讨论区</h2>
+<div class="row row-comments" data-anchor="comments">
+    <div class="wrapper clearfix">
+        <div class="mod-comment">
+            <h3 class="mod-title">留言</h3>
+            <div class="comment-form clearfix">
+                <textarea class="_j_comment_content" style="height: 60px;"></textarea>
+                <input class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
+            </div>
+            <div class="_j_commentlist">
+                <div class="rev-list">
+                    <ul id="comment-list">
+                        <!--评论列表-->
+                    </ul>
+                </div>
+            </div>
+            <div class="post_pagin" id="smallpager">
+                <div id="pagination" class="page f1" style="text-align: center;">
+                </div>
+            </div>
         </div>
-        <div class="comment-form clearfix">
-            <textarea></textarea> <input type="button" value="发布" id="submitComment">
-        </div>
-
-
     </div>
 </div>
 

@@ -55,131 +55,139 @@ function search(result) {
     })
 }
 
-function clickStar() {
+function clickPoiStar() {
     if (uid == null) {
         pleaseLogin("收藏");
         return;
     }
-    $("#btn-star").click(function () {
-        if ($(this).find("i").attr("class") == "icon-like") {
-            $.ajax({
-                type: "post",
-                url: "/collect",
-                data: JSON.stringify({
-                    userId: uid,
-                    collectId: rid,
-                    type: type
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                async: true,
-                success: function (result) {
-                    if (result) {
-                        logSuccess("收藏成功");
-                        $(this).find("i").attr("class", "icon-liked")
-                    }
-                    else {
-                        logError("网络故障，请稍后再试");
-                    }
-                },
-                error: function (e) {
-                    logError("网络故障，请稍后再试");
-                    console.log(e);
+    if ($("#btn-star").find("i").attr("class") == "icon-collect") {
+        $.ajax({
+            type: "post",
+            url: "/collect",
+            data: JSON.stringify({
+                userId: uid,
+                collectId: rid,
+                type: type
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result) {
+                    logSuccess("收藏成功");
+                    $("#btn-star").find("i").attr("class", "icon-collected");
+                    var count=$("#btn-star div span").text();
+                    var update=Number(count)+1;
+                    $("#btn-star div span").text(update);
                 }
-            });
-        }
-        else {
-            $.ajax({
-                type: "post",
-                url: "/uncollect",
-                data: JSON.stringify({
-                    userId: uid,
-                    collectId: rid,
-                    type: type
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                async: true,
-                success: function (result) {
-                    if (result) {
-                        logSuccess("取消收藏成功");
-                        $(this).find("i").attr("class", "icon-like")
-                    }
-                    else {
-                        logError("网络故障，请稍后再试");
-                    }
-                },
-                error: function (e) {
+                else {
                     logError("网络故障，请稍后再试");
-                    console.log(e);
                 }
-            });
-        }
-    });
+            },
+            error: function (e) {
+                logError("网络故障，请稍后再试");
+                console.log(e);
+            }
+        });
+    }
+    else {
+        $.ajax({
+            type: "post",
+            url: "/uncollect",
+            data: JSON.stringify({
+                userId: uid,
+                collectId: rid,
+                type: type
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result) {
+                    logSuccess("取消收藏成功");
+                    $("#btn-star").find("i").attr("class", "icon-collect");
+                    var count=$("#btn-star div span").text();
+                    var update=Number(count)-1;
+                    $("#btn-star div span").text(update);
+                }
+                else {
+                    logError("网络故障，请稍后再试");
+                }
+            },
+            error: function (e) {
+                logError("网络故障，请稍后再试");
+                console.log(e);
+            }
+        });
+    }
 }
 
 
-function clickThumbsUp() {
+function clickPoiThumbsUp() {
     if (uid == null) {
         pleaseLogin("点赞");
         return;
     }
-    $("#btn-star").click(function () {
-        if ($(this).find("i").attr("class") == "icon-like") {
-            $.ajax({
-                type: "post",
-                url: "/thumbsUp",
-                data: JSON.stringify({
-                    userId: uid,
-                    collectId: rid,
-                    type: type
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                async: true,
-                success: function (result) {
-                    if (result) {
-                        logSuccess("点赞成功");
-                        $(this).find("i").attr("class", "icon-liked")
-                    }
-                    else {
-                        logError("网络故障，请稍后再试");
-                    }
-                },
-                error: function (e) {
-                    logError("网络故障，请稍后再试");
-                    console.log(e);
+    if ($("#btn-thumbs-up").find("i").attr("class") == "icon-like") {
+        $.ajax({
+            type: "post",
+            url: "/thumbsUp",
+            data: JSON.stringify({
+                uid: uid,
+                pid: rid,
+                type: type
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result) {
+                    logSuccess("点赞成功");
+                    $("#btn-thumbs-up").find("i").attr("class", "icon-liked");
+                    var count=$("#btn-thumbs-up div span").text();
+                    var update=Number(count)+1;
+                    $("#btn-thumbs-up div span").text(update);
                 }
-            });
-        }
-        else {
-            $.ajax({
-                type: "post",
-                url: "/thumbsDown",
-                data: JSON.stringify({
-                    userId: uid,
-                    collectId: rid,
-                    type: type
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                async: true,
-                success: function (result) {
-                    if (result) {
-                        logSuccess("取消点赞成功");
-                        $(this).find("i").attr("class", "icon-like")
-                    }
-                    else {
-                        logError("网络故障，请稍后再试");
-                    }
-                },
-                error: function (e) {
+                else {
                     logError("网络故障，请稍后再试");
-                    console.log(e);
                 }
-            });
-        }
-    });
+            },
+            error: function (e) {
+                logError("网络故障，请稍后再试");
+                console.log(e);
+            }
+        });
+    }
+    else {
+        $.ajax({
+            type: "post",
+            url: "/thumbsDown",
+            data: JSON.stringify({
+                uid: uid,
+                pid: rid,
+                type: type
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result) {
+                    logSuccess("取消点赞成功");
+                    $("#btn-thumbs-up").find("i").attr("class", "icon-like");
+                    var count=$("#btn-thumbs-up div span").text();
+                    var update=Number(count)-1;
+                    $("#btn-thumbs-up div span").text(update);
+                }
+                else {
+                    logError("网络故障，请稍后再试");
+                }
+            },
+            error: function (e) {
+                logError("网络故障，请稍后再试");
+                console.log(e);
+            }
+        });
+    }
 }
 
 

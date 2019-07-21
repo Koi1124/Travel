@@ -12,52 +12,16 @@
 </head>
 
 <body>
-
-
+<div id="header" th:replace="~{homepage :: navbar}"></div>
 <div class="container">
-    <div id="header">
-        <div class="zy-header">
-            <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
-                <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="主页"></a></div>
-                <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
-                    <li class="head-nav-zy-index"><a href="">首页</a></li>
-                    <li class="head-nav-zy-place"><a href="">目的地</a></li>
-                    <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
-                    <li class="head-nav-zy-flight"><a href="">结伴</a></li>
-                </ul>
 
-
-                <div class="login-out">
-                    <a id="_j_showlogin" title="登录" href="" rel="nofollow">登录</a><span class="split">|</span><a
-                        href="" title="注册帐号" rel="nofollow">注册</a>
-                </div>
-
-                <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
-                    <div class="head-search-wrapper-zy">
-                        <div class="head-searchform-zy">
-                            <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
-                                   style="outline:none;">
-                            <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="shadow"></div>
-        </div>
-    </div>
     <div class="place-focus">
         <div class="show-banner show-info-notes">
             <div class="cover" style="height: auto;">
-                <a class="bigimg" href="http://www.mafengwo.cn/gonglve/ziyouxing/278908.html" target="_blank"
-                   style="height: 604px;">
-
-                    <div class="shade"></div>
-                    <img data-ow="1600" data-oh="900"
-                         style="width: 100%; height: auto; opacity: 1; display: inline; margin: -131.969px 0px 0px;"
-                         src="https://p4-q.mafengwo.net/s14/M00/85/A9/wKgE2l0n5tKAf_yRABAPe7vLHhA532.jpg">
-                </a>
+                <div class="shade"></div>
+                <img data-ow="1600" data-oh="900"
+                     style="width: 100%; height: auto; opacity: 1; display: inline; margin: -131.969px 0px 0px;"
+                     src="https://p4-q.mafengwo.net/s14/M00/85/A9/wKgE2l0n5tKAf_yRABAPe7vLHhA532.jpg">
             </div>
             <div class="show-info">
                 <div class="owner">
@@ -114,11 +78,11 @@
                 <div class="hot-list clearfix">
                     <div class="col">
                         <dl th:each="mdd:${mdds}">
-                            <dt th:if="${mdd.name ne '直辖市'}"><a th:href="@{'/c/' + ${mdd.id}}" th:text="${mdd.name}" target="_blank">云南</a></dt>
+                            <dt th:if="${mdd.name ne '直辖市'}"><a th:href="@{'/c/' + ${mdd.id}}" th:text="${mdd.name}" target="_self">云南</a></dt>
                             <dt th:if="${mdd.name eq '直辖市'}">直辖市</dt>
                             <dd>
                                 <hhh th:each="city:${mdd.cities}">
-                                <a th:href="@{'/c/' + ${city.id}}" th:text="${city.name}" target="_blank">北京</a>
+                                <a th:href="@{'/c/' + ${city.id}}" th:text="${city.name}" target="_self">北京</a>
                                 </hhh>
                             </dd>
                         </dl>

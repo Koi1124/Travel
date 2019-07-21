@@ -241,6 +241,7 @@ function clickThumbsUp(e) {
         jump_pid:pid
     };
     if ($(e).attr("class") == "useful") {
+        console.log(data);
         $.ajax({
             type: "post",
             url: "/thumbsUp",

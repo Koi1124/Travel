@@ -1,0 +1,175 @@
+.dialogue {
+    width: 680px;
+}
+
+
+.off{
+    display: none;
+}
+.dialogue .th {
+    height: 22px;
+    font-size: 16px;
+    color: #333;
+    padding: 0px 0 10px;
+}
+.dialogue .th .icon {
+    width: 22px;
+    height: 22px;
+    background: url(https://css.mafengwo.net/images/message/pop_icon.png) no-repeat 0 0;
+    float: right;
+    cursor: pointer;
+}
+.th .news {
+    font-size: 12px;
+    color: #999;
+}
+.th .news .checkbox {
+    width: 16px;
+    height: 16px;
+    background: url(https://css.mafengwo.net/images/message/select_icon.png) no-repeat 0 0;
+    display: inline-block;
+    vertical-align: -3px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.th .news .checkbox.on {
+    background-position: -16px 0;
+}
+.dia_list .item,.dia_list .sight_item {
+    background: #fff;
+    width: 640px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    -webkit-transition: box-shadow 0.25s linear 0s;
+    transition: box-shadow 0.25s linear 0s;
+}
+.dia_list .item:hover {
+    border-color: #fc9c27;
+    box-shadow: 0 0 1px #ffa200;
+}
+.dia_list .item .author {
+    width: 48px;
+    height: 48px;
+    float: left;
+    border-radius: 50%;
+    float: left;
+}
+.dia_list .item .con {
+    width: 510px;
+    padding-left: 20px;
+    float: left;
+    font-size: 14px;
+}
+.dia_list .title {
+    font-size: 17px;
+    line-height: 24px;
+    width:540px;
+    margin: -5px 0 5px 0;
+}
+.dia_list .title .name {
+    color: #333;
+    display: inline-block;
+    margin-right: 5px;
+}
+.dia_list .title .name:hover{
+    color: #ff9d00;
+    text-decoration: none;
+}
+.dia_list .title .time {
+    float: right;
+}
+.dia_list .title .state {
+    float: right;
+    color: #ff9d00;
+}
+.dia_list .con p {
+    line-height: 24px;
+    color: #999;
+}
+.dia_list .item .tool_right {
+    float: right;
+    width: 60px;
+    text-align: right;
+}
+.dia_list .tool_right .delete {
+    width: 9px;
+    height: 9px;
+    background: url(https://css.mafengwo.net/images/message/delete.png);
+    display: block;
+    margin-left: 51px;
+    cursor: pointer;
+}
+.dia_list .tool_right .delete_off{
+    display:none;
+}
+.dia_list .tool_right .tips {
+    padding: 0 7px;
+    font-size: 12px;
+    color: #fff;
+    height: 15px;
+    line-height: 15px;
+    background-color: #ff9d00;
+    border-radius: 5px;
+    display: inline-block;
+}
+.dia_list .tool_right .tips_off{
+    display: none;
+}
+
+
+
+.p-poi li {
+    float: left;
+    display: inline;
+    margin: 10px 30px 10px 10px;
+    width: 162px;
+    height: 155px;
+    overflow: hidden;
+    position: relative;
+}
+.p-poi li a:hover{
+    text-decoration: none;
+}
+.p-poi .img {
+    height: 100px;
+    overflow: hidden;
+}
+.p-poi .p-btn-delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #000;
+    background-color: rgba(72,72,72,.7);
+    text-align: center;
+}
+.p-poi .p-btn-delete i {
+    display: inline-block;
+    margin-top: 7px;
+    width: 14px;
+    height: 17px;
+    background: url(https://css.mafengwo.net/images/home_new2015/fav-place.png?a=2) no-repeat 0 -20px;
+    vertical-align: top;
+}
+.p-poi .info {
+    height: 54px;
+    border: 1px solid #e5e5e5;
+    border-top: 0 none;
+    text-align: center;
+    color: #999;
+}
+.p-poi .info .title {
+    padding-top: 8px;
+    font-size: 14px;
+    color: #222;
+    margin: 0 10px 3px;
+    line-height: 20px;
+    overflow: hidden;
+    height: 20px;
+    width: 140px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

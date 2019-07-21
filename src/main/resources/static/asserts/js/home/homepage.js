@@ -1,11 +1,3 @@
-//获取当前网址，如： http://localhost:80/ybzx/index.jsp  
-var curPath=window.document.location.href;
-//获取主机地址之后的目录，如： ybzx/index.jsp  
-var pathName=window.document.location.pathname;
-var pos=curPath.indexOf(pathName);
-//获取主机地址，如： http://localhost:80  
-var localhostPaht=curPath.substring(0,pos);
-
 var id = -1;
 var s_type=2;
 var page = 1;
@@ -41,7 +33,7 @@ function setNotes(data) {
     $(data).each(function (i,item) {
         $(".tn-list").append('<div class="tn-item clearfix">\n' +
             '                                <div class="tn-image">\n' +
-            '                                    <a href="/note/'+ item.id +'" target="_blank">\n' +
+            '                                    <a href="/note/'+ item.id +'" target="_self">\n' +
             '                                        <img class="" src="'+ item.coverPic +'" style="display: inline;">\n' +
             '\n' +
             '\n' +
@@ -50,10 +42,10 @@ function setNotes(data) {
             '                                <div class="tn-wrapper">\n' +
             '                                    <dl>\n' +
             '                                        <dt>\n' +
-            '                                            <a href="/note/'+ item.id +'" target="_blank">'+ item.title +'</a>\n' +
+            '                                            <a href="/note/'+ item.id +'" target="_self">'+ item.title +'</a>\n' +
             '                                        </dt>\n' +
             '                                        <dd>\n' +
-            '                                            <a href="/note/'+ item.id + '" target="_blank"> \n' +
+            '                                            <a href="/note/'+ item.id + '" target="_self"> \n' +
             '                                                '+ item.content +'</a>\n' +
             '                                        </dd>\n' +
             '                                    </dl>\n' +
@@ -64,7 +56,7 @@ function setNotes(data) {
             '                                        </span>\n' +
             '                                        <span class="tn-place"><i></i><a href="javascript:void(0);" class="_j_gs_item" rel="nofollow" data-name="'+ item.mddName +'" data-objid="'+ item.mddId +'" data-type="2">'+ item.mddName +'</a>，by</span>\n' +
             '                                        <span class="tn-user">\n' +
-            '                                            <a href="/u/'+ item.authorId +'/note" target="_blank" rel="nofollow">\n' +
+            '                                            <a href="/u/'+ item.authorId +'/note" target="_self" rel="nofollow">\n' +
             '                                                <img src="'+ item.authorPic +'" style="width:15px;padding-bottom:1px">\n' +
             '                                                '+ item.authorName +'\n' +
             '                                            </a>\n' +
@@ -102,7 +94,7 @@ function getNotes(mddId,type) {
     // 主页游记列表
     $.ajax({
         type: "post",
-        url: localhostPaht+"/displayNotes",
+        url: "/displayNotes",
         contentType: "application/json",
         dataType: "json",
         async: true,
