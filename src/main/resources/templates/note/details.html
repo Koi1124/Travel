@@ -9,11 +9,13 @@
     <link th:href="@{/asserts/css/common/navbar.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         var content = [[${content}]];
         var nid = [[${nid}]];
         var uid = [[${session.user_id}]];
+        var user = uid;
         var rUserId = [[${uid}]];
         var title = [[${title}]];
         var type = '1';

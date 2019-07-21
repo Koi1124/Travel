@@ -1,10 +1,5 @@
-//获取当前网址，如： http://localhost:80/ybzx/index.jsp  
-var curPath=window.document.location.href;
-//获取主机地址之后的目录，如： ybzx/index.jsp  
-var pathName=window.document.location.pathname;
-var pos=curPath.indexOf(pathName);
-//获取主机地址，如： http://localhost:80  
-var localhostPaht=curPath.substring(0,pos);
+
+var path=document.location.host;
 
 var tag=true;
 var socket;
@@ -30,9 +25,10 @@ function initSocket() {
         console.log("您的浏览器不支持WebSocket");
     }else{
         console.log("您的浏览器支持WebSocket");
+        var url=("http://"+path+"/message").replace("http","ws");
         //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
         //等同于socket = new WebSocket("ws://localhost:8083/checkcentersys/websocket/20");
-        socket = new WebSocket((localhostPaht+"/message").replace("http","ws"));
+        socket = new WebSocket(url);
         //打开事件
         socket.onopen = function() {
             console.log("Socket 已打开");
