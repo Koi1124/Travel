@@ -114,6 +114,14 @@ public class NoteController
     }
 
 
+    @RequestMapping("/note/startNote")
+    public String toMine()
+    {
+        return "note/mine";
+    }
+
+
+
     /**
      * @Author Saki
      * @Description 草稿编辑

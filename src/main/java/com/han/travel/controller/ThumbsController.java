@@ -51,11 +51,10 @@ public class ThumbsController
         {
             messageService.thumbsUpComment(session.getAttribute(SessionConfig.USER_NAME),String.valueOf(map.get("jump_type")),map.get("title"),map.get("rUserId"),map.get("jump_pid"));
         }
-        else if (map.get("rUserId") != null)
+        else if ((map.get("rUserId") != null) && (map.get("jump_type").equals("1")))
         {
             messageService.thumbsUp(session.getAttribute(SessionConfig.USER_NAME),String.valueOf(map.get("type")),map.get("title"),map.get("rUserId"),map.get("jump_pid"));
         }
-
         return thumbsService.thumbsUp(map);
     }
 

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title  th:text="${uid eq session.user_id?'我':'TA'}+'的关注列表'"></title>
 
     <link th:href="@{/asserts/css/follow.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
@@ -19,7 +20,7 @@
 </head>
 
 <body>
-
+<div id="header" th:replace="~{homepage :: navbar}"></div>
 
 <div class="wrap clearfix">
     <div class="aside">

@@ -91,4 +91,12 @@
 		FROM ab03
 		WHERE aab301=#{sid}
 	</select>
+
+    <select id="getCollectSightInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aad401 AS 'collectId', a.aab301 AS 'id', a.aab302 AS 'name', a.aab313 AS 'pic'
+        FROM ab03 a, ad04 b
+        WHERE a.aab301=b.aad404 AND b.aad403=3
+        AND b.aaa101=#{uid}
+        ;
+    </select>
 </mapper>

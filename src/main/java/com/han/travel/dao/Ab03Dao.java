@@ -29,4 +29,18 @@ public interface Ab03Dao extends CheckDao
 	Map<String, Object> getSightDetailById(@Param("sid") Integer sid, @Param("uid") Integer uid);
 
 	Map<String, Object> getSightIntroById(@Param("sid") Integer sid);
+
+	
+	/**
+	 *@discription: 根据用户id得到用户收藏的景点信息 map->
+     * collectId: 收藏id
+     * pic: 景点图片
+     * name: 景点名
+     * id: 景点id
+	 *@param uid 
+	 *@date: 2019/7/21 20:13
+	 *@return: java.util.Map<java.lang.String,java.lang.Object>
+	 *@author: Han
+	 */
+	 List<Map<String,Object>> getCollectSightInfoByUId(int uid);
 }

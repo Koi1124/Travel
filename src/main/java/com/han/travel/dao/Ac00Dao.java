@@ -79,6 +79,6 @@ public interface Ac00Dao
     List<Map<String,Object>> getCompanyCommentInfoByUId(int uid);
     List<Map<String,Object>> getNoteCommentInfoByUId(int uid);
     List<Map<String,Object>> getSightCommentInfoByUId(int uid);
-    List<Map<String,Object>> getPoiCommentInfoByUId(int uid);
+    List<Map<String,Object>> getSysCommentInfoByUId(int uid);
 
 }

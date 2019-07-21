@@ -68,7 +68,11 @@ public class CommentController
     @ResponseBody
     public Integer addComment(@RequestBody Map<String, Object> map, HttpSession session)
     {
-        messageService.comment(session.getAttribute(SessionConfig.USER_NAME), String.valueOf(map.get("type")), map.get("title"),map.get("rUserId"),map.get("pid"));
+        // 当评论类型为景点和路线时，不发送消息
+        if (!(String.valueOf("type").equals("2")||String.valueOf("type").equals("3")))
+        {
+            messageService.comment(session.getAttribute(SessionConfig.USER_NAME), String.valueOf(map.get("type")), map.get("title"),map.get("rUserId"),map.get("pid"));
+        }
         return commentService.addComment(map);
     }
 

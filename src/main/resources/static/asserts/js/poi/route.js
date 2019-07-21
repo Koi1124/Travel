@@ -76,6 +76,9 @@ function clickPoiStar() {
                 if (result) {
                     logSuccess("收藏成功");
                     $("#btn-star").find("i").attr("class", "icon-collected");
+                    var count=$("#btn-star div span").text();
+                    var update=Number(count)+1;
+                    $("#btn-star div span").text(update);
                 }
                 else {
                     logError("网络故障，请稍后再试");
@@ -103,6 +106,9 @@ function clickPoiStar() {
                 if (result) {
                     logSuccess("取消收藏成功");
                     $("#btn-star").find("i").attr("class", "icon-collect");
+                    var count=$("#btn-star div span").text();
+                    var update=Number(count)-1;
+                    $("#btn-star div span").text(update);
                 }
                 else {
                     logError("网络故障，请稍后再试");
@@ -138,6 +144,9 @@ function clickPoiThumbsUp() {
                 if (result) {
                     logSuccess("点赞成功");
                     $("#btn-thumbs-up").find("i").attr("class", "icon-liked");
+                    var count=$("#btn-thumbs-up div span").text();
+                    var update=Number(count)+1;
+                    $("#btn-thumbs-up div span").text(update);
                 }
                 else {
                     logError("网络故障，请稍后再试");
@@ -165,6 +174,9 @@ function clickPoiThumbsUp() {
                 if (result) {
                     logSuccess("取消点赞成功");
                     $("#btn-thumbs-up").find("i").attr("class", "icon-like");
+                    var count=$("#btn-thumbs-up div span").text();
+                    var update=Number(count)-1;
+                    $("#btn-thumbs-up div span").text(update);
                 }
                 else {
                     logError("网络故障，请稍后再试");

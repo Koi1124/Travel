@@ -14,6 +14,7 @@
         }
     </style>
 
+    <title th:text="${name}"></title>
 
     <link
             href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
@@ -25,12 +26,15 @@
     <link href="https://css.mafengwo.net/css/mdd/mfw-reviews.css?1530619858" rel="stylesheet" type="text/css">
     <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" />
 
     <script th:inline="javascript">
         var longitude = [[${longitude}]];
         var latitude = [[${latitude}]];
+        var title = [[${name}]];
         var sid = [[${sid}]];
         var uid = [[${session.user_id}]];
+        var user = uid;
         var type = "3";
     </script>
 
@@ -39,6 +43,7 @@
             src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/common/comment.js}"></script>
     <script th:src="@{/asserts/js/poi/sight.js}"></script>
 
 
@@ -47,6 +52,11 @@
 
 <body>
 
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+<input id="user_id" th:value="${session.user_id}" type="hidden"/>
+<input id="user_name" th:value="${session.user_name}" type="hidden"/>
+<input id="user_pic" th:value="${session.user_logo}" type="hidden"/>
+<input id="comment_count" th:value="${commentCount}" type="hidden"/>
 <div class="row row-top">
     <div class="wrapper">
         <div class="extra">
@@ -69,7 +79,7 @@
             <div class="item">
                 <div class="drop">
                     <span class="hd">
-                        <a th:href="@{'/zy/' + ${pid}}" th:text="${pname}">青岛</a>
+                        <a th:href="@{'/c/' + ${pid}}" th:text="${pname}">青岛</a>
                     </span>
                     <div class="bd"></div>
                 </div>
@@ -300,7 +310,7 @@
              data-api=":poi:pagelet:poiCommentListApi" data-params="{&quot;poi_id&quot;:&quot;2575&quot;}"
              data-async="1" data-controller="/js/poi/ControllerPoiComment">
             <div class="mod mod-reviews" data-cs-p="评论列表">
-                <div class="mhd mhd-large">蜂蜂点评<span>（共有<em>2788</em>条真实评价）</span></div>
+                <div class="mhd mhd-large">游游点评<span>（共有<em th:text="${commentCount eq null?'0':commentCount}">2788</em>条真实评价）</span></div>
                 <div class="review-nav">
                     <ul class="clearfix">
                         <li data-type="0" data-category="0" class=""><span class="divide"></span><a
@@ -333,176 +343,14 @@
                         src="http://images.mafengwo.net/images/weng/loading3.gif"> Loading...</div>
                 <div class="_j_commentlist">
                     <div class="rev-list">
-                        <ul>
-                            <li class="rev-item comment-item clearfix">
-                                <div class="user"><a class="avatar" href="用户空间地址" target="_blank">
-                                    <img src="https://n1-q.mafengwo.net/s12/M00/C0/E3/wKgED1u3JPmAdpyEAAnA2isTe2g94.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                         width="48" height="48"></a></div>
-                                <a class="useful" data-id="153937408" title="点赞">
-                                    <i></i><span class="useful-num"></span>
-                                </a>
-                                <a class="name" href="/u/60974728.html" target="_blank">linda</a>
-                                <span class="s-star s-star5"></span>
-
-                                <!-- 内容 -->
-                                <p class="rev-txt">青岛天主教堂一直是心里种草的地方，其清新的外观和哥特式建筑让人宛如置身于欧洲的某个地方。清晨的教堂显得格外静谧。<br>
-                                    大门口的拱形窗户是拍照的好地方，有一对情侣在这个门前面自拍了一个多小时的婚纱照。<br>
-                                    宽敞明亮的大厅里，阳光从色彩斑斓的玻璃花窗透射出柔和的光线。大厅东西两侧设有走廊，后面设有两个大祭台，四个小祭台，大厅的穹顶绘以圣象壁画，充满浓厚的宗教气氛。屋顶覆盖舌头红瓦，其气势庞大，且又古朴典雅。
-                                </p>
-
-
-                                <!-- 图片 -->
-                                <div class="rev-img">
-                                    <a href="/photo/poi/2575_407269948.html" target="_blank"><img
-                                            src="https://n2-q.mafengwo.net/s12/M00/64/13/wKgED1vX5eGAEtUVAAi7NMu2u3k35.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                    <a href="/photo/poi/2575_407269952.html" target="_blank"><img
-                                            src="https://p3-q.mafengwo.net/s12/M00/64/14/wKgED1vX5eOAN8mSAArLd0MWSUM20.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                    <a href="/photo/poi/2575_407269956.html" target="_blank"><img
-                                            src="https://p1-q.mafengwo.net/s12/M00/8F/E6/wKgED1vZHmuAGBxYAAsUJ8RUp0s49.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                    <a href="/photo/poi/2575_407269960.html" target="_blank"><img
-                                            src="https://p4-q.mafengwo.net/s12/M00/8F/E7/wKgED1vZHmyAAcETAAxjjNjsxeE47.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                </div>
-
-                                <div class="info clearfix">
-                                    <a class="btn-comment _j_comment" title="评论"
-                                       style="text-decoration:none;">评论</a>
-                                    <a class="btn-comment _j_comment" title="展开" style="padding:0 5px;">展开</a>
-                                    <span class="time">2018-11-30 16:50:04</span>
-                                </div>
-
-                                <div class="comment add-reply">
-                                    <ul class="more_reply_box comment_list">
-                                        <li>
-                                            <a href="/u/90596456.html" target="_blank">
-                                                <img src="https://b1-q.mafengwo.net/s10/M00/50/B6/wKgBZ1mYgW6AT85RAACJSm-hfEg66.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                     width="16" height="16">梓茵
-                                            </a>
-                                            ：还要门票呢，我们济南洪家楼的教堂也很漂亮，免费参观😁
-                                            <a class="_j_reply re_reply" data-id="574572" data-uid="90596456"
-                                               data-username="梓茵" title="添加回复">回复</a>
-                                            <br><span class="time">2019-05-10 09:15:41</span>
-                                        </li>
-                                        <li>
-                                            <a href="/u/39621148.html" target="_blank">
-                                                <img src="https://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                     width="16" height="16">马蜂窝用户
-                                            </a>
-                                            ：就是，济南教堂都免费
-                                            <a class="_j_reply re_reply" data-id="575180" data-uid="39621148"
-                                               data-username="马蜂窝用户" title="添加回复">回复</a>
-                                            <br><span class="time">2019-05-10 15:05:05</span>
-                                        </li>
-                                        <li>
-                                            <a href="/u/73431959.html" target="_blank">
-                                                <img src="https://p2-q.mafengwo.net/s12/M00/94/10/wKgED1vTKz2AJp7wAAUgJZhVImY05.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                     width="16" height="16">记忆的尘封
-                                            </a>
-                                            ：在这里，旅游观光的人很多；在这里，每天有数对恋人拍婚纱照做记念。这里的街道都是以全国各地的省、市城市名来命名的。
-                                            <a class="_j_reply re_reply" data-id="598180" data-uid="73431959"
-                                               data-username="记忆的尘封" title="添加回复">回复</a>
-                                            <br><span class="time">2019-05-27 03:39:27</span>
-                                        </li>
-                                        <li> <a href="/u/94362993.html" target="_blank"> <img
-                                                src="https://n2-q.mafengwo.net/s14/M00/42/7F/wKgE2l0kQl6AHUFXAAs78PL76m0393.png?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                width="16" height="16">Jack.Swift </a> 回复马蜂窝用户：真的吗？ <br><span
-                                                class="time">2019-7-10 15:39</span> </li>
-                                    </ul>
-
-                                    <div class="add-comment hide reply-form">
-                                            <textarea class="comment_reply" data-comment_id="190426416"
-                                                      data-comment_username="一朵小花" data-poi_id="2575" data-poi_name="圣弥厄尔大教堂"
-                                                      data-parent_id="" data-parent_uid="" data-parent_username=""
-                                                      style="overflow: hidden; color: rgb(204, 204, 204);"></textarea>
-                                        <a class="btn btn_submit_reply">回复</a>
-                                    </div>
-                                </div>
-
-                                <div class="comment add-reply hide">
-                                    <ul class="more_reply_box comment_list">
-                                    </ul>
-
-                                    <div class="add-comment hide reply-form">
-                                            <textarea class="comment_reply" data-comment_id="153937408"
-                                                      data-comment_username="linda" data-poi_id="2575" data-poi_name="圣弥厄尔大教堂"
-                                                      data-parent_id="" data-parent_uid="" data-parent_username=""
-                                                      style="overflow: hidden; color: rgb(204, 204, 204);"></textarea>
-                                        <a class="btn btn_submit_reply">回复</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="rev-item comment-item clearfix">
-                                <div class="user"><a class="avatar" href="/u/72441602.html" target="_blank"><img
-                                        src="https://p1-q.mafengwo.net/s6/M00/09/9C/wKgB4lNtoAOAa_pXAAHlMmV_jXA68.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                        width="48" height="48"></a><span class="level">LV.15</span></div>
-                                <a class="useful" data-id="118939016" title="点赞">
-                                    <i></i><span class="useful-num">3</span>
-                                </a>
-                                <a class="name" href="/u/72441602.html" target="_blank">海德</a>
-                                <span class="s-star s-star4"></span>
-                                <a href="/i/3316143.html" target="_blank"><span class="icon-goldComment"></span></a>
-                                <p class="rev-txt">
-                                    建堂大厅宽敞明亮，装修典雅，二楼装有大型风琴，配之穹顶的圣像壁画，教会氛围浓厚，相信弥撒时一定是庄严肃穆，大气磅礴，如果在这里举行婚礼，效果一定非常好。<br>
-                                    门口是一个砖石地面的小广场，左右各有一处古建构成了建筑群，这让我想到了欧洲的类似的广场，设几处座椅，满地鸽子，喝喝咖啡，很是惬意，咱们这就有点简单了。这个广场平时人还比较少，周末会有很多夫妇或者情侣拍婚纱照，在搭配上卖烤红薯的、卖儿童玩具的、卖棉花糖的，这景观真是让人心情复杂。<br>
-                                    教堂位于浙江路，在中上路商圈附近，外广场属于正常街道，完全免费，参观教堂10块，教堂每日早上弥撒，周日上午2次弥撒，据说有风琴奏乐，弥撒时免票，这里我去过四次，有三次是路过。
-                                </p>
-
-
-
-                                <div class="rev-img">
-                                    <a href="/photo/poi/2575_227177816.html" target="_blank"><img
-                                            src="https://n1-q.mafengwo.net/s11/M00/B8/64/wKgBEFsAFR2AZ9jBAAsk5_kOfoM49.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                    <a href="/photo/poi/2575_227177820.html" target="_blank"><img
-                                            src="https://p1-q.mafengwo.net/s11/M00/B7/EA/wKgBEFsAFEKAU3V-AAn7s1kz3Ok22.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                    <a href="/photo/poi/2575_227177824.html" target="_blank"><img
-                                            src="https://b4-q.mafengwo.net/s11/M00/B2/D9/wKgBEFsADgCAMiTTABDVY9yfW4k21.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                    <a href="/photo/poi/2575_227177828.html" target="_blank"><img
-                                            src="https://p1-q.mafengwo.net/s11/M00/B8/60/wKgBEFsAFRqAKxPdAAtwEJ4EKVA63.jpeg?imageMogr2%2Fthumbnail%2F%21200x120r%2Fgravity%2FCenter%2Fcrop%2F%21200x120%2Fquality%2F100"
-                                            width="200" height="120"></a>
-                                </div>
-
-
-
-
-
-                                <div class="info clearfix">
-                                    <a class="btn-comment _j_comment" title="添加评论">评论</a>
-                                    <span class="time">2015-07-02 09:44:47</span>
-                                </div>
-
-                                <div class="comment add-reply hide" style="display: none;">
-                                    <ul class="more_reply_box comment_list">
-                                    </ul>
-
-                                    <div class="add-comment hide reply-form" style="display: none;">
-                                            <textarea class="comment_reply focus" data-comment_id="23571411"
-                                                      data-comment_username="Mia" data-poi_id="2575" data-poi_name="圣弥厄尔大教堂"
-                                                      data-parent_id="" data-parent_uid="" data-parent_username=""
-                                                      placeholder="发表评论："
-                                                      style="color: rgb(0, 0, 0); height: 70px;"></textarea>
-                                        <a class="btn btn_submit_reply">回复</a>
-                                    </div>
-                                </div>
-                            </li>
+                        <ul id="comment-list">
+                            <!--评论列表-->
                         </ul>
                     </div>
-
-                    <div align="right" class="m-pagination">
-                        <span class="count">共<span>2</span>页 / <span>18</span>条</span>
-
-                        <span class="pg-current">1</span>
-                        <a class="pi" data-page="2" rel="nofollow" title="第2页">2</a>
-
-                        <a class="pi pg-next" data-page="2" rel="nofollow" title="后一页">后一页</a>
-                        <a class="pi pg-last" data-page="2" rel="nofollow" title="末页">末页</a>
+                </div>
+                <div class="post_pagin" id="smallpager">
+                    <div id="pagination" class="page f1" style="text-align: center;">
                     </div>
-
                 </div>
 
             </div>
@@ -551,15 +399,14 @@
                             <div class="review-item item-comment">
                                 <div class="label">评价</div>
                                 <div class="content">
-                                        <textarea class="_j_commentarea" name="comment" essential="1"
-                                                  data-inputname="点评内容" placeholder="写下你的评价" data-minlen="15"
-                                                  data-maxlen="500"></textarea>
-                                    <p class="_j_commentcounttip">15-500个字</p>
+                                        <textarea class="_j_comment_content" name="comment" essential="1"
+                                                  data-inputname="点评内容" placeholder="写下你的评价"></textarea>
+                                    <p class="_j_commentcounttip"></p>
                                 </div>
                             </div>
 
                             <div class="review-item item-action">
-                                <a class="btn-large _j_submit" role="button" title="提交点评">提交点评</a>
+                                <a class="btn-large _j_submit_comment" role="button" onclick="clickCommentSubmit()" title="提交点评">提交点评</a>
                             </div>
                         </form>
                     </div>

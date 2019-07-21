@@ -1,6 +1,7 @@
 var activeDraft = null;
 
 $(function () {
+
     $("._j_pop_close").find("i").click(function () {
         $(".drafts").fadeOut(250);
     });
@@ -29,6 +30,7 @@ $(function () {
                 if (result) {
                     $("#_j_layer_0").fadeOut(250);
                     activeDraft.hide(250, function () {
+                        decreaseCount();
                         activeDraft.remove();
                         activeDraft = null;
                         logSuccess("删除成功");
@@ -94,6 +96,18 @@ $(function () {
         }
     });
 });
+
+function decreaseCount() {
+    var count=$("._j_roughcount:eq(0)").text();
+    console.log(count);
+    var update=Number(count)-1;
+    console.log(update);
+    $("._j_roughcount").text(update);
+    if (update==0) {
+        $("#todo-draft").html("还没有草稿哦，快去写游记吧~");
+    }
+}
+
 
 function testBlank(str) {
     str = str.replace(" ", "");

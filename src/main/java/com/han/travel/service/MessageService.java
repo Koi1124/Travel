@@ -111,7 +111,7 @@ public class MessageService
         dto.put("pid",pid);
         if (sa01Dao.insertMessage(dto))
         {
-            MessageSocketServer.sendMessage((Integer) rUserId);
+            MessageSocketServer.sendMessage(Integer.parseInt(rUserId.toString()));
         }
     }
 
@@ -229,6 +229,12 @@ public class MessageService
             {
                 case "1":
                     url="/note/"+m.get("pid");
+                    break;
+                case "2":
+                    url="/s/"+m.get("pid");
+                    break;
+                case "3":
+                    url="/sight/"+m.get("pid");
                     break;
                 case "5":
                     url="/together/company/detail/"+m.get("pid")+".html";

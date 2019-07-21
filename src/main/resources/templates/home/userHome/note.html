@@ -101,15 +101,15 @@
 
                 <div class="MAvaMore clearfix">
                     <div class="MAvaNums">
-                        <strong><a th:text="${followCount eq null?'0':followCount}">4</a></strong>
+                        <strong><a th:href="@{'/follow/'+${uid}}" target="_blank" th:text="${followCount eq null?'0':followCount}">4</a></strong>
                         <p>关注</p>
                     </div>
                     <div class="MAvaNums">
-                        <strong><a th:text="${fanCount eq null?'0':fanCount}">4</a></strong>
+                        <strong><a th:href="@{'/fan/'+${uid}}" target="_blank" th:text="${fanCount eq null?'0':fanCount}">4</a></strong>
                         <p>粉丝</p>
                     </div>
                     <div class="MAvaNums last">
-                        <strong><a th:text="${noteCount eq null?'0':noteCount}">4</a></strong>
+                        <strong><a th:href="@{'/u/'+${uid}+'/note'}" target="_self" th:text="${noteCount eq null?'0':noteCount}">4</a></strong>
                         <p>游记</p>
                     </div>
                 </div>

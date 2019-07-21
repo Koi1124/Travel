@@ -40,6 +40,9 @@ public class UserService {
     @Autowired
     private Ac00Dao ac00Dao;
 
+    @Autowired
+    private Ab03Dao ab03Dao;
+
     /**
      * @Author Saki
      * @Description 用户登录
@@ -224,11 +227,18 @@ public class UserService {
             case "collectNote":
                 map.put("collectNotes",ab01Dao.getCollectNotesByUId(uid));
                 break;
+            case "collectSight":
+                map.put("collectSights", ab03Dao.getCollectSightInfoByUId(uid));
+                break;
             case "comment":
-                List<Map<String,Object>> compComment=ac00Dao.getCompanyCommentInfoByUId(uid);
+                List<Map<String,Object>> commentInfo=ac00Dao.getCompanyCommentInfoByUId(uid);
                 List<Map<String,Object>> noteComment=ac00Dao.getNoteCommentInfoByUId(uid);
-                compComment.addAll(noteComment);
-                map.put("comments",compComment);
+                List<Map<String,Object>> sightComment=ac00Dao.getSightCommentInfoByUId(uid);
+                List<Map<String,Object>> sysComment=ac00Dao.getSysCommentInfoByUId(uid);
+                commentInfo.addAll(noteComment);
+                commentInfo.addAll(sightComment);
+                commentInfo.addAll(sysComment);
+                map.put("comments",commentInfo);
                 break;
             default:
                 break;

@@ -21,7 +21,8 @@ public class WebConfig implements WebMvcConfigurer
                 "/together/publish",
                 "/setting",
                 "/letter/**",
-                "/note/writeNote");
+                "/note/writeNote",
+                "/note/startNote");
     }
 
     @Override

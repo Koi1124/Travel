@@ -128,7 +128,7 @@ $(function () {
     checkout=function(id) {
         $.ajax({
             type: "post",
-            url: "/message/checkout",
+            url:"/message/checkout",
             contentType: "application/json",
             dataType: "json",
             async: true,
