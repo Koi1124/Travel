@@ -42,7 +42,7 @@
                 <ul class="flt2" style="float: left;margin-left:280px;">
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
-                    <li><a class="tags_link _collect_choose" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
+                    <li><a class="tags_link _collect_choose" tabindex="1" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
@@ -95,7 +95,7 @@
                                 <div class="title clearfix">
                                     <!-- 判断发起人是否为自己 -->
                                     <!-- <span><a href="用户空间" class="name">茄子</a>的 <a href="结伴页面" class="name">茂名白给之旅</a></span> -->
-                                    <span><p th:text="${company.authorName}">我</p> 发起的结伴 <a href="结伴页面" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" class="name"><p th:text="${company.title}">茂名白给之旅</p></a></span>
+                                    <span><hhh th:text="${company.authorName}">我</hhh> 发起的结伴 <a href="结伴页面" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" class="name"><p th:text="${company.title}">茂名白给之旅</p></a></span>
                                     <!-- 状态 -->
                                     <span class="state" th:if="${company.state eq '0'}">审核中</span>
                                     <span class="state" th:if="${company.state eq '1'}">结伴中</span>

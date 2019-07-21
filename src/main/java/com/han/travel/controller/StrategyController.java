@@ -3,6 +3,7 @@ package com.han.travel.controller;
 import java.util.Map;
 
 import com.han.travel.configuration.SessionConfig;
+import com.han.travel.service.AdminService;
 import com.han.travel.service.StrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class StrategyController 
 {
-	@Autowired
-    private Ab02Dao ab02Dao;
 	@Autowired
     private StrategyService strategyService;
 

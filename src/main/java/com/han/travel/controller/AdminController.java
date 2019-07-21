@@ -94,33 +94,6 @@ public class AdminController
     	
     }
 	
-	@RequestMapping("/strategy")
-    public String toStrategey(Map<String,Object> dto)
-    {
-    	return "admin/strategy";
-    }
-	
-	@RequestMapping("/editStrategy")
-    public String toStrategy_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
-    {
-		model.addAttribute("id",id);
-		model.addAttribute("operation",operation);
-    	return "admin/strategy_edit";
-    }
-	
-	@RequestMapping("/attraction")
-    public String toAttraction(Map<String,Object> dto)
-    {
-    	return "admin/attraction";
-    }
-
-	@RequestMapping("/editAttraction")
-    public String toAttraction_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
-    {
-		model.addAttribute("id",id);
-		model.addAttribute("operation",operation);
-    	return "admin/attraction_edit";
-    }
 	/**
      * @Author ayds
      * @Description 
@@ -264,73 +237,6 @@ public class AdminController
 	
 	
 	//======================攻略(ab02)和景点(ab03)模块=============================
-	@PostMapping("/ab02/insertStrategy")
-    @ResponseBody					
-    public boolean insertStrategy(@RequestBody Map<String,Object>map)
-    {
-		return adminService.insertStrategy(map);
-    }
 	
-	@PostMapping("/ab02/updateById")
-    @ResponseBody					
-    public boolean updateStrategy(@RequestBody Map<String,Object>map)
-    {
-		return adminService.updateStrategy(map);
-    }
 	
-	@PostMapping("/ab02/delStrategy")
-    @ResponseBody					
-    public boolean delStrategy(@RequestBody Map<String,Object>map)
-    {
-		return adminService.delStrategy(map);
-    }
-	
-	@PostMapping("/ab02/fuzzyQuery")
-    @ResponseBody					
-    public Map<String,Object> ab02fuzzyQuery(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ab02fuzzyQuery(map);
-    }
-	
-	@PostMapping("/ab02/queryById")
-    @ResponseBody					
-    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ab02queryById(map);
-    }
-	
-	@PostMapping("/ab03/insertAttraction")
-    @ResponseBody					
-    public boolean insertAttraction(@RequestBody Map<String,Object>map)
-    {
-		return adminService.insertAttraction(map);
-    }
-	
-	@PostMapping("/ab03/delAttraction")
-    @ResponseBody					
-    public boolean delAttraction(@RequestBody Map<String,Object>map)
-    {
-		return adminService.delAttraction(map);
-    }
-	
-	@PostMapping("/ab03/updateById")
-    @ResponseBody					
-    public boolean updateAttraction(@RequestBody Map<String,Object>map)
-    {
-		return adminService.updateAttraction(map);
-    }
-	
-	@PostMapping("/ab03/fuzzyQuery")
-    @ResponseBody					
-    public Map<String,Object> ab03fuzzyQuery(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ad03fuzzyQuery(map);
-    }
-	
-	@PostMapping("/ab03/queryById")
-    @ResponseBody					
-    public Map<String,Object> ab03queryById(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ab03queryById(map);
-    }
 }

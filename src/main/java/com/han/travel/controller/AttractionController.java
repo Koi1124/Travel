@@ -4,6 +4,7 @@ package com.han.travel.controller;
 import java.util.Map;
 
 import com.han.travel.configuration.SessionConfig;
+import com.han.travel.service.AdminService;
 import com.han.travel.service.SightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,9 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class AttractionController 
-{
+{	
 	@Autowired
-    private Ab03Dao ab03Dao;
+    private AdminService adminService;
 	
 	@Autowired
     private SightService sightService;

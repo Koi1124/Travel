@@ -49,6 +49,14 @@ public class CompanyController
         return companyService.prepareAllMDDInfo();
     }
 
+    
+    /**
+     *@discription:
+     *@param dto 
+     *@date: 2019/7/14 0:09
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
     @RequestMapping("/company_search")
     @ResponseBody
     public Map<String,Object> getCompany(@RequestBody Map<String,Integer> dto)
@@ -87,6 +95,7 @@ public class CompanyController
     @RequestMapping("/publish")
     public String toPublish()
     {
+        System.out.println("companycontroller");
         return "together/publish";
     }
 
@@ -237,29 +246,28 @@ public class CompanyController
 //            dto.put("mddPic",session.getAttribute("c_mddPic"));
 //            System.out.println(dto);
 //        }
+        Object user_id=null;
+        if (session.getAttribute(SessionConfig.USER_ID)==null){
+            user_id=-2;
+        }
+        else
+        {
+            user_id=session.getAttribute(SessionConfig.USER_ID);
+        }
         Map<String,Object> detail=companyService.getCompPartialDetail(id);
         map.putAll(detail);
         map.put("view",companyService.handleView(id,(Integer) detail.get("view")));
         Map<String,Object> isCollectDto=new HashMap<>(3);
-        isCollectDto.put("userId",session.getAttribute(SessionConfig.USER_ID));
+        isCollectDto.put("userId",user_id);
         isCollectDto.put("collectId",id);
         isCollectDto.put("type",'5');
         map.put("isCollect",collectService.isCollect(isCollectDto));
-        map.put("isFollow",followService.isFollow((Integer) map.get("authorId"), (Integer) session.getAttribute(SessionConfig.USER_ID)));
+        map.put("isFollow",followService.isFollow((Integer) map.get("authorId"), (Integer) user_id));
         map.put("appInfo",companyService.getAppInfoByCId(id));
         map.put("images", companyService.getCompanyPicsById(id));
         System.out.println(map);
 
         return "together/detail";
-    }
-
-
-    @RequestMapping("/testUser")
-    public String tests(HttpSession session)
-    {
-        session.setAttribute(SessionConfig.USER_ID,7);
-        session.setAttribute(SessionConfig.USER_NAME,"user7");
-        return "together/homepage";
     }
 
 

@@ -4,6 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>登录</title>
+
+    <script th:inline="javascript">
+        var msg=[[${msg}]];
+    </script>
+
     <link th:href="@{/asserts/css/login.css}" rel="stylesheet" type="text/css"/>
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
     <script th:src="@{/asserts/js/index.js}"></script>
