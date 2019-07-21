@@ -214,7 +214,7 @@
 
                                 </div>
                             </div>
-                            <div class="note_word" th:text="${note.intro}">
+                            <div class="note_word" th:utext="${note.intro}">
                                 contentcontentcontentcontentcontentcontent
                                 contentcontentcontentcontentcontentcontent
                                 contentcontentcontentcontentcontentcontent
@@ -223,8 +223,8 @@
                         </dd>
                     </dl>
                     <div th:if="${uid eq session.user_id}" class="more_notes">
-                        <a class="btn_deleted" href="/u/note/delete.html"><i></i></a>
-                        <a href="" title="写游记" class="btn_write_zy"><i></i>写游记</a>
+                        <a class="btn_deleted"><i></i></a>
+                        <a th:href="@{'/note/editNote/' + ${note.nid}}" title="写游记" class="btn_write_zy"><i></i>编辑游记</a>
                     </div>
                 </div>
             </div>

@@ -93,14 +93,14 @@
                     <dl class="info">
                         <dt></dt>
                         <dd>
-                            <a th:href="@{'/s/'+${rid}}" target="_blank"
+                            <a th:href="@{'/s/'+${route.rid}}" target="_blank"
                                style="color: #333;text-decoration: none">
                                 <hhh th:each="r,rStatus:${route.routes}">
                                     <span th:if="${rStatus.index ne 0}" class="arrow">→</span>
                                     <span th:text="${r.name}">黄龙溪</span>
                                 </hhh>
                             </a>
-                            <a data-t="查看路线" class="btn-view" th:href="@{'/s/'+${rid}}"
+                            <a data-t="查看路线" class="btn-view" th:href="@{'/s/'+${route.rid}}"
                                target="_blank">查看&gt;</a>
                         </dd>
                     </dl>
