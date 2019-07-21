@@ -7,6 +7,10 @@ var pid = 0;
 $(function () {
     getComment(1);
     initPagination();
+    if (type=="2"||type=="3") {
+        rUserId=null;
+    }
+
 });
 
 function getComment(page) {
@@ -30,6 +34,7 @@ function getComment(page) {
             userId = $("#user_id").val();
             userName = $("#user_name").val();
             userLogo = $("#user_pic").val();
+            console.log(result);
             setComment(result);
         },
         error: function (e) {

@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title>游记</title>
+
     <meta charset="UTF-8">
     <link th:href="@{/asserts/css/note/noteMine.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
@@ -17,9 +19,7 @@
 </head>
 <body>
 
-
-
-
+<div id="header" th:replace="~{homepage :: navbar}"></div>
 
 <div class="wrapper">
     <ul class="btns clearfix" data-cs-t="note_create_entrance">

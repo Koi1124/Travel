@@ -38,10 +38,7 @@ public class CollectController
     @ResponseBody
     public boolean collect(@RequestBody Map<String,Object> map, HttpSession session)
     {
-        if (map.get("rUserId") != null)
-        {
-            messageService.collect(session.getAttribute(SessionConfig.USER_NAME), String.valueOf(map.get("type")), map.get("title"), map.get("rUserId"), map.get("collectId"));
-        }
+        messageService.collect(session.getAttribute(SessionConfig.USER_NAME), String.valueOf(map.get("type")), map.get("title"), map.get("rUserId"), map.get("collectId"));
         return collectService.addCollect(map);
     }
 

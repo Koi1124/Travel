@@ -88,39 +88,8 @@
 </head>
 
 <body>
-<div id="header">
-    <div class="zy-header">
-        <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
-            <div class="head-logo-zy"><a class="zy-logo" title="马蜂窝自由行" href="https://www.mafengwo.cn/"></a></div>
-            <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
-                <li class="head-nav-zy-index"><a href="">首页</a></li>
-                <li class="head-nav-zy-place"><a href="">目的地</a></li>
-                <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
-                <li class="head-nav-zy-sales"><a href="">跟团游</a></li>
-                <li class="head-nav-zy-flight"><a href="">结伴</a></li>
-            </ul>
 
-            <div class="head-user-zy" id="_j_head_user">
-                <a href="" title="个人空间">
-                    <div class="user-image"><img
-                            src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
-                            height="32" width="32" alt="wdnmd的窝"></div>
-                </a>
-            </div>
-
-            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
-                <div class="head-search-wrapper-zy">
-                    <div class="head-searchform-zy">
-                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
-                               style="outline:none;">
-                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="shadow"></div>
-    </div>
-</div>
+<div id="header" th:replace="~{homepage :: navbar}"></div>
 
 <div class="row row-lineTop row-bg">
     <div class="wrapper">
