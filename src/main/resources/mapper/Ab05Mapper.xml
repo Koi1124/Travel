@@ -62,10 +62,14 @@
     </select>
 
     <select id="getAll" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT
-        aab501,aaa101, aab502, aab503, aab504, aab505,aab506, aab507,aab508
-        FROM ab05
-        WHERE aab509=0 limit #{begin},#{num};
+        SELECT t.aab501 as id,t.aaa102 as author,t.aab502 as name ,t.aab503 as gotime,t.aab504 as setout,
+        t.aab505 as spendtime,t.aab506 as peoplenumber,t.aab507 tel,GROUP_CONCAT(u.city) destiny
+		from (SELECT b.aab501,a.aaa102,b.aab502,b.aab503,b.aab504,b.aab505,b.aab506,b.aab507
+		from  aa01 a  INNER JOIN ab05 b on a.aaa101=b.aaa101   
+		where b.aab509=0) AS t LEFT JOIN (select c.aab501,d.aaa302 AS city,c.aac701
+		from ac07 c,aa03 d
+		where c.aaa301=d.aaa301) AS u on t.aab501=u.aab501 group by t.aab501
+        limit #{begin},#{num};
     </select>
     <select id="selectCount" resultType="java.lang.Integer">
         SELECT count(*)

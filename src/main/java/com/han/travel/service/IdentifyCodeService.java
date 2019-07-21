@@ -104,8 +104,11 @@ public class IdentifyCodeService
         {
             if (result.get("code").equals((String)map.get("identifyCode")))
             {
+            	
                 Date date = (Date) result.get("time");
                 Date nDate = new Date();
+                System.out.println("time:"+date.getTime());
+            	System.out.println("now:"+nDate.getTime());
                 //30分钟过期
                 if (nDate.getTime() - date.getTime() <= 1000 * 60 * 30)
                 {

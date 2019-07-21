@@ -28,14 +28,18 @@ $(document).ready(function() {
 	            for(var i=0;i<count;i++)
 	            {
 	            	var ls=data[i];
-	            	html="<tr><td>"+ls.aab501+"</td><td>"+ls.aaa101+"</td><td>"+ls.aab502+"</td><td>"+ls.aab503+
-	            	     "</td><td>"+ls.aab504+"</td><td>"+ls.aab505+"</td><td>"+ls.aab506+
-	            	     "</td><td>"+ls.aab507+"</td><td>"+ls.aab508+"</td>"+
+	            	html="<tr><td>"+ls.author+"</td><td>"+ls.name+"</td><td>"+ls.gotime+
+	            	     "</td><td>"+ls.setout+"</td><td>"+ls.destiny+"</td><td>"+ls.spendtime+"</td><td>"+ls.peoplenumber+
+	            	     "</td><td>"+ls.tel+
+	            	     "</td><td width='50px' class='td-manage'>" +
+	            	     "<a title='查看详情' onclick='xadmin.open('查看详情','/company/"+ls.aab501+"',600,800)' href='javascript:;'>" +
+	            	     "<i class='layui-icon layui-icon-link' style=' font-size: 23px;margin-left:20px ' ></i></a>" +
+	            	     "</a></td>"+
 	            	     "<td class='td-manage'>"+
-                         "<a title=\"通过\" onclick='check("+ls.aab501+",1)' href=\"javascript:;\">"+
-                         "<i class=\"iconfont\" style='float:left' >&#xe6b1;</i></a>"+
-                         "<a title=\"拒绝\" onclick='check("+ls.aab501+",2)' href=\"javascript:;\">"+
-                         "<i class=\"iconfont\" style='float:left;margin-left:10px;'>&#xe69a;</i></a>"+
+                         "<a title=\"通过\" onclick='check("+ls.id+",1)' href=\"javascript:;\">"+
+                         "<i class='layui-icon layui-icon-auz' style='font-size: 23px;float:left ' ></i></a>"+
+                         "<a title=\"拒绝\" onclick='check("+ls.id+",2)' href=\"javascript:;\">"+
+                         "<i class='layui-icon layui-icon-close' style='font-size: 23px;float:left;margin-left:10px;'></i></a>"+
 	            	     "</td></tr>";
 	            	$("#ab05Result tbody").append(html);
 	            }

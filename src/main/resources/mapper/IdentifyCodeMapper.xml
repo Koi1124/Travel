@@ -14,12 +14,12 @@
 
     <update id="updateIdentifyCode" parameterType="java.util.HashMap">
         UPDATE identifycode
-        SET code=#{code}, time=current_time()
+        SET code=#{code}, time=CURRENT_TIMESTAMP()
         WHERE mail=#{mail} AND type=#{type};
     </update>
 
     <insert id="addIdentifyCode" parameterType="java.util.HashMap">
         INSERT into identifycode(mail, code, time, type)
-        VALUES(#{mail}, #{code}, current_time(), #{type});
+        VALUES(#{mail}, #{code}, CURRENT_TIMESTAMP(), #{type});
     </insert>
 </mapper>

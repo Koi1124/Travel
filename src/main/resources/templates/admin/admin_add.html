@@ -14,17 +14,18 @@
         <script th:src="@{/asserts/lib/layui/layui.js}" charset="utf-8"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript" ></script>
+        <script th:src="@{/asserts/js/admin/administrator.js}"  type="text/javascript" ></script>
     </head>
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form">
+                <form class="layui-form" >
                   <div class="layui-form-item">
                       <label for="username" class="layui-form-label">
                           <span class="x-red">*</span>登录名
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                          <input type="text" id="username" name="username"  lay-verify="required" autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>将会成为唯一的登入名
@@ -53,10 +54,10 @@
                           <span class="x-red">*</span>密码
                       </label>
                       <div class="layui-input-inline">
-                          <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"  autocomplete="off" class="layui-input">
+                          <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"  autocomplete="new-password" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          8到16个字符
+                         <span class="x-red">*</span>8到16个字符
                       </div>
                   </div>
                   <div class="layui-form-item">
@@ -76,6 +77,12 @@
             </div>
         </div>
         <script>
+        toastr.options = 
+    	{
+            positionClass: "toast-top-center",
+            closeButton: true,
+            timeOut:"1000",
+        };
         layui.use(['form', 'layer'],
             function() {
                 $ = layui.jquery;
@@ -108,21 +115,30 @@
                     	data:JSON.stringify({username:$("#username").val(),email:$("#email").val(),
                     		password:$("#L_pass").val(),role:$("input:radio:checked").val()}),
                     	contentType: "application/json",
-                    	dataType: "json",
+                    	dataType: "text",
                     	async:false,
-                    	success:function(result){msg='成功';},
-                    	error:function(e){console.log("fail");}
+                    	success:function(result)
+                    	{
+                    		msg=result;
+                    		if(msg=='插入成功!')
+                    		{
+                    			layer.alert(msg, {icon: 6},function() {
+                                        xadmin.close();
+                                        xadmin.father_reload();
+                                    }
+                                );		
+                    		}
+                    		else
+                    		{
+                    			toastr.warning(msg);
+                    		}
+                    	
+                    	},
+                    	error:function(e)
+                    	{
+                    		toastr.error("网络错误");
+                    	}
                     });
-                    
-                    
-                    layer.alert("增加"+msg, {
-                        icon: 6
-                    },
-                    function() {
-                        xadmin.close();
-                        xadmin.father_reload();
-                    });
-                    
                     
                     return false;
                 });
