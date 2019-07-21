@@ -28,7 +28,7 @@
 </head>
 
 <body>
-<div id="header" th:replace="~{homepage :: navbar}"></div>
+<div th:if="${status eq '2'}" id="header" th:replace="~{homepage :: navbar}"></div>
 <input id="comment_count" type="hidden" th:value="${commentCount}"/>
 <input id="user_id" type="hidden" th:value="${session.user_id}"/>
 <input id="user_name" type="hidden" th:value="${session.user_name}"/>
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            <div class="bar_share _j_share_father _j_top_share_group">
+            <div th:if="${status eq '2'}" class="bar_share _j_share_father _j_top_share_group">
                 <div class="bs_share">
                     <div class="ding">
                         <a role="button" data-japp="articleding" rel="nofollow" th:hasThumbs="${thumbsUpId eq null?'0':'1'}"
@@ -112,6 +112,9 @@
 <!-- 本体 s -->
 <div class="container clearfix">
     <div id="" class="content pagelet-block">
+        <p th:if="${status eq '1'}" style="margin-top:0px;font-size: 24px;color:red">
+            游记审核中
+        </p>
         <div class="block-loading loading_backward"></div>
         <div class="_j_content_box">
 
@@ -186,13 +189,12 @@
                    th:text="${poiName}" class="_j_mdd_stas">湖北</a>
             </div>
             <div class="its_others">
-                <div class="mdd_info">
+                <div class="mdd_info" style="height:auto;">
                     <!--_j_mdd_sta为目的地点击统计，修改注意-->
                     <a href="/travel-scenic-spot/mafengwo/10133.html" th:title="${poiName}" class="_j_mdd_stas"
                        target="_blank">
                         <img th:src="${poiPic}" width="240px">
                         <i></i>
-                        <strong th:text="${poiName}">武汉</strong>
                     </a>
                 </div>
             </div>

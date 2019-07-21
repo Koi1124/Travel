@@ -22,54 +22,54 @@ public class StrategyController
 	@Autowired
     private StrategyService strategyService;
 
-	@RequestMapping("/strategy")
-    public String toStrategey(Map<String,Object> dto)
-    {
-    	return "admin/strategy";
-    }
-	
-	@RequestMapping("/editStrategy")
-    public String toStrategy_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
-    {
-		model.addAttribute("id",id);
-		model.addAttribute("operation",operation);
-    	return "admin/strategy_edit";
-    }
-	
-	@PostMapping("/ab02/insertStrategy")
-    @ResponseBody					
-    public boolean insertStrategy(@RequestBody Map<String,Object>map)
-    {
-		return ab02Dao.insertStrategy(map);
-    }
-	
-	@PostMapping("/ab02/updateById")
-    @ResponseBody					
-    public boolean updateStrategy(@RequestBody Map<String,Object>map)
-    {
-		return ab02Dao.updateStrategy(map);
-    }
-	
-	@PostMapping("/ab02/delStrategy")
-    @ResponseBody					
-    public boolean delStrategy(@RequestBody Map<String,Object>map)
-    {
-		return ab02Dao.delStrategy(Integer.parseInt(map.get("id").toString()));
-    }
-
-	@PostMapping("/ab02/fuzzyQuery")
-    @ResponseBody					
-    public Map<String,Object> fuzzyQuery(@RequestBody Map<String,Object>map)
-    {
-		return PageBean.fuzzyQuery(ab02Dao, "ab02",map);
-    }
-	
-	@PostMapping("/ab02/queryById")
-    @ResponseBody					
-    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
-    {
-		return ab02Dao.queryById(Integer.parseInt(map.get("id").toString()));
-    }
+//	@RequestMapping("/strategy")
+//    public String toStrategey(Map<String,Object> dto)
+//    {
+//    	return "admin/strategy";
+//    }
+//
+//	@RequestMapping("/editStrategy")
+//    public String toStrategy_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
+//    {
+//		model.addAttribute("id",id);
+//		model.addAttribute("operation",operation);
+//    	return "admin/strategy_edit";
+//    }
+//
+//	@PostMapping("/ab02/insertStrategy")
+//    @ResponseBody
+//    public boolean insertStrategy(@RequestBody Map<String,Object>map)
+//    {
+//		return ab02Dao.insertStrategy(map);
+//    }
+//
+//	@PostMapping("/ab02/updateById")
+//    @ResponseBody
+//    public boolean updateStrategy(@RequestBody Map<String,Object>map)
+//    {
+//		return ab02Dao.updateStrategy(map);
+//    }
+//
+//	@PostMapping("/ab02/delStrategy")
+//    @ResponseBody
+//    public boolean delStrategy(@RequestBody Map<String,Object>map)
+//    {
+//		return ab02Dao.delStrategy(Integer.parseInt(map.get("id").toString()));
+//    }
+//
+//	@PostMapping("/ab02/fuzzyQuery")
+//    @ResponseBody
+//    public Map<String,Object> fuzzyQuery(@RequestBody Map<String,Object>map)
+//    {
+//		return PageBean.fuzzyQuery(ab02Dao, "ab02",map);
+//    }
+//
+//	@PostMapping("/ab02/queryById")
+//    @ResponseBody
+//    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
+//    {
+//		return ab02Dao.queryById(Integer.parseInt(map.get("id").toString()));
+//    }
 
     /**
      * @Author Saki

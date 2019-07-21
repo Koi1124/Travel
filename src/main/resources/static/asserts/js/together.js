@@ -46,12 +46,13 @@ $(document).ready(function() {
     //省市搜索
     $.ajax({
         type: "post",
-        url: localhostPaht+"/together/mdd_search",
+        url: "/together/mdd_search",
         contentType: "application/json",
         dataType: "json",
         async: true,
         success: function (result) {
             setData(result);
+            console.log(result);
         },
         error: function (e) {
             console.log(e);
@@ -92,8 +93,6 @@ $(document).ready(function() {
 
     initPagination(totalPage);
     initDropBar();
-    
-    initPublish();
 });
 
 function initDropBar() {
@@ -130,11 +129,6 @@ function setData(json) {
         $(".col1 li").attr("class","_j_country_select");
         $(this).attr("class", "on");
     });
-
-
-
-
-
 }
 
 //初始化col2

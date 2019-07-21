@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         var routes = [[${routes}]];
@@ -19,6 +20,8 @@
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
     <script th:src="@{/asserts/js/poi/route.js}"></script>
 
@@ -50,6 +53,34 @@
             margin: 0;
             font-weight: 600;
             font-family: "PingFangSC-Regular";
+        }
+        .action-btns .btn-item-route i {
+            display: inline-block;
+            margin-bottom: 5px;
+            width: 30px;
+            height: 30px;
+            background: url(https://css.mafengwo.net/images/mdd/place/shopping-icons3.png) no-repeat 0 -240px;
+        }
+
+
+        .action-btns .btn-item-route .icon-like {
+            background-position:  0 -140px;
+        }
+        .action-btns .btn-item-route .icon-collect {
+            background-position: -60px -140px;
+        }
+
+        .action-btns .btn-item-route .icon-liked {
+            background-position:  0 -170px;
+        }
+        .action-btns .btn-item-route .icon-collected {
+            background-position: -60px -170px;
+        }
+
+        .action-btns .btn-item-route {
+            float: left;
+            margin-left: 20px;
+            color: #666;
         }
     </style>
 
@@ -112,14 +143,14 @@
 
                 <div class="pagelet-block">
                     <div class="action-btns">
-                        <a class="btn-item btn-likes">
-                            <i class="icon-like"></i>
+                        <a id="btn-thumbs-up" class="btn-item-route btn-likes" onclick="clickThumbsUp()" data-lineid="237">
+                            <i th:class="${thumbsUpId eq null?'icon-like':'icon-liked'}"></i>
                             <div>点赞
                                 <span th:text="${thumbsUpCount}">964422</span>
                             </div>
                         </a>
-                        <a class="btn-item btn-fav">
-                            <i class="icon-collect"></i>
+                        <a id="btn-star" class="btn-item-route btn-collect" onclick="clickStar()" data-lineid="237">
+                            <i th:class="${starId eq null?'icon-collect':'icon-collected'}"></i>
                             <div>收藏 <span th:text="${starCount}">13029</span>
                             </div>
                         </a>
@@ -278,26 +309,25 @@
                                 <li class="route-line">
                                     <!--路线地点顺序-->
                                     <hhh th:each="poi,poiStatus:${route.pois}">
-                        <span class="place">
-                            <i class="i-place"></i>
-                            <a class="p-link" target="_blank" th:href="@{'/sight/' + ${poi.sid}}" th:text="${poi.name}">宽窄巷子景区</a>
-                        </span>
-                                        <span th:if="${poiStatus.index ne poiStatus.count}" class="transport ">
-                            <i class="i-arrow"></i>
-                        </span>
+                                    <span class="place">
+                                        <i class="i-place"></i>
+                                        <a class="p-link" target="_blank" th:href="@{'/sight/' + ${poi.sid}}" th:text="${poi.name}">宽窄巷子景区</a>
+                                    </span>
+                                    <span th:if="${poiStatus.index ne poiStatus.count}" class="transport" style="padding-top: 10px">
+                                        <i class="i-arrow"></i>
+                                    </span>
                                     </hhh>
                                 </li>
                             </ul>
                         </div>
-                        <div class="poi-figure poi-play figure-slide">
-                            <ul class="play-list figure-box" style="width: 855px; left: 0px;">
+                        <div class="poi-figure poi-play figure-slide" style="width: 910px;overflow-x:auto;height:200px">
+                            <ul class="play-list figure-box" style="height: 200px;left: 0px;display:-webkit-inline-box;width:auto">
                                 <!--图片-->
                                 <li class="figure" th:each="poi,poiStatus:${route.pois}">
                                     <a data-t="poi" class="figure" target="_blank" th:href="@{'/sight/' + ${poi.sid}}">
                                         <img class="lazy" height="180" width="270"
                                              th:src="${poi.pic}" style="display: inline;">
                                         <div class="mask-title">
-
                                             <h3 th:text="${poi.name}">宽窄巷子景区</h3>
                                         </div>
                                         <div class="mask-info">

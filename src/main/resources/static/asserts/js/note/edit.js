@@ -182,6 +182,7 @@ function addPic(data) {
         activeText.closest("div").after(pic);
         var newText = $(textBox);
         pic.after(newText);
+        newText.find("textarea").txtaAutoHeight();
         newText.find("textarea").focus(function () {
             activeText = newText.find("textarea");
         });
