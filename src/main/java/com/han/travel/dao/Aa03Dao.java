@@ -1,5 +1,6 @@
 package com.han.travel.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,8 @@ public interface Aa03Dao
     List<Map<String,Object>> getAllKidNamesAndId();
 
     List<Map<String, Object>> getAllNameAndId();
+
+    List<Map<String, Object>> getAllProvince();
+
+    List<Map<String, Object>> getCityByProvinceId(@Param("pid") int pid);
 }

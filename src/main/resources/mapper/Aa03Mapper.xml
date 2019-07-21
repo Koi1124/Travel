@@ -56,4 +56,17 @@
         WHERE aaa302 <![CDATA[ <> ]]> "Ö±Ï½ÊÐ"
         ;
     </select>
+
+    <select id="getAllProvince" resultType="java.util.HashMap">
+        SELECT aaa301 as 'id', aaa302 as 'name' FROM aa03
+        WHERE aaa304=0
+        ;
+    </select>
+
+    <select id="getCityByProvinceId" resultType="java.util.HashMap">
+        SELECT aaa301 as 'id', aaa302 as 'name' FROM aa03
+        WHERE aaa304=#{pid}
+        ;
+    </select>
+
 </mapper>

@@ -65,7 +65,7 @@ function setNotes(data) {
             '                                        <span class="tn-place"><i></i><a href="javascript:void(0);" class="_j_gs_item" rel="nofollow" data-name="'+ item.mddName +'" data-objid="'+ item.mddId +'" data-type="2">'+ item.mddName +'</a>，by</span>\n' +
             '                                        <span class="tn-user">\n' +
             '                                            <a href="/u/'+ item.authorId +'/note" target="_blank" rel="nofollow">\n' +
-            '                                                <img src="'+ item.authorPic +'">\n' +
+            '                                                <img src="'+ item.authorPic +'" style="width:15px;padding-bottom:1px">\n' +
             '                                                '+ item.authorName +'\n' +
             '                                            </a>\n' +
             '                                        </span>\n' +

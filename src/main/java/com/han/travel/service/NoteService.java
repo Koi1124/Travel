@@ -254,7 +254,7 @@ public class NoteService
             String content = (String) result.get("content");
             for (Map.Entry<String, Integer> entry : Utils.place.entrySet())
             {
-                content = content.replaceAll(entry.getKey(), "<a href='/mdd/" + entry.getValue() + "' class='link _j_keyword_mdd' target='_blank'>"
+                content = content.replaceAll(entry.getKey(), "<a href='/c/" + entry.getValue() + "' class='link _j_keyword_mdd' target='_blank'>"
                         + entry.getKey() + "</a>");
             }
 

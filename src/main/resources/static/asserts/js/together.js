@@ -52,7 +52,6 @@ $(document).ready(function() {
         async: true,
         success: function (result) {
             setData(result);
-            console.log(result);
         },
         error: function (e) {
             console.log(e);

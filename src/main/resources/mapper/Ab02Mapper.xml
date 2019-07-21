@@ -63,4 +63,20 @@
 		WHERE aab201=#{rid} AND aa03.aaa301=ab02.aaa301;
 	</select>
 
+	<select id="getTopRouteByCid" resultType="java.util.HashMap">
+		SELECT rid, name, routes FROM
+		(SELECT aab201 as 'rid', aab202 as 'name', aab203 as 'routes'
+		FROM ab02
+		WHERE ab02.aaa301=#{cid}) t
+		LEFT JOIN
+			(SELECT count(aad201) as 'count', aad203
+			 FROM ad02
+			 WHERE aad202=2
+			 GROUP BY aad203) t2
+		ON t.rid=t2.aad203
+		ORDER BY count DESC
+		<if test="limit != null">LIMIT ${limit}</if>
+		;
+	</select>
+
 </mapper>
