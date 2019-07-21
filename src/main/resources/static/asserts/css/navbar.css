@@ -139,12 +139,17 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
     display: table;
     height: 36px;
     font-size: 14px;
-    line-height: 26px;
+    line-height: 36px;
     color: #666;
     position: relative;
     vertical-align: top;
 }
-
+#_j_msg_panel a{
+    width:290px;
+}
+#_j_user_panel a{
+    width:68px;
+}
 .zy-header .dropdown-menu li a {
     display: table;
     height: 36px;
@@ -153,6 +158,8 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
     color: #666;
     cursor: pointer;
 }
+
+
 .zy-header .dropdown-menu li a:hover{
     background-color: #eee;
     color: #666;
