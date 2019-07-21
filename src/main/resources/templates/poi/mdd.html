@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>目的地</title>
+    <link th:href="@{/asserts/css/poi/mdd.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/navbar.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/asserts/js/poi/mdd.js}"></script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+    <div id="header">
+        <div class="zy-header">
+            <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
+                <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="主页"></a></div>
+                <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
+                    <li class="head-nav-zy-index"><a href="">首页</a></li>
+                    <li class="head-nav-zy-place"><a href="">目的地</a></li>
+                    <li class="head-nav-zy-gonglve"><a href="">旅游攻略</a></li>
+                    <li class="head-nav-zy-flight"><a href="">结伴</a></li>
+                </ul>
+
+
+                <div class="login-out">
+                    <a id="_j_showlogin" title="登录" href="" rel="nofollow">登录</a><span class="split">|</span><a
+                        href="" title="注册帐号" rel="nofollow">注册</a>
+                </div>
+
+                <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
+                    <div class="head-search-wrapper-zy">
+                        <div class="head-searchform-zy">
+                            <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
+                                   style="outline:none;">
+                            <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="shadow"></div>
+        </div>
+    </div>
+    <div class="place-focus">
+        <div class="show-banner show-info-notes">
+            <div class="cover" style="height: auto;">
+                <a class="bigimg" href="http://www.mafengwo.cn/gonglve/ziyouxing/278908.html" target="_blank"
+                   style="height: 604px;">
+
+                    <div class="shade"></div>
+                    <img data-ow="1600" data-oh="900"
+                         style="width: 100%; height: auto; opacity: 1; display: inline; margin: -131.969px 0px 0px;"
+                         src="https://p4-q.mafengwo.net/s14/M00/85/A9/wKgE2l0n5tKAf_yRABAPe7vLHhA532.jpg">
+                </a>
+            </div>
+            <div class="show-info">
+                <div class="owner">
+
+                </div>
+                <div class="show-name">
+                    <a href="/note/68" target="_blank" data-t="目的地">
+
+                        <h2>来北京必打卡长城，避开人潮的一日玩法</h2><span></span>
+                    </a>
+                </div>
+                <p class="location">
+                    长城太长，要看完是不可能的，所以按照地区划分了很多段，比较代表性的有山海关、嘉峪关、八达岭、金山岭、慕田峪、司马台、居庸关……光是在北京周边的就有近十段。那这么多段长城，应该怎么选？
+                </p>
+                <div class="show-links">
+                    <a href="/note/68" target="_blank">阅读全文</a>
+                </div>
+            </div>
+            <div class="show-shadow"></div>
+            <div class="show-ft">
+
+
+            </div>
+            <a class="show-arrdown"></a>
+        </div>
+        <div class="place-search-panel">
+            <h2>Travel around the world...</h2>
+            <form name="mdd-search-form" action="/search/s.php" method="get">
+                <div class="searchbar">
+                    <input autocomplete="off" class="search-input" type="text" name="q" placeholder="我想去...">
+                    <a class="search-button" href="#" data-cs-l="搜索" role="button"><i class="icon-search"></i></a>
+                </div>
+            </form>
+            <div class="search-suggest-panel search-suggest-place hide">
+                <ul class="suggest-list">
+
+                </ul>
+            </div>
+            <div class="place-search-hot">
+                <a href="/c/1">北京</a>
+                <a href="/c/6">武汉</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row row-hot" style="padding-top:0 ;">
+        <div class="wrapper">
+            <div class="r-title">
+                <h2>热门目的地</h2>
+            </div>
+
+            <div>
+                <div class="hot-list clearfix">
+                    <div class="col">
+                        <dl th:each="mdd:${mdds}">
+                            <dt th:if="${mdd.name ne '直辖市'}"><a th:href="@{'/c/' + ${mdd.id}}" th:text="${mdd.name}" target="_blank">云南</a></dt>
+                            <dt th:if="${mdd.name eq '直辖市'}">直辖市</dt>
+                            <dd>
+                                <hhh th:each="city:${mdd.cities}">
+                                <a th:href="@{'/c/' + ${city.id}}" th:text="${city.name}" target="_blank">北京</a>
+                                </hhh>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -26,4 +26,6 @@ public interface Ab02Dao extends CheckDao
 	List<Map<String,Object>> fuzzyGet(@Param("map")Map<String,Object>map);
 
 	Map<String, Object> getRouteDetailByRId(@Param("rid") Integer rid);
+
+	List<Map<String, Object>> getTopRouteByCid(@Param("cid") Integer cid, @Param("limit") Integer limit);
 }

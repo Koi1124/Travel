@@ -95,7 +95,6 @@ public class CompanyController
     @RequestMapping("/publish")
     public String toPublish()
     {
-        System.out.println("companycontroller");
         return "together/publish";
     }
 
