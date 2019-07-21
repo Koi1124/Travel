@@ -1,5 +1,6 @@
 package com.han.travel.controller;
 
+
 import com.han.travel.configuration.SessionConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class WelcomeController
 {
 
-    @RequestMapping("/")
+    @RequestMapping("/login")
     public String userLogin()
     {
         return "login";
@@ -29,11 +30,19 @@ public class WelcomeController
         return "login";
     }
 
-    @RequestMapping("/noteTest")
-    public String noteTest(HttpSession session)
+    @RequestMapping("/logout")
+    public String logOut(HttpSession session)
     {
-        session.setAttribute(SessionConfig.USER_ID, 1);
-        return "note/mine";
+        session.removeAttribute(SessionConfig.USER_ID);
+        session.removeAttribute(SessionConfig.USER_NAME);
+        session.removeAttribute(SessionConfig.USER_LOGO);
+        return "redirect:";
+    }
+
+    @RequestMapping({"","/"})
+    public String toHome()
+    {
+        return "homepage";
     }
 
 }

@@ -78,8 +78,15 @@ function clickReply(e) {
 
 //评论回复按钮
 function clickReplySubmit(e) {
+    if (user==null) {
+        logError("请先登录");
+        return;
+    }
+
+
     //检测非空
     if ($(e).prev("textarea").val() == "") {
+        logError("请输入内容");
         return;
     }
 
@@ -127,7 +134,7 @@ function clickReplySubmit(e) {
                 var list = $(e).closest(".reply-form").prev();
                 var str = "<li style=\"display:block\" u_id=" + $("#user_id").val() +
                     "          c_tag='reply' r_id=" + result + " c_id=" + commentId + " u_name=" + userName + ">" +
-                    "    <a onclick=\"\" target=\"_blank\">" +
+                    "    <a href=\"/u/"+ userId +"/note \" target=\"_blank\">" +
                     "        <img src=" + userLogo + " width=\"16\" height=\"16\">" + userName +
                     "    </a> ";
                 if (replyName != "") {
@@ -213,6 +220,10 @@ function clickDelete(e) {
 }
 
 function clickThumbsUp(e) {
+    if (user==null) {
+        logError("请先登录");
+        return;
+    }
     var temp=$(e).closest("li").attr("u_id");
     var rid=Number(temp);
     var data = {
@@ -297,6 +308,11 @@ function clickExtend(e) {
 }
 
 function clickCommentSubmit() {
+    if (user==null) {
+        logError("请先登录");
+        return;
+    }
+
     if ($("._j_comment_content").val() == "") {
         logError("请先填写留言内容");
         return;
@@ -322,11 +338,11 @@ function clickCommentSubmit() {
                 logSuccess("发表成功");
                 var c = $("<li class='rev-item comment-item clearfix' c_id=" + result + " c_tag='comment'" +
                     "           u_id=" + userId + " u_name=" + userName + " style='display: none'>" +
-                    "    <div class='user'><a class='avatar' target='_blank'>" +
+                    "    <div class='user'><a class='avatar' target='_blank' href='/u/"+ userId +"/note'>" +
                     "        <img src=" + userLogo + " width='48' height='48'></a></div>" +
                     "    <a class='useful' title='点赞' onclick='clickThumbsUp(this)'><i></i>" +
                     "        <span class='useful-num'></span></a>" +
-                    "    <a class='name' target='_blank'>" + userName + "</a>" +
+                    "    <a class='name' target='_blank' href='/u/"+ userId +"/note'>" + userName + "</a>" +
                     "    <p class='rev-txt'>" + $("._j_comment_content").val() + "</p>" +
                     "    <div class='info clearfix'>" +
                     "        <a class='btn-comment _j_comment' onclick='clickReply(this)' title='评论'" +
@@ -371,12 +387,12 @@ function setComment(data) {
     $(data).each(function (i, comment) {
         var c = $("<li class='rev-item comment-item clearfix' c_id=" + comment.remarkId + " c_tag='comment'" +
             "           u_id=" + comment.remarkerId + " u_name=" + comment.remarkerName + ">" +
-            "    <div class='user'><a class='avatar' target='_blank'>" +
+            "    <div class='user'><a class='avatar' href='/u/"+ comment.remarkerId +"/note' target='_blank'>" +
             "        <img src=" + comment.remarkerPic + " width='48' height='48'></a></div>" +
             "    <a class='useful" + (comment.thumbsId==null?"":" on") + "' title='点赞' onclick='clickThumbsUp(this)'><i></i>" +
             "        <span class='useful-num' style='color:" + (comment.thumbsId==null?"#666":"red") + "'>" + (comment.thumbsUpCount==null?"":comment.thumbsUpCount) + "</span>" +
             "    </a>" +
-            "    <a class='name' target='_blank'>" + comment.remarkerName + "</a>" +
+            "    <a class='name' href='/u/"+ comment.remarkerId +"/note' target='_blank'>" + comment.remarkerName + "</a>" +
             "    <p class='rev-txt'>" + comment.content + "</p>" +
             "    <div class='info clearfix'>" +
             "        <a class='btn-comment _j_comment' onclick='clickReply(this)' title='评论'" +
@@ -406,11 +422,11 @@ function setComment(data) {
         $(comment.reply).each(function (j, r) {
             var str = "<li style='display:" + (j>1?"none":"block") + "' u_id=" + r.replierId +
                 "          c_tag='reply' c_id=" + comment.remarkId + " u_name=" + r.replierName + " r_id=" + r.replyId +
-                "    ><a onclick='' target='_blank'>" +
+                "    ><a onclick='' href='/u/"+ r.replierId +"/note' target='_blank'>" +
                 "        <img src=" + r.replierPic + " width='16' height='16'>" + r.replierName +
                 "    </a> ";
             if (r.respondedName != "") {
-                str += " 回复 <a u_id=" + r.respondedId +">" + r.respondedName + "</a>"
+                str += " 回复 <a href='/u/"+ r.respondedId +"/note' u_id=" + r.respondedId +" >" + r.respondedName + "</a>"
             }
             str += "<haha> ：" + r.content + "</haha>" +
                 "    <a class='_j_reply re_reply' onclick='clickReply(this)' title='添加回复'>回复</a>\n";

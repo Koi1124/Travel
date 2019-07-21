@@ -62,11 +62,11 @@
     <div class="pagelet-block">
         <div class="vt_center">
             <div class="person" data-cs-t="ginfo_person_operate">
-                <a href="/u/94362993.html" target="_blank" class="per_pic">
+                <a href="/u/94362993.html" th:href="@{'/u/'+${uid}+'/note'}" target="_blank" class="per_pic">
                     <img width="120" height="120" th:src="${userPic}" alt="">
                 </a>
                 <strong>
-                    <a href="/u/94362993.html" target="_blank" class="per_name" th:title="${userName}" th:text="${userName}">Jack.Swift</a>
+                    <a href="/u/94362993.html" th:href="@{'/u/'+${uid}+'/note'}" target="_blank" class="per_name" th:title="${userName}" th:text="${userName}">Jack.Swift</a>
                 </strong>
 
                 <hhh th:if="${session.user_id ne uid}">

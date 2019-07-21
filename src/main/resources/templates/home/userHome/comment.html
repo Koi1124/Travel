@@ -42,9 +42,9 @@
                 <ul class="flt2" style="float: left;margin-left:280px;">
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/note'}" target="_self"  th:title="${(uid eq session.user_id?'我':'TA') + '的游记'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的游记'}">我的游记</a></li>
-                    <li class="on"><a class="tags_link _collect_choose" tabindex="1" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
-                                       th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
-                    <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
+                    <li><a class="tags_link _collect_choose" tabindex="1" th:title="${(uid eq session.user_id?'我':'TA') + '的收藏'}"
+                                      th:text="${(uid eq session.user_id?'我':'TA') + '的收藏'}">我的收藏</a></li>
+                    <li class="on"><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/comment'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的点评'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的点评'}">我的点评</a></li>
                     <li><a class="tags_link" href="" th:href="@{'/u/'+${uid}+'/together'}" target="_self" th:title="${(uid eq session.user_id?'我':'TA') + '的结伴'}"
                            th:text="${(uid eq session.user_id?'我':'TA') + '的结伴'}">我的结伴</a></li>
@@ -62,31 +62,37 @@
 
         <div class="content flt2">
 
-            <!-- 结伴板块 -->
+
             <div class="wrap">
                 <div class="mian dialogue">
+                    <div class="th">
+                    </div>
                     <div class="dia_list ">
-                        <!-- 收藏游记 s-->
-                        <div class="item clearfix _collect_item" th:data-id="${collectNote.collectId}" th:each="collectNote:${collectNotes}">
+
+                        <!-- 一条评论 s-->
+                        <div class="item clearfix" th:each="comment:${comments}">
 
                             <div class="con">
                                 <div class="title clearfix">
-                                    <a href="游记页面" th:href="@{'/note/'+${collectNote.nid}}" class="name"><span th:text="${collectNote.title}">游记题目</span></a>
+                                    <span>在 <hhh th:text="${comment.type}"></hhh> 类型
+                                        <hhh th:switch="${comment.type}">
+                                            <a th:case="'游记攻略'" href="游记页面" th:href="@{'/note/'+${comment.toCId}}" class="name"><hhh th:text="${comment.title}">题目</hhh></a>
+                                            <a th:case="'结伴'" href="结伴页面" th:href="@{'/together/company/detail/'+${comment.toCId}+'.html'}" class="name"><hhh th:text="${comment.title}">题目</hhh></a>
+                                            <!--<a th:case="'游记攻略'" href="游记页面" th:href="@{'/note/'+${comment.toCId}}" class="name"><hhh th:text="${comment.title}">题目</hhh></a>-->
+                                        </hhh>
+                                        发表的评论</span>
                                 </div>
-                                <p>发布时间：<span th:text="${collectNote.time}">2019.......</span></p>
-                                <p>作者：<a href="用户空间" th:href="@{'/u/'+${collectNote.authorId}+'/note'}" class="name"><hhh th:text="${collectNote.authorName}">茄子</hhh></a></p>
-                            </div>
-
-                            <div class="tool_right" th:if="${session.user_id eq collectNote.authorId}">
-                                <span class="delete" th:onclick="'deleteCollect('+ ${collectNote.collectId} +')'"></span>
+                                <p th:text="${comment.content}">我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行我觉得不行</p>
+                                <p th:text="${comment.time}">时间：2019-xxx</p>
                             </div>
                         </div>
-                        <!-- 收藏游记 e-->
+                        <!-- 评论 e-->
 
 
 
 
                     </div>
+                    <div class="pagin" id="smallpager"></div>
                 </div>
             </div>
 

@@ -39,5 +39,21 @@
         WHERE aac001=#{id}
         ;
     </delete>
+    
+    <select id="getCompanyCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aab501 AS 'toCId', b.aab502 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','½á°é' AS 'type'
+        FROM ac00 a, ab05 b
+        WHERE a.aac002=5 AND a.aac003=b.aab501 AND a.aac006=1
+        AND a.aaa101=#{uid};
+        ;
+    </select>
+    
+    <select id="getNoteCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT b.aab101 AS 'toCId', b.aab102 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','ÓÎ¼Ç¹¥ÂÔ' AS 'type'
+        FROM ac00 a, ab01 b
+        WHERE a.aac002=1 AND a.aac003=b.aab101 AND a.aac006=1
+        AND a.aaa101=#{uid}
+        ;
+    </select>
 
 </mapper>

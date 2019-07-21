@@ -17,7 +17,6 @@ $(document).ready(function () {
     initPagination(totalPage);
 
 
-
     // 热门和最新
     $(".tn-nav-hot").click(function () {
         $("._j_gs_tab").removeClass("active");
@@ -65,7 +64,7 @@ function setNotes(data) {
             '                                        </span>\n' +
             '                                        <span class="tn-place"><i></i><a href="javascript:void(0);" class="_j_gs_item" rel="nofollow" data-name="'+ item.mddName +'" data-objid="'+ item.mddId +'" data-type="2">'+ item.mddName +'</a>，by</span>\n' +
             '                                        <span class="tn-user">\n' +
-            '                                            <a href="/'+ item.authorPic +'" target="_blank" rel="nofollow">\n' +
+            '                                            <a href="/u/'+ item.authorId +'/note" target="_blank" rel="nofollow">\n' +
             '                                                <img src="'+ item.authorPic +'">\n' +
             '                                                '+ item.authorName +'\n' +
             '                                            </a>\n' +
@@ -143,9 +142,9 @@ function initPagination() {
         nextPageText: "下一页",// 下一页文本
         callback: function(current) {
             // 回调,current(当前页数)
+            scroll();
             page = current;
             getNotes(id,s_type)
-
 
         }
     });

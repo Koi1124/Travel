@@ -1,6 +1,11 @@
 $(function () {
 
     $("#_follow_user").click(function () {
+        if (myId==null) {
+            logError("请先登录");
+            return;
+        }
+
         if ($(this).attr("hasFollowed")=='0') {
             $.ajax({
                 type: "post",

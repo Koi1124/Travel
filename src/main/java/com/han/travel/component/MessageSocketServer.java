@@ -18,8 +18,13 @@ public class MessageSocketServer
     @OnOpen
     public void onOpen(Session session)
     {
-        this.session=session;
-        messageSet.add(this);
+        if (session!=null)
+        {
+            this.session=session;
+            messageSet.add(this);
+        }else {
+            return;
+        }
     }
 
     @OnClose

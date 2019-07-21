@@ -68,7 +68,6 @@ public class LetterController
     @GetMapping("/detail/{id}")
     public String toLetterDetail(HttpSession session, @PathVariable("id") Integer id, Map<String,Object> dto)
     {
-        System.out.println(id);
         dto.put("detail",letterService.getDetailByClientAndToClient((Integer) session.getAttribute("user_id"),id));
         dto.put("toClient",userService.getUserPicAndNameById(id));
         return "letter/detail";

@@ -3,6 +3,13 @@ var type = "1";
 var path = "/user";
 
 $(document).ready(function() {
+
+    console.log(msg);
+    if (msg!=null){
+        setText($("#email-login-tip"),msg);
+    }
+
+
     var name = $("#name");
     var mail = $("#mail");
     var btnICode = $("#btn-i-code");

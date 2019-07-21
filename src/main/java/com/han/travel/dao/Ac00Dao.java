@@ -62,4 +62,23 @@ public interface Ac00Dao
      * @return boolean
      **/
     boolean deleteCommentById(int id);
+
+
+    /**
+     *@discription: 根据用户id获得评论信息 map->
+     * type: 评论类型 1->游记 2->系统攻略 3->景点 5->结伴
+     * time: 发表时间
+     * title: 评论对象标题
+     * content: 评论内容
+     * toCId: 评论对象id
+     *@param uid 
+     *@date: 2019/7/21 0:41
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    List<Map<String,Object>> getCompanyCommentInfoByUId(int uid);
+    List<Map<String,Object>> getNoteCommentInfoByUId(int uid);
+    List<Map<String,Object>> getSightCommentInfoByUId(int uid);
+    List<Map<String,Object>> getPoiCommentInfoByUId(int uid);
+
 }

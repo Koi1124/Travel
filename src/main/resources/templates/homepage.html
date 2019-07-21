@@ -28,15 +28,20 @@
         <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
             <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="主页"></a></div>
             <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
-                <li class="head-nav-zy-index"><a href="#">首页</a></li>
+                <li class="head-nav-zy-index"><a href="#" th:href="@{/}">首页</a></li>
                 <li class="head-nav-zy-place"><a href="##">目的地</a></li>
                 <li class="head-nav-zy-gonglve"><a href="##">旅游攻略</a></li>
                 <li class="head-nav-zy-sales"><a href="##">跟团游</a></li>
                 <li class="head-nav-zy-flight"><a href="" th:href="@{/together}">结伴</a></li>
             </ul>
 
-            <div class="head-user-zy" id="_j_head_user">
-                <a href="##" th:href="@{'/u/'+${session.user_id}+'/note'}" title="个人空间">
+            <!-- 未登录 -->
+            <div class="login-out" th:if="${session.user_id eq null}">
+                <a id="_j_showlogin" title="登录" href="" th:href="@{/login}" rel="nofollow">登录</a><span class="split">|</span><a href="" th:href="@{/login#1}" title="注册帐号" rel="nofollow">注册</a>
+            </div>
+
+            <div class="head-user-zy" id="_j_head_user" th:if="${session.user_id ne null}">
+                <a class="_user_manage" tabindex="1" title="个人空间">
                     <div class="user-image">
                         <img th:src="${session.user_logo}"
                              src="https://n3-q.mafengwo.net/s14/M00/61/E8/wKgE2l0V5VWALV8-AAM2SSal2oE02.jpeg?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
@@ -45,7 +50,7 @@
                 </a>
             </div>
 
-            <div class="head-msg" id="_j_head_msg">
+            <div class="head-msg" id="_j_head_msg" th:if="${session.user_id ne null}">
                 <a class="drop-trigger _drop_msg_detail" href="javascript:" style="text-decoration: none;">
                     <i class="icon-msg"></i>
                     消息
@@ -55,7 +60,7 @@
             </div>
 
 
-            <div class="head-msg" id="_j_head_private_letter">
+            <div class="head-msg" id="_j_head_private_letter" th:if="${session.user_id ne null}">
                 <a class="drop-trigger" href="javascript:"  th:href="@{/letter}" style="text-decoration: none;">
                     <i class="icon-letter"></i>
                     私信
@@ -82,9 +87,9 @@
                 <div class="dropdown-menu dropdown-user hide" id="_j_user_panel" data-cs-t="user_nav"
                      style="display: none;width: 200px;right: 500px">
                     <ul>
-                        <li><a href="" title="个人空间" rel="nofollow"><i class="icon-wo"></i>个人空间</a></li>
-                        <li><a href="" title="我的设置" target="_blank" rel="nofollow" data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
-                        <li><a href="" title="退出登录" rel="nofollow"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
+                        <li><a href="" th:href="@{'/u/'+${session.user_id}+'/note'}" title="个人空间"><i class="icon-wo"></i>个人空间</a></li>
+                        <li><a href="" th:href="@{/setting}" title="我的设置" target="_blank"  data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
+                        <li><a th:href="@{/logout}" title="退出登录"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
                     </ul>
                 </div>
                 <!-- 用户下拉菜单 end -->
