@@ -32,7 +32,7 @@ $(document).ready(function() {
 	            	     "</td><td>"+ls.setout+"</td><td>"+ls.destiny+"</td><td>"+ls.spendtime+"</td><td>"+ls.peoplenumber+
 	            	     "</td><td>"+ls.tel+
 	            	     "</td><td width='50px' class='td-manage'>" +
-	            	     "<a title='查看详情' onclick='xadmin.open('查看详情','/company/"+ls.aab501+"',600,800)' href='javascript:;'>" +
+	            	     "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/company/"+ls.id+"')\">" +
 	            	     "<i class='layui-icon layui-icon-link' style=' font-size: 23px;margin-left:20px ' ></i></a>" +
 	            	     "</a></td>"+
 	            	     "<td class='td-manage'>"+

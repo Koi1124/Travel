@@ -278,7 +278,7 @@ public class NoteService
      **/
     public boolean changeStatus(Map<String, Object> map)
     {
-        return ab01Dao.changeStateById(Integer.valueOf((String)map.get("nid")), (int)map.get("status"));
+        return ab01Dao.changeStateById(map);
     }
 
     /**

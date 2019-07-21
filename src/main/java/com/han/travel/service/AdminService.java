@@ -179,7 +179,7 @@ public class AdminService
     
     public boolean changeAb01State(Map<String, Object> map)
     {	
-		return ab01Dao.changeStateById(Integer.parseInt(map.get("id").toString()),Integer.parseInt(map.get("state").toString()));
+		return ab01Dao.changeStateById(map);
     }
     
     

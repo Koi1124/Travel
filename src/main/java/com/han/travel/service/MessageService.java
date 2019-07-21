@@ -224,6 +224,7 @@ public class MessageService
         {
             Map<String,Object> dto=new HashMap<>(3);
             String url="";
+            System.out.println(m);
             switch ((String)m.get("type"))
             {
                 case "1":

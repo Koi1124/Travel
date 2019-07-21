@@ -23,6 +23,8 @@
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/lib/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript" ></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
     <script th:src="@{/asserts/js/note/details.js}"></script>
     <script th:src="@{/asserts/js/common/comment.js}"></script>
@@ -30,7 +32,9 @@
 </head>
 
 <body>
-<div th:if="${status eq '2'}" id="header" th:replace="~{homepage :: navbar}"></div>
+<hhh th:if="${status eq '2'}">
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+</hhh>
 <input id="comment_count" type="hidden" th:value="${commentCount}"/>
 <input id="user_id" type="hidden" th:value="${session.user_id}"/>
 <input id="user_name" type="hidden" th:value="${session.user_name}"/>
@@ -70,14 +74,14 @@
                 <strong>
                     <a href="/u/94362993.html" th:href="@{'/u/'+${uid}+'/note'}" target="_blank" class="per_name" th:title="${userName}" th:text="${userName}">Jack.Swift</a>
                 </strong>
-
+                <hhh th:if="${session.adminusername ne null}">
                 <hhh th:if="${session.user_id ne uid}">
                 <a class="per_attention" th:if="${followId eq null}">
                     <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13"
                          border="0" title="关注TA">
                 </a>
                 </hhh>
-
+                </hhh>
                 <div class="vc_time">
                     <span class="time" th:text="${editTime}">2019-07-09 14:41</span>
                     <span><i class="ico_view"></i><hhh th:text="${views + '/' + (commentCount eq null?0:commentCount)}">45/2</hhh></span>
@@ -145,7 +149,10 @@
 
                 </div>
 
-
+                <div th:if="${session.adminusername ne null}" class="item-btn" style="width: 400px">
+                    <a class="btn-publish btn-preview" onclick="changeStauts(2)">拒绝</a>
+                    <a id="btn-publish" class="btn-publish" onclick="changeStauts(1)">通过</a>
+                </div>
             </div>
 
             <!-- 评论 -->

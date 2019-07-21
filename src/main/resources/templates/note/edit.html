@@ -126,8 +126,9 @@
 <div class="clear"></div>
 <div class="action-ft">
     <div class="action-wrap">
-        <div class="item-btn">
-            <a class="btn-publish" role="button">发表游记</a>
+        <div class="item-btn" style="width: 400px">
+            <a class="btn-publish btn-preview" th:href="@{'/preview/' + ${nid}}" target="_blank" role="button">预览</a>
+            <a id="btn-publish" class="btn-publish" role="button">发表游记</a>
         </div>
     </div>
 </div>

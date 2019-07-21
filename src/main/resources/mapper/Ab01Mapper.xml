@@ -13,17 +13,21 @@
 
     <update id="changeStateById">
         UPDATE ab01
-        SET aab103=#{state}
-        WHERE aab101=#{id}
+        SET aab103=#{status}
+        WHERE aab101=#{nid}
         ;
     </update>
     
     <select id="getAll" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        select aab101,b.aaa102 AS author ,aab102,aab104,
-       	aab105,aab106,aab107
+        SELECT aab101, author, aab102, aab104, aab105,
+            aab106, aab107, aa03.aaa302 as 'poi'
+        from
+        (select aab101,b.aaa102 AS author ,aab102,aab104,
+       	aab105,aab106,aab107,aaa301
 		from ab01 a,aa01 b
-		where a.aaa101=b.aaa101 and a.aab103=0
-        limit #{begin},#{num};
+		where a.aaa101=b.aaa101 and a.aab103=1
+        limit #{begin},#{num}) t
+        LEFT JOIN aa03 on t.aaa301=aa03.aaa301;
     </select>
     
     <select id="selectCount" resultType="java.lang.Integer">

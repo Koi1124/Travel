@@ -79,7 +79,7 @@ function initSocket() {
 function initSocketHelper() {
     $.ajax({
         type: "post",
-        url: localhostPaht+"/message/messageCount",
+        url: "/message/messageCount",
         contentType: "application/json",
         dataType: "json",
         async: true,
@@ -128,7 +128,7 @@ $(function () {
     checkout=function(id) {
         $.ajax({
             type: "post",
-            url: localhostPaht+"/message/checkout",
+            url: "/message/checkout",
             contentType: "application/json",
             dataType: "json",
             async: true,
@@ -155,7 +155,7 @@ $(function () {
     checkAll=function () {
         $.ajax({
             type: "post",
-            url: localhostPaht + "/message/clearAll",
+            url: "/message/clearAll",
             contentType: "application/json",
             dataType: "json",
             async: true,
@@ -182,7 +182,7 @@ $(function () {
     $("._drop_msg_detail").click(function () {
         $.ajax({
             type: "post",
-            url: localhostPaht+"/message/detail",
+            url: "/message/detail",
             contentType: "application/json",
             dataType: "json",
             async: true,

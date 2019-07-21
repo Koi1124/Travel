@@ -281,7 +281,7 @@ function submitNote() {
         date:$("#date-input").val(),
         money:$("#money-input").val(),
         time:$("#days-input").val(),
-        status:1
+        status:"1"
     }
     $.ajax({
         type: "post",
@@ -450,7 +450,7 @@ $(function () {
     });
 
     //发表游记
-    $(".btn-publish").click(function () {
+    $("#btn-publish").click(function () {
         clickSubmit();
     });
 
@@ -584,7 +584,7 @@ function setContent() {
 }
 
 function testBlank(str) {
-    str = str.replace(" ", "");
+    str = str.replace(/\s+/g, "");
     var reg = /\n/g;
     str = str.replace(reg, "");
     return str.length == 0;

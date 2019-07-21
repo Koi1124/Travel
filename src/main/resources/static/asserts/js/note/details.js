@@ -264,3 +264,38 @@ function testBlank(str) {
     str = str.replace(reg, "");
     return str.length == 0;
 }
+
+//==============管理员====================================================
+function changeStauts(status) {
+    $.ajax({
+        type: "post",
+        url: "/note/changeStatus",
+        data: JSON.stringify({
+            nid: nid.toString(),
+            status: status
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (result) {
+                if (status == 2)
+                    logSuccess("通过成功, 1秒后页面自动关闭");
+                else if (status == 3)
+                    logSuccess("设置成功, 1秒后页面自动关闭");
+                $(".btn-publish").unbind();
+
+                setTimeout(function () {
+                    xadmin.close();
+                    xadmin.father_reload();
+                }, 1000);
+            }
+            else {
+                logError("网络故障，请稍后再试");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}

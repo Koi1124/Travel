@@ -1,16 +1,18 @@
 package com.han.travel.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.han.travel.configuration.SessionConfig;
+import com.han.travel.service.CompanyService;
+import com.han.travel.service.NoteService;
+import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.han.travel.dao.Aa02Dao;
 import com.han.travel.dao.Aa04Dao;
 import com.han.travel.dao.Ab01Dao;
@@ -24,6 +26,10 @@ public class AdminController
 {   
 	@Autowired
     private AdminService adminService;
+	@Autowired
+	private NoteService noteService;
+	@Autowired
+	private CompanyService companyService;
 
 	@RequestMapping("/admin")
     public String toAdminLogin(Map<String,Object> dto,HttpServletRequest request)
@@ -237,6 +243,42 @@ public class AdminController
 	
 	
 	//======================攻略(ab02)和景点(ab03)模块=============================
-	
-	
+
+
+
+
+
+	//========================审核详细页面=========================================
+	/**
+	 * @Author Saki
+	 * @Description 游记详细页面
+	 * @Date 2019/7/21
+	 * @param id
+	 * @param dto
+	 * @return java.lang.String
+	 **/
+	@RequestMapping("/admin/note/preview/{id}")
+	public String previewNote(@PathVariable int id, Map<String, Object> dto)
+	{
+		Map<String, Object> map = noteService.getNoteById(id, null, null);
+		dto.putAll(map);
+		return "note/details";
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 结伴详情页面
+	 * @Date 2019/7/21
+	 * @param id
+	 * @param dto
+	 * @return java.lang.String
+	 **/
+	@RequestMapping("/admin/company/{id}")
+	public String previewCompany(@PathVariable int id, Map<String, Object> dto)
+	{
+		Map<String,Object> detail=companyService.getCompanyBaseDataByCid(id);
+		dto.putAll(detail);
+		dto.put("images", companyService.getCompanyPicsById(id));
+		return "admin/verify/company";
+	}
 }

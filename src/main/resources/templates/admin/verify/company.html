@@ -1,0 +1,119 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="'结伴' + ${title}">结伴 </title>
+    <meta name="renderer" content="webkit" />
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
+          rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1530619858.css"
+          rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
+
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var together_id=[[${id}]];
+        /*]]>*/
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/lib/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript" ></script>
+    <script th:src="@{/asserts/js/admin/verify/company.js}"></script>
+
+    <style>
+        .rev-item {
+            padding: 25px 0 20px 40px;
+        }
+        .btn-publish {
+            display: inline-block;
+            margin-left: 25px;
+            padding: 0 55px;
+            height: 60px;
+            background: -webkit-linear-gradient(-30deg,transparent 0,rgba(255,138,0,.3) 30%,rgba(255,138,0,1) 90%);
+            background-color: #ff9d00;
+            border-radius: 30px;
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            line-height: 60px;
+            text-align: center;
+            box-shadow: 0 0 7px rgba(0,0,0,0.15);
+            vertical-align: middle;
+        }
+        .btn-publish:hover {
+            text-decoration: none;
+            background-color: #ff9d00;
+            color: rgb(255, 255, 255);
+        }
+        .a{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="detail-hd">
+        <div class="cover" th:style="'background-image:url(' + ${mddPic} + ')'" style="background-image:url(https://n3-q.mafengwo.net/s5/M00/E5/67/wKgB3FHlDx2AeOipAAMkkOmX8pg42.jpeg?imageMogr2%2Fthumbnail%2F%211280x280r%2Fgravity%2FCenter%2Fcrop%2F%211280x280%2Fquality%2F100)">
+            <div class="bg"></div>
+            <div class="shadow"></div>
+        </div>
+        <div class="wrapper">
+            <div class="info">
+                <div class="middle">
+                    <h1 th:text="${title}">一起去新疆，有一起的么？</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-bg2">
+        <div class="summary">
+            <ul class="clearfix">
+                <li><i class="icon-startTime"></i><span th:text="'出发时间：'+ ${date}">出发时间：2019-12-21</span></li>
+                <li><i class="icon-days"></i><span th:text="'大约：' + ${period} + '天'">大约：9天</span></li>
+                <li><i class="icon-destination"></i><span th:text="'目的地：'+ ${name}">目的地：伊犁|禾木|喀纳斯|新疆</span></li>
+                <li><i class="icon-departure"></i><span th:text="'出发地：'+ ${setout}">出发地：乌鲁木齐</span></li>
+                <li><i class="icon-people"></i><span th:text="'希望人数：'+ ${count} + '人'">希望人数：6人</span></li>
+            </ul>
+            <div class="contact _j_contact">
+                联系方式
+                <span th:text="${telephone}" class="invisible">
+                    ------报名后可见-------
+                </span>
+
+            </div>
+        </div>
+        <div class="wrapper clearfix">
+            <div class="detail-content">
+                <div class="sponsor clearfix">
+                    <a class="avatar"><img th:src="${authorPic}" height="90" width="90"></a>
+                    <a class="name _publisher_name" th:data_id="${authorId}" target="_blank">
+                        <p th:text="${authorName}"></p>
+                    </a>
+
+                </div>
+                <div class="desc _j_description">
+                    <div class="title" ><p th:text="${title}">一起去新疆，有一起的么？</p></div>
+                    <p th:utext="${intro}"></p>
+                    <img th:each="image:${images}" style="max-width: 600px" border="0" th:src="${image}">
+                </div>
+
+
+
+                <div th:if="${session.adminusername ne null}" class="item-btn" style="width: 400px">
+                    <a class="btn-publish btn-preview" onclick="changeStatus(2)">拒绝</a>
+                    <a id="btn-publish" class="btn-publish" onclick="changeStatus(1)">通过</a>
+                </div>
+            </div>
+
+        </div>
+</body>
+</html>
