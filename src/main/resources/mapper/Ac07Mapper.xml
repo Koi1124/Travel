@@ -9,6 +9,14 @@
         ;
     </insert>
 
+    <insert id="addCompMDD">
+        INSERT INTO ac07
+        (aaa301, aab501)
+        VALUES
+        (#{pid}, #{cid})
+        ;
+    </insert>
+
     <select id="placeCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT COUNT(aaa301)
         FROM ac07

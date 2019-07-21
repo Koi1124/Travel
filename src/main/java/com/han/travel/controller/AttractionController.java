@@ -25,56 +25,54 @@ public class AttractionController
 	@Autowired
     private SightService sightService;
 
-	@RequestMapping("/attraction")
-    public String toAttraction(Map<String,Object> dto)
-    {
-    	return "admin/attraction";
-    }
-
-	@RequestMapping("/editAttraction")
-    public String toAttraction_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
-    {
-		model.addAttribute("id",id);
-		model.addAttribute("operation",operation);
-    	return "admin/attraction_edit";
-    }
-
-	
-	
-	@PostMapping("/ab03/insertAttraction")
-    @ResponseBody					
-    public boolean insertAttraction(@RequestBody Map<String,Object>map)
-    {
-		return adminService.insertAttraction(map);
-    }
-	
-	@PostMapping("/ab03/delAttraction")
-    @ResponseBody					
-    public boolean delAttraction(@RequestBody Map<String,Object>map)
-    {
-		return adminService.delAttraction(map);
-    }
-	
-	@PostMapping("/ab03/updateById")
-    @ResponseBody					
-    public boolean updateAttraction(@RequestBody Map<String,Object>map)
-    {
-		return adminService.updateAttraction(map);
-    }
-	
-	@PostMapping("/ab03/fuzzyQuery")
-    @ResponseBody					
-    public Map<String,Object> ab03fuzzyQuery(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ad03fuzzyQuery(map);
-    }
-	
-	@PostMapping("/ab03/queryById")
-    @ResponseBody					
-    public Map<String,Object> ab03queryById(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ab03queryById(map);
-    }
+//	@RequestMapping("/attraction")
+//    public String toAttraction(Map<String,Object> dto)
+//    {
+//    	return "admin/attraction";
+//    }
+//
+//	@RequestMapping("/editAttraction")
+//    public String toAttraction_edit(Model model,@RequestParam(name = "id") String id,@RequestParam(name = "operation") String operation)
+//    {
+//		model.addAttribute("id",id);
+//		model.addAttribute("operation",operation);
+//    	return "admin/attraction_edit";
+//    }
+//
+//	@PostMapping("/ab03/insertAttraction")
+//    @ResponseBody
+//    public boolean insertAttraction(@RequestBody Map<String,Object>map)
+//    {
+//		return ab03Dao.insertAttraction(map);
+//    }
+//
+//	@PostMapping("/ab03/delAttraction")
+//    @ResponseBody
+//    public boolean delAttraction(@RequestBody Map<String,Object>map)
+//    {
+//		return ab03Dao.delAttraction(Integer.parseInt(map.get("id").toString()));
+//    }
+//
+//	@PostMapping("/ab03/updateById")
+//    @ResponseBody
+//    public boolean updateAttraction(@RequestBody Map<String,Object>map)
+//    {
+//		return ab03Dao.updateAttraction(map);
+//    }
+//
+//	@PostMapping("/ab03/fuzzyQuery")
+//    @ResponseBody
+//    public Map<String,Object> fuzzyQuery(@RequestBody Map<String,Object>map)
+//    {
+//		return PageBean.fuzzyQuery(ab03Dao, "ab03",map);
+//    }
+//
+//	@PostMapping("/ab03/queryById")
+//    @ResponseBody
+//    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
+//    {
+//		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
+//    }
 	
 
     /**

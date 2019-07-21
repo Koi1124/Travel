@@ -11,6 +11,8 @@ public interface Ac07Dao
 {
     boolean insertMDD(@Param("dto")Map<String,Object> dto);
 
+    boolean addCompMDD(@Param("cid") int cid, @Param("pid") int pid);
+
     Integer placeCount(int pid);
 
     boolean deleteByCompId(int cid);

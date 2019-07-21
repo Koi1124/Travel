@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ac08Dao">
+
+    <insert id="addCompanyPic">
+        INSERT INTO ac08(aab501, aac802, aac803)
+              VALUES (#{cid}, #{pic}, #{index});
+    </insert>
+
+    <select id="getCompanyPicsByCid" resultType="java.lang.String">
+        SELECT aac802 as 'pic'
+        FROM ac08
+        WHERE aab501=#{cid}
+        ORDER BY aac803;
+    </select>
+
+</mapper>

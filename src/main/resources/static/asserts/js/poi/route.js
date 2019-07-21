@@ -11,7 +11,7 @@ $(function () {
         for (var j = 0; j < days[i].length; j++) {
             d.append("<a href='/sight/" + days[i][j].sid + "' target='_blank'>" + days[i][j].name + "</a>");
             if (j != days[i].length - 1)
-            d.append("<span class='arrow'>→</span>");
+            d.append("<span class='arrow' style='padding-top: 0px'>→</span>");
         }
         $(".J_overview").append(d);
     }
@@ -53,6 +53,133 @@ function search(result) {
         var polyline = new BMap.Polyline(points);
         map.addOverlay(polyline);
     })
+}
+
+function clickStar() {
+    if (uid == null) {
+        pleaseLogin("收藏");
+        return;
+    }
+    $("#btn-star").click(function () {
+        if ($(this).find("i").attr("class") == "icon-like") {
+            $.ajax({
+                type: "post",
+                url: "/collect",
+                data: JSON.stringify({
+                    userId: uid,
+                    collectId: rid,
+                    type: type
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    if (result) {
+                        logSuccess("收藏成功");
+                        $(this).find("i").attr("class", "icon-liked")
+                    }
+                    else {
+                        logError("网络故障，请稍后再试");
+                    }
+                },
+                error: function (e) {
+                    logError("网络故障，请稍后再试");
+                    console.log(e);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "/uncollect",
+                data: JSON.stringify({
+                    userId: uid,
+                    collectId: rid,
+                    type: type
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    if (result) {
+                        logSuccess("取消收藏成功");
+                        $(this).find("i").attr("class", "icon-like")
+                    }
+                    else {
+                        logError("网络故障，请稍后再试");
+                    }
+                },
+                error: function (e) {
+                    logError("网络故障，请稍后再试");
+                    console.log(e);
+                }
+            });
+        }
+    });
+}
+
+
+function clickThumbsUp() {
+    if (uid == null) {
+        pleaseLogin("点赞");
+        return;
+    }
+    $("#btn-star").click(function () {
+        if ($(this).find("i").attr("class") == "icon-like") {
+            $.ajax({
+                type: "post",
+                url: "/thumbsUp",
+                data: JSON.stringify({
+                    userId: uid,
+                    collectId: rid,
+                    type: type
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    if (result) {
+                        logSuccess("点赞成功");
+                        $(this).find("i").attr("class", "icon-liked")
+                    }
+                    else {
+                        logError("网络故障，请稍后再试");
+                    }
+                },
+                error: function (e) {
+                    logError("网络故障，请稍后再试");
+                    console.log(e);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "/thumbsDown",
+                data: JSON.stringify({
+                    userId: uid,
+                    collectId: rid,
+                    type: type
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    if (result) {
+                        logSuccess("取消点赞成功");
+                        $(this).find("i").attr("class", "icon-like")
+                    }
+                    else {
+                        logError("网络故障，请稍后再试");
+                    }
+                },
+                error: function (e) {
+                    logError("网络故障，请稍后再试");
+                    console.log(e);
+                }
+            });
+        }
+    });
 }
 
 

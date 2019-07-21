@@ -39,7 +39,7 @@ function setContent() {
                           "</div>");
             title.attr("id", "title-" + index);
             index++;
-            title.find("h2 span").text(item['title']);
+            title.find("h2 span").html(item['title']);
             $("._j_content_container").append(title);
         }
         else {

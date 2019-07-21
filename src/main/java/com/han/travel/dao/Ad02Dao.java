@@ -19,7 +19,7 @@ public interface Ad02Dao {
 
     boolean thumbsDown(Map<String, Object> map);
 
-    Integer isThumbsUp(@Param("uid") Integer uid, @Param("param") Integer type,
+    Integer isThumbsUp(@Param("uid") Integer uid, @Param("type") Integer type,
                        @Param("pid") Integer pid);
 
     Integer getThumbsCountByTypeAndId(@Param("type") int type, @Param("id") int id);

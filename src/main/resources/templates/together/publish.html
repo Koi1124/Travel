@@ -5,49 +5,57 @@
     <title>发布结伴</title>
     <meta name="renderer" content="webkit" />
 
-    <script type="text/javascript">
-        window.Env = {"has_logo":1,"user_lv":4,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","W_HTTP":"https:\/\/w.mafengwo.cn","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"https:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","TONGJI_HOST":"tongji.mafengwo.cn","UID":62964992,"CSTK":"e7e0c0ad975ce4b35095d3cfb476e09a_829fe0110e0728e97cfd16e6d1225ebe","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","MOBILE_BINDED":true};
-    </script>
 
+    <link th:href="@{/asserts/css/main.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/asserts/css/tools/dateSelect.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/asserts/css/tools/spop.css}" type="text/css" rel="stylesheet">
     <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1542357401.css" rel="stylesheet" type="text/css"/>
 
     <link href="https://css.mafengwo.net/css/cv/css+together+together_v2:css+jquery-ui-1.8.18.custom^Zlc^1542357412.css" rel="stylesheet" type="text/css"/>
 
     <link th:href="@{/asserts/css/jquery-ui.css}">
-
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
-
     <script th:src="@{/asserts/js/common/jquery-ui.js}"></script>
-
+    <script th:src="@{/asserts/js/tools/uploadPic.js}"></script>
+    <script th:src="@{/asserts/js/tools/dateSelect.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/together/publish.js}"></script>
 
+    <script th:inline="javascript">
+        var uid = [[${session.user_id}]];
+    </script>
 </head>
-<body>
+<body style="padding-top: 0px !important;">
 <div id="header" th:insert="~{homepage :: navbar}"></div>
 <div class="wrapper mod-publish">
     <div class="crumb"><a href="/together">结伴</a> &gt; <span>发起结伴</span></div>
     <h3 class="mod-title">发起结伴<span>（一个真诚的请求，才会赢的更多靠谱的旅伴）</span></h3>
-    <p class="pub-tips"><a href="javascript:void(0);" title="1、介绍下自己，说说自己旅行经历。有助于他人更全面了解你
+    <p th:if="${session.user_id ne null}" class="pub-tips"><a href="javascript:void(0);" title="1、介绍下自己，说说自己旅行经历。有助于他人更全面了解你
 2、简单概述自己行程安排。结交全程or半程旅伴
 3、说说你对Ta的要求。只为不让自己的旅程囧的离谱" target="_blank">如何更高效地结交靠谱的旅伴<i></i></a></p>
+    <p th:if="${session.user_id eq null}" class="pub-tips">
+        <a style="color: red">登陆后才能发布结伴</a>
+    </p>
     <div class="bd">
         <div class="item item-title">
             <span class="label"><em>*</em>活动标题</span>
-            <div class="ui-input inp-title"><input type="text" value="" class="_j_title " placeholder="一句话开始一段靠谱旅程"/></div>
+            <div class="ui-input inp-title">
+                <input type="text" value="" class="_j_title " placeholder="一句话开始一段靠谱旅程"/>
+            </div>
         </div>
         <div class="item item-contact">
             <span class="label"><em>*</em>联系方式</span>
             <div class="ui-input inp-contact" style="width: 240px;">
                 <span>手机/</span>
-                <input type="text" class="_j_phone have" style="width: 160px;">
+                <input type="text" class="_j_phone">
             </div>
-            <div class="ui-input inp-contact"style="width: 240px">
+            <div class="ui-input inp-contact" style="width: 240px">
                 <span>QQ/</span>
-                <input type="text" class="_j_qq" style="width: 160px;">
+                <input type="text" class="_j_qq" >
             </div>
             <div class="ui-input inp-contact inp-last" style="width: 240px;">
                 <span>微信/</span>
-                <input type="text" class="_j_weixin" style="width: 160px;" >
+                <input type="text" class="_j_weixin">
             </div>
             <span style="margin-left: 10px; ">(可选填)</span>
         </div>
@@ -61,18 +69,18 @@
         <div class="item item-place _j_select_from">
             <span class="label"><em>*</em>出发地</span>
             <div class="ui-input inp-place _j_from_mdd_list">
-                <input type="text" data-mddid="" value="" class="_j_from_mdd " id="_j_from_mdd" placeholder="输入并选择出发地">
+                <input type="text" value="" class="_j_from_mdd " id="_j_from_mdd" placeholder="从哪里出发">
             </div>
             <input type="hidden" name="from_mdd_id" id="from_mdd_id">
         </div>
         <div class="item item-date">
             <span class="label"><em>*</em>出发时间</span>
             <div class="ui-input inp-date">
-                <input type="text" maxlength="0" class="_j_start_date " value="" placeholder="出发日期"><i class="icon-date _j_date"></i><input type="text" class="_j_start_time" style="width: 240px;height: 32px;position: relative;left: -270px;top: 0px;opacity: 0"/></div>
+                <input type="text" maxlength="0" id="date-input" class="_j_start_date " value="" placeholder="出发日期"><i class="icon-date _j_date"></i></div>
         </div>
         <div class="item item-days">
             <span class="label"><em>*</em>活动天数</span>
-            <div class="ui-input inp-num"><input type="text" value="" class="_j_count_day "></div>天
+            <div class="ui-input inp-num"><input type="text" value=""  class="_j_count_day "></div>天
         </div>
         <div class="item item-days">
             <span class="label"><em>*</em>限制人数</span>
@@ -87,11 +95,14 @@ c.如果你想让旅途遇到猪队友"></textarea></div>
         </div>
         <div class="item item-image">
             <ul class="clearfix _j_img_list">
-                <li id="_j_img_li">
-                    <a class="btn-addimage" id="_j_addpicbtns" ><i></i></a>
-                </li>
+                <div class="z_photo upimg-div clear" style="height: auto">
+                    <section class="z_file fl">
+                        <img th:src="@{/asserts/img/upload/add.png}" class="add-img">
+                        <input type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">
+                    </section>
+                </div>
             </ul>
-            <p class="upload-tips">可上传最多5张个人 and 结伴相关图片吸引更多蜂蜂参与</p>
+            <p class="upload-tips">可上传最多4张个人 and 结伴相关图片吸引更多伙伴参与</p>
         </div>
         <div class="item item-action">
             <a class="btn-submit _j_submit">发表结伴</a>
@@ -99,14 +110,6 @@ c.如果你想让旅途遇到猪队友"></textarea></div>
     </div>
 </div>
 
-
-
-
-<script language="javascript" type="text/javascript">
-    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
-        M.loadResource("https://js.mafengwo.net/js/cv/js+pageletcommon+pageHeadUserInfoWWWDark:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+dialog+BindMobileAlert:js+jquery-ui-core:js+jquery-ui-datepicker:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+plupload:js+together+publish:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^ZVNQ^1561616124.js");
-    }
-</script>
 
 </body>
 </html>
