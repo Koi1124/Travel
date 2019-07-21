@@ -18,11 +18,11 @@ public class LoginInterceptor implements HandlerInterceptor
         {
             request.setAttribute("msg","请先登录");
             request.getRequestDispatcher("/login.html").forward(request, response);
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 }
