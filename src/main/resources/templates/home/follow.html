@@ -55,7 +55,7 @@
                         <a th:if="${follow.followId eq null}" class="_j_add_friend">
                             <i class="_j_do_change">关注</i>
                         </a>
-                        <a class="btn_sx" th:to-name="${follow.userName}" th:to-id="${follow.uid}">发私信</a>
+                        <a class="btn_sx" th:href="@{'/letter/detail/' + ${follow.uid}}" target="_blank">发私信</a>
                     </div>
                 </li>
             </dnmd>
@@ -82,7 +82,7 @@
                         <a th:if="${fan.followId eq null}" class="_j_add_friend">
                             <i class="_j_do_change">关注</i>
                         </a>
-                        <a class="btn_sx" th:to-name="${fan.userName}" th:to-id="${fan.uid}">发私信</a>
+                        <a class="btn_sx" th:href="@{'/letter/detail/' + ${fan.uid}}" target="_blank">发私信</a>
                     </div>
                 </li>
             </dnmd>

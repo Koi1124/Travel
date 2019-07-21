@@ -40,7 +40,7 @@ function setNotes(data) {
             '                                    </a>\n' +
             '                                </div>\n' +
             '                                <div class="tn-wrapper">\n' +
-            '                                    <dl>\n' +
+            '                                    <dl style="overflow:hidden">\n' +
             '                                        <dt>\n' +
             '                                            <a href="/note/'+ item.id +'" target="_self">'+ item.title +'</a>\n' +
             '                                        </dt>\n' +

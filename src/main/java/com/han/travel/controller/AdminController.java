@@ -260,9 +260,8 @@ public class AdminController
 	@RequestMapping("/admin/note/preview/{id}")
 	public String previewNote(@PathVariable int id, Map<String, Object> dto)
 	{
-		Map<String, Object> map = noteService.getNoteById(id, null, null);
-		dto.putAll(map);
-		return "note/details";
+		dto.putAll(noteService.getNoteById(id, null, null));
+		return "admin/verify/note";
 	}
 
 	/**

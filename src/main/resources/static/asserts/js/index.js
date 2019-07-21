@@ -254,7 +254,7 @@ function login(mail, pass) {
                 setText($("#password-login-tip"), "密码错误");
             }
             else if (result == "200") {
-                window.location.href = "/together";
+                window.location.href = "/";
             }
         },
         error: function (e) {

@@ -87,8 +87,8 @@
                      style="display: none;width: 200px;right: 500px">
                     <ul>
                         <li><a href="" th:href="@{'/u/'+${session.user_id}+'/note'}" title="个人空间"><i class="icon-wo"></i>个人空间</a></li>
-                        <li><a href="" th:href="@{/setting}" title="我的设置" target="_blank"  data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
-                        <li><a th:href="@{/logout}" title="退出登录"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
+                        <li><a href="/setting" title="我的设置" target="_blank"  data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
+                        <li><a href="/logout" title="退出登录"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
                     </ul>
                 </div>
                 <!-- 用户下拉菜单 end -->
@@ -125,9 +125,9 @@
         <div class="show-slider" id="_j_top_pic_container" style="height: 506px;">
             <ul class="show-image">
                 <li class="first" style="display: none;">
-                    <a href="/i/14664438.html" target="_blank" class="show-pic"><img
+                    <a class="show-pic"><img
                             src="https://p3-q.mafengwo.net/s14/M00/7F/59/wKgE2l0omDmAQZzsAAfRxm-6BHI137.jpg?imageMogr2%2Finterlace%2F1"></a>
-                    <a href="/i/14664438.html" target="_blank" class="show-title dark">
+                    <a class="show-title dark">
                         <div class="date">
                             <span class="day">13</span>/Jul.2019
                         </div>
@@ -136,9 +136,9 @@
 
                 </li>
                 <li style="display: none;">
-                    <a href="/i/14663337.html" target="_blank" class="show-pic"><img
+                    <a class="show-pic"><img
                             src="https://p2-q.mafengwo.net/s14/M00/24/BF/wKgE2l0nE6yAMjcxAAvidR8YTa8493.jpg?imageMogr2%2Finterlace%2F1"></a>
-                    <a href="/i/14663337.html" target="_blank" class="show-title dark">
+                    <a class="show-title dark">
                         <div class="date">
                             <span class="day">12</span>/Jul.2019
                         </div>
@@ -147,9 +147,9 @@
 
                 </li>
                 <li style="display: none;">
-                    <a href="/i/14452534.html" target="_blank" class="show-pic"><img
+                    <a class="show-pic"><img
                             src="https://b1-q.mafengwo.net/s14/M00/AD/AB/wKgE2l0l4jqABaLXAAmhkHAeWuE829.jpg?imageMogr2%2Finterlace%2F1"></a>
-                    <a href="/i/14452534.html" target="_blank" class="show-title dark">
+                    <a class="show-title dark">
                         <div class="date">
                             <span class="day">11</span>/Jul.2019
                         </div>
@@ -157,9 +157,9 @@
                     </a>
                 </li>
                 <li style="display: list-item;">
-                    <a href="/i/12045558.html" target="_blank" class="show-pic"><img
+                    <a class="show-pic"><img
                             src="https://b3-q.mafengwo.net/s14/M00/6A/E4/wKgE2l0kUVCASblgAAjYCizZqHQ589.jpg?imageMogr2%2Finterlace%2F1"></a>
-                    <a href="/i/12045558.html" target="_blank" class="show-title dark">
+                    <a class="show-title dark">
                         <div class="date">
                             <span class="day">10</span>/Jul.2019
                         </div>
@@ -168,9 +168,9 @@
 
                 </li>
                 <li style="display: none;">
-                    <a href="/i/13859283.html" target="_blank" class="show-pic"><img
+                    <a class="show-pic"><img
                             src="https://p4-q.mafengwo.net/s14/M00/19/79/wKgE2l0jGq-AIOeeAAnZXBjzj1I338.jpg?imageMogr2%2Finterlace%2F1"></a>
-                    <a href="/i/13859283.html" target="_blank" class="show-title dark">
+                    <a class="show-title dark">
                         <div class="date">
                             <span class="day">9</span>/Jul.2019
                         </div>
@@ -206,7 +206,6 @@
                         <li data-index="1" class=""><i></i>目的地</li>
                         <li data-index="2" class=""><i></i>游记</li>
                         <li data-index="3" class=""><i></i>结伴</li>
-                        <li data-index="4" class=""><i></i>旅游项目</li>
                     </ul>
                 </div>
 
@@ -279,10 +278,12 @@
                 <div class="asidebox-bd">
                     <div class="gonglve-item">
                         <div class="img">
-                            <a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank"><img
-                                    src="https://b1-q.mafengwo.net/s12/M00/B2/13/wKgED1wCyCSAL0T1AAJgo-aF1Wo64.jpeg?imageMogr2%2Fthumbnail%2F%21260x139r%2Fgravity%2FCenter%2Fcrop%2F%21260x139%2Fquality%2F100"></a>
+                            <a href="/s/1" target="_blank"><img
+                                    style="height:100%;width:100%"
+                                    src="http://p4-q.mafengwo.net/s9/M00/8C/31/wKgBs1hfyAiAVXM7AAtMLTa_Q-E96.jpeg?imageMogr2%2Fthumbnail%2F1360x%2Fstrip%2Fquality%2F90">
+                            </a>
                         </div>
-                        <h3><a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank">度假的正确打开方式——吃泡三亚</a>
+                        <h3><a href="/s/1" target="_blank">武汉两日游</a>
                         </h3>
                     </div>
 
@@ -292,17 +293,15 @@
 
 
                 <div class="asidebox box-gonglve">
-                    <div class="asidebox-hd">
-                        <h2 class="hd-title">旅游攻略推荐</h2>
-                        <a class="hd-right" href="/gonglve/">更多</a>
-                    </div>
                     <div class="asidebox-bd">
                         <div class="gonglve-item">
                             <div class="img">
-                                <a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank"><img
-                                        src="https://b1-q.mafengwo.net/s12/M00/B2/13/wKgED1wCyCSAL0T1AAJgo-aF1Wo64.jpeg?imageMogr2%2Fthumbnail%2F%21260x139r%2Fgravity%2FCenter%2Fcrop%2F%21260x139%2Fquality%2F100"></a>
+                                <a href="/s/3" target="_blank"><img
+                                        style="height:100%;width:100%"
+                                        src="http://p1-q.mafengwo.net/s13/M00/5A/73/wKgEaVzSQc6AQHUxAAL-jT2F-PU78.jpeg?imageMogr2%2Fthumbnail%2F1360x%2Fstrip%2Fquality%2F90">
+                                </a>
                             </div>
-                            <h3><a href="/gonglve/ziyouxing/207424.html?cid=1010617" target="_blank">度假的正确打开方式——吃泡三亚</a>
+                            <h3><a href="/s/3" target="_blank">北京全境8日线路</a>
                             </h3>
                         </div>
     
