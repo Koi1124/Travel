@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.CompanyService;
+import com.han.travel.service.MessageService;
 import com.han.travel.service.NoteService;
 import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class AdminController
 	private NoteService noteService;
 	@Autowired
 	private CompanyService companyService;
+	@Autowired
+    private MessageService messageService;
 
 	@RequestMapping("/admin")
     public String toAdminLogin(Map<String,Object> dto,HttpServletRequest request)
@@ -125,15 +128,31 @@ public class AdminController
 	@PostMapping("/admin/ab05/changeState")
     @ResponseBody
     public boolean changeAb05State(@RequestBody Map<String, Object> map)
-    {	
-		return adminService.changeAb05State(map);
+    {
+        if (map.get("state").equals(1))
+        {
+            messageService.passComp(map.get("id"));
+        }
+        else if (map.get("state").equals(2))
+        {
+            messageService.rejectComp(map.get("id"));
+        }
+    	return adminService.changeAb05State(map);
     }
 	
 	@PostMapping("/admin/ab01/changeState")
     @ResponseBody
     public boolean changeAb01State(@RequestBody Map<String, Object> map)
-    {	
-		return adminService.changeAb01State(map);
+    {
+        if (map.get("state").equals('2'))
+        {
+            messageService.passNote(map.get("id"));
+        }
+        else if (map.get("state").equals('3'))
+        {
+            messageService.rejectNote(map.get("id"));
+        }
+        return adminService.changeAb01State(map);
     }
 	
 	

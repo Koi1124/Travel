@@ -21,6 +21,25 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var together_id=[[${id}]];
+        var path=document.location.host;
+        if(typeof(WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        }else {
+            console.log("您的浏览器支持WebSocket");
+            var url = ("http://" + path + "/message").replace("http", "ws");
+            socket = new WebSocket(url);
+            socket.onopen = function () {
+                console.log("Socket 已打开");
+            };
+            socket.onmessage = function(msg) {
+            };
+            socket.onclose = function() {
+                console.log("Socket已关闭");
+            };
+            socket.onerror = function() {
+                alert("Socket发生了错误");
+            }
+        }
         /*]]>*/
     </script>
 

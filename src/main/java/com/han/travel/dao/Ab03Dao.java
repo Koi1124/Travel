@@ -43,4 +43,21 @@ public interface Ab03Dao extends CheckDao
 	 *@author: Han
 	 */
 	 List<Map<String,Object>> getCollectSightInfoByUId(int uid);
+    
+	 
+	 /**
+	  *@discription: 根据关键字模糊搜索景点 map->
+      * sid: 景点id
+      * sname: 景点名
+      * spic: 景点图片
+      * cid: 城市id
+      * cname: 城市名
+      * commentCount: 评论数
+      * starCount: 收藏数
+	  *@param keyword 
+	  *@date: 2019/7/22 11:48
+	  *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+	  *@author: Han
+	  */
+	 List<Map<String,Object>> getSightsByKeyword(String keyword);
 }

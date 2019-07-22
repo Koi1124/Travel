@@ -1,6 +1,7 @@
 package com.han.travel.controller;
 
 import com.han.travel.configuration.SessionConfig;
+import com.han.travel.service.MessageService;
 import com.han.travel.service.NoteService;
 import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class NoteController
 
     @Autowired
     private NoteService noteService;
+    @Autowired
+    private MessageService messageService;
 
     /**
      *@discription: 主页游记显示
@@ -337,6 +340,14 @@ public class NoteController
     @ResponseBody
     public boolean changeStatus(@RequestBody Map<String, Object> map)
     {
+        if (map.get("status").equals(2))
+        {
+            messageService.passNote(map.get("nid"));
+        }
+        else if (map.get("status").equals(3))
+        {
+            messageService.rejectNote(map.get("nid"));
+        }
         return noteService.changeStatus(map);
     }
 }
