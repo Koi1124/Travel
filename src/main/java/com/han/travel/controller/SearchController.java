@@ -43,7 +43,8 @@ public class SearchController
     {
         dto.put("type",1);
         dto.put("sights",searchService.getSightsByKeyword(s_content));
-        return "search";
+        dto.put("kw",s_content);
+        return "search/search";
     }
 
     @RequestMapping("/note")
@@ -51,7 +52,8 @@ public class SearchController
     {
         dto.put("type",2);
         dto.put("notes",searchService.getNotesByKeyword(s_content));
-        return "search";
+        dto.put("kw",s_content);
+        return "search/search";
     }
 
     @RequestMapping("/together")
@@ -59,7 +61,8 @@ public class SearchController
     {
         dto.put("type",3);
         dto.put("companies",searchService.getCompaniesByKeyword(s_content));
-        return "search";
+        dto.put("kw",s_content);
+        return "search/search";
     }
 
 

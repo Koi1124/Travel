@@ -42,7 +42,7 @@ function selectSeachBar() {
                 $("#_j_index_search_bar_mdd form").attr("action","/search/note");
                 break;
             case "3":
-                $("_j_index_search_bar_mdd form").attr("action","/search/company");
+                $("#_j_index_search_bar_mdd form").attr("action","/search/together");
                 break;
         }
     })
@@ -50,7 +50,11 @@ function selectSeachBar() {
 
 function initSubmit() {
     $("#_j_index_search_btn_mdd a").click(function () {
-        $("#_j_index_search_bar_mdd form").submit();
+        if ($("#_j_index_search_input_mdd").val()==""||$("#_j_index_search_input_mdd").val()==null) {
+            logError("请输入关键字");
+        }else {
+            $("#_j_index_search_bar_mdd form").submit();
+        }
     })
 }
 
@@ -137,7 +141,6 @@ function getNotes(mddId,type) {
                 id = mddId;
                 s_type=type;
                 page = 1;
-                console.log(result.count);
                 totalPage =Math.ceil(result.count / itemCount);
                 initPagination();
             }
