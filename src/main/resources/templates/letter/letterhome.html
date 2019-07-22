@@ -42,12 +42,12 @@
                 <!-- 私信 s-->
                 <div class="item clearfix" th:data-item="${letter.letter_id}" th:data-state="${letter.state}">
                     <div class="author">
-                        <a href="用户空间"><img src="头像" th:src="${letter.toClient.pic}" width="48" height="48"></a>
+                        <a href="用户空间" th:href="@{'/u/'+${letter.toClient.id}+'/note'}"><img src="头像" th:src="${letter.toClient.pic}" width="48" height="48"></a>
                     </div>
                     <div class="con">
                         <div class="title clearfix">
                             <span>
-                                与 <a href="用户空间" class="name" th:text="${letter.toClient.name}">茄子</a> 的对话</span>
+                                与 <a href="用户空间" th:href="@{'/u/'+${letter.toClient.id}+'/note'}" class="name" th:text="${letter.toClient.name}">茄子</a> 的对话</span>
                             <span class="time" th:text="${letter.time}">2019-07-17 21:40:45</span>
                         </div>
                         <a th:href="@{'/letter/detail/'+${letter.toClient.id}}" target="_self" th:onclick="'read('+ ${letter.letter_id} +')'"><p th:text="${letter.content}">我带你们打gknmlgbcnmd</p></a>

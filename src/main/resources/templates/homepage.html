@@ -26,10 +26,10 @@
 
     <div class="zy-header">
         <div class="header-wrap-zy clearfix" id="_j_head_nav_warper">
-            <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="/"></a></div>
+            <div class="head-logo-zy"><a class="zy-logo" title="周游旅行平台" href="/" th:href="@{/}"></a></div>
             <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
-                <li class="head-nav-zy-index"><a href="/">首页</a></li>
-                <li class="head-nav-zy-place"><a href="/mdd">目的地</a></li>
+                <li class="head-nav-zy-index"><a href="/" th:href="@{/}">首页</a></li>
+                <li class="head-nav-zy-place"><a href="/mdd" th:href="@{/mdd}">目的地</a></li>
                 <li class="head-nav-zy-gonglve"><a href="##">旅游攻略</a></li>
                 <li class="head-nav-zy-flight"><a href="" th:href="@{/together}">结伴</a></li>
             </ul>
@@ -87,8 +87,8 @@
                      style="display: none;width: 130px;right: 500px">
                     <ul>
                         <li><a href="" th:href="@{'/u/'+${session.user_id}+'/note'}" title="个人空间"><i class="icon-wo"></i>个人空间</a></li>
-                        <li><a href="/setting" title="我的设置" target="_blank"  data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
-                        <li><a href="/logout" title="退出登录"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
+                        <li><a href="/setting" th:href="@{/setting}" title="我的设置" target="_blank"  data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
+                        <li><a href="/logout" th:href="@{/logout}" title="退出登录"><i class="icon-logout" data-cs-p="logout"></i>退出</a></li>
                     </ul>
                 </div>
                 <!-- 用户下拉菜单 end -->
@@ -203,7 +203,7 @@
             <div class="search-group">
                 <div class="searchtab" id="_j_index_search_tab">
                     <ul class="clearfix">
-                        <li data-index="1" class=""><i></i>目的地</li>
+                        <li data-index="1" class="tab-selected"><i></i>景点</li>
                         <li data-index="2" class=""><i></i>游记</li>
                         <li data-index="3" class=""><i></i>结伴</li>
                     </ul>
@@ -213,10 +213,10 @@
 
                 <!-- 目的地 begin -->
                 <div class="searchbar hide" id="_j_index_search_bar_mdd">
-                    <form action="/search/s.php" method="get">
+                    <form action="/search/sight" method="get">
                         <div class="search-wrapper">
                             <div class="search-input">
-                                <input name="q" type="text" placeholder="我要去..." id="_j_index_search_input_mdd"
+                                <input name="s_content" type="text" placeholder="我要去..." id="_j_index_search_input_mdd"
                                     autocomplete="off">
                             </div>
                         </div>

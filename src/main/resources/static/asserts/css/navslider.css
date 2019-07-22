@@ -84,6 +84,11 @@
     margin-right: 30px;
     cursor: pointer;
 }
+
+.searchtab .tab-selected i {
+    background-position: -60px -140px!important;
+}
+
 .searchtab i {
     float: left;
     margin: 5px 5px 0 0;

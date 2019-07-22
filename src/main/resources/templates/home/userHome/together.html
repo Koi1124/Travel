@@ -95,7 +95,7 @@
                                 <div class="title clearfix">
                                     <!-- 判断发起人是否为自己 -->
                                     <!-- <span><a href="用户空间" class="name">茄子</a>的 <a href="结伴页面" class="name">茂名白给之旅</a></span> -->
-                                    <span><hhh th:text="${company.authorName}">我</hhh> 发起的结伴 <a href="结伴页面" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" class="name"><p th:text="${company.title}">茂名白给之旅</p></a></span>
+                                    <span><hhh th:text="${company.authorName}">我</hhh> 发起的结伴 <a href="结伴页面" th:href="${company.state eq '1'}?@{'/together/company/detail/'+${company.tid}+'.html'}:@{'##'}" class="name"><p th:text="${company.title}">茂名白给之旅</p></a></span>
                                     <!-- 状态 -->
                                     <span class="state" th:if="${company.state eq '0'}">审核中</span>
                                     <span class="state" th:if="${company.state eq '1'}">结伴中</span>

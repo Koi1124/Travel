@@ -6,8 +6,9 @@ var itemCount = 10;
 
 $(document).ready(function () {
     getNotes(0,s_type);
-    initPagination(totalPage);
 
+    selectSeachBar();
+    initSubmit();
 
     // 热门和最新
     $(".tn-nav-hot").click(function () {
@@ -28,6 +29,32 @@ $(document).ready(function () {
 
 
 })
+
+function selectSeachBar() {
+    $("#_j_index_search_tab ul li").click(function () {
+        $("#_j_index_search_tab ul li").removeClass("tab-selected");
+        $(this).addClass("tab-selected");
+        switch ($(this).attr("data-index")) {
+            case "1":
+                $("#_j_index_search_bar_mdd form").attr("action","/search/sight");
+                break;
+            case "2":
+                $("#_j_index_search_bar_mdd form").attr("action","/search/note");
+                break;
+            case "3":
+                $("_j_index_search_bar_mdd form").attr("action","/search/company");
+                break;
+        }
+    })
+}
+
+function initSubmit() {
+    $("#_j_index_search_btn_mdd a").click(function () {
+        $("#_j_index_search_bar_mdd form").submit();
+    })
+}
+
+
 
 function setNotes(data) {
     $(data).each(function (i,item) {
@@ -66,6 +93,7 @@ function setNotes(data) {
             '                                </div>\n' +
             '                            </div>');
     })
+
     $("._j_gs_item").click(function () {
         var mid=$(this).attr("data-objid");
         var name=$(this).attr("data-name");
@@ -109,6 +137,7 @@ function getNotes(mddId,type) {
                 id = mddId;
                 s_type=type;
                 page = 1;
+                console.log(result.count);
                 totalPage =Math.ceil(result.count / itemCount);
                 initPagination();
             }
@@ -137,7 +166,6 @@ function initPagination() {
             scroll();
             page = current;
             getNotes(id,s_type)
-
         }
     });
 }

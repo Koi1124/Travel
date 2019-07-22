@@ -24,7 +24,7 @@ $(function () {
     removeChat=function (letter_id) {
         $.ajax({
             type: "post",
-            url: localhostPaht+"/letter/removeChatBar",
+            url: "/letter/removeChatBar",
             contentType: "application/json",
             dataType: "json",
             async: true,
@@ -49,7 +49,7 @@ $(function () {
     read=function (letter_id) {
         $.ajax({
             type: "post",
-            url: localhostPaht+"/letter/readLetter",
+            url: "/letter/readLetter",
             contentType: "application/json",
             dataType: "json",
             async: true,

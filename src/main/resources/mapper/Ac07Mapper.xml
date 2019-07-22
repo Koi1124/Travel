@@ -18,9 +18,9 @@
     </insert>
 
     <select id="placeCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT COUNT(aaa301)
-        FROM ac07
-        WHERE aaa301=#{pid}
+        SELECT COUNT(a.aab501)
+        FROM ac07 a, ab05 b
+        WHERE a.aab501=b.aab501 AND b.aab509=1 AND  a.aaa301=#{pid}
         ;
     </select>
 

@@ -38,9 +38,12 @@ public class LetterService
         List<Map<String,Object>> letterList=ae01Dao.getLatestLetterByClient(cid);
         for (Map<String,Object> letter:letterList)
         {
+            // client1为发起用户
+            // 如果最新消息为其自己发的，设置为已读
             if ((Integer)letter.get("client1") == cid)
             {
                 letter.put("toClient",aa01Dao.getNameAndPicAndIdById((int)letter.get("client2")));
+                letter.put("state",'1');
             }
             else
             {
@@ -122,10 +125,20 @@ public class LetterService
     public boolean haveLetter(Integer uid)
     {
         boolean tag=false;
-        if (af01Dao.haveReadLatest(uid)!=null)
+//        if (af01Dao.haveReadLatest(uid)!=null)
+//        {
+//            tag=true;
+//        }
+        List<Map<String,Object>> latest=getLatestLettersByClient(uid);
+        for (Map<String,Object> m:latest)
         {
-            tag=true;
+            if (m.get("state").equals('0'))
+            {
+                tag=true;
+                break;
+            }
         }
+
         return tag;
     }
 
