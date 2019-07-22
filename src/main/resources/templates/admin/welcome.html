@@ -33,6 +33,7 @@
                     </div>
                 </div>
                 <div class="layui-col-md12">
+                
                     <div class="layui-card">
                         <div class="layui-card-header">数据统计</div>
                         <div class="layui-card-body ">
@@ -40,42 +41,69 @@
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>用户数目</h3>
-                                        <p>
-                                            <cite>66</cite></p>
+                                        <p id="usercount">
+                                            <cite></cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>结伴数</h3>
-                                        <p>
-                                            <cite>21</cite></p>
+                                        <h3>待审核结伴数</h3>
+                                        <p id="company_0">
+                                            <cite></cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>游记数</h3>
-                                        <p>
-                                            <cite>67</cite></p>
+                                        <h3>待审核游记数</h3>
+                                        <p id="note_0">
+                                            <cite></cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>景点数</h3>
-                                        <p>
-                                            <cite>90</cite></p>
+                                        <p id="attraction">
+                                            <cite></cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>攻略数</h3>
-                                        <p>
-                                            <cite>50</cite></p>
+                                        <p id="strategy">
+                                            <cite></cite></p>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                
+                
+                <div class="layui-col-md12">
+                
+                    <div class="layui-card">
+                        <div class="layui-card-header">已审核</div>
+                        <div class="layui-card-body ">
+                            <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                                <li class="layui-col-md2 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>已审核结伴数</h3>
+                                        <p id="company">
+                                            <cite></cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>已审核游记数</h3>
+                                        <p id="note">
+                                            <cite></cite></p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="layui-col-sm6 layui-col-md3">   
                 </div>
             </div>
@@ -88,6 +116,26 @@
             var param=url.substr(index+1);
             $("#block").append(param);
             
+            $.ajax({
+            	type: "post",
+    	        url: "http://localhost:8080/admin/getCounts",
+    	        data:JSON.stringify({id:0}),
+    	        contentType: "application/json",
+    	        dataType: "json",
+    	        async: true,
+        	    success: function (data) {
+        	    	$("#usercount").html(data.usercount);
+        	    	$("#company_0").html(data.company_0);
+        	    	$("#company").html(data.company);
+        	    	$("#note_0").html(data.note_0);
+        	    	$("#note").html(data.note);
+        	    	$("#strategy").html(data.strategy);
+        	    	$("#attraction").html(data.attraction);
+        	    },
+        	    error: function (e) {
+        	    	console.log("数据禁止访问!");
+        	    }	
+        	});
             
         })
         

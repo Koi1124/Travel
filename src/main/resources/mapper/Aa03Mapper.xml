@@ -68,5 +68,10 @@
         WHERE aaa304=#{pid}
         ;
     </select>
+    <select id="exist" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+      SELECT count(1)
+      FROM aa03
+      WHERE aaa301=#{id}
+    </select>
 
 </mapper>

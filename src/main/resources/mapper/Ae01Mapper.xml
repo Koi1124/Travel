@@ -16,7 +16,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO ae01(aae102,aae103,aae104,aae105,aae106)
-        VALUES (#{dto.content},CURRENT_TIME ,#{dto.clientId},#{dto.toClientId},#{dto.type})
+        VALUES (#{dto.content},CURRENT_TIMESTAMP() ,#{dto.clientId},#{dto.toClientId},#{dto.type})
         ;
     </insert>
 

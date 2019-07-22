@@ -32,5 +32,5 @@ public interface Aa01Dao
     
     boolean addUser(Map<String, Object> map);
     
-    
+    Integer selectCount();
 }

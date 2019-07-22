@@ -12,6 +12,7 @@ import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import com.han.travel.dao.Aa02Dao;
 import com.han.travel.dao.Aa04Dao;
@@ -99,7 +100,12 @@ public class AdminController
 		}
     	
     }
-	
+	@RequestMapping("/show")
+	public String toShowm(ModelMap map,@RequestParam(name = "msg") String msg)
+	{
+		map.addAttribute("msg",msg);
+		return "admin/show";
+	}
 	/**
      * @Author ayds
      * @Description 
@@ -238,7 +244,13 @@ public class AdminController
 		return adminService.updateInfoAa04(map, request);
 					
     }
-	
+	@PostMapping("/admin/getCounts")
+    @ResponseBody
+    public Map<String,Object> getCounts(@RequestBody Map<String, Object> map)
+    {	
+		System.out.println("in");
+		return adminService.getCounts();			
+    }
 	
 	
 	

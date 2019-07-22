@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.han.travel.dao.Aa03Dao;
 import com.han.travel.dao.Ab03Dao;
+import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.PageBean;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +25,8 @@ public class AttractionController
     private AdminService adminService;
 	@Autowired
     private Ab03Dao ab03Dao;
+	@Autowired
+    private Aa03Dao aa03Dao;
 	@Autowired
     private SightService sightService;
 
@@ -44,6 +48,7 @@ public class AttractionController
     @ResponseBody
     public boolean insertAttraction(@RequestBody Map<String,Object>map)
     {
+		map.put("aab313", ImgUploadTools.uploadImg(map.get("aab313").toString()));
 		return ab03Dao.insertAttraction(map);
     }
 
@@ -58,6 +63,7 @@ public class AttractionController
     @ResponseBody
     public boolean updateAttraction(@RequestBody Map<String,Object>map)
     {
+		map.put("aab313", ImgUploadTools.uploadImg(map.get("aab313").toString()));
 		return ab03Dao.updateAttraction(map);
     }
 
@@ -73,6 +79,17 @@ public class AttractionController
     public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
     {
 		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
+    }
+	@PostMapping("/aa03/exist")
+    @ResponseBody
+    public boolean exist(@RequestBody Map<String,Object>map)
+    {
+		int id=0;
+		if(map.get("id").toString()!=null&&!(map.get("id").toString()).equals("")&&map.get("id") instanceof java.lang.Integer)
+		{
+			id=Integer.parseInt(map.get("id").toString());
+		}
+		return aa03Dao.exist(id)>0;
     }
 	
 

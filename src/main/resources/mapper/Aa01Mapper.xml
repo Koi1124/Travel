@@ -50,5 +50,9 @@
     	FROM aa01
     	WHERE aaa102=#{name};
     </select>
-
+	
+	<select id="selectCount" resultType="java.lang.Integer">
+	SELECT count(aaa101)
+	FROM aa01
+	</select>
 </mapper>

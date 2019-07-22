@@ -18,7 +18,7 @@
     
     <insert id="insertCollect" parameterType="java.util.HashMap">
         INSERT INTO ad04(aaa101,aad402,aad403,aad404)
-        VALUES (#{map.userId},CURRENT_TIME ,#{map.type},#{map.collectId})
+        VALUES (#{map.userId},CURRENT_TIMESTAMP() ,#{map.type},#{map.collectId})
         ;
     </insert>
     

@@ -29,13 +29,19 @@ $(document).ready(function() {
 		        	rowlen=0;
 		            for(var i=0;i<count;i++)
 		            {
+		            	
 		            	var ls=data[i];
-		            	html="<tr><td>"+ls.aab301+"</td><td>"+ls.aaa301+"</td><td>"+ls.aab302+"</td><td>"+ls.aab303+
-		            	     "</td><td>"+ls.aab304+"</td><td>"+ls.aab305+"</td><td>"+ls.aab306+
-		            	     "</td><td>"+ls.aab307+"</td><td>"+ls.aab308+"</td><td>"+ls.aab309+"</td><td>"+ls.aab310+"</td>"+
+		            	html="<tr><td>"+ls.aaa302+"</td><td>"+ls.aab302+"</td><td>"+
+		            	 	 "<p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab303)+"  \",300,220)'>"+ls.aab303+
+		            	     "</a></p></td><td>"+ls.aab304+"</td><td>"+ls.aab305+"</td><td>"+ls.aab306+"</td><td>"+
+		            	     "<p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab307)+"  \",300,220)'>"+ls.aab307+
+		            	     "</a></p></td><td><p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab308)+"  \",300,220)'>"+ls.aab308+
+		            	     "</a></p></td><td><p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab309)+"  \",300,220)'>"+ls.aab309+
+		            	     "</a></p></td><td><p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab310)+"  \",300,220)'>"+ls.aab310+"</a></p></td>"+
+		            	     "<td>"+ls.aab311+"</td><td>"+ls.aab312+"</td>"+
 		            	     "<td class='td-manage'>"+
 		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editAttraction?id="+ls.aab301+"&operation=2    \",600,600)'>"+
-		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button>"+
+		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button><br>"+
 	                         "<button class='layui-btn-danger layui-btn layui-btn-xs'  onclick='delAttraction("+ls.aab301+")'>"+
 	                         "<i class='layui-icon'>&#xe640;</i>删除</button>"+
 	                         "</td></tr>";

@@ -24,9 +24,9 @@ public interface Ab05Dao extends CheckDao
 
     List<Map<String,Object>> getAll(Map<String,Integer> map);
 
-    Integer selectCount();
+    Integer selectCount(); //未审核结伴数目
 
-    
+    Integer selectCounts();//已审核的结伴数
     /**
      *@discription: map->
      * id: 结伴id
