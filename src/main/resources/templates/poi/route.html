@@ -120,13 +120,13 @@
 
                 <div class="pagelet-block">
                     <div class="action-btns">
-                        <a id="btn-thumbs-up" class="btn-item-route btn-likes" onclick="clickPoiThumbsUp()" data-lineid="237">
+                        <a id="btn-thumbs-up" class="btn-item-route btn-likes" onclick="clickPoiThumbsUp()">
                             <i th:class="${thumbsUpId eq null?'icon-like':'icon-liked'}"></i>
                             <div>点赞
                                 <span th:text="${thumbsUpCount}">964422</span>
                             </div>
                         </a>
-                        <a id="btn-star" class="btn-item-route btn-collect" onclick="clickPoiStar()" data-lineid="237">
+                        <a id="btn-star" class="btn-item-route btn-collect" onclick="clickPoiStar()">
                             <i th:class="${starId eq null?'icon-collect':'icon-collected'}"></i>
                             <div>收藏 <span th:text="${starCount}">13029</span>
                             </div>

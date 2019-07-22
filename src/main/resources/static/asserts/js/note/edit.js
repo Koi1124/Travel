@@ -281,7 +281,7 @@ function submitNote() {
         date:$("#date-input").val(),
         money:$("#money-input").val(),
         time:$("#days-input").val(),
-        status:1
+        status:"1"
     }
     $.ajax({
         type: "post",
@@ -296,6 +296,41 @@ function submitNote() {
                 setTimeout(function () {
                     document.location.href="/preview/" + nid;
                 }, 1000);
+            }
+            else {
+                logError("网络故障，请稍后再试");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+function clickPreview() {
+    var intro = $("#textarea").val();
+    var reg = /\n\n+/g;
+    intro = intro.replace(reg, "<br/><br/>");
+    reg = /\n/g;
+    str = intro.replace(reg, "<br/>");
+    var data = {
+        title:$("#_j_title").val(),
+        content:getContent(),
+        topImg:$("#top_image").attr("src"),
+        intro:intro,
+        nid:nid
+    }
+    $.ajax({
+        type: "post",
+        url: "/note/updateNote",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (result) {
+                $("._j_draft_save_time").text("已于" + getNowFormatDate() + "保存");
+                window.open("/preview/" + nid);
             }
             else {
                 logError("网络故障，请稍后再试");
@@ -450,7 +485,7 @@ $(function () {
     });
 
     //发表游记
-    $(".btn-publish").click(function () {
+    $("#btn-publish").click(function () {
         clickSubmit();
     });
 
@@ -584,7 +619,7 @@ function setContent() {
 }
 
 function testBlank(str) {
-    str = str.replace(" ", "");
+    str = str.replace(/\s+/g, "");
     var reg = /\n/g;
     str = str.replace(reg, "");
     return str.length == 0;

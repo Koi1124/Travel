@@ -66,6 +66,15 @@ public interface Ab05Dao extends CheckDao
      */
     Map<String,Object> getOriginDataByCid(int cid);
 
+    /**
+     * @Author Saki
+     * @Description 得到待审核的
+     * @Date 2019/7/21
+     * @param id
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     **/
+    Map<String,Object> getCompanyBaseDataByCid(@Param("id") int id);
+
 
     /**
      *@discription: map->

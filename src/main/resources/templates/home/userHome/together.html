@@ -88,7 +88,7 @@
                         <!-- 结伴 s-->
                         <div class="item clearfix" th:action-type="${company.type}" th:star-type="${company.isStar}" th:each="company:${companies}">
                             <div class="author">
-                                <a href="用户空间" th:href="@{'/u/'+${company.authorId}}">
+                                <a href="用户空间" th:href="@{'/u/'+${company.authorId} + '/note'}">
                                     <img src="头像" th:src="${company.authorPic}" width="48" height="48"></a>
                             </div>
                             <div class="con">

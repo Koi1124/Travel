@@ -71,7 +71,7 @@
                 <hhh th:each="route,routeStatus:${routes}">
                 <div class="line-cards" th:style="${routeStatus.index eq 1?'margin-right:0':''}">
                     <h3><a th:href="@{'/s/' + ${route.rid}}" target="_blank">
-                        <span class="num">1</span><span th:text="${route.name}">成都周边5日经典线路</span></a></h3>
+                        <span th:text="${routeStatus.index + 1}" class="num">1</span><span th:text="${route.name}">成都周边5日经典线路</span></a></h3>
 
 
                     <div class="map" th:id="${routeStatus.index eq 0?'leftmap':'rightmap'}"  style="width:488px;height:200px;border:#ccc solid 1px;"></div>
@@ -93,14 +93,14 @@
                     <dl class="info">
                         <dt></dt>
                         <dd>
-                            <a th:href="@{'/s/'+${rid}}" target="_blank"
+                            <a th:href="@{'/s/'+${route.rid}}" target="_blank"
                                style="color: #333;text-decoration: none">
                                 <hhh th:each="r,rStatus:${route.routes}">
                                     <span th:if="${rStatus.index ne 0}" class="arrow">→</span>
                                     <span th:text="${r.name}">黄龙溪</span>
                                 </hhh>
                             </a>
-                            <a data-t="查看路线" class="btn-view" th:href="@{'/s/'+${rid}}"
+                            <a data-t="查看路线" class="btn-view" th:href="@{'/s/'+${route.rid}}"
                                target="_blank">查看&gt;</a>
                         </dd>
                     </dl>

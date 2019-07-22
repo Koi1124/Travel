@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Ab02Dao">
 	<select id="fuzzyGet" resultType="java.util.HashMap">
-		SELECT aab201,aab301,aab202,aab203,aab204,
-			aab205
+		SELECT aab201,aaa301,aab202,aab203,aab204
 		FROM ab02
 	<where>
 	<if test="map.city!=null and map.city!=''">
-		and aab301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
+		and aaa301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
 	</if>
 	<if test="map.name!=null and map.name!=''">
 		and aab202 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
@@ -17,8 +16,8 @@
 	</select>
 	
 	<insert id="insertStrategy" parameterType="java.util.HashMap" >
-		INSERT into ab02(aab301,aab202,aab203,aab204,aab205)
-		VALUES(#{aab301},#{aab202},#{aab203},#{aab204},#{aab205})
+		INSERT into ab02(aaa301,aab202,aab203,aab204)
+		VALUES(#{aab301},#{aab202},#{aab203},#{aab204})
 		;
 	</insert>
 	
@@ -29,8 +28,7 @@
 	
 	<update id="updateStrategy" parameterType="java.util.HashMap"  >
 		UPDATE ab02
-		SET aab301=#{aab301},aab202=#{aab202},aab203=#{aab203},aab204=#{aab204},
-		aab205=#{aab205}
+		SET aaa301=#{aab301},aab202=#{aab202},aab203=#{aab203},aab204=#{aab204}
 		WHERE aab201=#{id}
 	</update>
 		
@@ -39,7 +37,7 @@
 		FROM ab02
 	<where>
 	<if test="map.city!=null and map.city!=''">
-		and aab301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
+		and aaa301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
 	</if>
 	<if test="map.name!=null and map.name!=''">
 		and aab202 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
@@ -48,8 +46,8 @@
 	</select>
 	
 	<select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap" >
-		SELECT aab201,aab301,aab202,aab203,aab204,
-			aab205
+		SELECT aab201,aaa301,aab202,aab203,aab204
+
 		FROM ab02
 		where aab201=#{id};
 	</select>

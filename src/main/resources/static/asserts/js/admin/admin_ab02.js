@@ -9,7 +9,7 @@ $(document).ready(function() {
     };
 	$(function(){
 		fuzzyQuery($('#city').val(),$('#name').val());
-	})
+	});
 	
 	function fuzzyQuery(city,name){
 		var count=0;
@@ -29,8 +29,8 @@ $(document).ready(function() {
 		            for(var i=0;i<count;i++)
 		            {
 		            	var ls=data[i];
-		            	html="<tr><td>"+ls.aab201+"</td><td>"+ls.aab301+"</td><td>"+ls.aab202+"</td><td>"+ls.aab203+
-		            	     "</td><td>"+ls.aab204+"</td><td>"+ls.aab205+"</td>"+
+		            	html="<tr><td>"+ls.aab201+"</td><td>"+ls.aaa301+"</td><td>"+ls.aab202+"</td><td>"+ls.aab203+
+		            	     "</td><td>"+ls.aab204+"</td>"+
 		            	     "<td class='td-manage'>"+
 		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editStrategy?id="+ls.aab201+"&operation=2    \",500,500)'>"+
 		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button>"+

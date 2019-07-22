@@ -352,7 +352,7 @@ $(document).ready(function () {
     pass=function (aid,uid) {
         $.ajax({
             type: "post",
-            url: localhostPaht+"/together/passApp",
+            url: "/together/passApp",
             contentType: "application/json",
             dataType: "json",
             async: true,
@@ -409,7 +409,7 @@ $(document).ready(function () {
     reject=function (aid,uid) {
         $.ajax({
             type: "post",
-            url: localhostPaht+"/together/rejectApp",
+            url: "/together/rejectApp",
             contentType: "application/json",
             dataType: "json",
             async: true,

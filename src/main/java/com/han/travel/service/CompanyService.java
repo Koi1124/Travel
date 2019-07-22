@@ -446,4 +446,17 @@ public class CompanyService
     {
         return ac08Dao.getCompanyPicsByCid(cid);
     }
+
+
+    /**
+     * @Author Saki
+     * @Description 获得待审核的结伴信息
+     * @Date 2019/7/21
+     * @param id
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     **/
+    public Map<String, Object> getCompanyBaseDataByCid(int id)
+    {
+        return ab05Dao.getCompanyBaseDataByCid(id);
+    }
 }

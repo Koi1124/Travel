@@ -133,7 +133,7 @@ public class MessageService
         dto.put("type","0");
         if (sa01Dao.insertMessage(dto))
         {
-            MessageSocketServer.sendMessage((Integer) rUserId);
+            MessageSocketServer.sendMessage(Integer.valueOf(rUserId.toString()));
         }
     }
 
@@ -224,6 +224,7 @@ public class MessageService
         {
             Map<String,Object> dto=new HashMap<>(3);
             String url="";
+            System.out.println(m);
             switch ((String)m.get("type"))
             {
                 case "1":

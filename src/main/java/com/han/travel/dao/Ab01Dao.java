@@ -18,7 +18,7 @@ public interface Ab01Dao extends CheckDao
 
     Map<String,Object> queryById(int id);
 
-    boolean changeStateById(@Param("id") int id,@Param("state") int state);
+    boolean changeStateById(Map<String, Object> map);
 
     boolean deleteById(int id);
 

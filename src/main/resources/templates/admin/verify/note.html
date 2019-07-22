@@ -8,35 +8,22 @@
     <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/navbar.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         var content = [[${content}]];
         var nid = [[${nid}]];
-        var uid = [[${session.user_id}]];
-        var user = uid;
-        var rUserId = [[${uid}]];
-        var title = [[${title}]];
-        var type = '1';
     </script>
 
     <script th:src="@{/asserts/js/common/jquery.js}"></script>
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
-    <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
-    <script th:src="@{/asserts/js/note/details.js}"></script>
-    <script th:src="@{/asserts/js/common/comment.js}"></script>
+    <script th:src="@{/asserts/lib/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript" ></script>
+    <script th:src="@{/asserts/js/admin/verify/note.js}"></script>
+
 
 </head>
 
 <body>
-<hhh th:if="${status eq '2'}">
-<div id="header" th:replace="~{homepage :: navbar}"></div>
-</hhh>
-<input id="comment_count" type="hidden" th:value="${commentCount}"/>
-<input id="user_id" type="hidden" th:value="${session.user_id}"/>
-<input id="user_name" type="hidden" th:value="${session.user_name}"/>
-<input id="user_pic" type="hidden" th:value="${session.user_logo}"/>
 
 
 <div class="set_index" id="_j_cover_box" style="height: 519.667px;">
@@ -66,21 +53,14 @@
     <div class="pagelet-block">
         <div class="vt_center">
             <div class="person" data-cs-t="ginfo_person_operate">
-                <a href="/u/94362993.html" th:href="@{'/u/'+${uid}+'/note'}" target="_blank" class="per_pic">
+                <a class="per_pic">
                     <img width="120" height="120" th:src="${userPic}" alt="">
                 </a>
                 <strong>
-                    <a href="/u/94362993.html" th:href="@{'/u/'+${uid}+'/note'}" target="_blank" class="per_name" th:title="${userName}" th:text="${userName}">Jack.Swift</a>
+                    <a class="per_name" th:title="${userName}" th:text="${userName}">Jack.Swift</a>
                 </strong>
-                <hhh th:if="${session.user_id ne uid}">
-                <a class="per_attention" th:if="${followId eq null}">
-                    <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13"
-                         border="0" title="关注TA">
-                </a>
-                </hhh>
                 <div class="vc_time">
                     <span class="time" th:text="${editTime}">2019-07-09 14:41</span>
-                    <span><i class="ico_view"></i><hhh th:text="${views + '/' + (commentCount eq null?0:commentCount)}">45/2</hhh></span>
                 </div>
                 <div th:if="${uid eq session.user_id}" class="person-edit">
                     <a th:href="'/note/editNote/' + ${nid}" title="编辑">编辑</a>|
@@ -88,25 +68,7 @@
                 </div>
             </div>
 
-            <div th:if="${status eq '2'}" class="bar_share _j_share_father _j_top_share_group">
-                <div class="bs_share">
-                    <div class="ding">
-                        <a role="button" data-japp="articleding" rel="nofollow" th:hasThumbs="${thumbsUpId eq null?'0':'1'}"
-                           class="up_act " title="顶">顶</a>
-                        <div class="num _j_up_num" th:text="${thumbsUpCount eq null?0:thumbsUpCount}">8</div>
-                    </div>
-                </div>
 
-                <!-- 已收藏在class加collected -->
-                <div th:class="${starId eq null?'bs_collect':'bs_collect collected'}">
-
-                    <a rel="nofollow" title="收藏" class="bs_btn _j_do_fav"
-                       data-ctime="2019-07-09 14:41:15"><i></i>
-                        <span id="star-count" th:text="${starCount eq null?0:starCount}">2</span><strong>收藏</strong>
-                    </a>
-                </div>
-
-            </div>
         </div>
     </div>
 </div>
@@ -145,29 +107,9 @@
 
                 </div>
 
-            </div>
-
-            <!-- 评论 -->
-            <div th:if="${status eq '2'}" class="row">
-                <div class="wrapper clearfix">
-                    <div class="mod-comment">
-                        <h3 class="mod-title">留言</h3>
-                        <div class="comment-form clearfix">
-                            <textarea class="_j_comment_content" style="height: 60px;"></textarea>
-                            <input class="btn _j_submit_comment" onclick="clickCommentSubmit()" type="button" value="留言">
-                        </div>
-                        <div class="_j_commentlist">
-                            <div class="rev-list">
-                                <ul id="comment-list">
-                                    <!--评论列表-->
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="post_pagin" id="smallpager">
-                            <div id="pagination" class="page f1" style="text-align: center;">
-                            </div>
-                        </div>
-                    </div>
+                <div th:if="${session.adminusername ne null}" class="item-btn" style="width: 400px">
+                    <a class="btn-publish btn-preview" onclick="changeStauts(3)">拒绝</a>
+                    <a id="btn-publish" class="btn-publish" onclick="changeStauts(2)">通过</a>
                 </div>
             </div>
 

@@ -52,7 +52,7 @@ function search(result) {
 
         var polyline = new BMap.Polyline(points);
         map.addOverlay(polyline);
-    })
+    });
 }
 
 function clickPoiStar() {

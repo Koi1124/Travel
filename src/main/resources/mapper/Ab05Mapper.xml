@@ -121,6 +121,16 @@
         ;
     </update>
 
+    <!--获取最基础的数据-->
+    <select id="getCompanyBaseDataByCid" resultType="java.util.HashMap">
+        SELECT a.aab501 AS 'id', c.aaa102 AS 'authorName', c.aaa106 AS 'authorPic', b.aaa305 AS 'mddPic', GROUP_CONCAT(DISTINCT(b.aaa302) SEPARATOR '|') AS 'name',
+                aab502 AS "title", aab503 AS "date", aab504 AS "setout", aab505 AS "period",
+                aab506 AS "count", aab507 AS "telephone",aab508 AS "intro"
+        FROM ab05 a, aa03 b,aa01 c,ac07 d
+        WHERE a.aaa101=c.aaa101 AND a.aab501=d.aab501 AND d.aaa301 = b.aaa301 AND a.aab501=#{id} AND a.aab509=0
+        GROUP BY id;
+    </select>
+
     <select id="getOriginDataByCid" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT t1.id, t1.authorName, t1.authorPic, t1.mddPic, t1.name ,IFNULL(t2.star,0) AS star
         FROM

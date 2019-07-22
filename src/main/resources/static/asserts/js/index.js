@@ -35,8 +35,8 @@ $(document).ready(function() {
 
 
     name.blur(function () {
-        if (name.val().length < 4 || name.val().length > 20) {
-            setText($("#name-tip"), "用户名应该为4~20位");
+        if (name.val().length < 2 || name.val().length > 20) {
+            setText($("#name-tip"), "用户名应该为2~20位");
             illegal[0] = 1;
         }
         else {
@@ -254,7 +254,7 @@ function login(mail, pass) {
                 setText($("#password-login-tip"), "密码错误");
             }
             else if (result == "200") {
-                window.location.href = "/together";
+                window.location.href = "/";
             }
         },
         error: function (e) {
