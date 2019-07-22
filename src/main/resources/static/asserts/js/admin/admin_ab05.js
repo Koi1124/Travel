@@ -87,7 +87,7 @@ function check(id,state)
 		data: JSON.stringify({state:state,id:id}),
 	    contentType: "application/json",
 	    dataType: "json",
-	    async: true,
+	    async: false,
 	    success: function (data) {
 	    	toastr.success('审核成功！')
 	    },

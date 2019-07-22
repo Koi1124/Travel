@@ -86,7 +86,7 @@ function check(id,state)
 		data: JSON.stringify({status:state,nid:id}),
 	    contentType: "application/json",
 	    dataType: "json",
-	    async: true,
+	    async: false,
 	    success: function (data) {
 	    	toastr.success('审核成功！')
 	    },
@@ -94,7 +94,7 @@ function check(id,state)
 	    	toastr.error('审核失败！')
 	    }	
 	});
-		ab01SelectTest(); 
+	ab01SelectTest(); 
 
 }
 

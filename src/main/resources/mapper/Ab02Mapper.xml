@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.han.travel.dao.Ab02Dao">
 	<select id="fuzzyGet" resultType="java.util.HashMap">
-		SELECT aab201,aaa301,aab202,aab203,aab204
-		FROM ab02
+		SELECT b.aab201,a.aaa302 AS city,b.aab202,b.aab203,b.aab204
+		FROM aa03 a,ab02 b
 	<where>
+	b.aaa301=a.aaa301
 	<if test="map.city!=null and map.city!=''">
-		and aaa301 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
+		and a.aaa302 LIKE CONCAT(CONCAT('%',#{map.city}),'%')
 	</if>
 	<if test="map.name!=null and map.name!=''">
 		and aab202 LIKE CONCAT(CONCAT('%',#{map.name}),'%')

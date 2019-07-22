@@ -92,7 +92,7 @@ function delAttraction(id)
 		data: JSON.stringify({id:id}),
 	    contentType: "application/json",
 	    dataType: "json",
-	    async: true,
+	    async: false,
 	    success: function (data) {
 	    	toastr.success('删除成功！');
 	    },
