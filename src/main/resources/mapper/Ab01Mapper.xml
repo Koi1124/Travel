@@ -35,7 +35,12 @@
         FROM ab01
         where aab103=0;
     </select>
-
+	
+	<select id="selectCounts" resultType="java.lang.Integer">
+        SELECT count(aab101)
+        FROM ab01
+        where aab103=1 or aab103=2;
+    </select>
 
     <insert id="addNote" parameterType="java.util.HashMap">
         <selectKey keyProperty="map.nid" resultType="java.lang.Integer" order="AFTER">
@@ -43,7 +48,7 @@
         </selectKey>
         INSERT INTO ab01(aaa101, aab102, aab103, aab104, aab109,
                          aab110, aab111)
-            VALUES(#{map.uid}, "", 0, CURRENT_TIME, 0,
+            VALUES(#{map.uid}, "", 0, CURRENT_TIMESTAMP(), 0,
                    "", "");
     </insert>
 
@@ -55,7 +60,7 @@
 
     <update id="updateNote" parameterType="java.util.HashMap">
         UPDATE ab01
-        SET aab102=#{title}, aab104=CURRENT_TIME,
+        SET aab102=#{title}, aab104=CURRENT_TIMESTAMP(),
             <if test="date != null">aab105=#{date},</if>
             <if test="time != null">aab106=#{time},</if>
             <if test="poi != null">aaa301=#{poi},</if>

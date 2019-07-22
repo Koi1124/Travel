@@ -30,4 +30,6 @@ public interface Aa03Dao
     List<Map<String, Object>> getAllProvince();
 
     List<Map<String, Object>> getCityByProvinceId(@Param("pid") int pid);
+    
+    Integer exist(@Param("id") int id);
 }

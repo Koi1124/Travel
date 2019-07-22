@@ -76,7 +76,13 @@
         FROM ab05
         where aab509=0;
     </select>
-
+	
+	<select id="selectCounts" resultType="java.lang.Integer">
+	SELECT count(1)
+	FROM ab05
+	WHERE aab509=1 or aab509=2;
+	</select>
+	
     <select id="getSearchCompInfoByMDD" resultType="java.util.HashMap">
         SELECT t1.id, t1.intro, t1.date, t1.authorName, t1.authorPic,
          IFNULL(t2.star,0) 'star', t3.name, t3.mddPic

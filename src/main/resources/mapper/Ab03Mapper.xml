@@ -3,11 +3,12 @@
 <mapper namespace="com.han.travel.dao.Ab03Dao">
 	<!--¹ÜÀíÔ±-->
 	<select id="fuzzyGet" resultType="java.util.HashMap">
-		SELECT aab301,aaa301,aab302,aab303,aab304,
-				aab305,aab306,aab307,aab308,aab309,
-				aab310
-		FROM ab03 
+		SELECT b.aab301,a.aaa302,b.aab302,b.aab303,b.aab304,
+			   b.aab305,b.aab306,b.aab307,b.aab308,b.aab309,
+			   b.aab310,b.aab311,b.aab312,b.aab313
+		FROM aa03 a,ab03 b
 	<where>
+	a.aaa301=b.aaa301
 	<if test="map.name!=null and map.name!=''">
 		and aab302 LIKE CONCAT(CONCAT('%',#{map.name}),'%')
 	</if>
@@ -18,9 +19,15 @@
 	limit #{map.begin}, #{map.num}
 	</select>
 	
+	<select id="selectCount" resultType="java.lang.Integer">
+	SELECT COUNT(aab301)
+	FROM ab03;
+	</select>
+	
 	<insert id="insertAttraction" parameterType="java.util.HashMap" >
-		INSERT into ab03(aaa301,aab302,aab303,aab304,aab305,aab306,aab307,aab308,aab309,aab310)
-		VALUES(#{aaa301},#{aab302},#{aab303},#{aab304},#{aab305},#{aab306},#{aab307},#{aab308},#{aab309},#{aab310})
+		INSERT into ab03(aaa301,aab302,aab303,aab304,aab305,aab306,aab307,aab308,aab309,aab310,aab311,aab312,aab313)
+		VALUES(#{aaa301},#{aab302},#{aab303},#{aab304},#{aab305},#{aab306},
+		#{aab307},#{aab308},#{aab309},#{aab310},#{aab311},#{aab312},#{aab313})
 		;
 	</insert>
 	
@@ -32,7 +39,8 @@
 	<update id="updateAttraction" parameterType="java.util.HashMap"  >
 		UPDATE ab03
 		SET aaa301=#{aaa301},aab302=#{aab302},aab303=#{aab303},aab304=#{aab304},aab305=#{aab305},
-		aab306=#{aab306},aab307=#{aab307},aab308=#{aab308},aab309=#{aab309},aab310=#{aab310}
+		aab306=#{aab306},aab307=#{aab307},aab308=#{aab308},aab309=#{aab309},aab310=#{aab310},
+		aab311=#{aab311},aab312=#{aab312},aab313=#{aab313}
 		WHERE aab301=#{id}
 	</update>
 		
@@ -52,7 +60,7 @@
 	<select id="queryById" parameterType="java.lang.Integer" resultType="java.util.HashMap" >
 		SELECT aab301,aaa301,aab302,aab303,aab304,
 				aab305,aab306,aab307,aab308,aab309,
-				aab310
+				aab310,aab311,aab312,aab313
 		FROM ab03
 		where aab301=#{id}
 	</select>

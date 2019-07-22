@@ -45,7 +45,10 @@
 		FROM ab02
 		where aab201=#{id};
 	</select>
-
+	<select id="selectCount" resultType="java.lang.Integer">
+		SELECT count(aab201)
+		FROM ab02
+	</select>
 
 
 	<select id="getRouteDetailByRId" resultType="java.util.HashMap">
