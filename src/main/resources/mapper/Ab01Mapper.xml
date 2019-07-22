@@ -211,10 +211,10 @@
 
     <select id="getNotesByKeyword" parameterType="java.lang.String" resultType="java.util.HashMap">
         SELECT t1.nid, t1.nname, t1.npic, t1.cid, t1.cname,
-			    t1.time, IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
+			    t1.time, t1.nintro,IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
         FROM
         (SELECT b.aab101 AS 'nid', b.aab102 AS 'nname', b.aab111 AS 'npic', a.aaa302 AS 'cname', a.aaa301 AS 'cid',
-        b.aab104 AS 'time'
+        b.aab104 AS 'time', b.aab112 AS 'nintro'
         FROM aa03 a, ab01 b
         WHERE b.aaa301=a.aaa301 AND b.aab103=2
         AND (b.aab102 LIKE CONCAT('%',#{keyword},'%') OR b.aab112 LIKE CONCAT('%',#{keyword},'%') OR a.aaa302 LIKE CONCAT('%',#{keyword},'%')))t1

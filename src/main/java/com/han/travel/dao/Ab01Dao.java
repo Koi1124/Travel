@@ -105,6 +105,7 @@ public interface Ab01Dao extends CheckDao
      * nid: 游记id
      * nname: 游记名
      * npic: 游记头图
+     * nintro: 游记简介
      * cid: 城市id
      * cname: 城市名
      * starCount: 收藏数

@@ -286,13 +286,13 @@
                                 <li class="route-line">
                                     <!--路线地点顺序-->
                                     <hhh th:each="poi,poiStatus:${route.pois}">
-                                    <span class="place">
-                                        <i class="i-place"></i>
-                                        <a class="p-link" target="_blank" th:href="@{'/sight/' + ${poi.sid}}" th:text="${poi.name}">宽窄巷子景区</a>
-                                    </span>
-                                    <span th:if="${poiStatus.index ne poiStatus.count}" class="transport" style="padding-top: 10px">
+                                        <span th:if="${poiStatus.index ne 0}" class="transport" style="padding-top: 10px">
                                         <i class="i-arrow"></i>
-                                    </span>
+                                        </span>
+                                        <span class="place">
+                                            <i class="i-place"></i>
+                                            <a class="p-link" target="_blank" th:href="@{'/sight/' + ${poi.sid}}" th:text="${poi.name}">宽窄巷子景区</a>
+                                        </span>
                                     </hhh>
                                 </li>
                             </ul>

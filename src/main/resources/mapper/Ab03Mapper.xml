@@ -119,7 +119,7 @@
         SELECT t1.sid, t1.sname, t1.spic, t1.cid, t1.cname,
 			 IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
         FROM
-        (SELECT b.aab301 AS 'sid', b.aab302 AS 'sname', b.aab303 AS 'spic', a.aaa302 AS 'cname', a.aaa301 AS 'cid'
+        (SELECT b.aab301 AS 'sid', b.aab302 AS 'sname', b.aab313 AS 'spic', a.aaa302 AS 'cname', a.aaa301 AS 'cid'
         FROM aa03 a, ab03 b
         WHERE b.aaa301=a.aaa301 AND b.aab302 LIKE CONCAT('%',#{keyword},'%'))t1
         LEFT JOIN
