@@ -1,6 +1,8 @@
 package com.han.travel.service;
 
 import com.han.travel.component.MessageSocketServer;
+import com.han.travel.dao.Ab01Dao;
+import com.han.travel.dao.Ab05Dao;
 import com.han.travel.dao.Sa01Dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,89 @@ public class MessageService
 {
     @Resource
     private Sa01Dao sa01Dao;
+    @Resource
+    private Ab05Dao ab05Dao;
+    @Resource
+    private Ab01Dao ab01Dao;
 
 
     @Autowired
     MessageSocketServer messageSocketServer;
 
 
+    // 管理员对用户
+    public void passComp(Object tid)
+    {
+        operateCompByAdmin(tid,"通过");
+    }
+    public void rejectComp(Object tid)
+    {
+        operateCompByAdmin(tid,"未通过");
+    }
+    public void passNote(Object tid)
+    {
+        operateNoteByAdmin(tid,"通过");
+    }
+    public void rejectNote(Object tid)
+    {
+        operateNoteByAdmin(tid,"未通过");
+    }
+
+
+    private void operateCompByAdmin(Object tid, String isPass)
+    {
+        Map<String,Object> dto=new HashMap<>();
+        Map<String,Object> uidAndTitle =ab05Dao.getAuthorIdAndTitleOfUnpassById(Integer.parseInt(tid.toString()));
+        StringBuilder content=new StringBuilder()
+                .append("您的结伴[")
+                .append(uidAndTitle.get("title"))
+                .append("]")
+                .append(isPass)
+                .append("审核")
+                ;
+        dto.put("content",content.toString());
+        dto.put("userId",uidAndTitle.get("uid"));
+        dto.put("pid",tid);
+        dto.put("type","5");
+        if (isPass.equals("未通过"))
+        {
+            dto.put("type","0");
+        }
+        if (sa01Dao.insertMessage(dto))
+        {
+            MessageSocketServer.sendMessage((Integer) uidAndTitle.get("uid"));
+        }
+    }
+
+    private void operateNoteByAdmin(Object nid, String isPass)
+    {
+        Map<String,Object> dto=new HashMap<>();
+        Map<String,Object> uidAndTitle =ab01Dao.getUidAndTitleOfUnpassById(Integer.parseInt(nid.toString()));
+        StringBuilder content=new StringBuilder()
+                .append("您的游记[")
+                .append(uidAndTitle.get("title"))
+                .append("]")
+                .append(isPass)
+                .append("审核")
+                ;
+        dto.put("content",content.toString());
+        dto.put("userId",uidAndTitle.get("uid"));
+        dto.put("type","1");
+        dto.put("pid",nid);
+        if (isPass.equals("未通过"))
+        {
+            dto.put("type","0");
+        }
+        if (sa01Dao.insertMessage(dto))
+        {
+            MessageSocketServer.sendMessage((Integer) uidAndTitle.get("uid"));
+        }
+    }
+
+
+
+
+    // 用户对用户
     private void operate(Object userName, String type, Object detail, String action, Object rUserId, Object pid)
     {
 
@@ -275,6 +354,7 @@ public class MessageService
     {
         return sa01Dao.clearAllByUId(uid);
     }
+
 
 
 }

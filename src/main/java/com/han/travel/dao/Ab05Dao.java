@@ -18,7 +18,7 @@ public interface Ab05Dao extends CheckDao
 
     boolean insertCompany(@Param("dto") Map<String,Object> dto);
 
-    Integer getAuthorIdById(int id);
+    Map<String,Object> getAuthorIdAndTitleOfUnpassById(int id);
 
     String getIntroById(int id);
 
@@ -105,5 +105,21 @@ public interface Ab05Dao extends CheckDao
      *@author: Han
      */
     List<Map<String,Object>> getCompInfoByJoinUId(int uid);
+    
+    
+    /**
+     *@discription: 根据关键字模糊搜索结伴 map->
+     * tid: 结伴id
+     * tname: 结伴名
+     * mdd: 结伴目的地
+     * time: 出发时间
+     * starCount: 收藏数
+     * commentCount: 评论数
+     *@param keyword 
+     *@date: 2019/7/22 15:03
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    List<Map<String,Object>> getCompByKeyword(String keyword);
 
 }

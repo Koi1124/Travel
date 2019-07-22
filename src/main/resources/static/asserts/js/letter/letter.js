@@ -12,16 +12,9 @@ var itemR = '<div class="item-time">'+ curentTime() +'</div>' +
     '                CONTENT-RIGHT\n' +
     '            </div>\n' +
     '        </div>';
-var ws = null;
-//获取当前网址，如： http://localhost:80/ybzx/index.jsp  
-var curPath=window.document.location.href;
-//获取主机地址之后的目录，如： ybzx/index.jsp  
-var pathName=window.document.location.pathname;
-var pos=curPath.indexOf(pathName);
-//获取主机地址，如： http://localhost:80  
-var localhostPaht=curPath.substring(0,pos);
 
-var wsUrl = (localhostPaht+"/socket/"+user_id).replace("http","ws");//websocket服务端地址
+var anothorPath=document.location.host;
+var wsUrl = ("http://"+anothorPath+"/socket/"+user_id).replace("http","ws");//websocket服务端地址
 
 
 $(function () {

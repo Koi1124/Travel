@@ -4,11 +4,12 @@ import com.han.travel.dao.Ab03Dao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @ClassName SightService
- * @Description TODO
+ * @Description 景点信息
  * @Author Saki
  * @Date 2019/7/19
  * @LastUpdate 2019/7/19
@@ -32,4 +33,22 @@ public class SightService
     {
         return ab03Dao.getSightDetailById(sid, uid);
     }
+
+    /**
+     * @Author Saki
+     * @Description 获取所有景点编号
+     * map {
+     *     id:
+     *     label:
+     *     value:
+     * }
+     * @Date 2019/7/22
+     * @param
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    public List<Map<String, Object>> getAllSightsIdAndName()
+    {
+        return ab03Dao.getAllSightsIdAndName();
+    }
+
 }

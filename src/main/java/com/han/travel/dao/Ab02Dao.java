@@ -17,8 +17,6 @@ public interface Ab02Dao extends CheckDao
 	
 	boolean delStrategy(@Param("id") int id );
 	
-	boolean updateStrategy(Map<String,Object>map);
-	
 	Integer selectCount();
 	
 	Integer fuzzySelectCount(@Param("map")Map<String,Object>map);
@@ -28,4 +26,8 @@ public interface Ab02Dao extends CheckDao
 	Map<String, Object> getRouteDetailByRId(@Param("rid") Integer rid);
 
 	List<Map<String, Object>> getTopRouteByCid(@Param("cid") Integer cid, @Param("limit") Integer limit);
+
+	Integer addStrategy(@Param("map") Map<String, Object> map);
+
+	boolean updateStrategy(Map<String,Object>map);
 }

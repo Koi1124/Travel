@@ -5,7 +5,7 @@ function changeStatus(status)
     if (statusChange)
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/admin/ab05/changeState",
+        url: "/admin/ab05/changeState",
         data: JSON.stringify({state: status, id: together_id}),
         contentType: "application/json",
         dataType: "json",

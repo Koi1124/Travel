@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.Ac09Dao">
+
+    <select id="getRoutesBySid" resultType="java.util.HashMap">
+        SELECT aac902 as 'index', aac903 as 'pois', aac904 as 'play', aac905 as 'traffic', aac906 as 'stay',
+            aac907 as 'stayName', aac908 as 'stayIntro', aac909 as 'stayPic'
+        FROM ac09
+        WHERE aab201=#{sid}
+        ORDER BY aac902;
+    </select>
+
+    <insert id="addRoute" parameterType="java.util.HashMap">
+        INSERT into ac09(aab201, aac902, aac903, aac904, aac905,
+                         aac906, aac907, aac908, aac909)
+                VALUES (#{sid}, #{index}, #{pois}, #{play}, #{traffic},
+                        #{stayInfo}, #{stayName}, #{stayInfo}, #{stayPic});
+    </insert>
+
+    <delete id="deleteRoutesBySid">
+        DELETE FROM ac09
+        WHERE aab201=#{sid};
+    </delete>
+
+</mapper>

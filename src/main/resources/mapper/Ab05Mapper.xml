@@ -47,10 +47,10 @@
     </insert>
 
 
-    <select id="getAuthorIdById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT aaa101
+    <select id="getAuthorIdAndTitleOfUnpassById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa101 AS 'uid', aab502 AS 'title'
         FROM ab05
-        WHERE aab501=#{id} AND aab509=1;
+        WHERE aab501=#{id} AND aab509=0;
         ;
     </select>
 
@@ -173,7 +173,6 @@
     </select>
 
     <select id="getCompInfoByJoinUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-
 			SELECT t1.tid, t1.state, t1.authorId, t1.authorName, t1.authorPic,
 			        t1.mddName, t1.setout, t1.leftTime, IFNULL(t2.star,'unstar') AS isStar, 'participator' AS 'type',
 			        t1.title
@@ -190,6 +189,31 @@
 			GROUP BY tid)t2
 			ON t1.tid=t2.tid
 			;
+    </select>
+    
+    <select id="getCompByKeyword" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT t1.tid, t1.tname, t1.mdd, t1.time,
+			 IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
+        FROM
+        (SELECT b.aab501 AS 'tid', b.aab502 AS 'tname', GROUP_CONCAT(DISTINCT(a.aaa302) SEPARATOR '|') AS 'mdd',
+			  b.aab503 AS 'time'
+        FROM aa03 a, ab05 b, ac07 c
+        WHERE c.aaa301=a.aaa301 AND c.aab501=b.aab501 AND b.aab509=1 AND
+		(b.aab502 LIKE CONCAT('%',#{keyword},'%') OR a.aaa302 LIKE CONCAT('%',#{keyword},'%'))
+		GROUP BY tid)t1
+        LEFT JOIN
+        (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'commentCount'
+        FROM ac00 a, ab05 b
+        WHERE a.aac002=5 AND a.aac003=b.aab501
+        ORDER BY tid)t2
+        ON t1.tid=t2.tid
+        LEFT JOIN
+        (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'starCount'
+        FROM ad04 a, ab05 b
+        WHERE a.aad403=5 AND a.aad404=b.aab501
+        ORDER BY tid)t3
+        ON t1.tid=t3.tid
+        ;
     </select>
     
 </mapper>

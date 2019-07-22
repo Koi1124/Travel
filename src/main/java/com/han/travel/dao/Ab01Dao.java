@@ -99,4 +99,32 @@ public interface Ab01Dao extends CheckDao
 
     Integer getNotesCount(@Param("mdd") String mdd);
 
+
+    /**
+     *@discription: 根据关键字模糊搜索游记 map->
+     * nid: 游记id
+     * nname: 游记名
+     * npic: 游记头图
+     * cid: 城市id
+     * cname: 城市名
+     * starCount: 收藏数
+     * commentCount: 评论数
+     * time: 编写时间
+     *@param keyword 
+     *@date: 2019/7/22 15:01
+     *@return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     *@author: Han
+     */
+    List<Map<String,Object>> getNotesByKeyword(String keyword);
+
+
+    /**
+     *@discription: 消息用，获取未审核的游记作者id和游记标题
+     *@param id 
+     *@date: 2019/7/22 16:12
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    Map<String,Object> getUidAndTitleOfUnpassById(int id);
+
 }

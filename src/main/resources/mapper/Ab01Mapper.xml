@@ -105,7 +105,7 @@
     <select id="getNotesCount" resultType="java.lang.Integer">
         SELECT COUNT(aab101)
         FROM ab01
-        WHERE ${mdd}
+        WHERE aab103=2 AND ${mdd}
         ;
     </select>
 
@@ -207,6 +207,37 @@
         FROM ab01 a, ad04 b, aa01 c
         WHERE a.aab101=b.aad404 AND b.aad403=1 AND a.aaa101=c.aaa101
         AND b.aaa101=#{uid};
+    </select>
+
+    <select id="getNotesByKeyword" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT t1.nid, t1.nname, t1.npic, t1.cid, t1.cname,
+			    t1.time, IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
+        FROM
+        (SELECT b.aab101 AS 'nid', b.aab102 AS 'nname', b.aab111 AS 'npic', a.aaa302 AS 'cname', a.aaa301 AS 'cid',
+        b.aab104 AS 'time'
+        FROM aa03 a, ab01 b
+        WHERE b.aaa301=a.aaa301 AND b.aab103=2
+        AND (b.aab102 LIKE CONCAT('%',#{keyword},'%') OR b.aab112 LIKE CONCAT('%',#{keyword},'%') OR a.aaa302 LIKE CONCAT('%',#{keyword},'%')))t1
+        LEFT JOIN
+        (SELECT b.aab101 AS 'nid', count(DISTINCT(b.aab101)) AS 'commentCount'
+        FROM ac00 a, ab01 b
+        WHERE a.aac002=1 AND a.aac003=b.aab101
+        ORDER BY nid)t2
+        ON t1.nid=t2.nid
+        LEFT JOIN
+        (SELECT b.aab101 AS 'nid', count(DISTINCT(b.aab101)) AS 'starCount'
+        FROM ad04 a, ab01 b
+        WHERE a.aad403=1 AND a.aad404=b.aab101
+        ORDER BY nid)t3
+        ON t1.nid=t3.nid
+        ;
+    </select>
+
+    <select id="getUidAndTitleOfUnpassById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT aaa101 AS 'uid', aab102 AS 'title'
+        FROM ab01
+        WHERE aab101=#{id} AND aab103=1
+        ;
     </select>
 
 </mapper>

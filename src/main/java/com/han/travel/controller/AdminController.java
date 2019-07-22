@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.han.travel.configuration.SessionConfig;
 import com.han.travel.service.CompanyService;
+import com.han.travel.service.MessageService;
 import com.han.travel.service.NoteService;
+import com.han.travel.service.StrategyService;
 import com.han.travel.support.Utils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,11 @@ public class AdminController
 	private NoteService noteService;
 	@Autowired
 	private CompanyService companyService;
+	@Autowired
+	private StrategyService strategyService;
+	@Autowired
+    private MessageService messageService;
+
 
 	@RequestMapping("/admin")
     public String toAdminLogin(Map<String,Object> dto,HttpServletRequest request)
@@ -131,15 +139,31 @@ public class AdminController
 	@PostMapping("/admin/ab05/changeState")
     @ResponseBody
     public boolean changeAb05State(@RequestBody Map<String, Object> map)
-    {	
-		return adminService.changeAb05State(map);
+    {
+        if (map.get("state").equals(1))
+        {
+            messageService.passComp(map.get("id"));
+        }
+        else if (map.get("state").equals(2))
+        {
+            messageService.rejectComp(map.get("id"));
+        }
+    	return adminService.changeAb05State(map);
     }
 	
 	@PostMapping("/admin/ab01/changeState")
     @ResponseBody
     public boolean changeAb01State(@RequestBody Map<String, Object> map)
-    {	
-		return adminService.changeAb01State(map);
+    {
+        if (map.get("state").equals('2'))
+        {
+            messageService.passNote(map.get("id"));
+        }
+        else if (map.get("state").equals('3'))
+        {
+            messageService.rejectNote(map.get("id"));
+        }
+        return adminService.changeAb01State(map);
     }
 	
 	
@@ -256,8 +280,88 @@ public class AdminController
 	
 	//======================攻略(ab02)和景点(ab03)模块=============================
 
+	/**
+	 * @Author Saki
+	 * @Description 新建攻略页面
+	 * @Date 2019/7/22
+	 * @param dto
+	 * @return java.lang.String
+	 **/
+	@RequestMapping("/admin/strategy/new")
+	public String newStrategy(Map<String, Object> dto)
+	{
+		return "admin/verify/strategy";
+	}
 
+	/**
+	 * @Author Saki
+	 * @Description 路线详情
+	 * @Date 2019/7/22
+	 * @param id
+	 * @param dto
+	 * @return java.lang.String
+	 **/
+	@RequestMapping("/admin/strategy/{id}")
+	public String editStrategy(@PathVariable int id, Map<String, Object> dto)
+	{
+		dto.putAll(strategyService.getStrategyById(id));
+		return "admin/verify/strategy";
+	}
 
+	/**
+	 * @Author Saki
+	 * @Description 攻略添加
+	 * @Date 2019/7/22
+	 * @param map {
+	 *           pid:城市id,
+	 *    		 name:攻略名称,
+	 *    		 summary:攻略总结
+	 *    		 routes:[{
+	 *    		     play:,
+	 *    		     pois:,
+	 *    		     traffic:,
+	 *    		     traffic:,
+	 *    		     stayName:,
+	 *    		     stayInfo:,
+	 *    		     stayPic:
+	 *    		 }]
+	 * 		  }
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/strategy/add")
+	@ResponseBody
+	public boolean addStrategy(@RequestBody Map<String, Object> map)
+	{
+		return strategyService.addStrategy(map);
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 攻略添加
+	 * @Date 2019/7/22
+	 * @param map {
+	 *            sid:攻略id
+	 *           pid:城市id,
+	 *    		 name:攻略名称,
+	 *    		 summary:攻略总结
+	 *    		 routes:[{
+	 *    		     play:,
+	 *    		     pois:,
+	 *    		     traffic:,
+	 *    		     traffic:,
+	 *    		     stayName:,
+	 *    		     stayInfo:,
+	 *    		     stayPic:
+	 *    		 }]
+	 * 		  }
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/strategy/update")
+	@ResponseBody
+	public boolean updateStrategy(@RequestBody Map<String, Object> map)
+	{
+		return strategyService.updateStrategy(map);
+	}
 
 
 	//========================审核详细页面=========================================
