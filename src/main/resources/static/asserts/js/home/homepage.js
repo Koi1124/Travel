@@ -6,7 +6,6 @@ var itemCount = 10;
 
 $(document).ready(function () {
     getNotes(0,s_type);
-    initPagination(totalPage);
 
 
     // 热门和最新
@@ -66,6 +65,7 @@ function setNotes(data) {
             '                                </div>\n' +
             '                            </div>');
     })
+
     $("._j_gs_item").click(function () {
         var mid=$(this).attr("data-objid");
         var name=$(this).attr("data-name");
@@ -76,7 +76,7 @@ function setNotes(data) {
 
     $("._j_tag_choose_container i").click(function () {
         var mid=0;
-        $("._j_tag_choose_container").remove();
+        $("._j_tag_choose_container a").remove();
         getNotes(mid,s_type);
         scroll();
     })
@@ -109,6 +109,7 @@ function getNotes(mddId,type) {
                 id = mddId;
                 s_type=type;
                 page = 1;
+                console.log(result.count);
                 totalPage =Math.ceil(result.count / itemCount);
                 initPagination();
             }
@@ -137,7 +138,6 @@ function initPagination() {
             scroll();
             page = current;
             getNotes(id,s_type)
-
         }
     });
 }

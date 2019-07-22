@@ -96,7 +96,7 @@
     <select id="getNotesCount" resultType="java.lang.Integer">
         SELECT COUNT(aab101)
         FROM ab01
-        WHERE ${mdd}
+        WHERE aab103=2 AND ${mdd}
         ;
     </select>
 
