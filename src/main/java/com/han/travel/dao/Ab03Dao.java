@@ -43,6 +43,22 @@ public interface Ab03Dao extends CheckDao
 	 *@author: Han
 	 */
 	 List<Map<String,Object>> getCollectSightInfoByUId(int uid);
+
+
+	 /**
+	  * @Author Saki
+	  * @Description 获取autocomplete所需数据
+	  * {
+	  *     id：
+	  *     value：
+	  *     label
+	  * }
+	  * @Date 2019/7/22
+	  * @param
+	  * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+	  **/
+	 List<Map<String, Object>> getAllSightsIdAndName();
+
     
 	 
 	 /**

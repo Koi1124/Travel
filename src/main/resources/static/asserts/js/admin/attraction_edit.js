@@ -19,7 +19,7 @@ $(document).ready(function() {
 	function ab03Select(id){
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/ab03/queryById",
+	        url: "/ab03/queryById",
 	        data:JSON.stringify({id:id}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -35,6 +35,9 @@ $(document).ready(function() {
 	        	$("#ticket").val(result.aab308);
 	        	$("#openTime").val(result.aab309);
 	        	$("#location").val(result.aab310);
+	        	$("#longitude").val(result.aab311);
+	        	$("#latitude").val(result.aab312);
+	        	$("#img").attr('src',result.aab313);
 	        },
 	        error: function (e) {
 	        	console.log(id);
@@ -46,12 +49,35 @@ $(document).ready(function() {
 	
 });
 
+function exist(){
+	console.log("blur");
+	$.ajax({
+        type: "post",
+        url: "http://localhost:8080/aa03/exist",
+        data:JSON.stringify({id:$("#parentId").val()}),
+        contentType: "application/json",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+        		if(!data)
+        		{
+        			toastr.warning("城市ID不存在!");
+        		}
+        },
+        error: function (data) {
+        	toastr.error('城市信息错误或禁止访问!');
+        }
+    });
+}
+    
+
+
 function ab03Update(operation)
 {
-	var url="http://localhost:8080/ab03/updateById";
+	var url="/ab03/updateById";
 	if(operation=='1')
 	{
-		url="http://localhost:8080/ab03/insertAttraction";
+		url="/ab03/insertAttraction";
 	}
 	var a_id=$("#attraction_id");
 		$.ajax({
@@ -67,7 +93,11 @@ function ab03Update(operation)
 	        		aab307:$("#tran").val(),
 	        		aab308:$("#ticket").val(),
 	        		aab309:$("#openTime").val(),
-	        		aab310:$("#location").val(),		}),
+	        		aab310:$("#location").val(),
+	        		aab311:$("#longitude").val(),
+	        		aab312:$("#latitude").val(),
+	        		aab313:$("#img").attr('src'),
+	        		}),
 	        contentType: "application/json",
 	        dataType: "json",
 	        async: true,
@@ -91,6 +121,8 @@ function ab03Update(operation)
 	    });
         
 }
+
+
 
 
 

@@ -8,7 +8,7 @@
         </selectKey>
         INSERT INTO ac00(aaa101, aac002, aac003, aac004, aac005,
         aac006, aac007)
-        VALUES(#{map.userId}, #{map.type}, #{map.pid}, #{map.content}, CURRENT_TIME,
+        VALUES(#{map.userId}, #{map.type}, #{map.pid}, #{map.content}, CURRENT_TIMESTAMP(),
         "1" , #{map.score})
         ;
     </insert>

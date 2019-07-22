@@ -11,12 +11,15 @@ import com.han.travel.support.PageBean;
 import com.han.travel.support.Utils;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -38,6 +41,9 @@ public class AdminService
     
     @Resource
     private Ab03Dao ab03Dao;
+    
+    @Resource
+    private Aa01Dao aa01Dao;
     /**
      * @Author 
      * @Description 
@@ -55,6 +61,19 @@ public class AdminService
     	{
     		return false;
     	}
+    }
+    
+    public Map<String,Object> getCounts()
+    {	
+		Map<String,Object> result=new HashMap<>(8);
+		result.put("usercount",aa01Dao.selectCount());
+		result.put("company_0",ab05Dao.selectCount());//_0未审核
+		result.put("company",ab05Dao.selectCounts());
+		result.put("note_0",ab01Dao.selectCount());//未审核
+		result.put("note",ab01Dao.selectCounts());
+		result.put("strategy",ab02Dao.selectCount());
+		result.put("attraction",ab03Dao.selectCount());
+		return result;			
     }
     
     //========================管理员功能的操作============================

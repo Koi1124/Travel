@@ -14,7 +14,7 @@ $(document).ready(function() {
 	function aa02Select(){
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/admin/aa02/selectByPage",
+	        url: "/admin/aa02/selectByPage",
 	        data:JSON.stringify({currPage:currPage.text()}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -78,7 +78,7 @@ function check(id,state)
 {
 	$.ajax({
 		type:"post",
-		url: "http://localhost:8080/admin/aa02/changeState",
+		url: "/admin/aa02/changeState",
 		data: JSON.stringify({state:state,id:id}),
 	    contentType: "application/json",
 	    dataType: "json",

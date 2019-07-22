@@ -63,7 +63,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO aa01(aaa102, aaa103, aaa105, aaa106, aaa107, aaa108)
-        VALUES ("未认证旅行社", 0, current_time(), "/asserts/img/commom/default_logo.jpg", "agency", "agency");
+        VALUES ("未认证旅行社", 0, CURRENT_TIMESTAMP(), "/asserts/img/commom/default_logo.jpg", "agency", "agency");
     </insert>
 
     <update id="upadteAgencyUser" parameterType="java.util.HashMap">

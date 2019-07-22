@@ -25,7 +25,7 @@ $(document).ready(function(){
             console.log("finish");
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/change_logo",
+                url: "/change_logo",
                 data: JSON.stringify({
                     image:dataURL
                 }),
@@ -65,7 +65,7 @@ function infoSubmit() {
         $("#alert-box").hide(200);
         $.ajax({
             type: "post",
-            url: "http://localhost:8080/change_info",
+            url: "/change_info",
             data: JSON.stringify({
                 name:$("#input-name").val(),
                 sex:$("input:radio:checked").val(),
@@ -98,7 +98,7 @@ function infoSubmit() {
 
 function passwordSubmit() {
     if ($("#password-input").val().length < 8) {
-        $("#alert-box").text("用户名应为8~18位！").show(200);
+        $("#alert-box").text("密码应为8~18位！").show(200);
         return;
     }
     else if ($("#password-input").val() != $("#password-repeat").val()) {
@@ -109,7 +109,7 @@ function passwordSubmit() {
         $("#alert-box").hide(200);
         $.ajax({
             type: "post",
-            url: "http://localhost:8080/change_password",
+            url: "/change_password",
             data: JSON.stringify({
                 oldPassword:$("#password-old").val(),
                 newPassword:$("#password-input").val()

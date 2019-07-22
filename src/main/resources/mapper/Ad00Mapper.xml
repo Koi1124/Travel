@@ -15,7 +15,7 @@
 
     <insert id="addReply" parameterType="java.util.HashMap">
         INSERT INTO ad00(aac001, aaa101, aad002, aad003, aad004)
-        VALUES(#{map.commentId}, #{map.userId}, #{map.content}, CURRENT_TIME, #{map.replyId})
+        VALUES(#{map.commentId}, #{map.userId}, #{map.content}, CURRENT_TIMESTAMP(), #{map.replyId})
         <selectKey keyProperty="map.rid" resultType="java.lang.Integer" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>

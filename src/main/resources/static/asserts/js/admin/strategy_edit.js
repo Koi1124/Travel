@@ -14,12 +14,12 @@ $(document).ready(function() {
 		{
 			ab02Select(a_id.val());
 		}
-	})
+	});
 	
 	function ab02Select(id){
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/ab02/queryById",
+	        url: "/ab02/queryById",
 	        data:JSON.stringify({id:id}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -35,18 +35,15 @@ $(document).ready(function() {
 	        	console.log(id);
 	        }
 	    }); 
-		}
-	
-	
-	
+	}
 });
 
 function ab02Update(operation)
 {
-	var url="http://localhost:8080/ab02/updateById";
+	var url="/ab02/updateById";
 	if(operation=='1')
 	{
-		url="http://localhost:8080/ab02/insertStrategy";
+		url="/ab02/insertStrategy";
 	}
 		$.ajax({
 	        type: "post",

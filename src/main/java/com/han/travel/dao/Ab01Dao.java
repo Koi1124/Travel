@@ -25,6 +25,8 @@ public interface Ab01Dao extends CheckDao
     List<Map<String,Object>> getAll(Map<String,Integer> map);
 
     Integer selectCount();
+    
+    Integer selectCounts();
 
     /**==============================================================================
      *                              用户操作
