@@ -84,6 +84,26 @@ public class StrategyService
     }
 
 
+    public List<Map<String, Object>> getTopRouteByCid(int cid)
+    {
+        List<Map<String, Object>> list = ab02Dao.getTopRouteByCid(cid, 2);
+        for (Map<String, Object> map : list)
+        {
+            int rid = Integer.valueOf(map.get("rid").toString());
+            List<Map<String, Object>> routes = ac09Dao.getRoutesBySid(rid);
+            JSONArray jsonArray = JSONArray.fromObject((String) map.get("routes"));
+
+            String[] pois = ((JSONObject) jsonArray.get(0)).get("pois").toString().split(",");
+            List<Map<String, Object>> poiList = new ArrayList<>();
+            for (int i = 0; i < pois.length; i++)
+            {
+                poiList.add(ab03Dao.getSightIntroById(Integer.parseInt(pois[i])));
+            }
+            map.put("routes", poiList);
+        }
+        return list;
+    }
+
     /**
      * @Author Saki
      * @Description 添加系统攻略
