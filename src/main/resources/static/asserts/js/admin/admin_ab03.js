@@ -16,7 +16,7 @@ $(document).ready(function() {
 		var count=0;
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/ab03/fuzzyQuery",
+	        url: "/ab03/fuzzyQuery",
 	        data:JSON.stringify({currPage:currPage.text(),name:name,intro:intro}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -82,7 +82,7 @@ function delAttraction(id)
 {
 	$.ajax({
 		type:"post",
-		url: "http://localhost:8080/ab03/delAttraction",
+		url: "/ab03/delAttraction",
 		data: JSON.stringify({id:id}),
 	    contentType: "application/json",
 	    dataType: "json",

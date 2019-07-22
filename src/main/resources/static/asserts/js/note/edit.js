@@ -134,6 +134,9 @@ function setTopImage() {
     reader.readAsDataURL(file);
 }
 
+
+
+
 //图片选择之后上传
 function selectPic() {
     $("#loading").fadeIn(250);

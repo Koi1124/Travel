@@ -19,7 +19,7 @@ $(document).ready(function() {
 	function ab03Select(id){
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/ab03/queryById",
+	        url: "/ab03/queryById",
 	        data:JSON.stringify({id:id}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -48,10 +48,10 @@ $(document).ready(function() {
 
 function ab03Update(operation)
 {
-	var url="http://localhost:8080/ab03/updateById";
+	var url="/ab03/updateById";
 	if(operation=='1')
 	{
-		url="http://localhost:8080/ab03/insertAttraction";
+		url="/ab03/insertAttraction";
 	}
 	var a_id=$("#attraction_id");
 		$.ajax({

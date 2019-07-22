@@ -99,4 +99,9 @@
         AND b.aaa101=#{uid}
         ;
     </select>
+
+	<select id="getAllSightsIdAndName" resultType="java.util.HashMap">
+		select aab301 as 'id', aab302 as 'label', aab302 as 'value'
+		from ab03;
+	</select>
 </mapper>

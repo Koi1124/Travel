@@ -25,12 +25,6 @@
 		DELETE FROM ab02
 		WHERE aab201=#{id}
 	</delete>
-	
-	<update id="updateStrategy" parameterType="java.util.HashMap"  >
-		UPDATE ab02
-		SET aaa301=#{aab301},aab202=#{aab202},aab203=#{aab203},aab204=#{aab204}
-		WHERE aab201=#{id}
-	</update>
 		
 	<select id="fuzzySelectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT count(*) 
@@ -65,7 +59,8 @@
 		SELECT rid, name, routes FROM
 		(SELECT aab201 as 'rid', aab202 as 'name', aab203 as 'routes'
 		FROM ab02
-		WHERE ab02.aaa301=#{cid}) t
+		<if test="cid != null"> WHERE ab02.aaa301=#{cid} </if>
+		) t
 		LEFT JOIN
 			(SELECT count(aad201) as 'count', aad203
 			 FROM ad02
@@ -77,4 +72,18 @@
 		;
 	</select>
 
+
+	<insert id="addStrategy" parameterType="java.util.HashMap">
+		<selectKey keyProperty="map.sid" resultType="java.lang.Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO ab02(aaa301, aab202, aab203, aab204)
+			VALUES (#{map.pid}, #{map.name}, "", #{map.summary});
+	</insert>
+
+	<update id="updateStrategy" parameterType="java.util.HashMap"  >
+		UPDATE ab02
+		SET aaa301=#{pid},aab202=#{name},aab204=#{summary}
+		WHERE aab201=#{sid};
+	</update>
 </mapper>

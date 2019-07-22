@@ -20,7 +20,7 @@ var name=$("#name");
 		var count=0;
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/admin/aa04/fuzzyQuery",
+	        url: "/admin/aa04/fuzzyQuery",
 	        data:JSON.stringify({currPage:currPage.text(),name:name.val(),beginTime:beginTime.val(),endTime:endTime.val()}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -80,7 +80,7 @@ function member_stop(obj,state,id){
 	          (state==0)?state=1:state=0;
 	          $.ajax({
 	  	        type: "post",
-	  	        url: "http://localhost:8080/admin/aa04/changeState",
+	  	        url: "/admin/aa04/changeState",
 	  	        data:JSON.stringify({id:id,state:state}),
 	  	        contentType: "application/json",
 	  	        dataType: "json",
@@ -102,7 +102,7 @@ function role_change(id)
 	console.log("role:"+role+"id"+id);
 	 $.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/admin/aa04/changeRole",
+	        url: "/admin/aa04/changeRole",
 	        data:JSON.stringify({id:id,role:role}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -163,7 +163,7 @@ function del(id)
 {
 	$.ajax({
 		type:"post",
-		url:"http://localhost:8080/admin/aa04/del",
+		url:"/admin/aa04/del",
 		data:JSON.stringify({id:id}),
 		contentType: "application/json",
 		datatype:"json",

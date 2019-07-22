@@ -15,7 +15,7 @@ $(document).ready(function() {
 		var count=0;
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/ab02/fuzzyQuery",
+	        url: "/ab02/fuzzyQuery",
 	        data:JSON.stringify({currPage:currPage.text(),city:city,name:name}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -29,10 +29,14 @@ $(document).ready(function() {
 		            for(var i=0;i<count;i++)
 		            {
 		            	var ls=data[i];
-		            	html="<tr><td>"+ls.aab201+"</td><td>"+ls.aaa301+"</td><td>"+ls.aab202+"</td><td>"+ls.aab203+
+		            	html="<tr><td>"+ls.aab201+"</td><td>"+ls.aaa301+"</td><td>"+ls.aab202+
 		            	     "</td><td>"+ls.aab204+"</td>"+
+                             "<td width='50px' class='td-manage'>" +
+							 "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/strategy/"+ls.aab201+"')\">" +
+							 "<i class='layui-icon layui-icon-link' style=' font-size: 23px;margin-left:20px '  ></i></a>" +
+							 "</a></td>"+
 		            	     "<td class='td-manage'>"+
-		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editStrategy?id="+ls.aab201+"&operation=2    \",500,500)'>"+
+		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick=\"xadmin.open('编辑','/admin/strategy/"+ls.aab201+"')\">"+
 		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button>"+
 	                         "<button class='layui-btn-danger layui-btn layui-btn-xs'  onclick='delStrategy("+ls.aab201+")'>"+
 	                         "<i class='layui-icon'>&#xe640;</i>删除</button>"+
@@ -80,7 +84,7 @@ function delStrategy(id)
 {
 	$.ajax({
 		type:"post",
-		url: "http://localhost:8080/ab02/delStrategy",
+		url: "/ab02/delStrategy",
 		data: JSON.stringify({id:id}),
 	    contentType: "application/json",
 	    dataType: "json",

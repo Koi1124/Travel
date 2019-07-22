@@ -3,7 +3,6 @@ package com.han.travel.controller;
 import java.util.Map;
 
 import com.han.travel.configuration.SessionConfig;
-import com.han.travel.service.AdminService;
 import com.han.travel.service.StrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +54,8 @@ public class StrategyController
     @ResponseBody
     public boolean delStrategy(@RequestBody Map<String,Object>map)
     {
-		return ab02Dao.delStrategy(Integer.parseInt(map.get("id").toString()));
+
+		return strategyService.deleteStrategy(Integer.parseInt(map.get("id").toString()));
     }
 
 	@PostMapping("/ab02/fuzzyQuery")
@@ -84,7 +84,7 @@ public class StrategyController
     @RequestMapping("/s/{id}")
     public String getStrategyById(@PathVariable("id") int id, HttpSession session, Map<String, Object> dto)
     {
-        dto.putAll(strategyService.getStrategyById(id, (Integer)session.getAttribute(SessionConfig.USER_ID)));
+        dto.putAll(strategyService.getStrategyDetailById(id, (Integer)session.getAttribute(SessionConfig.USER_ID)));
         return "poi/route";
     }
 }

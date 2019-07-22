@@ -14,7 +14,7 @@ $(document).ready(function() {
 	function ab05Select(){
 		$.ajax({
 	        type: "post",
-	        url: "http://localhost:8080/admin/ab05/selectByPage",
+	        url: "/admin/ab05/selectByPage",
 	        data:JSON.stringify({currPage:currPage.text()}),
 	        contentType: "application/json",
 	        dataType: "json",
@@ -83,7 +83,7 @@ function check(id,state)
 {
 	$.ajax({
 		type:"post",
-		url: "http://localhost:8080/admin/ab05/changeState",
+		url: "/admin/ab05/changeState",
 		data: JSON.stringify({state:state,id:id}),
 	    contentType: "application/json",
 	    dataType: "json",

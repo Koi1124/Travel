@@ -3,8 +3,8 @@
 
 <head>
     <title>周游旅行平台</title>
-    <link href="navslider.css" th:href="@{/asserts/css/navslider.css}" rel="stylesheet" type="text/css" />
-    <link href="travelnotes.css" th:href="@{/asserts/css/travelnotes.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/navslider.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/travelnotes.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" th:href="@{/asserts/css/tools/jquery.pagination.css}" />
     <link rel="stylesheet" th:href="@{/asserts/css/style.css}" />
 
@@ -84,7 +84,7 @@
 
                 <!-- 用户下拉菜单 begin 修改display属性为block为显示-->
                 <div class="dropdown-menu dropdown-user hide" id="_j_user_panel" data-cs-t="user_nav"
-                     style="display: none;width: 200px;right: 500px">
+                     style="display: none;width: 130px;right: 500px">
                     <ul>
                         <li><a href="" th:href="@{'/u/'+${session.user_id}+'/note'}" title="个人空间"><i class="icon-wo"></i>个人空间</a></li>
                         <li><a href="/setting" title="我的设置" target="_blank"  data-cs-p="settings"><i class="icon-settings"></i>设置</a></li>
