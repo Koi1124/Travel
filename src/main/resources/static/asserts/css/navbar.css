@@ -234,14 +234,14 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
 
 
 .banner .dropdown-menu {
-    width: 89px;
+    width: 88px;
     position: absolute;
-    top: 0;
-    right: 49.3%;
+    top: 130px;
+    right: 49.2%;
     border: 1px solid #d6d6d6;
     background-color: #fff;
     z-index: 10;
-    margin-top: 260px;
+    margin-top: 128px;
 }
 .banner .dropdown-menu ul {
     margin-bottom: 10px;
