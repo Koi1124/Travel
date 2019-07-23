@@ -83,7 +83,7 @@
                     <ul th:if="${type eq 3}">
                         <li th:each="company:${companies}">
                             <div class="clearfix">
-                                <div class="ct-text ">
+                                <div class="ct-text" style="padding-left: 0;">
                                     <h3>
                                         <a href="" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" target="_blank" class="_j_search_link"><hhh th:text="${company.tname}"></hhh></a>
                                     </h3>

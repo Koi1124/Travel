@@ -1,6 +1,7 @@
 package com.han.travel.controller;
 
 import com.han.travel.service.CityService;
+import com.han.travel.service.StrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,8 @@ public class CityController
 {
     @Autowired
     private CityService cityService;
+    @Autowired
+    private StrategyService strategyService;
 
     /**
      * @Author Saki
@@ -45,7 +48,7 @@ public class CityController
     @RequestMapping("/c/{id}")
     public String poi(Map<String, Object> dto, @PathVariable("id") int id)
     {
-        dto.put("routes",cityService.getTopRouteByCid(id));
+        dto.put("routes",strategyService.getTopRouteByCidAndLimitOneRoute(id, 2));
         dto.put("id", id);
         dto.put("name", cityService.getNameById(id));
         return "poi/city";

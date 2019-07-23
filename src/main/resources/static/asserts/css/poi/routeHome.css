@@ -1,0 +1,157 @@
+h1, h2, h3, h4, h5, h6, p, dl, dt, dd {
+    margin: 0;
+}
+body, p, div {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+}
+
+.row {
+    padding: 40px 0;
+    min-width: 1000px;
+}
+.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+.line-panel {
+    border: 1px solid #eaeaea;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+.days-season {
+    float: right;
+}
+.days-season .item {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    line-height: 24px;
+}
+.days-season i {
+    float: left;
+    margin: 0 12px 0 0;
+    width: 24px;
+    height: 24px;
+    background: url(https://css.mafengwo.net/images/mdd/place/line-details-sprites5.png) no-repeat 0 0;
+    overflow: hidden;
+}
+.days-season strong {
+    font-weight: normal;
+    color: #333;
+    font-size: 14px;
+}
+.lp-detail {
+    float: left;
+    width: 640px;
+}
+.lp-detail h2 {
+    margin-top: 0px;
+    font-size: 24px;
+    font-weight: normal;
+    color: #333;
+    line-height: 26px;
+}
+.lp-detail dd {
+    margin-top: 20px;
+    line-height: 28px;
+    font-size: 14px;
+}
+.lp-detail dd p a {
+    color: #666;
+}
+.lp-detail .arrow {
+    margin: 0 10px;
+    display: inline-block;
+    width: 14px;
+    height: 10px;
+    background: url(https://css.mafengwo.net/images/mdd/place/line-details-sprites5.png) no-repeat -80px 0;
+    overflow: hidden;
+    line-height: 100px;
+}
+.lp-detail .btn-more {
+    margin-top: 15px;
+    display: inline-block;
+    line-height: 35px;
+    padding: 0 25px;
+    color: #fff;
+    background-color: #ff9d00;
+    border-radius: 3px;
+}
+.lp-detail dt > a:hover{text-decoration:none;}
+.lp-detail dt > a:hover h2{color:#ff9d00;}
+.lp-detail .btn-more:hover {
+    background-color: #ff7e00;
+    text-decoration: none;
+}
+.lp-maps {
+    float: right;
+    width: 270px;
+}
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+.lp-lightspot {
+    margin-top: 25px;
+    border-top: 1px solid #f2f2f2;
+    padding-top: 20px;
+}
+.lp-lightspot .ls-title {
+    margin-bottom: 20px;
+    line-height: 18px;
+    font-size: 16px;
+    color: #333;
+}
+.ls-imgbox {
+    width: 940px;
+    height: 197px;
+    position: relative;
+    overflow-x:auto;
+}
+
+.ls-imgbox ul {
+    display:-webkit-inline-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 180px;
+    width:auto;
+}
+.ls-imgbox li {
+    float: left;
+    width: 270px;
+    height: 180px;
+    position: relative;
+}
+.ls-imgbox li .mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: .2;
+    filter: alpha(opacity=20);
+}
+.ls-imgbox li .txt {
+    position: absolute;
+    left: 18px;
+    bottom: 10px;
+    right: 18px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 24px;
+}
+.ls-imgbox li .txt strong {
+    font-weight: normal;
+    font-size: 18px;
+}

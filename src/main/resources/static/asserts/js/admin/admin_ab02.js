@@ -19,7 +19,7 @@ $(document).ready(function() {
 	        data:JSON.stringify({currPage:currPage.text(),city:city,name:name}),
 	        contentType: "application/json",
 	        dataType: "json",
-	        async: false,
+	        async: true,
 	        success: function (result) {
 	        		var data=result.data;
 	        		count=data.length;
@@ -29,7 +29,7 @@ $(document).ready(function() {
 		            for(var i=0;i<count;i++)
 		            {
 		            	var ls=data[i];
-		            	html="<tr><td>"+ls.aab201+"</td><td>"+ls.aaa301+"</td><td>"+ls.aab202+
+		            	html="<tr><td>"+ls.city+"</td><td>"+ls.aab202+
 		            	     "</td><td>"+ls.aab204+"</td>"+
                              "<td width='50px' class='td-manage'>" +
 							 "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/strategy/"+ls.aab201+"')\">" +
@@ -88,7 +88,7 @@ function delStrategy(id)
 		data: JSON.stringify({id:id}),
 	    contentType: "application/json",
 	    dataType: "json",
-	    async: true,
+	    async: false,
 	    success: function (data) {
 	    	toastr.success('删除成功！');
 	    },

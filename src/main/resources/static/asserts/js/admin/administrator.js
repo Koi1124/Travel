@@ -34,7 +34,7 @@ var name=$("#name");
 	            {
 	           
 	            	var ls=data[i];
-	            	html="<tr><td></td><td>"+ls.aaa401+"</td><td>"+ls.aaa402+
+	            	html="<tr><td>"+ls.aaa402+
 	            	     "</td><td>"+"<select onchange='role_change("+ls.aaa401+")' class='role' id='"+ls.aaa401+"' lay-ignore>"+
 	            	     "<option value='1'>高级管理员</option>"+
 	            	     "<option value='2'>审核管理员</option>"+

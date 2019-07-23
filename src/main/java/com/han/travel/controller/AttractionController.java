@@ -23,10 +23,7 @@ public class AttractionController
 {	
 	@Autowired
     private AdminService adminService;
-	@Autowired
-    private Ab03Dao ab03Dao;
-	@Autowired
-    private Aa03Dao aa03Dao;
+
 	@Autowired
     private SightService sightService;
 
@@ -43,20 +40,20 @@ public class AttractionController
 		model.addAttribute("operation",operation);
     	return "admin/attraction_edit";
     }
-
+	
 	@PostMapping("/ab03/insertAttraction")
     @ResponseBody
     public boolean insertAttraction(@RequestBody Map<String,Object>map)
     {
 		map.put("aab313", ImgUploadTools.uploadImg(map.get("aab313").toString()));
-		return ab03Dao.insertAttraction(map);
+		return adminService.insertAttraction(map);
     }
 
 	@PostMapping("/ab03/delAttraction")
     @ResponseBody
     public boolean delAttraction(@RequestBody Map<String,Object>map)
     {
-		return ab03Dao.delAttraction(Integer.parseInt(map.get("id").toString()));
+		return adminService.delAttraction(map);
     }
 
 	@PostMapping("/ab03/updateById")
@@ -64,32 +61,27 @@ public class AttractionController
     public boolean updateAttraction(@RequestBody Map<String,Object>map)
     {
 		map.put("aab313", ImgUploadTools.uploadImg(map.get("aab313").toString()));
-		return ab03Dao.updateAttraction(map);
+		return adminService.updateAttraction(map);
     }
 
 	@PostMapping("/ab03/fuzzyQuery")
     @ResponseBody
     public Map<String,Object> fuzzyQuery(@RequestBody Map<String,Object>map)
     {
-		return PageBean.fuzzyQuery(ab03Dao, "ab03",map);
+		return adminService.ad03fuzzyQuery(map);
     }
 
 	@PostMapping("/ab03/queryById")
     @ResponseBody
     public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
     {
-		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
+		return adminService.ab03queryById(map);
     }
 	@PostMapping("/aa03/exist")
     @ResponseBody
     public boolean exist(@RequestBody Map<String,Object>map)
     {
-		int id=0;
-		if(map.get("id").toString()!=null&&!(map.get("id").toString()).equals("")&&map.get("id") instanceof java.lang.Integer)
-		{
-			id=Integer.parseInt(map.get("id").toString());
-		}
-		return aa03Dao.exist(id)>0;
+		return adminService.exist(map);
     }
 	
 

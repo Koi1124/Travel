@@ -74,7 +74,7 @@
 
                             <div class="con">
                                 <div class="title clearfix">
-                                    <span>在 <hhh th:text="${comment.type}"></hhh> 类型
+                                    <span>在 <hhh th:text="${comment.type}"></hhh> 
                                         <hhh th:switch="${comment.type}">
                                             <a th:case="'游记攻略'" href="游记页面" th:href="@{'/note/'+${comment.toCId}}" class="name"><hhh th:text="${comment.title}">题目</hhh></a>
                                             <a th:case="'结伴'" href="结伴页面" th:href="@{'/together/company/detail/'+${comment.toCId}+'.html'}" class="name"><hhh th:text="${comment.title}">题目</hhh></a>
