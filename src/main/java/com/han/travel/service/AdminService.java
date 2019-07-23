@@ -2,6 +2,7 @@ package com.han.travel.service;
 
 
 import com.han.travel.dao.Aa01Dao;
+import com.han.travel.dao.Aa03Dao;
 import com.han.travel.dao.Aa04Dao;
 import com.han.travel.dao.Ab01Dao;
 import com.han.travel.dao.Ab02Dao;
@@ -29,6 +30,9 @@ public class AdminService
 
     @Resource
     private Aa04Dao aa04Dao;
+    
+    @Resource
+    private Aa03Dao aa03Dao;
     
     @Resource
     private Ab05Dao ab05Dao;
@@ -252,5 +256,14 @@ public class AdminService
   	public Map<String,Object> ab03queryById(Map<String,Object>map)
     {
 		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
+    }
+  	public boolean exist(Map<String,Object>map)
+    {
+		int id=0;
+		if(map.get("id").toString()!=null&&!(map.get("id").toString()).equals("")&&map.get("id") instanceof java.lang.Integer)
+		{
+			id=Integer.parseInt(map.get("id").toString());
+		}
+		return aa03Dao.exist(id)>0;
     }
 }

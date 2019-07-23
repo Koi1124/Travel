@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>搜索界面</title>
+    <link href="search.css" th:href="@{/asserts/css/search.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        /*]]>*/
+    </script>
+
+
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
+    <script th:src="@{/asserts/js/search/search.js}"></script>
+
+</head>
+
+<body>
+<!-- navbar -->
+<div id="header" th:replace="~{homepage :: navbar}"></div>
+
+<!-- 搜索 -->
+
+<div class="mfw-search-main" id="_j_mfw_search_main">
+    <div class="s-nav">
+        <div class="wid">
+            <div class="nav-list clearfix">
+                <div class="searchbar">
+                    <div class="search-wrapper">
+                        <div class="search-input"><input name="q" type="text" id="_j_search_input" value="" th:value="${kw}" placeholder="你想知道什么" autocomplete="off"></div>
+                    </div>
+                    <div class="search-button"><a role="button" href="javascript:" id="_j_search_button"><i class="icon-search"></i></a></div>
+                </div>
+
+                <div class="_j_select_type">
+                    <a class="poi-nav" th:class="${type eq 1}?'poi-nav on':'poi-nav'">景点</a>
+                    <a class="notes-nav" th:class="${type eq 2}?'notes-nav on':'notes-nav'">游记</a>
+                    <a class="together-nav" th:class="${type eq 3}?'together-nav on':'together-nav'">结伴</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="wid clearfix">
+        <div class="flt1 ser-lt" id="_j_search_result_left">
+            <div class="_j_search_section" data-category="info">
+                <div class="att-list">
+                    <p th:if="${type eq 1}" th:text="'共有'+${#lists.size(sights)}+'条结果'"></p>
+                    <p th:if="${type eq 2}" th:text="'共有'+${#lists.size(notes)}+'条结果'"></p>
+                    <p th:if="${type eq 3}" th:text="'共有'+${#lists.size(companies)}+'条结果'"></p>
+                    <ul th:if="${type eq 2}">
+                        <li th:each="note:${notes}">
+                            <div class="clearfix">
+                                <div class="flt1"><a href="" th:href="@{'/note/'+${note.nid}}" target="_blank" class="_j_search_link">
+                                    <img src="" th:src="${note.npic}" style="width:150px;height:90px;overflow: hidden"></a></div>
+                                <div class="ct-text ">
+                                    <h3>
+                                        <a href="" th:href="@{'/note/'+${note.nid}}" target="_blank" class="_j_search_link"><hhh th:text="${note.nname}"></hhh></a>
+                                    </h3>
+                                    <p class="seg-desc" th:text="${note.nintro}" style="overflow:hidden;">你问我19年有什么愿望，我想我希望和你走过更多的地方。我问：那你呢？你说：我想和你...</p>
+                                    <ul class="seg-info-list clearfix">
+                                        <li>
+                                            <a href="" th:href="@{'/c/'+${note.cid}}" target="_blank" class="_j_search_link"><hhh th:text="${note.cname}">浙江-宁波</hhh></a>
+                                        </li>
+                                        <li style="padding-top: 2px" th:text="${note.time}">
+                                            2019-01-02
+                                        </li>
+                                        <li th:text="'评论数:'+${note.commentCount}">
+                                            148浏览
+                                        </li>
+                                        <li th:text="'收藏数'+${note.starCount}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul th:if="${type eq 3}">
+                        <li th:each="company:${companies}">
+                            <div class="clearfix">
+                                <div class="ct-text ">
+                                    <h3>
+                                        <a href="" th:href="@{'/together/company/detail/'+${company.tid}+'.html'}" target="_blank" class="_j_search_link"><hhh th:text="${company.tname}"></hhh></a>
+                                    </h3>
+                                    <ul class="seg-info-list clearfix">
+                                        <li th:text="${company.mdd}">
+                                            目的地：12456
+                                        </li>
+                                        <li th:text="'出发日期:'+${company.time}"></li>
+                                        <li th:text="'评论数:'+${company.commentCount}">
+                                            148浏览
+                                        </li>
+                                        <li th:text="'收藏数'+${company.starCount}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul th:if="${type eq 1}">
+
+                        <li th:each="sight:${sights}">
+                            <div class="clearfix">
+                                <div class="flt1"><a href="" th:href="@{'/sight/'+${sight.sid}}" target="_blank" class="_j_search_link">
+                                    <img src="" th:src="${sight.spic}" style="width:150px;height:90px;overflow: hidden;"></a></div>
+                                <div class="ct-text ">
+                                    <h3>
+                                        <a href="" th:href="@{'/sight/'+${sight.sid}}" target="_blank" class="_j_search_link"><hhh th:text="${sight.sname}"></hhh></a>
+                                    </h3>
+                                    <ul class="seg-info-list clearfix">
+                                        <li>
+                                            <a href="" th:href="@{'/c/'+${sight.cid}}" ><hhh th:text="${sight.cname}">景点所属城市</hhh></a>
+                                        </li>
+                                        <li th:text="'评论数:'+${sight.commentCount}">
+                                            148浏览
+                                        </li>
+                                        <li th:text="'收藏数'+${sight.starCount}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

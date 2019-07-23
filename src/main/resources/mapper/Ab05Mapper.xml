@@ -192,28 +192,29 @@
     </select>
     
     <select id="getCompByKeyword" parameterType="java.lang.String" resultType="java.util.HashMap">
-        SELECT t1.tid, t1.tname, t1.mdd, t1.time,
-			 IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
-        FROM
-        (SELECT b.aab501 AS 'tid', b.aab502 AS 'tname', GROUP_CONCAT(DISTINCT(a.aaa302) SEPARATOR '|') AS 'mdd',
-			  b.aab503 AS 'time'
-        FROM aa03 a, ab05 b, ac07 c
-        WHERE c.aaa301=a.aaa301 AND c.aab501=b.aab501 AND b.aab509=1 AND
-		(b.aab502 LIKE CONCAT('%',#{keyword},'%') OR a.aaa302 LIKE CONCAT('%',#{keyword},'%'))
-		GROUP BY tid)t1
-        LEFT JOIN
-        (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'commentCount'
-        FROM ac00 a, ab05 b
-        WHERE a.aac002=5 AND a.aac003=b.aab501
-        ORDER BY tid)t2
-        ON t1.tid=t2.tid
-        LEFT JOIN
-        (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'starCount'
-        FROM ad04 a, ab05 b
-        WHERE a.aad403=5 AND a.aad404=b.aab501
-        ORDER BY tid)t3
-        ON t1.tid=t3.tid
-        ;
+        SELECT  t1.tid, t1.tname, t1.mdd, t1.time,
+                IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
+                FROM
+                (SELECT  t0.tid, t0.tname, t0.mdd, t0.time
+                FROM (SELECT b.aab501 AS 'tid', b.aab502 AS 'tname', GROUP_CONCAT(DISTINCT(a.aaa302) SEPARATOR '|') AS 'mdd',
+                b.aab503 AS 'time'
+                FROM aa03 a, ab05 b, ac07 c
+                WHERE c.aaa301=a.aaa301 AND c.aab501=b.aab501 AND b.aab509=1
+                GROUP BY tid) t0
+                WHERE t0.tname LIKE CONCAT('%',#{keyword},'%') OR t0.mdd LIKE CONCAT('%',#{keyword},'%'))t1
+                LEFT JOIN
+                (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'commentCount'
+                FROM ac00 a, ab05 b
+                WHERE a.aac002=5 AND a.aac003=b.aab501
+                ORDER BY tid)t2
+                ON t1.tid=t2.tid
+                LEFT JOIN
+                (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'starCount'
+                FROM ad04 a, ab05 b
+                WHERE a.aad403=5 AND a.aad404=b.aab501
+                ORDER BY tid)t3
+                ON t1.tid=t3.tid
+                ;
     </select>
     
 </mapper>
