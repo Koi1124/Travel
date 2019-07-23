@@ -87,4 +87,18 @@ public class StrategyController
         dto.putAll(strategyService.getStrategyDetailById(id, (Integer)session.getAttribute(SessionConfig.USER_ID)));
         return "poi/route";
     }
+
+    /**
+     * @Author Saki
+     * @Description //TODO 旅游攻略
+     * @Date 2019/7/23 
+     * @param dto
+     * @return java.lang.String 
+     **/
+    @RequestMapping("/strategies")
+    public String strategy(Map<String, Object> dto)
+    {
+        dto.put("strategys", strategyService.getTopRouteByCidAndLimit(null, null));
+        return "poi/routeHome";
+    }
 }

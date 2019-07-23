@@ -59,8 +59,8 @@
 	</select>
 
 	<select id="getTopRouteByCid" resultType="java.util.HashMap">
-		SELECT rid, name, routes FROM
-		(SELECT aab201 as 'rid', aab202 as 'name', aab203 as 'routes'
+		SELECT rid, name, pic FROM
+		(SELECT aab201 as 'rid', aab202 as 'name', aab203 as 'pic'
 		FROM ab02
 		<if test="cid != null"> WHERE ab02.aaa301=#{cid} </if>
 		) t

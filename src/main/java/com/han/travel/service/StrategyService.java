@@ -55,6 +55,28 @@ public class StrategyService
     /**
      * @Author Saki
      * @Description 获取普通的信息
+     *      map {
+     *          rid:攻略id,
+     *          pid:城市id,
+     *          pname:城市名,
+     *          name:攻略标题,
+     *          summary:总结,
+     *          routes:[{
+     *              index:第几天,
+     *              play:攻略,
+     *              stay:住宿攻略,
+     *              stayName:住宿地方,
+     *              stayPic:住宿图片,
+     *              stayIntro:住宿简介,
+     *              pois:[{
+     *                  sid:景点id,
+     *                  name:景点名称,
+     *                  pic:景点图片,
+     *                  summary:景点介绍
+     *              }]
+     *          }]
+     *      }
+     *
      * @Date 2019/7/22
      * @param rid
      * @return java.util.Map<java.lang.String,java.lang.Object>
@@ -84,21 +106,65 @@ public class StrategyService
     }
 
 
-    public List<Map<String, Object>> getTopRouteByCid(int cid)
+    /**
+     * @Author Saki
+     * @Description //TODO
+     * @Date 2019/7/22
+     * @param cid
+     * @param limit
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    public List<Map<String, Object>> getTopRouteByCidAndLimit(Integer cid, Integer limit)
     {
-        List<Map<String, Object>> list = ab02Dao.getTopRouteByCid(cid, 2);
+        List<Map<String, Object>> list = ab02Dao.getTopRouteByCid(cid, limit);
         for (Map<String, Object> map : list)
         {
             int rid = Integer.valueOf(map.get("rid").toString());
             List<Map<String, Object>> routes = ac09Dao.getRoutesBySid(rid);
-            JSONArray jsonArray = JSONArray.fromObject((String) map.get("routes"));
-
-            String[] pois = ((JSONObject) jsonArray.get(0)).get("pois").toString().split(",");
-            List<Map<String, Object>> poiList = new ArrayList<>();
-            for (int i = 0; i < pois.length; i++)
+            List<List<Map<String, Object>>> routeList = new ArrayList<>();
+            //2为预览上最多显示几天的数据
+            for (int i = 0; i < routes.size(); i++)
             {
-                poiList.add(ab03Dao.getSightIntroById(Integer.parseInt(pois[i])));
+                List<Map<String, Object>> poiList = new ArrayList<>();
+                String[] pois = routes.get(i).get("pois").toString().split(",");
+                for (String poi : pois)
+                {
+                    poiList.add(ab03Dao.getSightIntroById(Integer.valueOf(poi)));
+                }
+                routeList.add(poiList);
             }
+            map.put("routes", routeList);
+        }
+        return list;
+    }
+
+    /**
+     * @Author Saki
+     * @Description 遗留方法
+     * @Date 2019/7/22
+     * @param cid
+     * @param limit
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    public List<Map<String, Object>> getTopRouteByCidAndLimitOneRoute(Integer cid, Integer limit)
+    {
+        List<Map<String, Object>> list = ab02Dao.getTopRouteByCid(cid, limit);
+        for (Map<String, Object> map : list)
+        {
+            int rid = Integer.valueOf(map.get("rid").toString());
+            List<Map<String, Object>> routes = ac09Dao.getRoutesBySid(rid);
+//            List<List<Map<String, Object>>> routeList = new ArrayList<>();
+            //2为预览上最多显示几天的数据
+//            for (int i = 0; i < routes.size() && i < 2; i++)
+//            {
+                List<Map<String, Object>> poiList = new ArrayList<>();
+                String[] pois = routes.get(0).get("pois").toString().split(",");
+                for (String poi : pois)
+                {
+                    poiList.add(ab03Dao.getSightIntroById(Integer.valueOf(poi)));
+                }
+//                routeList.add(poiList);
+//            }
             map.put("routes", poiList);
         }
         return list;

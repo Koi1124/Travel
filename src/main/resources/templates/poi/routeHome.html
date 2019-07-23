@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/navbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/poi/routeHome.css}" rel="stylesheet" type="text/css" />
+    <script th:inline="javascript">
+        var routes = [[${strategys}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+
+    <script>
+        $(function () {
+            console.log(routes);
+            $(".slide-list").each(function (i, item) {
+                var width = $(item).find("img").length * 270;
+                $(item).css({width:width});
+            })
+        });
+    </script>
+</head>
+
+<body>
+
+<div id="routebody">
+
+    <div th:each="strategy:${strategys}" class="row row-line ">
+        <div class="wrapper">
+            <div class="line-panel clearfix">
+                <dl class="lp-detail">
+                    <dt>
+                        <a th:href="@{'/s/' + ${strategy.rid}}" target="_blank">
+                            <h2 th:text="${strategy.name}">成都周边5日经典线路</h2>
+                        </a>
+                    </dt>
+                    <dd>
+                        <p th:each="route:${strategy.routes}">
+                            <dnmd th:if="${routeStat.index le 2}">
+                                <hhh th:text="${'D' + (routeStat.index + 1)}"></hhh>
+                                <hhh th:each="poi:${route}">
+                                    <span th:if="${poiStat.index ne 0}" class="arrow">→</span>
+                                    <a th:href="@{'/sight/' + ${poi.sid}}" target="_blank">
+                                        <span th:text="${poi.name}">成都</span>
+                                    </a>
+                                </hhh>
+                            </dnmd>
+                        </p>
+                        <a class="btn-more" th:href="@{'/s/' + ${strategy.rid}}" target="_blank">查看路线详情</a>
+                    </dd>
+                </dl>
+                <div class="lp-maps" data-lineid="100032" data-showfrom="0" style="width: 270px;height: 160px;">
+                    <a th:href="@{'/s/' + ${strategy.rid}}" target="_blank">
+                        <img th:src="${strategy.pic}" width="270" height="160">
+                    </a>
+                </div>
+                <div class="clear"></div>
+                <dl class="lp-lightspot">
+                    <dt class="ls-title">路线亮点</dt>
+                    <dd>
+                        <a class="ls-btn-prev ls-btn-disabled btn-slide-left" href="javascript:void(0)"
+                           style="display: none"><i></i></a>
+                        <a class="ls-btn-next btn-slide-right" href="javascript:void(0)"
+                           style="display: none"><i></i></a>
+                        <div class="ls-imgbox">
+                                <ul class="slide-list" style="width: 810px; left: 0px;overflow-x: auto">
+                                    <hhh th:each="route:${strategy.routes}">
+                                    <li th:each="poi:${route}">
+                                        <a th:href="@{'/sight/' + ${poi.sid}}" target="_blank">
+                                        <img th:src="${poi.pic}"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt"><hhh th:text="${'第' + (routeStat.index + 1) + '天'}"></hhh><br>
+                                            <strong th:text="${poi.name}">成都</strong>
+                                        </div>
+                                        </a>
+                                    </li>
+                                    </hhh>
+                                </ul>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-line row-bg">
+        <div class="wrapper">
+            <div class="line-panel clearfix">
+                <dl class="lp-detail">
+                    <dt>
+                        <div class="days-season">
+                                <span class="item">
+                                    <i class="icon-days"></i>
+                                    游玩时间：<strong>4天</strong>
+                                </span>
+
+                        </div>
+                        <a href="/mdd/cityroute/10035_237.html" target="_blank">
+                            <h2>成都市区4日经典线路</h2>
+                        </a>
+                    </dt>
+                    <dd>
+                        <p>D1
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span>宽窄巷子</span>
+                            </a>
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span class="arrow">→</span><span>武侯祠</span>
+                            </a>
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span class="arrow">→</span><span>锦里</span>
+                            </a>
+                        </p>
+                        <p>D2
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span>金沙遗址博物馆</span>
+                            </a>
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span class="arrow">→</span><span>杜甫草堂</span>
+                            </a>
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span class="arrow">→</span><span>青羊宫</span>
+                            </a>
+                            <a class="cityroutetext" href="/mdd/cityroute/10035_237.html" target="_blank">
+                                <span class="arrow">→</span><span>九眼桥</span>
+                            </a>
+                        </p>
+                        <a class="btn-more" href="/mdd/cityroute/10035_237.html" target="_blank">查看路线详情</a>
+                    </dd>
+                </dl>
+                <div class="lp-maps" style="width: 270px;height: 160px;" data-lineid="237" data-showfrom="0">
+                    <a href="/mdd/cityroute/10035_237.html" target="_blank">
+                        <img src="https://n3-q.mafengwo.net/s10/M00/51/09/wKgBZ1lsKrGAT2mAAAJWLUNL3mc211.png?imageMogr2%2Fthumbnail%2F%21540x320r%2Fgravity%2FCenter%2Fcrop%2F%21540x320%2Fquality%2F100"
+                             height="160" width="270">
+                    </a>
+                </div>
+                <div class="clear"></div>
+                <dl class="lp-lightspot">
+                    <dt class="ls-title">路线亮点</dt>
+                    <dd>
+                        <a class="ls-btn-prev btn-slide-left" href="javascript:void(0)" style="display: none;"
+                           _flag="0"><i></i></a>
+                        <a class="ls-btn-next btn-slide-right" href="javascript:void(0)" style="display: block;"
+                           _flag="0"><i></i></a>
+                        <div class="ls-imgbox">
+                            <a href="/mdd/route/10035_237.html" target="_blank">
+                                <ul class="slide-list" style="width: 2970px; left: 0px;">
+                                    <li>
+                                        <img src="https://b1-q.mafengwo.net/s11/M00/12/E8/wKgBEFti5oWAFQxRACrG6zTPVc096.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://b1-q.mafengwo.net/s11/M00/12/E8/wKgBEFti5oWAFQxRACrG6zTPVc096.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第1天<br><strong>宽窄巷子</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://n1-q.mafengwo.net/s12/M00/5B/1E/wKgED1wDxWaAQQcqABBZ_OcGJSQ47.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://n1-q.mafengwo.net/s12/M00/5B/1E/wKgED1wDxWaAQQcqABBZ_OcGJSQ47.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第1天<br><strong>武侯祠</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://p1-q.mafengwo.net/s12/M00/8C/65/wKgED1wD6jqAETi6AB8vNCzagUA00.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://p1-q.mafengwo.net/s12/M00/8C/65/wKgED1wD6jqAETi6AB8vNCzagUA00.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第1天<br><strong>锦里</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://p2-q.mafengwo.net/s6/M00/79/C0/wKgB4lJTwDuAXV-uAA9d18kHHfs94.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://p2-q.mafengwo.net/s6/M00/79/C0/wKgB4lJTwDuAXV-uAA9d18kHHfs94.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第2天<br><strong>金沙遗址博物馆</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://n1-q.mafengwo.net/s9/M00/8B/5F/wKgBs1gcneuAXxqiABT-LiqD-zU60.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://n1-q.mafengwo.net/s9/M00/8B/5F/wKgBs1gcneuAXxqiABT-LiqD-zU60.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第2天<br><strong>杜甫草堂</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://p1-q.mafengwo.net/s5/M00/71/27/wKgB3FG8XAKAOVcBABIwBj4eZf087.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://p1-q.mafengwo.net/s5/M00/71/27/wKgB3FG8XAKAOVcBABIwBj4eZf087.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第2天<br><strong>青羊宫</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://b2-q.mafengwo.net/s10/M00/1E/C8/wKgBZ1na7bOAXHxBAA3vGA_NEns70.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://b2-q.mafengwo.net/s10/M00/1E/C8/wKgBZ1na7bOAXHxBAA3vGA_NEns70.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第2天<br><strong>九眼桥</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://p4-q.mafengwo.net/s5/M00/29/95/wKgB3FCm-xCAUnleABhA31ghiP401.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://p4-q.mafengwo.net/s5/M00/29/95/wKgB3FCm-xCAUnleABhA31ghiP401.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第3天<br><strong>成都大熊猫繁育研究基地</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://n2-q.mafengwo.net/s12/M00/3F/32/wKgED1vr3LyALBDXAA0NSO0ydiA77.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://n2-q.mafengwo.net/s12/M00/3F/32/wKgED1vr3LyALBDXAA0NSO0ydiA77.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第3天<br><strong>文殊院</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://p4-q.mafengwo.net/s12/M00/4B/74/wKgED1v9S9qAbFnCAAUVnu-TYwI35.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://p4-q.mafengwo.net/s12/M00/4B/74/wKgED1v9S9qAbFnCAAUVnu-TYwI35.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第3天<br><strong>春熙路</strong></div>
+                                    </li>
+                                    <li>
+                                        <img src="https://p1-q.mafengwo.net/s9/M00/A4/97/wKgBs1gdNWqAWqz1AA1LYhhOlVk86.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             data-original="https://p1-q.mafengwo.net/s9/M00/A4/97/wKgBs1gdNWqAWqz1AA1LYhhOlVk86.jpeg?imageMogr2%2Fthumbnail%2F%21270x180r%2Fgravity%2FCenter%2Fcrop%2F%21270x180%2Fquality%2F100"
+                                             height="180" width="270" style="display: inline;">
+                                        <span class="mask"></span>
+                                        <div class="txt">第4天<br><strong>人民公园</strong></div>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
