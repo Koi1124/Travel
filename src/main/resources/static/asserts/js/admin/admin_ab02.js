@@ -32,7 +32,7 @@ $(document).ready(function() {
 		            	html="<tr><td>"+ls.city+"</td><td>"+ls.aab202+
 		            	     "</td><td>"+ls.aab204+"</td>"+
                              "<td width='50px' class='td-manage'>" +
-							 "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/strategy/"+ls.aab201+"')\">" +
+							 "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/strategy/preview/"+ls.aab201+"')\">" +
 							 "<i class='layui-icon layui-icon-link' style=' font-size: 23px;margin-left:20px '  ></i></a>" +
 							 "</a></td>"+
 		            	     "<td class='td-manage'>"+

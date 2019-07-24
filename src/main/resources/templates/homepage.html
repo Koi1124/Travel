@@ -16,6 +16,7 @@
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
     <script th:src="@{/asserts/js/home/homepage.js}"></script>
+
 </head>
 
 <body>
@@ -34,7 +35,7 @@
             <ul class="head-nav-zy" data-cs-t="headnav" id="_j_head_nav">
                 <li class="head-nav-zy-index"><a href="/" th:href="@{/}">首页</a></li>
                 <li class="head-nav-zy-place"><a href="/mdd" th:href="@{/mdd}">目的地</a></li>
-                <li class="head-nav-zy-gonglve"><a href="##">旅游攻略</a></li>
+                <li class="head-nav-zy-gonglve"><a href="" th:href="@{/strategies}">旅游攻略</a></li>
                 <li class="head-nav-zy-flight"><a href="" th:href="@{/together}">结伴</a></li>
             </ul>
 
@@ -98,16 +99,6 @@
                 <!-- 用户下拉菜单 end -->
             </div>
 
-
-            <div class="head-search-zy" data-online="1" style="float:right;padding-right: 20px">
-                <div class="head-search-wrapper-zy">
-                    <div class="head-searchform-zy">
-                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off"
-                               style="outline:none;">
-                        <a role="button" href="javascript:" class="icon-search-zy" id="_j_head_search_link"></a>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="shadow"></div>
     </div>
@@ -277,7 +268,7 @@
             <div class="asidebox box-gonglve">
                 <div class="asidebox-hd">
                     <h2 class="hd-title">旅游攻略推荐</h2>
-                    <a class="hd-right">更多</a>
+                    <a class="hd-right" th:href="@{/strategies}">更多</a>
                 </div>
                 <div class="asidebox-bd">
                     <div class="gonglve-item">

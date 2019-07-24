@@ -8,6 +8,7 @@ import com.han.travel.support.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,24 +25,22 @@ public class UserService {
 
     @Autowired
     private Aa01Dao aa01Dao;
-
     @Autowired
     private Aa03Dao aa03Dao;
-
     @Autowired
     private Ab01Dao ab01Dao;
-
     @Autowired
     private Ad03Dao ad03Dao;
-
     @Autowired
     private Ab05Dao ab05Dao;
-
     @Autowired
     private Ac00Dao ac00Dao;
-
     @Autowired
     private Ab03Dao ab03Dao;
+    @Autowired
+    private Ab02Dao ab02Dao;
+    @Autowired
+    private Ac09Dao ac09Dao;
 
     /**
      * @Author Saki
@@ -240,6 +239,9 @@ public class UserService {
                 commentInfo.addAll(sysComment);
                 map.put("comments",commentInfo);
                 break;
+            case "collectRoute":
+                map.put("strategys", getStrategyByUid(uid));
+                break;
             default:
                 break;
         }
@@ -314,6 +316,37 @@ public class UserService {
     public Map<String,Object> getUserPicAndNameById(int id)
     {
         return aa01Dao.getNameAndPicAndIdById(id);
+    }
+
+    /**
+     * @Author Saki
+     * @Description 根据用户的id来获取用户收藏的系统攻略
+     * @Date 2019/7/23
+     * @param uid
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    private List<Map<String, Object>> getStrategyByUid(int uid)
+    {
+        List<Map<String, Object>> list = ab02Dao.getStrategyByUid(uid);
+        for (Map<String, Object> map : list)
+        {
+            int rid = Integer.valueOf(map.get("rid").toString());
+            List<Map<String, Object>> routes = ac09Dao.getRoutesBySid(rid);
+            List<List<Map<String, Object>>> routeList = new ArrayList<>();
+
+            for (int i = 0; i < routes.size(); i++)
+            {
+                List<Map<String, Object>> poiList = new ArrayList<>();
+                String[] pois = routes.get(i).get("pois").toString().split(",");
+                for (String poi : pois)
+                {
+                    poiList.add(ab03Dao.getSightIntroById(Integer.valueOf(poi)));
+                }
+                routeList.add(poiList);
+            }
+            map.put("routes", routeList);
+        }
+        return list;
     }
 
 }

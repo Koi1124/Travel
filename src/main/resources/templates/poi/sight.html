@@ -310,35 +310,8 @@
              data-api=":poi:pagelet:poiCommentListApi" data-params="{&quot;poi_id&quot;:&quot;2575&quot;}"
              data-async="1" data-controller="/js/poi/ControllerPoiComment">
             <div class="mod mod-reviews" data-cs-p="评论列表">
-                <div class="mhd mhd-large">游游点评<span>（共有<em th:text="${commentCount eq null?'0':commentCount}">2788</em>条真实评价）</span></div>
-                <div class="review-nav">
-                    <ul class="clearfix">
-                        <li data-type="0" data-category="0" class=""><span class="divide"></span><a
-                                href="javascript:void(0);"><span>全部</span></a></li>
-                        <li data-type="1" data-category="13" class="">
-                            <span class="divide"></span>
-                            <a href="javascript:void(0);">
-                                <span>好评</span>
-                                <span class="num">（2426条）</span>
-                            </a>
-                        </li>
-                        <li data-type="1" data-category="12" class="">
-                            <span class="divide"></span>
-                            <a href="javascript:void(0);">
-                                <span>中评</span>
-                                <span class="num">（331条）</span>
-                            </a>
-                        </li>
-                        <li data-type="1" data-category="11" class="">
-                            <span class="divide"></span>
-                            <a href="javascript:void(0);">
-                                <span>差评</span>
-                                <span class="num">（31条）</span>
-                            </a>
-                        </li>
+                <div class="mhd mhd-large">游游点评<span>（共有<em th:text="${commentCount eq null?'0':commentCount}">2788</em>条评价）</span></div>
 
-                    </ul>
-                </div>
                 <div class="loading-img" style="display: none;"><img
                         src="http://images.mafengwo.net/images/weng/loading3.gif"> Loading...</div>
                 <div class="_j_commentlist">
@@ -370,31 +343,7 @@
                         <h2>
                             <strong th:text="${name}">茄子妙妙屋</strong>
                         </h2>
-                        <form action="" method="post" class="_j_commentdialogform" data-typeid="3">
-
-                            <div class="review-item item-star">
-                                <div class="label">总体评价</div>
-                                <div class="review-star _j_rankblock" data-star="" name="rank">
-                                    <input type="hidden" name="rank" value="" essential="1" data-inputname="总体评价">
-
-
-                                    <!--
-                                        js修改class改变星数：  _j_starcount star0
-                                                                _j_starcount star1
-                                                                _j_starcount star2/4/5
-                                    -->
-                                    <span class="_j_starcount star0"></span>
-                                    <div class="click-star _j_starlist">
-                                        <a role="button" title="千万别去" rel="nofollow"></a>
-                                        <a role="button" title="不推荐" rel="nofollow"></a>
-                                        <a role="button" title="一般般" rel="nofollow"></a>
-                                        <a role="button" title="值得一去" rel="nofollow"></a>
-                                        <a role="button" title="必须推荐" rel="nofollow"></a>
-                                    </div>
-
-                                </div>
-                                <span class="txt-tips _j_startip">点击星星打分</span>
-                            </div>
+                        <div class="_j_commentdialogform" data-typeid="3">
 
                             <div class="review-item item-comment">
                                 <div class="label">评价</div>
@@ -408,7 +357,7 @@
                             <div class="review-item item-action">
                                 <a class="btn-large _j_submit_comment" role="button" onclick="clickCommentSubmit()" title="提交点评">提交点评</a>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 

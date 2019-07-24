@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <style>
+        .locationmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-weight: 600;
+            font-family: "PingFangSC-Regular";
+        }
+    </style>
+
+    <title th:text="${name}"></title>
+
+    <link
+            href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
+            rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1530619858.css"
+          rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/mdd/mfw-reviews.css?1530619858" rel="stylesheet" type="text/css">
+
+    <script th:inline="javascript">
+        var longitude = [[${longitude}]];
+        var latitude = [[${latitude}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
+    <script th:src="@{/asserts/js/poi/sight.js}"></script>
+
+
+
+</head>
+
+<body>
+
+<div class="row row-top">
+    <div class="wrapper">
+
+        <!-- POI名称 S-->
+        <div class="title">
+            <h1 th:text="${name}">圣弥厄尔大教堂</h1>
+        </div>
+        <!-- POI名称 E-->
+
+
+
+    </div>
+</div>
+
+<div data-anchor="overview">
+    <div class="row row-picture row-bg" style="height: auto">
+        <div class="wrapper">
+            <a class="photo">
+                <div class="bd" style="height: auto">
+                    <div class="pic-big" style="width: 100%;">
+                        <img th:src="${pic}" width="100%">
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 简介 S -->
+    <div class="mod mod-detail" data-cs-p="概况">
+        <div class="summary" th:utext="${summary}">
+            ·1930年建成，原名“圣弥厄尔教堂”，是青岛市区最大的罗马式建筑，也是中国唯一的祝圣教堂。<br>
+            ·由德国设计师毕娄哈，依据哥德式和罗马式建筑风格设计而成。整体为砖石双塔建筑，内有四口大钟。<br>
+            ·教堂内宽敞明亮，大厅高18米，两旁走廊立着两个供神甫接待信徒忏悔告解用的告解亭。 <br>
+            ·教堂中有一架从德国进口价值不菲的管风琴，只有在主日弥撒时才会奏响。
+        </div>
+
+        <ul class="baseinfo clearfix">
+            <li class="tel" th:if="${phone ne null}">
+                <div class="label">电话</div>
+                <div class="content" th:text="${phone}">0532-82865960</div>
+            </li>
+            <li class="item-site" th:if="${site ne null}">
+                <div class="label">网址</div>
+                <div class="content">
+                    <a th:href="${site}" target="_blank" rel="nofollow" th:text="${site}">http://www.cnhhl.com/</a>
+                </div>
+            </li>
+            <li class="item-time" th:if="${commendTime ne null}">
+                <div class="label">用时参考</div>
+                <div class="content" th:utext="${commendTime}">1小时以下</div>
+            </li>
+        </ul>
+
+        <dl>
+            <dt>交通</dt>
+            <dd th:utext="${traffic}">乘坐地铁3号线到青岛站<br>
+                乘坐6路、8路、221路等多路公交车到中国剧院站下车</dd>
+        </dl>
+        <dl>
+            <dt>门票</dt>
+            <dd>
+                <div th:utext="${ticket}"> 普通票:10人民币 (1月1日-12月31日 周一-周日)<br>
+                    半票:学生凭有效证件<br>
+                    免票:1.2米以下儿童、65岁以上老人凭有效证件、周日08:00-09:00主日弥撒时免费。<br>
+                </div>
+
+            </dd>
+        </dl>
+        <dl>
+            <dt>开放时间</dt>
+            <dd>
+                <div th:utext="${openTime}" style="max-height: none; overflow: initial;">08:00-17:00 (1月1日-12月31日 周一-周六)12:00-17:00
+                    (1月1日-12月31日 周日)<br>
+                    tips:<br>
+                    每天06:00平日弥撒； <br>
+                    周日08:00-09:00主日弥撒。<br>
+                    教堂开放时间会有变动，建议以实际为准</div>
+            </dd>
+        </dl>
+
+    </div>
+    <!-- 简介 End -->
+
+    <!-- 位置 S -->
+    <div class="mod mod-location">
+        <div class="mhd" style="overflow: hidden;">景点位置<p class="sub" th:utext="${position}">详细地名</p>
+        </div>
+        <div class="mbd clearfix">
+            <div id="" class="pagelet-block">
+                <div id="locationmap" style="width:600px;height:480px;border:#ccc solid 1px;"></div>
+                <script>
+                    // 百度地图API功能
+                    //GPS坐标
+                    var x = longitude;
+                    var y = latitude;
+                    var ggPoint = new BMap.Point(x, y);
+
+                    //地图初始化
+                    var bm = new BMap.Map("locationmap");
+                    bm.centerAndZoom(ggPoint, 15);
+                    bm.addControl(new BMap.NavigationControl());
+
+
+
+                    //坐标转换完之后的回调函数
+                    translateCallback = function (data) {
+                        if (data.status === 0) {
+                            var marker = new BMap.Marker(data.points[0]);
+                            bm.addOverlay(marker);
+                            bm.setCenter(data.points[0]);
+                        }
+                    }
+
+                    setTimeout(function () {
+                        var convertor = new BMap.Convertor();
+                        var pointArr = [];
+                        pointArr.push(ggPoint);
+                        convertor.translate(pointArr, 3, 5, translateCallback)
+                    }, 1000);
+
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- 位置 End -->
+
+
+</div>
+</body>
+
+</html>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/asserts/css/note/details.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/asserts/css/common/navbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/navbar.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" type="text/css" />
@@ -26,7 +26,6 @@
     <script th:src="@{/asserts/js/tools/jquery.pagination.min.js}"></script>
     <script th:src="@{/asserts/js/note/details.js}"></script>
     <script th:src="@{/asserts/js/common/comment.js}"></script>
-
 </head>
 
 <body>
@@ -83,7 +82,7 @@
                     <span><i class="ico_view"></i><hhh th:text="${views + '/' + (commentCount eq null?0:commentCount)}">45/2</hhh></span>
                 </div>
                 <div th:if="${uid eq session.user_id}" class="person-edit">
-                    <a th:href="'/note/editNote/' + ${nid}" title="编辑">编辑</a>|
+                    <a th:href="'/note/editNote/' + ${nid}" target="_blank" title="编辑">编辑</a>|
                     <a id="btn-delete" title="删除">删除</a>
                 </div>
             </div>

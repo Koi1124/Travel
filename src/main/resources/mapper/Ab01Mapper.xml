@@ -191,7 +191,7 @@
         SELECT
             aab101 as 'nid', aab102 as 'title', DATE_FORMAT(aab104,'%Y-%m-%d %H:%i:%S') as 'editTime', aab111 as 'topImg'
         FROM ab01
-        WHERE aaa101=#{uid} AND aab103=0
+        WHERE aaa101=#{uid} AND (aab103=0 OR aab103=3)
         ORDER BY editTime DESC
         ;
     </select>

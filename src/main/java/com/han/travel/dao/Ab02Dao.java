@@ -27,6 +27,8 @@ public interface Ab02Dao extends CheckDao
 
 	List<Map<String, Object>> getTopRouteByCid(@Param("cid") Integer cid, @Param("limit") Integer limit);
 
+	List<Map<String, Object>> getStrategyByUid(@Param("uid") Integer uid);
+
 	Integer addStrategy(@Param("map") Map<String, Object> map);
 
 	boolean updateStrategy(Map<String,Object>map);

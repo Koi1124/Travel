@@ -82,7 +82,7 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO ab02(aaa301, aab202, aab203, aab204)
-			VALUES (#{map.pid}, #{map.name}, "", #{map.summary});
+			VALUES (#{map.pid}, #{map.name}, #{map.pic}, #{map.summary});
 	</insert>
 
 	<update id="updateStrategy" parameterType="java.util.HashMap"  >
@@ -90,4 +90,10 @@
 		SET aaa301=#{pid},aab202=#{name},aab204=#{summary}
 		WHERE aab201=#{sid};
 	</update>
+
+	<select id="getStrategyByUid" resultType="java.util.HashMap">
+		SELECT aab201 as 'rid', aab202 as 'name', aab203 as 'pic'
+		FROM ab02, ad04
+		WHERE ad04.aaa101=#{uid} AND ad04.aad403='2' AND ad04.aad404=ab02.aab201;
+	</select>
 </mapper>

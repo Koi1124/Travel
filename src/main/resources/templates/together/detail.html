@@ -122,7 +122,7 @@
                 <div class="desc _j_description">
                     <div class="title" ><p th:text="${title}">一起去新疆，有一起的么？</p></div>
                     <p th:utext="${intro}"></p>
-                    <img th:each="image:${images}" style="max-width: 600px" border="0" th:src="${image}">
+                    <img th:each="image:${images}" style="max-width: 600px;margin-bottom: 20px" border="0" th:src="${image}">
                 </div>
                 <div th:if="${session.user_id ne authorId}" class="mod-joinform">
                     <h3 class="mod-title">我要报名</h3>

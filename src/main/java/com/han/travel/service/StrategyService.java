@@ -122,7 +122,7 @@ public class StrategyService
             int rid = Integer.valueOf(map.get("rid").toString());
             List<Map<String, Object>> routes = ac09Dao.getRoutesBySid(rid);
             List<List<Map<String, Object>>> routeList = new ArrayList<>();
-            //2为预览上最多显示几天的数据
+
             for (int i = 0; i < routes.size(); i++)
             {
                 List<Map<String, Object>> poiList = new ArrayList<>();

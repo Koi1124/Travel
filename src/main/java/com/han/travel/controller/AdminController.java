@@ -1,29 +1,15 @@
 package com.han.travel.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.han.travel.configuration.SessionConfig;
-import com.han.travel.service.CompanyService;
-import com.han.travel.service.MessageService;
-import com.han.travel.service.NoteService;
-import com.han.travel.service.StrategyService;
-import com.han.travel.support.Utils;
-import org.apache.ibatis.annotations.Param;
+import com.han.travel.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import com.han.travel.dao.Aa02Dao;
-import com.han.travel.dao.Aa04Dao;
-import com.han.travel.dao.Ab01Dao;
-import com.han.travel.dao.Ab04Dao;
-import com.han.travel.dao.Ab05Dao;
-import com.han.travel.service.AdminService;
-import com.han.travel.support.PageBean;
 
 @Controller
 public class AdminController 
@@ -36,6 +22,8 @@ public class AdminController
 	private CompanyService companyService;
 	@Autowired
 	private StrategyService strategyService;
+	@Autowired
+	private SightService sightService;
 	@Autowired
     private MessageService messageService;
 
@@ -310,6 +298,21 @@ public class AdminController
 
 	/**
 	 * @Author Saki
+	 * @Description 路线预览
+	 * @Date 2019/7/23
+	 * @param id
+	 * @param dto
+	 * @return java.lang.String
+	 **/
+	@RequestMapping("/admin/strategy/preview/{id}")
+	public String previewStrategy(@PathVariable int id, Map<String, Object> dto)
+	{
+		dto.putAll(strategyService.getStrategyById(id));
+		return "admin/verify/previewStrategy";
+	}
+
+	/**
+	 * @Author Saki
 	 * @Description 攻略添加
 	 * @Date 2019/7/22
 	 * @param map {
@@ -361,6 +364,38 @@ public class AdminController
 	public boolean updateStrategy(@RequestBody Map<String, Object> map)
 	{
 		return strategyService.updateStrategy(map);
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description //TODO
+	 * @Date 2019/7/23 
+	 * @param id
+     * @param dto {
+     *            pic
+     *            summary
+     *            name
+     *            pid
+     *            pname
+     *            commentCount
+     *            longitude
+     *            latitude
+     *            phone
+     *            site
+     *            commendTime
+     *            traffic
+     *            ticket
+     *            openTime
+     *            position
+     *            collectId
+     *        }
+	 * @return java.lang.String 
+	 **/
+	@RequestMapping("/admin/sight/preview/{id}")
+	public String previewSight(@PathVariable int id, Map<String, Object> dto)
+	{
+		dto.putAll(sightService.getSightDetailById(id, null));
+		return "admin/verify/previewSight";
 	}
 
 

@@ -23,6 +23,23 @@
     <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/home/userHome/comprehension.js}"></script>
 
+    <style>
+        .more_notes .btn_write_zy {
+            display: block;
+            width: 140px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: #ff9e00;
+            position: absolute;
+            right: 30px;
+            top: 0;
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+
 </head>
 
 <body style="padding-top: 0px !important">
@@ -222,7 +239,7 @@
                             </div>
                         </dd>
                     </dl>
-                    <div th:if="${uid eq session.user_id}" class="more_notes">
+                    <div th:if="${uid eq session.user_id}" class="more_notes" style="height:40px;">
                         <a class="btn_deleted"><i></i></a>
                         <a th:href="@{'/note/editNote/' + ${note.nid}}" title="写游记" class="btn_write_zy"><i></i>编辑游记</a>
                     </div>

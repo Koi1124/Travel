@@ -32,13 +32,16 @@ $(document).ready(function() {
 		            	
 		            	var ls=data[i];
 		            	html="<tr><td>"+ls.aaa302+"</td><td>"+ls.aab302+"</td><td>"+
-		            	 	 "<p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab303)+"  \",300,220)'>"+ls.aab303+
-		            	     "</a></p></td><td>"+ls.aab304+"</td><td>"+ls.aab305+"</td><td>"+ls.aab306+"</td><td>"+
-		            	     "<p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab307)+"  \",300,220)'>"+ls.aab307+
-		            	     "</a></p></td><td><p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab308)+"  \",300,220)'>"+ls.aab308+
-		            	     "</a></p></td><td><p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab309)+"  \",300,220)'>"+ls.aab309+
-		            	     "</a></p></td><td><p><a href='#' onclick='xadmin.open(\"显示详情\",\" /show?msg="+encodeURIComponent(ls.aab310)+"  \",300,220)'>"+ls.aab310+"</a></p></td>"+
-		            	     "<td>"+ls.aab311+"</td><td>"+ls.aab312+"</td>"+
+		            	 	 "<p>"+ls.aab303+
+		            	     "</p></td><td>"+ls.aab304+"</td><td>"+ls.aab305+"</td><td>"+ls.aab306+"</td><td>"+
+		            	     "<p>"+ls.aab307+
+		            	     "</p></td><td><p>"+ls.aab308+
+		            	     // "</p></td><td><p>"+ls.aab309+
+		            	     "</a></p></td><td><p>"+ls.aab310+"</p></td>"+
+                             "<td width='50px' class='td-manage'>" +
+                             "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/sight/preview/"+ls.aab301+"')\">" +
+                             "<i class='layui-icon layui-icon-link' style=' font-size: 23px;margin-left:20px '  ></i></a>" +
+                             "</a></td>"+
 		            	     "<td class='td-manage'>"+
 		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editAttraction?id="+ls.aab301+"&operation=2    \",600,600)'>"+
 		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button><br>"+
