@@ -128,8 +128,10 @@ function setNotes(data) {
     $("._j_gs_item").click(function () {
         var mid=$(this).attr("data-objid");
         var name=$(this).attr("data-name");
-        $("._j_tag_choose_container").append('<a class="tn-tag _j_gs_tag" data-type="2" data-objid="'+ id +'" href="javascript:void(0);">'+ name +'<i></i></a>');
-        getNotes(mid,s_type);
+        if ($(this).attr("data-name")!=$("._j_gs_tag").text()){
+            $("._j_tag_choose_container").append('<a class="tn-tag _j_gs_tag" data-type="2" data-objid="'+ id +'" href="javascript:void(0);">'+ name +'<i></i></a>');
+            getNotes(mid,s_type);
+        }
         scroll();
     });
 
