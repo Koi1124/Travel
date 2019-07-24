@@ -137,7 +137,18 @@
     vertical-align: top;
 }
 
-
+.active_select{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #ff9d00;
+    width: 106px;
+    height: 58px;
+    overflow: hidden;
+}
 
 .show-slider .show-nav {
     position: absolute;

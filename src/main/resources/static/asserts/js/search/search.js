@@ -4,31 +4,36 @@ $(function () {
     keyword();
 
     $(".poi-nav").click(function () {
+        if (!keyNullHandle()){
+            return;
+        }
         $("._j_select_type a").removeClass("on");
         $(this).addClass("on");
-        key_word=$("#_j_search_input").val();
         initSight();
     });
 
     $(".notes-nav").click(function () {
+        if (!keyNullHandle()){
+            return;
+        }
         $("._j_select_type a").removeClass("on");
         $(this).addClass("on");
-        key_word=$("#_j_search_input").val();
         initNote();
     });
 
     $(".together-nav").click(function () {
+        if (!keyNullHandle()){
+            return;
+        }
         $("._j_select_type a").removeClass("on");
         $(this).addClass("on");
-        key_word=$("#_j_search_input").val();
         initTogether();
     })
 
 
     $("#_j_search_button").click(function () {
-        key_word=$("#_j_search_input").val();
-        if (key_word==null||key_word==''){
-            logError("请输入关键字");
+        if (!keyNullHandle()){
+            return;
         }
         $(".on").each(function () {
             if ($(this).hasClass("poi-nav")) {
@@ -44,7 +49,17 @@ $(function () {
     })
 });
 
-
+function keyNullHandle() {
+    key_word=$("#_j_search_input").val();
+    if (key_word==null||key_word==''||key_word==" "){
+        logError("请输入关键字");
+        $("#_j_search_input").val("");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 function keyword() {
     var origin=$(".att-list").html();

@@ -1,0 +1,50 @@
+.wrap {
+    width: 100%;
+    background-position: center;
+    height: 800px;
+    background-repeat: no-repeat;
+}
+.wrap .inner {
+    width: 496px;
+    margin: 0 auto;
+    padding: 90px 0 0 486px;
+}
+.wrap ul {
+    width: 496px;
+    height: 421px;
+    padding-top: 75px;
+    border-radius: 248px;
+    overflow: hidden;
+    background-color: #fbe81a;
+    background-color: rgba(251,232,26,.9);
+}
+.wrap li {
+    width: 178px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #000;
+    line-height: 1em;
+}
+.wrap li.tips {
+    height: 129px;
+    background: url(https://css.mafengwo.net/images/err/404tip.png) no-repeat;
+}
+
+.wrap li p {
+    padding-bottom: 18px;
+}
+.wrap li b {
+    font-size: 22px;
+    font-weight: normal;
+}
+.wrap li strong {
+    font-size: 24px;
+    font-weight: normal;
+}
+.wrap li a {
+    font-size: 16px;
+    color: #cc3300;
+}
+.wrap li a.back {
+    margin-left: 36px;
+}

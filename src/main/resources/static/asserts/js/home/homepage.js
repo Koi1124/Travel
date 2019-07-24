@@ -3,8 +3,12 @@ var s_type=2;
 var page = 1;
 var totalPage = 10;
 var itemCount = 10;
+var index=0;
 
 $(document).ready(function () {
+    setInterval(slidePic,5000);
+    clickSlideBar();
+
     getNotes(0,s_type);
 
     selectSeachBar();
@@ -28,7 +32,29 @@ $(document).ready(function () {
 
 
 
-})
+});
+
+function slidePic() {
+    ++index;
+    if (index>4){
+        index=0;
+    }
+    $(".show-image li").fadeOut(1000);
+    $(".show-nav li").removeClass("active_select");
+    $($(".show-nav li")[index]).addClass("active_select");
+    $($(".show-image li")[index]).fadeIn(1000);
+}
+
+function clickSlideBar() {
+    $(".show-nav li").click(function () {
+        index=$(".show-nav li").index($(this));
+        $(".show-nav li").removeClass("active_select");
+        $(this).addClass("active_select");
+        $(".show-image li").fadeOut(1000);
+        $($(".show-image li")[index]).fadeIn(1000);
+    })
+}
+
 
 function selectSeachBar() {
     $("#_j_index_search_tab ul li").click(function () {
@@ -50,8 +76,9 @@ function selectSeachBar() {
 
 function initSubmit() {
     $("#_j_index_search_btn_mdd a").click(function () {
-        if ($("#_j_index_search_input_mdd").val()==""||$("#_j_index_search_input_mdd").val()==null) {
+        if ($("#_j_index_search_input_mdd").val()==""||$("#_j_index_search_input_mdd").val()==null||$("#_j_index_search_input_mdd").val()==" ") {
             logError("请输入关键字");
+            $("#_j_index_search_input_mdd").val("");
         }else {
             $("#_j_index_search_bar_mdd form").submit();
         }
