@@ -206,13 +206,13 @@
                 (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'commentCount'
                 FROM ac00 a, ab05 b
                 WHERE a.aac002=5 AND a.aac003=b.aab501
-                ORDER BY tid)t2
+                GROUP BY tid)t2
                 ON t1.tid=t2.tid
                 LEFT JOIN
                 (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'starCount'
                 FROM ad04 a, ab05 b
                 WHERE a.aad403=5 AND a.aad404=b.aab501
-                ORDER BY tid)t3
+                GROUP BY tid)t3
                 ON t1.tid=t3.tid
                 ;
     </select>

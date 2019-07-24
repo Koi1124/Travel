@@ -226,25 +226,6 @@ public class CompanyController
     @RequestMapping("/company/detail/{id}.html")
     public String toCompanyDetail(@PathVariable("id") int id, Map<String,Object> map, HttpSession session)
     {
-//        if (dto.size()>0)
-//        {
-//            System.out.println("origin数据："+dto);
-//            session.setAttribute("c_authorName",dto.get("authorName"));
-//            session.setAttribute("c_authorPic",dto.get("authorPic"));
-//            session.setAttribute("c_name",dto.get("name"));
-//            session.setAttribute("c_star",dto.get("star"));
-//            session.setAttribute("c_mddPic",dto.get("mddPic"));
-//        }
-//        else
-//        {
-//            dto.put("id",String.valueOf(id));
-//            dto.put("authorName",session.getAttribute("c_authorName"));
-//            dto.put("authorPic",session.getAttribute("c_authorPic"));
-//            dto.put("name",session.getAttribute("c_name"));
-//            dto.put("star",session.getAttribute("c_star"));
-//            dto.put("mddPic",session.getAttribute("c_mddPic"));
-//            System.out.println(dto);
-//        }
         Object user_id=null;
         if (session.getAttribute(SessionConfig.USER_ID)==null){
             user_id=-2;

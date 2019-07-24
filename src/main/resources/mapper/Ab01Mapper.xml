@@ -85,17 +85,20 @@
         LEFT JOIN
         (SELECT aad203 AS 'id', count(aad203) AS 'thumbsUpCount'
         FROM ad02
-        WHERE aad202=1)t2
+        WHERE aad202=1
+        GROUP BY id)t2
         ON t1.id=t2.id
         LEFT JOIN
         (SELECT aad404 AS 'id', count(aad404) AS 'collectCount'
         FROM ad04
-        WHERE aad403=1)t3
+        WHERE aad403=1
+        GROUP BY id)t3
         ON t1.id=t3.id
         LEFT JOIN
         (SELECT aac003 AS 'id', count(aac003) AS 'commentCount'
         FROM ac00
-        WHERE aac002=1)t4
+        WHERE aac002=1 AND aac006=1
+        GROUP BY id)t4
         ON t1.id=t4.id
         ORDER BY ${order}
         LIMIT #{page},#{offset}
@@ -222,13 +225,13 @@
         (SELECT b.aab101 AS 'nid', count(DISTINCT(b.aab101)) AS 'commentCount'
         FROM ac00 a, ab01 b
         WHERE a.aac002=1 AND a.aac003=b.aab101
-        ORDER BY nid)t2
+        GROUP BY nid)t2
         ON t1.nid=t2.nid
         LEFT JOIN
         (SELECT b.aab101 AS 'nid', count(DISTINCT(b.aab101)) AS 'starCount'
         FROM ad04 a, ab01 b
         WHERE a.aad403=1 AND a.aad404=b.aab101
-        ORDER BY nid)t3
+        GROUP BY nid)t3
         ON t1.nid=t3.nid
         ;
     </select>
