@@ -205,7 +205,7 @@
                 LEFT JOIN
                 (SELECT b.aab501 AS 'tid', count(DISTINCT(b.aab501)) AS 'commentCount'
                 FROM ac00 a, ab05 b
-                WHERE a.aac002=5 AND a.aac003=b.aab501
+                WHERE a.aac002=5 AND a.aac003=b.aab501 AND AND a.aac006=1
                 GROUP BY tid)t2
                 ON t1.tid=t2.tid
                 LEFT JOIN
