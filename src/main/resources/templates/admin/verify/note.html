@@ -157,7 +157,7 @@
             <div class="its_others">
                 <div class="mdd_info" style="height:auto;">
                     <!--_j_mdd_sta为目的地点击统计，修改注意-->
-                    <a href="/travel-scenic-spot/mafengwo/10133.html" th:href="@{'/c/'+${poiId}}" th:title="${poiName}" class="_j_mdd_stas"
+                    <a th:href="@{'/c/'+${poiId}}" th:title="${poiName}" class="_j_mdd_stas"
                        target="_blank">
                         <img th:src="${poiPic}" width="240px">
                         <i></i>
@@ -171,7 +171,7 @@
             <div class="notes_catalog">
                 <div class="side_title" id="_j_catalogtitle">游记目录</div>
                 <div id="_j_catalog_list_wrap" style="position: relative; height: 36px;">
-                    <ul class="catalog_content" style="position: relative; overflow-y: hidden; max-height: 198px;">
+                    <ul class="catalog_content" style="position: relative;overflow-y: auto; max-height: 400px;">
 
                     </ul>
                     <div class="scrollbar"

@@ -166,12 +166,7 @@ function initCollect() {
                 async: true,
                 success:function (result) {
                     if (result) {
-                        spop({
-                            template: '成功关注',
-                            position  : 'top-center',
-                            style: 'success',
-                            autoclose: 1500
-                        });
+                        logSuccess("成功关注");
                         $(".cell-collect span").text("已关注结伴");
                         $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
                             $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
@@ -180,22 +175,12 @@ function initCollect() {
                         $(".total span:eq(2)").text(Number(collectNum)+1);
                     }
                     else {
-                        spop({
-                            template: '网络故障，请稍后再试',
-                            position  : 'top-center',
-                            style: 'error',
-                            autoclose: 1500
-                        });
+                        logError('网络故障，请稍后再试');
                     }
                 },
                 error: function (e) {
                     console.log(e);
-                    spop({
-                        template: '网络故障，请稍后再试',
-                        position  : 'top-center',
-                        style: 'error',
-                        autoclose: 1500
-                    });
+                    logError('网络故障，请稍后再试');
                 }
             });
         }
@@ -209,12 +194,7 @@ function initCollect() {
                 async: true,
                 success:function (result) {
                     if (result) {
-                        spop({
-                            template: '成功取消关注',
-                            position  : 'top-center',
-                            style: 'success',
-                            autoclose: 1500
-                        });
+                        logSuccess("成功取消关注");
                         $(".cell-collect span").text("关注此结伴");
                         $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
                             $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
@@ -223,12 +203,7 @@ function initCollect() {
                         $(".total span:eq(2)").text(Number(collectNum)-1);
                     }
                     else {
-                        spop({
-                            template: '网络故障，请稍后再试',
-                            position  : 'top-center',
-                            style: 'error',
-                            autoclose: 1500
-                        });
+                        logError('网络故障，请稍后再试');
                     }
                 },
                 error: function (e) {
@@ -259,23 +234,13 @@ function initFollow() {
                 async: true,
                 success:function (result) {
                     if (result) {
-                        spop({
-                            template: '成功关注',
-                            position  : 'top-center',
-                            style: 'success',
-                            autoclose: 1500
-                        });
+                        logSuccess("成功关注");
                         $(".follow").remove();
                         $(".btn-follow").append("<span class=\"followed\">已关注</span>");
                         $(".btn-follow").append("<span class=\"unfollow\">取消关注</span>");
                     }
                     else {
-                        spop({
-                            template: '网络故障，请稍后再试',
-                            position  : 'top-center',
-                            style: 'error',
-                            autoclose: 1500
-                        });
+                        logError('网络故障，请稍后再试');
                     }
                 },
                 error: function (e) {
@@ -293,23 +258,13 @@ function initFollow() {
                 async: true,
                 success:function (result) {
                     if (result) {
-                        spop({
-                            template: '取消关注',
-                            position  : 'top-center',
-                            style: 'success',
-                            autoclose: 1500
-                        });
+                        logSuccess("取消关注");
                         $(".followed").remove();
                         $(".unfollow").remove();
                         $(".btn-follow").append("<span class=\"follow\"><i></i>加关注</span>");
                     }
                     else {
-                        spop({
-                            template: '网络故障，请稍后再试',
-                            position  : 'top-center',
-                            style: 'error',
-                            autoclose: 1500
-                        });
+                        logError('网络故障，请稍后再试');
                     }
                 },
                 error: function (e) {
@@ -364,12 +319,7 @@ $(document).ready(function () {
             }),
             success:function (result) {
                 if (result!=null){
-                    spop({
-                        template: '已同意申请',
-                        position  : 'top-center',
-                        style: 'success',
-                        autoclose: 1500
-                    });
+                    logSuccess("已同意申请");
                     $(".bd").each(function () {
                         if ($(this).attr("data-id")==aid)
                         {
@@ -385,22 +335,12 @@ $(document).ready(function () {
                         '                          </li>');
                 }
                 else {
-                    spop({
-                        template: '网络故障，请稍后再试',
-                        position  : 'top-center',
-                        style: 'error',
-                        autoclose: 1500
-                    });
+                    logError('网络故障，请稍后再试');
                 }
             },
             error:function (e) {
                 console.log(e);
-                spop({
-                    template: '网络故障，请稍后再试',
-                    position  : 'top-center',
-                    style: 'error',
-                    autoclose: 1500
-                });
+                logError('网络故障，请稍后再试');
             }
         })
     }
@@ -421,30 +361,15 @@ $(document).ready(function () {
             }),
             success:function (result) {
                 if (result){
-                    spop({
-                        template: '已拒绝申请',
-                        position  : 'top-center',
-                        style: 'success',
-                        autoclose: 1500
-                    });
+                    logSuccess("已拒绝申请");
                     doneOperate(aid);
                 } else {
-                    spop({
-                        template: '网络故障，请稍后再试',
-                        position  : 'top-center',
-                        style: 'error',
-                        autoclose: 1500
-                    });
+                    logError('网络故障，请稍后再试');
                 }
             },
             error:function (e) {
                 console.log(e);
-                spop({
-                    template: '网络故障，请稍后再试',
-                    position  : 'top-center',
-                    style: 'error',
-                    autoclose: 1500
-                });
+                logError('网络故障，请稍后再试');
             }
         });
     }
@@ -468,12 +393,7 @@ function star(data) {
         async: true,
         success:function (result) {
             if (result) {
-                spop({
-                    template: '成功关注',
-                    position  : 'top-center',
-                    style: 'success',
-                    autoclose: 1500
-                });
+                logSuccess("成功关注");
                 $(".cell-collect span").text("已关注结伴");
                 $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
                     $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
@@ -482,12 +402,7 @@ function star(data) {
                 $(".total span:eq(2)").text(Number(collectNum)+1);
             }
             else {
-                spop({
-                    template: '网络故障，请稍后再试',
-                    position  : 'top-center',
-                    style: 'error',
-                    autoclose: 1500
-                });
+                logError('网络故障，请稍后再试');
             }
         },
         error: function (e) {
@@ -507,12 +422,7 @@ function starClear(data) {
         async: true,
         success:function (result) {
             if (result) {
-                spop({
-                    template: '成功取消关注',
-                    position  : 'top-center',
-                    style: 'success',
-                    autoclose: 1500
-                });
+                logSuccess("成功取消关注");
                 $(".cell-collect span").text("关注此结伴");
                 $(".btn-collect").find("i").animate({'margin-bottom':"5px"}, function () {
                     $(".btn-collect").find("i").animate({'margin-bottom':"0px"});
@@ -521,12 +431,7 @@ function starClear(data) {
                 $(".total span:eq(2)").text(Number(collectNum)-1);
             }
             else {
-                spop({
-                    template: '网络故障，请稍后再试',
-                    position  : 'top-center',
-                    style: 'error',
-                    autoclose: 1500
-                });
+                logError('网络故障，请稍后再试');
             }
         },
         error: function (e) {

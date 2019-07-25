@@ -10,6 +10,7 @@
     <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/tools/jquery.pagination.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/comment.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/note/noteMine.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         var content = [[${content}]];
@@ -38,7 +39,7 @@
 <input id="user_pic" type="hidden" th:value="${session.user_logo}"/>
 
 
-<div class="set_index" id="_j_cover_box" style="height: 519.667px;">
+<div class="set_index" id="_j_cover_box">
     <div class="set_bg _j_load_cover" style="width:100%;">
         <img th:src="${topImg}" width="100%">
     </div>
@@ -83,7 +84,7 @@
                 </div>
                 <div th:if="${uid eq session.user_id}" class="person-edit">
                     <a th:href="'/note/editNote/' + ${nid}" target="_blank" title="编辑">编辑</a>|
-                    <a id="btn-delete" title="删除">删除</a>
+                    <a id="btn-delete" onclick="clickDeleteNote()" title="删除">删除</a>
                 </div>
             </div>
 
@@ -205,7 +206,7 @@
             <div class="notes_catalog">
                 <div class="side_title" id="_j_catalogtitle">游记目录</div>
                 <div id="_j_catalog_list_wrap" style="position: relative; height: 36px;">
-                    <ul class="catalog_content" style="position: relative; overflow-y: hidden; max-height: 198px;">
+                    <ul class="catalog_content" style="position: relative; overflow-y: auto; max-height: 400px;">
 
                     </ul>
                     <div class="scrollbar"
@@ -222,6 +223,29 @@
 
 </div>
 <!-- 本体 e -->
+
+
+<div th:if="${uid eq session.user_id}" id="_j_layer_0" class="layer _j_layer"
+     style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001; display:none;">
+    <div class="layer_mask _j_mask"
+         style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;">
+    </div>
+    <div class="layer_content _j_content"
+         style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;">
+        <div id="popup_container" class="popup-box new-popbox pop_no_margin"
+             style="position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px;left:0; top: 45%;">
+
+
+            <div class="pop-ctn">
+                <p class="hd _j_content">确认删除这篇游记吗？</p>
+
+            </div>
+            <div class="pop-btns"><a role="button" tabindex="0"
+                                     class="popbtn popbtn-cancel popbtn-half _j_close _j_false" onclick="deleteCancle()">取消</a>
+                <a role="button" tabindex="0" onclick="deleteNote()" class="popbtn popbtn-submit popbtn-half _j_close _j_true">确定</a></div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

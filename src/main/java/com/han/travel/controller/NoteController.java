@@ -204,7 +204,7 @@ public class NoteController
 
     /**
      * @Author Saki
-     * @Description 游记详情页面
+     * @Description 游记详情页面(预览)
      * @Date 2019/7/18
      * @param dto {
      *            uid:作者id,
