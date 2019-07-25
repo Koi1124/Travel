@@ -1,13 +1,7 @@
 package com.han.travel.service;
 
 
-import com.han.travel.dao.Aa01Dao;
-import com.han.travel.dao.Aa03Dao;
-import com.han.travel.dao.Aa04Dao;
-import com.han.travel.dao.Ab01Dao;
-import com.han.travel.dao.Ab02Dao;
-import com.han.travel.dao.Ab03Dao;
-import com.han.travel.dao.Ab05Dao;
+import com.han.travel.dao.*;
 import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.PageBean;
 import com.han.travel.support.Utils;
@@ -49,6 +43,10 @@ public class AdminService
     
     @Resource
     private Aa01Dao aa01Dao;
+
+    @Resource
+    private TopNoteDao topNoteDao;
+
     /**
      * @Author 
      * @Description 
@@ -211,7 +209,12 @@ public class AdminService
     {	
 		return ab01Dao.changeStateById(map);
     }
-    
+
+    public boolean setTopNote(Map<String, Object> map)
+    {
+        topNoteDao.addTopNote(map);
+        return ab01Dao.changeStateById(map);
+    }
     
     //=====================攻略=======================
   	public boolean insertStrategy(Map<String,Object>map)

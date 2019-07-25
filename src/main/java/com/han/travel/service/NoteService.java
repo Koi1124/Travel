@@ -2,6 +2,7 @@ package com.han.travel.service;
 
 import com.han.travel.dao.Aa03Dao;
 import com.han.travel.dao.Ab01Dao;
+import com.han.travel.dao.TopNoteDao;
 import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.Utils;
 import net.sf.json.JSONArray;
@@ -303,5 +304,14 @@ public class NoteService
     public void addViews(int nid)
     {
         ab01Dao.addViews(nid);
+    }
+
+
+    @Resource
+    private TopNoteDao topNoteDao;
+
+    public List<Map<String, Object>> getTopNotes()
+    {
+        return topNoteDao.getTopNotes();
     }
 }

@@ -111,7 +111,7 @@
                     //发异步,提交数据
                     $.ajax({
                     	type:"post",
-                    	url:"http://localhost:8080/admin/aa04/insertAdmin",
+                    	url:"/admin/aa04/insertAdmin",
                     	data:JSON.stringify({username:$("#username").val(),email:$("#email").val(),
                     		password:$("#L_pass").val(),role:$("input:radio:checked").val()}),
                     	contentType: "application/json",

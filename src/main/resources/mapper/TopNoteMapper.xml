@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.travel.dao.TopNoteDao">
+    <select id="getTopNotes" resultType="java.util.HashMap">
+        select id, noteId, pic, title, date
+        FROM topnote
+        ORDER BY id DESC
+        LIMIT 5;
+    </select>
+
+    <insert id="addTopNote" parameterType="java.util.HashMap">
+        INSERT INTO topnote(noteId, pic, title, date)
+                VALUES (#{nid}, #{pic}, #{title}, #{date});
+    </insert>
+
+</mapper>

@@ -12,6 +12,10 @@
     <script th:inline="javascript">
         var content = [[${content}]];
         var nid = [[${nid}]];
+        var title = [[${title}]];
+        var date = [[${date}]];
+        var pic = [[${topImg}]];
+
         var path=document.location.host;
         if(typeof(WebSocket) == "undefined") {
             console.log("您的浏览器不支持WebSocket");
@@ -130,9 +134,10 @@
 
                 </div>
 
-                <div th:if="${session.adminusername ne null}" class="item-btn" style="width: 400px">
+                <div th:if="${session.adminusername ne null}" class="item-btn" style="width: 600px">
                     <a class="btn-publish btn-preview" onclick="changeStauts(3)">拒绝</a>
                     <a id="btn-publish" class="btn-publish" onclick="changeStauts(2)">通过</a>
+                    <a class="btn-publish" onclick="setTopNote()">设置头条</a>
                 </div>
             </div>
 
