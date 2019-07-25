@@ -112,3 +112,7 @@
 .dia_list .tool_right .tips_off{
     display: none;
 }
+.banner_together {
+    height: 260px;
+    background: #006488 url(https://css.mafengwo.net/images/together/v2/bn-together.png) no-repeat center bottom;
+}

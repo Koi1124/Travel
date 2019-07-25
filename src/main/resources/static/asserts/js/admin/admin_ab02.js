@@ -78,7 +78,16 @@ function decrease(page)
 	$(page).text(now);
 	fuzzyQueryTest($("#city").val(),$("#name").val()); 
 }
-
+function startPage(page)
+{
+	$(page).text(1);
+	fuzzyQueryTest($("#name").val(),$("#intro").val());
+}
+function endPage(page)
+{
+	$(page).text($("#tolPage").text());
+	fuzzyQueryTest($("#name").val(),$("#intro").val());
+}
 
 function delStrategy(id)
 {

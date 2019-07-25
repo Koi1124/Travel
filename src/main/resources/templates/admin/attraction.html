@@ -84,9 +84,11 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
+                                	<a class="num" href="#" onclick="startPage('#pageNum')" >首页</a>
 									<a class="prev" href="#" onclick="decrease('#pageNum')">&lt;&lt;</a>
 									<a class="num" href="#" id="pageNum">1</a>
 									<a class="next" href="#" onclick="add('#pageNum',$('#tolPage').html())">&gt;&gt;</a>
+									<a class="num" href="#" onclick="endPage('#pageNum')" >尾页</a>
 									<span id="tolPage" style="visibility:hidden"></span>
 								</div>
                             </div>
