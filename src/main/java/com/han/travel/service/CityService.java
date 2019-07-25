@@ -52,6 +52,13 @@ public class CityService
     {
         return aa03Dao.getNameById(id);
     }
+
+    public Integer getIdByName(Map<String, Object> map)
+    {
+        return aa03Dao.getIdByName(map.get("name").toString());
+    }
+
+
     /**
      * @Author Saki
      * @Description 获取一个省的城市信息

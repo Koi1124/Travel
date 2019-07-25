@@ -4,8 +4,7 @@ import com.han.travel.service.CityService;
 import com.han.travel.service.StrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -52,5 +51,19 @@ public class CityController
         dto.put("id", id);
         dto.put("name", cityService.getNameById(id));
         return "poi/city";
+    }
+
+    /**
+     * @Author Saki
+     * @Description 根据名称搜索城市
+     * @Date 2019/7/25
+     * @param map
+     * @return java.lang.Integer
+     **/
+    @PostMapping("/mdd/search")
+    @ResponseBody
+    public Integer getCityByName(@RequestBody Map<String, Object> map)
+    {
+        return cityService.getIdByName(map);
     }
 }

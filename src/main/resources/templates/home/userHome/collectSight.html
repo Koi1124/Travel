@@ -72,30 +72,28 @@
                             <ul class="p-poi clearfix">
                                 <!-- 一个景点 s -->
                                 <li th:each="collectSight:${collectSights}">
-                                    <a href="/poi/3394.html" th:href="@{'/sight/'+${collectSight.id}}" target="_blank">
-                                        <div class="img"><img th:src="${collectSight.pic}" src="http://p2-q.mafengwo.net/s5/M00/05/FC/wKgB2lGxjzmAcwzxAAvgdfDYIU407.jpeg?imageMogr2%2Fthumbnail%2F%21240x240r%2Fgravity%2FCenter%2Fcrop%2F%21240x240%2Fquality%2F90" width="162" height="100"></div>
-                                        <!-- 取消收藏按钮 -->
-                                        <span class="p-btn-delete" th:onclick="'deleteCollect('+ ${collectSight.collectId} +')'"><i></i></span>
-                                        <div class="info">
-                                            <p class="title" th:text="${collectSight.name}">青岛邮电博物馆</p>
+                                    <div class="_collect_item" th:data-id="${collectSight.collectId}">
+                                        <div class="img">
+                                            <img th:src="${collectSight.pic}" width="162" height="100">
                                         </div>
-                                    </a>
+                                        <!-- 取消收藏按钮 -->
+                                        <span class="p-btn-delete" th:onclick="${'deleteCollect(' + collectSight.collectId + ')'}">
+                                            <i></i>
+                                        </span>
+                                        <a class="info" href="/poi/3394.html" th:href="@{'/sight/'+${collectSight.id}}" target="_blank">
+                                            <p class="title" th:text="${collectSight.name}">青岛邮电博物馆</p>
+                                        </a>
+                                    </div>
                                 </li>
                                 <!-- 一个景点 e -->
                             </ul>
                         </div>
                         <!-- 收藏景点 e-->
-
-
-
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 </body>
-
 </html>

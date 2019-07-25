@@ -19,7 +19,10 @@ $(function () {
                     });
                     $("._collect_item").each(function () {
                         if ($(this).attr("data-id")==cid) {
-                            $(this).hide(300);
+                            var e = $(this);
+                            $(this).hide(300, function () {
+                                e.remove();
+                            });
                         }
                     })
                 }else {

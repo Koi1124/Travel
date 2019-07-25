@@ -6,7 +6,10 @@
     <link th:href="@{/asserts/css/poi/mdd.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/asserts/css/navbar.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
 
+    <script th:src="@{/asserts/js/common/jquery.js}"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}"></script>
     <script th:src="@{/asserts/js/poi/mdd.js}"></script>
 
 </head>
@@ -49,12 +52,12 @@
         </div>
         <div class="place-search-panel">
             <h2>Travel around the world...</h2>
-            <form name="mdd-search-form" action="/search/s.php" method="get">
+            <div name="mdd-search-form" action="/search/s.php" method="get">
                 <div class="searchbar">
-                    <input autocomplete="off" class="search-input" type="text" name="q" placeholder="我想去...">
-                    <a class="search-button" href="#" data-cs-l="搜索" role="button"><i class="icon-search"></i></a>
+                    <input autocomplete="off" class="search-input" type="text" id="poi-input" placeholder="我想去...">
+                    <a class="search-button" onclick="searchMdd()" data-cs-l="搜索" role="button"><i class="icon-search"></i></a>
                 </div>
-            </form>
+            </div>
             <div class="search-suggest-panel search-suggest-place hide">
                 <ul class="suggest-list">
 
