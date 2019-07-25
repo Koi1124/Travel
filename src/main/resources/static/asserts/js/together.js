@@ -6,20 +6,12 @@ var id = 1;
 var itemCount = 8;
 var type=3;
 
-//获取当前网址，如： http://localhost:80/ybzx/index.jsp  
-var curPath=window.document.location.href;
-//获取主机地址之后的目录，如： ybzx/index.jsp  
-var pathName=window.document.location.pathname;
-var pos=curPath.indexOf(pathName);
-//获取主机地址，如： http://localhost:80  
-var localhostPaht=curPath.substring(0,pos);
-
 
 $(document).ready(function() {
     //8个结伴目的地推荐
     $.ajax({
         type: "post",
-        url: localhostPaht+"/together/mdd_top",
+        url: "/together/mdd_top",
         contentType: "application/json",
         dataType: "json",
         async: true,
@@ -59,7 +51,7 @@ $(document).ready(function() {
     });
 
     $.ajax({
-        url: localhostPaht + "/together/mdd_info",
+        url: "/together/mdd_info",
         type: "post",
         dataType: "json",
         async: true,
@@ -167,7 +159,7 @@ function togetherSearch(mid,type) {
 
     $.ajax({
         type: "post",
-        url: localhostPaht+"/together/company_search",
+        url: "/together/company_search",
         contentType: "application/json",
         data:JSON.stringify({
             page:page,
@@ -234,7 +226,7 @@ function setCompany(data) {
 
 function companyClick(c) {
     var form = $("<form method='post'></form>");
-    form.attr({"action": localhostPaht+"/together/company/detail/"+$(c).attr("together-id")+".html"});
+    form.attr({"action": "/together/company/detail/"+$(c).attr("together-id")+".html"});
     var args = {id:$(c).attr("together-id"),
         name:$(c).children("h3").get(0).innerText,
         star:$(c).attr("star"),

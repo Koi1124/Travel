@@ -1,16 +1,9 @@
-//获取当前网址，如： http://localhost:80/ybzx/index.jsp  
-var curPath=window.document.location.href;
-//获取主机地址之后的目录，如： ybzx/index.jsp  
-var pathName=window.document.location.pathname;
-var pos=curPath.indexOf(pathName);
-//获取主机地址，如： http://localhost:80  
-var localhostPaht=curPath.substring(0,pos);
-
 var images = new Array();
+var mddVal="";
 
 $(document).ready(function() {
     $.ajax({
-        url: localhostPaht + "/together/mdd_info",
+        url: "/together/mdd_info",
         type: "post",
         dataType: "json",
         async: true,
@@ -18,11 +11,7 @@ $(document).ready(function() {
             var avaliableTags = eval(data);
             $("#_j_go_mdd").autocomplete({
                 minLength:0,
-                source: function (request,response) {
-                    response($.ui.autocomplete.filter(
-                        avaliableTags,extractLast(request.term)
-                    ));
-                },
+                source: avaliableTags,
                 message:{
                     results: function(){
                     },
@@ -32,17 +21,30 @@ $(document).ready(function() {
                     return false;
                 },
                 select:function (event,ui) {
-                    var terms = split(this.value);
-                    var temp=split(this.id);
-                    terms.pop();
-                    temp.pop();
-                    terms.push(ui.item.value);
-                    temp.push(ui.item.id);
-                    terms.push("");
-                    temp.push("");
-                    this.value=terms.join(";");
-                    this.id=temp.join(";");
-                    $("#go_mdd_id").val(this.id);
+                    $("._j_go_mdd_list").addClass("have");
+                    $("#_j_go_mdd").addClass("have");
+                    if ($("._j_go_mdd_list span").attr("data-mddid")!=ui.item.id){
+                        $("._j_go_mdd_list").prepend('<span class="tag-place _j_mdd_remove _j_go_mdd_add" style="height: 26px" data-mddid="'+ ui.item.id +'">'+ ui.item.value +'<i>×</i></span>');
+                        mddVal=mddVal+ui.item.id+";";
+                        $("#go_mdd_id").val(mddVal);
+                    }
+                    initRemoveMddTag();
+                    $("#_j_go_mdd").val("");
+                    // var terms = split(this.value);
+                    // var temp=split(this.id);
+                    // terms.pop();
+                    // temp.pop();
+                    // terms.push(ui.item.value);
+                    // temp.push(ui.item.id);
+                    // terms.push("");
+                    // temp.push("");
+                    // this.value=terms.join(";");
+                    // this.id=temp.join(";");
+
+
+
+
+
                     return false;
                 }
             })
@@ -64,6 +66,11 @@ $(document).ready(function() {
         }
     });
 
+
+
+
+
+
     $("#date-input").calendar();
     $("#date-inputCalendar").css({position:'relative',top:'-695px',left:'415px'});
 
@@ -76,6 +83,29 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+function initRemoveMddTag() {
+    $("._j_mdd_remove").click(function () {
+        var mddid=$(this).attr("data-mddid");
+        var arr=mddVal.split(";");
+        var update="";
+        $(arr).each(function (i,item) {
+            if (item!=mddid&&item!="") {
+                update=update+item+";";
+            }
+        })
+        mddVal=update;
+        $("#go_mdd_id").val(mddVal);
+        $(this).remove();
+        if (!$("._j_go_mdd_list:has(span)").length) {
+            $("._j_go_mdd_list").removeClass("have");
+            $("#_j_go_mdd").removeClass("have");
+        }
+    })
+}
+
 
 function togetherSubmit() {
     images = [];
@@ -144,10 +174,14 @@ function togetherSubmit() {
             async: true,
             success: function (result) {
                 if (result) {
-                    logSuccess("发布成功");
                     $("._j_submit").attr("disabled", "true");
                     $("._j_submit").unbind();
                     $("._j_submit").text("已发表成功");
+                    logSuccess("发布成功");
+                    setTimeout(function () {
+                        window.location.href="/together";
+                    }, 1500);
+
                 }
                 else {
                     logError("网络故障，请稍后再试");
