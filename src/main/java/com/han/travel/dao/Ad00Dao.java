@@ -57,4 +57,16 @@ public interface Ad00Dao {
      * @return boolean
      **/
     boolean deleteReplyById(int id);
+
+
+    /**
+     *@discription: map->
+     * uid: 用户id
+     * sid: 景点id
+     *@param map
+     *@date: 2019/7/25 16:11
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    Map<String,Object> getScoreAndCId(@Param("map") Map<String,Object> map);
 }

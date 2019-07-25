@@ -27,4 +27,12 @@
         WHERE aad001=#{id}
         ;
     </delete>
+
+
+    <select id="getScoreAndCId" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT aac001 AS 'cid', aac007 AS 'score'
+        FROM ac00
+        WHERE aac002=3 AND aac006=1 AND aac003=#{map.sid} AND aaa101=#{map.uid}
+        ;
+    </select>
 </mapper>

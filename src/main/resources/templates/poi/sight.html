@@ -335,8 +335,7 @@
 
     <!-- 评价 s -->
     <div data-anchor="comment">
-        <div class="row row-reviewForm" id="comment_20190710143940" data-cs-p="点评">
-            <div class="wrapper">
+            <div class="wrapper" id="_rank_wrapper">
 
                 <div class="mfw-reviews">
                     <div id="_j_commentform_cnt">
@@ -345,10 +344,27 @@
                         </h2>
                         <div class="_j_commentdialogform" data-typeid="3">
 
+                            <div class="review-item item-star">
+                                <div class="label"><em>*</em>总体评价</div>
+                                <div class="review-star _j_rankblock">
+                                    <input type="hidden" name="rank" value="" data-inputname="总体评价">
+                                    <span class="_j_starcount star0"></span>
+                                    <div class="click-star _j_starlist">
+                                        <a role="button" title="千万别去" rel="nofollow"></a>
+                                        <a role="button" title="不推荐" rel="nofollow"></a>
+                                        <a role="button" title="一般般" rel="nofollow"></a>
+                                        <a role="button" title="值得一去" rel="nofollow"></a>
+                                        <a role="button" title="必须推荐" rel="nofollow"></a>
+                                    </div>
+
+                                </div>
+                                <span class="txt-tips _j_startip">点击星星打分</span>
+                            </div>
+
                             <div class="review-item item-comment">
-                                <div class="label">评价</div>
+                                <div class="label"><em>*</em>评价</div>
                                 <div class="content">
-                                        <textarea class="_j_comment_content" name="comment" essential="1"
+                                        <textarea class="_j_comment_content" name="comment"
                                                   data-inputname="点评内容" placeholder="写下你的评价"></textarea>
                                     <p class="_j_commentcounttip"></p>
                                 </div>
@@ -362,7 +378,6 @@
                 </div>
 
             </div>
-        </div>
     </div>
     <!-- 评价 e -->
 </div>

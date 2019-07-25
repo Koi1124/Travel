@@ -129,4 +129,18 @@ public class CommentService {
     {
         return ad00Dao.deleteReplyById(id);
     }
+
+
+    /**
+     *@discription: 根据用户id和景点id得到评分和评论id
+     *@param dto 
+     *@date: 2019/7/25 16:10
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    public Map<String,Object> getScoreAndCId(Map<String,Object> dto)
+    {
+        return ad00Dao.getScoreAndCId(dto);
+    }
+
 }

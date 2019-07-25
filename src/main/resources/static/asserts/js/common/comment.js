@@ -3,8 +3,15 @@ var userId = -1;
 var userName = "";
 var userLogo = "";
 var pid = 0;
+var score=0;
 
 $(function () {
+
+    if (type=="3") {
+        initRank();
+        showReviews();
+    }
+
     getComment(1);
     initPagination();
     if (type=="2"||type=="3") {
@@ -12,6 +19,86 @@ $(function () {
     }
 
 });
+
+
+function initRank() {
+    $("._j_starlist a").hover(
+        function () {
+            var index=$(this).index();
+            var num=Number(index)+1;
+            $("._j_starcount").attr("class","_j_starcount star"+num);
+            $("._j_startip").text($($("._j_starlist a")[num-1]).attr("title"));
+         },
+        function () {
+            var index=$("input[name='rank']").val();
+            var num=Number(index);
+            if (index=="") {
+                $("._j_starcount").attr("class","_j_starcount star0");
+                $("._j_startip").text("点击星星打分");
+            }
+            else {
+                $("._j_starcount").attr("class","_j_starcount star"+num);
+                $("._j_startip").text($($("._j_starlist a")[num-1]).attr("title"))
+            }
+    });
+
+
+    $("._j_starlist a").click(function () {
+        var index=$(this).index();
+        var num=Number(index)+1;
+        $("input[name='rank']").val(num);
+        score=num;
+    })
+
+}
+
+
+function haveReviews(score,cid) {
+    $(".mfw-reviews").hide();
+    $("#_rank_wrapper").append('<div class="mfw-reviews have-reviews">\n' +
+        '                <h2>\n' +
+        '                    <strong>'+ $("#_j_commentform_cnt h2").text()  + '</strong>\n' +
+        '                </h2>\n' +
+        '                <div class="review-item item-star">\n' +
+        '                    <div class="label">你已评价为</div>\n' +
+        '                    <div class="review-star">\n' +
+        '                        <span class="star'+ score +'"></span>\n' +
+        '                    </div>\n' +
+        '                    <a class="edit-reviews" data-review-id="'+ cid +'" title="修改评论"><i></i>我要修改</a>\n' +
+        '                </div>\n' +
+        '            </div>');
+    editReviews(cid);
+}
+
+
+function editReviews(cid) {
+    $(".edit-reviews").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/deleteComment",
+            contentType: "application/json",
+            data:JSON.stringify({
+                id:cid
+            }),
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                if (result) {
+                    $(".have-reviews").remove();
+                    $(".mfw-reviews").show();
+                }
+                else {
+                    logError("网络故障，请稍后再试");
+                }
+            },
+            error: function (e) {
+                logError("网络故障，请稍后再试");
+                console.log(e);
+            }
+        });
+
+    })
+}
 
 function getComment(page) {
     var path = window.location.pathname;
@@ -335,7 +422,7 @@ function clickCommentSubmit() {
             title:title,
             rUserId:rUserId,
             content:$("._j_comment_content").val(),
-            score:0
+            score:score
         }),
         dataType: "json",
         async: true,
@@ -348,7 +435,8 @@ function clickCommentSubmit() {
                     "        <img src=" + userLogo + " width='48' height='48'></a></div>" +
                     "    <a class='useful' title='点赞' onclick='clickThumbsUp(this)'><i></i>" +
                     "        <span class='useful-num'></span></a>" +
-                    "    <a class='name' target='_blank' href='/u/"+ userId +"/note'>" + userName + "</a>" +
+                    "    <a class='name _j_rank_helper' target='_blank' href='/u/"+ userId +"/note'>" + userName + "</a>" +
+                    //打分
                     "    <p class='rev-txt'>" + $("._j_comment_content").val() + "</p>" +
                     "    <div class='info clearfix'>" +
                     "        <a class='btn-comment _j_comment' onclick='clickReply(this)' title='评论'" +
@@ -368,6 +456,17 @@ function clickCommentSubmit() {
                     "        </div>" +
                     "    </div>" +
                     "</li>");
+                if (score > 0) {
+                    changeSightTitle();
+                    $(".comment-item").each(function () {
+                        if ($(this).attr("u_id")==uid){
+                            $(this).remove();
+                            dechangeSightTitle();
+                        }
+                    })
+                    $(c).find("._j_rank_helper").after('<span class="s-star s-star'+ score +'"></span>');
+                    haveReviews(score,result);
+                }
                 $("._j_comment_content").attr("value", "");
                 $("#comment-list").prepend(c);
                 c.find(".comment_reply").blur(function () {
@@ -388,6 +487,48 @@ function clickCommentSubmit() {
     });
 }
 
+function changeSightTitle() {
+    var num=$(".mhd span em").text();
+    var update=Number(num)+1;
+    $(".mhd span em").text(update);
+    $("#poi-navbar ul li:eq(1) a span hhh").text(update);
+}
+function dechangeSightTitle() {
+    var num=$(".mhd span em").text();
+    var update=Number(num)-1;
+    $(".mhd span em").text(update);
+    $("#poi-navbar ul li:eq(1) a span hhh").text(update);
+}
+
+
+function showReviews() {
+    $.ajax({
+        type: "post",
+        url: "/haveReviews",
+        contentType: "application/json",
+        data:JSON.stringify({
+            uid:uid,
+            sid:sid
+        }),
+        dataType: "json",
+        async: true,
+        success:function (result) {
+            console.log(result);
+            if (result!=null) {
+                haveReviews(result.score,result.cid);
+            }
+            else {
+                console.log("没有评论");
+            }
+        },
+        error:function (e) {
+            console.log(e);
+            logError("网络故障，请稍后再试！");
+        }
+    })
+}
+
+
 function setComment(data) {
     $("#comment-list").empty();
     $(data).each(function (i, comment) {
@@ -398,7 +539,8 @@ function setComment(data) {
             "    <a class='useful" + (comment.thumbsId==null?"":" on") + "' title='点赞' onclick='clickThumbsUp(this)'><i></i>" +
             "        <span class='useful-num' style='color:" + (comment.thumbsId==null?"#666":"red") + "'>" + (comment.thumbsUpCount==null?"":comment.thumbsUpCount) + "</span>" +
             "    </a>" +
-            "    <a class='name' href='/u/"+ comment.remarkerId +"/note' target='_blank'>" + comment.remarkerName + "</a>" +
+            "    <a class='name _j_rank_helper' href='/u/"+ comment.remarkerId +"/note' target='_blank'>" + comment.remarkerName + "</a>" +
+            //打分
             "    <p class='rev-txt'>" + comment.content + "</p>" +
             "    <div class='info clearfix'>" +
             "        <a class='btn-comment _j_comment' onclick='clickReply(this)' title='评论'" +
@@ -418,6 +560,9 @@ function setComment(data) {
             "        </div>" +
             "    </div>" +
             "</li>");
+        if (comment.score > 0) {
+            $(c).find("._j_rank_helper").after('<span class="s-star s-star'+ comment.score +'"></span>');
+        }
         if (comment.reply.length > 2) {
             $(c).find("._j_comment").after("<a class='btn-comment _j_comment' title='展开' onclick='clickExtend(this)' extend='0' style='padding:0 5px;'>展开剩下" +
                 (comment.reply.length - 2) + "条</a>")

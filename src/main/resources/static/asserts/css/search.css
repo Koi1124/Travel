@@ -141,7 +141,7 @@
     font-size: 18px;
 }
 .sr-keyword {
-    color: #ab3103!important;
+    color: red!important;
 }
 .ser-lt .ct-text .seg-desc {
     max-height: 40px;
