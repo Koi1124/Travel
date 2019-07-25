@@ -22,7 +22,7 @@
         SELECT aab101, author, aab102, aab104, aab105,
             aab106, aab107, aa03.aaa302 as 'poi'
         from
-        (select aab101,b.aaa102 AS author ,aab102,aab104,
+        (select aab101,b.aaa102 AS author ,aab102,DATE_FORMAT(aab104,'%Y-%m-%d %H:%i') as 'aab104',
        	aab105,aab106,aab107,aaa301
 		from ab01 a,aa01 b
 		where a.aaa101=b.aaa101 and a.aab103=1

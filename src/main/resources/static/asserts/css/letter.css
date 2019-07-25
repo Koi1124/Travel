@@ -9,13 +9,8 @@
     *zoom: 1; position: relative;
 }
 
-
-
-
 .letterwrap .panel {
-    margin-left: 10%;
-    margin-right: 10%;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 .title {

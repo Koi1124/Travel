@@ -399,6 +399,48 @@ public class AdminController
 	}
 
 
+	@RequestMapping("/admin/sight/new")
+	public String newSight()
+	{
+		return "admin/verify/sight";
+	}
+
+
+	@RequestMapping("/admin/sight/{id}")
+	public String sight(@PathVariable int id, Map<String, Object> dto)
+	{
+		dto.putAll(adminService.ab03queryById(id));
+		return "admin/verify/sight";
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 添加景点
+	 * @Date 2019/7/25
+	 * @param map
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/addSight")
+	@ResponseBody
+	public boolean addSight(@RequestBody Map<String, Object> map)
+	{
+		return adminService.insertAttraction(map);
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 更新景点
+	 * @Date 2019/7/25
+	 * @param map
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/updateSight")
+	@ResponseBody
+	public boolean updateSight(@RequestBody Map<String, Object> map)
+	{
+		return adminService.updateAttraction(map);
+	}
+
 	//========================审核详细页面=========================================
 	/**
 	 * @Author Saki

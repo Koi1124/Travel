@@ -71,12 +71,12 @@ public class AttractionController
 		return adminService.ad03fuzzyQuery(map);
     }
 
-	@PostMapping("/ab03/queryById")
-    @ResponseBody
-    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
-    {
-		return adminService.ab03queryById(map);
-    }
+//	@PostMapping("/ab03/queryById")
+//    @ResponseBody
+//    public Map<String,Object> queryById(@RequestBody Map<String,Object>map)
+//    {
+//		return adminService.ab03queryById(map);
+//    }
 	@PostMapping("/aa03/exist")
     @ResponseBody
     public boolean exist(@RequestBody Map<String,Object>map)

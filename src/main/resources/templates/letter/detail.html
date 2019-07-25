@@ -5,7 +5,7 @@
     <title>私信</title>
     <meta charset="utf-8">
 
-    <link rel="stylesheet"  th:href="@{/asserts/css/scrollbar.css}">
+    <link rel="stylesheet"  th:href="@{/asserts/css/common/scrollbar.css}">
     <link rel="stylesheet"  th:href="@{/asserts/css/letter.css}" />
 
     <script th:inline="javascript">
@@ -24,11 +24,11 @@
 
 <body>
 <div id="header" th:replace="~{homepage :: navbar}"></div>
-    <div class="letterwrap">
-        <div class="panel">
+    <div class="letterwrap" style="text-align: -webkit-center">
+        <div class="panel" style="width: 100%;">
 
             <div class="title">
-                <div class="back"><a style="color:#333" href="/msg/sms/index" th:href="@{/letter}">&lt; 返回</a></div>
+                <div class="back" style="float: left"><a style="color:#333" href="/msg/sms/index" th:href="@{/letter}">&lt; 返回</a></div>
                 <div class="name" th:text="${toClient.name}">用户id</div>
             </div>
 
