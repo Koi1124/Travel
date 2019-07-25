@@ -154,7 +154,13 @@ public class AdminController
         return adminService.changeAb01State(map);
     }
 	
-	
+	@PostMapping("/admin/note/setTop")
+	@ResponseBody
+	public boolean setTopNote(@RequestBody Map<String, Object> map)
+	{
+		messageService.passNote(map.get("nid"));
+		return adminService.setTopNote(map);
+	}
 	
 	//======================管理员模块相关功能=========================
 	@PostMapping("/admin/aa04/fuzzyQuery")

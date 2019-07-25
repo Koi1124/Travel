@@ -124,7 +124,7 @@
 
     <!--基础信息和评论数、收藏数、点赞数-->
     <select id="getNoteByIdAndStatus" resultType="java.util.HashMap">
-        SELECT uid, nid, poiId, title, editTIme,
+        SELECT uid, nid, poiId, title, editTime,
             date, days, money, content, topImg,
             userName, userPic, aaa302 as 'poiName', commentCount, starCount,
             thumbsUpCount, views, aaa305 as 'poiPic', status
@@ -170,7 +170,7 @@
 
 
     <select id="getNoteByUid" resultType="java.util.HashMap">
-        SELECT nid, title, editTIme,
+        SELECT nid, title, editTime,
                intro, topImg, aaa302 as 'poiName', starCount,
                thumbsUpCount, views
         FROM(SELECT aab101 as 'nid', aaa301 as 'poiId', aab102 as 'title',
@@ -205,7 +205,7 @@
     </update>
 
     <select id="getCollectNotesByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT a.aab102 AS 'title', a.aab104 AS 'time', a.aaa101 AS 'authorId', c.aaa102 AS 'authorName',
+        SELECT a.aab102 AS 'title', DATE_FORMAT(a.aab104,'%Y-%m-%d %H:%i:%S') AS 'time', a.aaa101 AS 'authorId', c.aaa102 AS 'authorName',
 			    b.aad401 as 'collectId', a.aab101 AS 'nid'
         FROM ab01 a, ad04 b, aa01 c
         WHERE a.aab101=b.aad404 AND b.aad403=1 AND a.aaa101=c.aaa101
@@ -217,7 +217,7 @@
 			    t1.time, t1.nintro,IFNULL(t2.commentCount,0) AS 'commentCount', IFNULL(t3.starCount,0) AS 'starCount'
         FROM
         (SELECT b.aab101 AS 'nid', b.aab102 AS 'nname', b.aab111 AS 'npic', a.aaa302 AS 'cname', a.aaa301 AS 'cid',
-        b.aab104 AS 'time', b.aab112 AS 'nintro'
+             DATE_FORMAT(b.aab104,'%Y-%m-%d %H:%i:%S') AS 'time', b.aab112 AS 'nintro'
         FROM aa03 a, ab01 b
         WHERE b.aaa301=a.aaa301 AND b.aab103=2
         AND (b.aab102 LIKE CONCAT('%',#{keyword},'%') OR b.aab112 LIKE CONCAT('%',#{keyword},'%') OR a.aaa302 LIKE CONCAT('%',#{keyword},'%')))t1

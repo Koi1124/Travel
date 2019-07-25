@@ -199,7 +199,7 @@
                 FROM
                 (SELECT  t0.tid, t0.tname, t0.mdd, t0.time
                 FROM (SELECT b.aab501 AS 'tid', b.aab502 AS 'tname', GROUP_CONCAT(DISTINCT(a.aaa302) SEPARATOR '|') AS 'mdd',
-                b.aab503 AS 'time'
+                          b.aab503 AS 'time'
                 FROM aa03 a, ab05 b, ac07 c
                 WHERE c.aaa301=a.aaa301 AND c.aab501=b.aab501 AND b.aab509=1
                 GROUP BY tid) t0

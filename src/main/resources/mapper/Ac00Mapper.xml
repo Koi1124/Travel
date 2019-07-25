@@ -41,7 +41,7 @@
     </delete>
     
     <select id="getCompanyCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT b.aab501 AS 'toCId', b.aab502 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','结伴' AS 'type'
+        SELECT b.aab501 AS 'toCId', b.aab502 AS 'title', DATE_FORMAT(a.aac005,'%Y-%m-%d %H:%i:%S') AS 'time', a.aac004 AS 'content','结伴' AS 'type'
         FROM ac00 a, ab05 b
         WHERE a.aac002=5 AND a.aac003=b.aab501 AND a.aac006=1
         AND a.aaa101=#{uid};
@@ -49,7 +49,7 @@
     </select>
     
     <select id="getNoteCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT b.aab101 AS 'toCId', b.aab102 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','游记攻略' AS 'type'
+        SELECT b.aab101 AS 'toCId', b.aab102 AS 'title', DATE_FORMAT(a.aac005,'%Y-%m-%d %H:%i:%S') AS 'time', a.aac004 AS 'content','游记攻略' AS 'type'
         FROM ac00 a, ab01 b
         WHERE a.aac002=1 AND a.aac003=b.aab101 AND a.aac006=1
         AND a.aaa101=#{uid}
@@ -57,7 +57,7 @@
     </select>
     
     <select id="getSightCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT b.aab301 AS 'toCId', b.aab302 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','景点' AS 'type'
+        SELECT b.aab301 AS 'toCId', b.aab302 AS 'title', DATE_FORMAT(a.aac005,'%Y-%m-%d %H:%i:%S') AS 'time', a.aac004 AS 'content','景点' AS 'type'
         FROM ac00 a, ab03 b
         WHERE a.aac002=3 AND a.aac003=b.aab301 AND a.aac006=1
         AND a.aaa101=#{uid}
@@ -65,7 +65,7 @@
     </select>
     
     <select id="getSysCommentInfoByUId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT b.aab201 AS 'toCId', b.aab202 AS 'title', a.aac005 AS 'time', a.aac004 AS 'content','系统攻略' AS 'type'
+        SELECT b.aab201 AS 'toCId', b.aab202 AS 'title', DATE_FORMAT(a.aac005,'%Y-%m-%d %H:%i:%S') AS 'time', a.aac004 AS 'content','系统攻略' AS 'type'
         FROM ac00 a, ab02 b
         WHERE a.aac002=2 AND a.aac003=b.aab201 AND a.aac006=1
         AND a.aaa101=#{uid}
