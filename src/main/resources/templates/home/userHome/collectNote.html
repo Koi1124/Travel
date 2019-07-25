@@ -77,7 +77,7 @@
                                 <p>作者：<a href="用户空间" th:href="@{'/u/'+${collectNote.authorId}+'/note'}" class="name"><hhh th:text="${collectNote.authorName}">茄子</hhh></a></p>
                             </div>
 
-                            <div class="tool_right" th:if="${session.user_id eq collectNote.authorId}">
+                            <div class="tool_right">
                                 <span class="delete" th:onclick="'deleteCollect('+ ${collectNote.collectId} +')'"></span>
                             </div>
                         </div>

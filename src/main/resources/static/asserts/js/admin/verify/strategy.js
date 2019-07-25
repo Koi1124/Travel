@@ -136,6 +136,7 @@ function clickSubmit() {
                     name: $("#title-input").val(),
                     summary: $("#summary").val(),
                     pid: $("#poi-hidden").val(),
+                    pic: "http://n2-q.mafengwo.net/s10/M00/4F/AF/wKgBZ1lsKTuAUOcqAAJLnuu3Czc692.png?imageMogr2%2Fthumbnail%2F%21540x320r%2Fgravity%2FCenter%2Fcrop%2F%21540x320%2Fquality%2F100",
                     routes: routes
                 };
                 url = "/admin/strategy/add";
