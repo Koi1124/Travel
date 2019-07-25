@@ -59,7 +59,7 @@
 	</update>
 	
 	<select id="getPwdAndRoleByName" parameterType="java.lang.String" resultType="java.util.HashMap">
-    	SELECT aaa403 AS pwd,aaa404 AS role
+    	SELECT aaa403 AS pwd,aaa404 AS role,aaa407 AS state
     	FROM aa04
     	WHERE aaa402=#{name};
     </select>
