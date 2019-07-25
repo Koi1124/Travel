@@ -141,7 +141,7 @@ public class AdminService
         }
         else
         {    //数据库没有该数据
-        	return null;
+        	return "数据库没有该用户";
         }
         
     }
