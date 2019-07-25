@@ -125,14 +125,14 @@
         LEFT JOIN
         (SELECT b.aab301 AS 'sid', count(DISTINCT(b.aab301)) AS 'commentCount'
         FROM ac00 a, ab03 b
-        WHERE a.aac002=3 AND a.aac003=b.aab301
-        ORDER BY sid)t2
+        WHERE a.aac002=3 AND a.aac006=1 AND a.aac003=b.aab301
+        GROUP BY sid)t2
         ON t1.sid=t2.sid
         LEFT JOIN
         (SELECT b.aab301 AS 'sid', count(DISTINCT(b.aab301)) AS 'starCount'
         FROM ad04 a, ab03 b
         WHERE a.aad403=3 AND a.aad404=b.aab301
-        ORDER BY sid)t3
+        GROUP BY sid)t3
         ON t1.sid=t3.sid
         ;
     </select>

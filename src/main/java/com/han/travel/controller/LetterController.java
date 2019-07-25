@@ -73,39 +73,4 @@ public class LetterController
         return "letter/detail";
     }
 
-
-
-//    @GetMapping("/detail/2")
-//    public String toDetailPage(HttpSession session, Map<String,Object> dto)
-//    {
-//        session.setAttribute("user_id",1);
-//
-//        int id=2;
-//        //int num=SocketServer.getOnlineNum();
-//        //String name=SocketServer.getOnlineUsers();
-//        dto.put("detail",letterService.getDetailByClientAndToClient((Integer) session.getAttribute("user_id"),id));
-//        dto.put("toClient",userService.getUserPicAndNameById(id));
-//        //dto.put("toClientId",id);
-////        System.out.println("num:"+num);
-////        System.out.println("name:"+name);
-//        return "letter/detail";
-//    }
-//
-//    @GetMapping("/detail/1")
-//    public String toDetailPage2(HttpSession session,  Map<String,Object> dto)
-//    {
-//        session.setAttribute("user_id",2);
-//
-//        int id=1;
-//        //int num=SocketServer.getOnlineNum();
-//        //String name=SocketServer.getOnlineUsers();
-//        dto.put("detail",letterService.getDetailByClientAndToClient((Integer) session.getAttribute("user_id"),id));
-//        dto.put("toClient",userService.getUserPicAndNameById(id));
-//        System.out.println(dto);
-//        //dto.put("toClientId",id);
-////        System.out.println("num:"+num);
-////        System.out.println("name:"+name);
-//        return "letter/detail";
-//    }
-
 }

@@ -224,14 +224,14 @@
         LEFT JOIN
         (SELECT b.aab101 AS 'nid', count(DISTINCT(b.aab101)) AS 'commentCount'
         FROM ac00 a, ab01 b
-        WHERE a.aac002=1 AND a.aac003=b.aab101
-        ORDER BY nid)t2
+        WHERE a.aac002=1 AND a.aac003=b.aab101 AND AND a.aac006=1
+        GROUP BY nid)t2
         ON t1.nid=t2.nid
         LEFT JOIN
         (SELECT b.aab101 AS 'nid', count(DISTINCT(b.aab101)) AS 'starCount'
         FROM ad04 a, ab01 b
         WHERE a.aad403=1 AND a.aad404=b.aab101
-        ORDER BY nid)t3
+        GROUP BY nid)t3
         ON t1.nid=t3.nid
         ;
     </select>
