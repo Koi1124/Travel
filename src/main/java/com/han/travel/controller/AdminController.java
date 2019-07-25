@@ -175,7 +175,7 @@ public class AdminController
     public String loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {
 		String result=adminService.adminCheck(map);
-		 if(result.equals("用户名或密码不正确"))
+		 if(result.equals("用户名或密码不正确")||result.equals("数据库没有该用户"))
 		 {
 			 return "用户名或密码不正确";
 		 }
