@@ -5,10 +5,7 @@ import com.han.travel.service.CommentService;
 import com.han.travel.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -131,5 +128,22 @@ public class CommentController
     public boolean deleteReply(@RequestBody Map<String, String> map)
     {
         return commentService.deleteReplyById(Integer.valueOf(map.get("id")));
+    }
+
+
+    /**
+     *@discription: 根据用户id和景点id判断是否有评论，并进行返回 map->
+     * uid: 用户id
+     * sid: 景点id
+     *@param map 
+     *@date: 2019/7/25 16:08
+     *@return: java.util.Map<java.lang.String,java.lang.Object>
+     *@author: Han
+     */
+    @RequestMapping("/haveReviews")
+    @ResponseBody
+    public Map<String,Object> getScoreAndCId(@RequestBody Map<String,Object> map)
+    {
+        return commentService.getScoreAndCId(map);
     }
 }

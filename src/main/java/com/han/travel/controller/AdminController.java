@@ -154,7 +154,13 @@ public class AdminController
         return adminService.changeAb01State(map);
     }
 	
-	
+	@PostMapping("/admin/note/setTop")
+	@ResponseBody
+	public boolean setTopNote(@RequestBody Map<String, Object> map)
+	{
+		messageService.passNote(map.get("nid"));
+		return adminService.setTopNote(map);
+	}
 	
 	//======================管理员模块相关功能=========================
 	@PostMapping("/admin/aa04/fuzzyQuery")
@@ -402,6 +408,48 @@ public class AdminController
 		return "admin/verify/previewSight";
 	}
 
+
+	@RequestMapping("/admin/sight/new")
+	public String newSight()
+	{
+		return "admin/verify/sight";
+	}
+
+
+	@RequestMapping("/admin/sight/{id}")
+	public String sight(@PathVariable int id, Map<String, Object> dto)
+	{
+		dto.putAll(adminService.ab03queryById(id));
+		return "admin/verify/sight";
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 添加景点
+	 * @Date 2019/7/25
+	 * @param map
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/addSight")
+	@ResponseBody
+	public boolean addSight(@RequestBody Map<String, Object> map)
+	{
+		return adminService.insertAttraction(map);
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 更新景点
+	 * @Date 2019/7/25
+	 * @param map
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/updateSight")
+	@ResponseBody
+	public boolean updateSight(@RequestBody Map<String, Object> map)
+	{
+		return adminService.updateAttraction(map);
+	}
 
 	//========================审核详细页面=========================================
 	/**

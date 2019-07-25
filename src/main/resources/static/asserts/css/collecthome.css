@@ -173,3 +173,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.banner_ask {
+    background-image: url(https://css.mafengwo.net/images/home_new2015/banner_ask.gif);
+}

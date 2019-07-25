@@ -1,13 +1,8 @@
 package com.han.travel.service;
 
 
-import com.han.travel.dao.Aa01Dao;
-import com.han.travel.dao.Aa03Dao;
-import com.han.travel.dao.Aa04Dao;
-import com.han.travel.dao.Ab01Dao;
-import com.han.travel.dao.Ab02Dao;
-import com.han.travel.dao.Ab03Dao;
-import com.han.travel.dao.Ab05Dao;
+import com.han.travel.dao.*;
+import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.PageBean;
 import com.han.travel.support.Utils;
 
@@ -48,11 +43,15 @@ public class AdminService
     
     @Resource
     private Aa01Dao aa01Dao;
+
+    @Resource
+    private TopNoteDao topNoteDao;
+
     /**
      * @Author 
      * @Description 
      * @Date 2019/7/15
-     * @param map
+     * @param str
      * @return boolean
      **/
     public boolean notEmpty(String str)
@@ -210,7 +209,12 @@ public class AdminService
     {	
 		return ab01Dao.changeStateById(map);
     }
-    
+
+    public boolean setTopNote(Map<String, Object> map)
+    {
+        topNoteDao.addTopNote(map);
+        return ab01Dao.changeStateById(map);
+    }
     
     //=====================攻略=======================
   	public boolean insertStrategy(Map<String,Object>map)
@@ -241,7 +245,9 @@ public class AdminService
   	//======================景点========================
   	public boolean insertAttraction(Map<String,Object>map)
     {
-		return ab03Dao.insertAttraction(map);
+		String path = ImgUploadTools.uploadImg(map.get("image").toString());
+		map.put("image", path);
+        return ab03Dao.insertAttraction(map);
     }
   	
   	public boolean delAttraction(Map<String,Object>map)
@@ -251,7 +257,9 @@ public class AdminService
   	
   	public boolean updateAttraction(Map<String,Object>map)
     {
-		return ab03Dao.updateAttraction(map);
+        String path = ImgUploadTools.uploadImg(map.get("image").toString());
+        map.put("image", path);
+        return ab03Dao.updateAttraction(map);
     }
   	
   	public Map<String,Object> ad03fuzzyQuery(Map<String,Object>map)
@@ -259,9 +267,9 @@ public class AdminService
 		return PageBean.fuzzyQuery(ab03Dao, "ab03",map);
     }
   	
-  	public Map<String,Object> ab03queryById(Map<String,Object>map)
+  	public Map<String,Object> ab03queryById(int sid)
     {
-		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
+		return ab03Dao.getSightDetailById(sid, null);
     }
   	public boolean exist(Map<String,Object>map)
     {

@@ -163,7 +163,7 @@ function clickSubmit() {
                 async: true,
                 success: function (data) {
                     if (data) {
-                        logSuccess(msg + "成功，1秒回自动关闭");
+                        logSuccess(msg + "成功，1秒后自动关闭");
                         setTimeout(function () {
                             xadmin.close();
                             xadmin.father_reload();
