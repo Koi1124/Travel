@@ -38,6 +38,15 @@
             background-color: #ff9d00;
             color: rgb(255, 255, 255);
         }
+        input{
+            border-radius: 3px;
+            border:0.8px solid #a1a1a1;
+        }
+        .line-intro .notes .onetip{margin-bottom: 5px;}
+        textarea{
+            border-radius: 3px;
+            border:0.8px solid #a1a1a1;
+        }
     </style>
 
     <title th:text="${name}"></title>
@@ -75,12 +84,9 @@
     <div class="row row-picture row-bg" style="height: auto">
         <div class="wrapper">
 
-            <img id="poi-pic" th:src="${pic}" src="https://n1-q.mafengwo.net/s14/M00/DF/DB/wKgE2l01azyABJj0AAY2b3acvBQ961.jpg?imageMogr2%2Finterlace%2F1"
-                 width="600px" height="400px">
-            <div>
-                <span>选择图片</span><br/>
-                <input id="file" type="file" value=""/>
-            </div>
+            <img id="poi-pic" th:src="${pic eq null?'/asserts/img/upload/add.png':pic}"
+                 height="400px" onclick="file.click();">
+            <input id="file" style="display: none" type="file" value=""/>
         </div>
     </div>
 
