@@ -30,7 +30,7 @@ $(document).ready(function() {
 	            	
 	            	var ls=data[i];
 	            	html="<tr><td>"+ls.author+"</td><td>"+ls.aab102+
-	            	     "</td><td>"+ls.aab104+"</td><td>"+ls.aab105+"</td><td>"+ls.aab106+
+	            	     "</td><td>"+transTime(ls.aab104)+"</td><td>"+ls.aab105+"</td><td>"+ls.aab106+
 	            	     "</td><td>"+ls.aab107+"</td><td>"+ls.poi+
 	            	     "</td><td width='50px' class='td-manage'>" +
 	            	     "<a title='查看详情' onclick=\"xadmin.open('查看详情','/admin/note/preview/"+ls.aab101+"')\">" +
@@ -97,4 +97,9 @@ function check(id,state)
 	ab01SelectTest(); 
 
 }
-
+function transTime(date) 
+{
+	  var dateee = new Date(date).toJSON();
+	  return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
+	
+}
