@@ -38,6 +38,36 @@
             background-color: #ff9d00;
             color: rgb(255, 255, 255);
         }
+        .ufile {
+            position: relative;
+            display: inline-block;
+            background: #D0EEFF;
+            border: 1px solid #99D3F5;
+            border-radius: 4px;
+            padding: 4px 12px;
+            overflow: hidden;
+            color: #1E88C7;
+            cursor:pointer;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 20px;
+        }
+.ufile input {
+    position: absolute;
+    font-size: 100px;
+    cursor:pointer;
+    right: 0;
+    top: 0;
+    opacity: 0;
+			}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    cursor:pointer;
+    color: #004974;
+    text-decoration: none;
+		}
+        
     </style>
 
     <title th:text="${name}"></title>
@@ -64,7 +94,7 @@
     <script th:src="@{/asserts/js/common/jquery-ui.js}" charset="UTF-8"></script>
     <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript"  charset="UTF-8"></script>
     <script th:src="@{/asserts/js/admin/verify/sight.js}" charset="UTF-8"></script>
-
+	
 
 
 </head>
@@ -78,9 +108,8 @@
             <img id="poi-pic" th:src="${pic}" src="https://n1-q.mafengwo.net/s14/M00/DF/DB/wKgE2l01azyABJj0AAY2b3acvBQ961.jpg?imageMogr2%2Finterlace%2F1"
                  width="600px" height="400px">
             <div>
-                <span>选择图片</span><br/>
-                <input id="file" type="file" value=""/>
-            </div>
+                <input  id="file" type="file" accept="image/*"   value=""/>            
+</div>
         </div>
     </div>
 
@@ -157,6 +186,12 @@
 
     <a id="btn-publish" class="btn-publish" onclick="clickSubmit()">提交</a>
 </div>
+<script type="text/javascript">
+$("#poi-summary").text($("#poi-summary").text().replace(/<br\/>/g, "\n"));
+$("#poi-traffic").text($("#poi-traffic").text().replace(/<br\/>/g, "\n"));
+$("#poi-ticket").text($("#poi-ticket").text().replace(/<br\/>/g, "\n"));
+$("#poi-openTime").text($("#poi-openTime").text().replace(/<br\/>/g, "\n"));
+</script>
 </body>
 
 </html>

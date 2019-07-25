@@ -117,6 +117,6 @@ function find(city,name)
 	}
 	else
 	{
-		toastr.error('查询失败');
+		toastr.error('数据不存在或禁止访问!');
 	}
 }

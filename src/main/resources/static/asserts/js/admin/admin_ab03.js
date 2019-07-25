@@ -124,7 +124,7 @@ function find(name,intro)
 	}
 	else
 	{
-		toastr.error('查询失败');
+		toastr.error('查询数据不存在或禁止访问!');
 	}
 }
 function changeEmpty(str)
