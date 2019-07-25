@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        .locationmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-weight: 600;
+            font-family: "PingFangSC-Regular";
+        }
+        textarea {
+            width:100%;
+            height:150px;
+        }
+        .btn-publish {
+            display: inline-block;
+            margin-left: 400px;
+            margin-bottom: 25px;
+            padding: 0 55px;
+            height: 60px;
+            background: -webkit-linear-gradient(-30deg,transparent 0,rgba(255,138,0,.3) 30%,rgba(255,138,0,1) 90%);
+            background-color: #ff9d00;
+            border-radius: 30px;
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            line-height: 60px;
+            text-align: center;
+            box-shadow: 0 0 7px rgba(0,0,0,0.15);
+            vertical-align: middle;
+        }
+        .btn-publish:hover {
+            text-decoration: none;
+            background-color: #ff9d00;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+
+    <title th:text="${name}"></title>
+
+    <link
+            href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
+            rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1530619858.css"
+          rel="stylesheet" type="text/css">
+
+    <link href="https://css.mafengwo.net/css/mdd/mfw-reviews.css?1530619858" rel="stylesheet" type="text/css">
+    <link th:href="@{/asserts/css/tools/spop.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/jquery-ui.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/asserts/css/common/scrollbar.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        var sid = [[${sid}]];
+    </script>
+
+    <script th:src="@{/asserts/js/common/jquery.js}" charset="UTF-8"></script>
+    <script th:src="@{/asserts/js/tools/spop.js}" charset="UTF-8"></script>
+    <script th:src="@{/asserts/lib/layui/layui.js}" charset="UTF-8"></script>
+    <script th:src="@{/asserts/js/common/jquery-ui.js}" charset="UTF-8"></script>
+    <script th:src="@{/asserts/js/xadmin.js}"  type="text/javascript"  charset="UTF-8"></script>
+    <script th:src="@{/asserts/js/admin/verify/sight.js}" charset="UTF-8"></script>
+
+
+
+</head>
+
+<body>
+
+<div data-anchor="overview">
+    <div class="row row-picture row-bg" style="height: auto">
+        <div class="wrapper">
+
+            <img id="poi-pic" th:src="${pic}" src="https://n1-q.mafengwo.net/s14/M00/DF/DB/wKgE2l01azyABJj0AAY2b3acvBQ961.jpg?imageMogr2%2Finterlace%2F1"
+                 width="600px" height="400px">
+            <div>
+                <span>选择图片</span><br/>
+                <input id="file" type="file" value=""/>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="extra">
+        </div>
+
+        <!-- POI名称 S-->
+        <div class="title" style="font-size: 24px">
+            <span>景点名称：</span><input id="poi-name" th:value="${name}" value="圣弥厄尔大教堂"/><br/>
+            <span>所属省市：</span><input id="poi-pname" th:value="${pname}" value="河南"/>
+            <input id="poi-hidden" type="hidden" th:value="${pid}" value=""/>
+        </div>
+        <!-- POI名称 E-->
+
+    </div>
+
+    <!-- 简介 S -->
+    <div class="mod mod-detail" data-cs-p="概况">
+        <span>景点信息：</span>
+        <textarea id="poi-summary" class="summary" th:utext="${summary}">
+        </textarea>
+
+        <ul class="baseinfo clearfix">
+            <li class="tel">
+                <div class="label">电话</div>
+                <input id="poi-phone" class="content" th:value="${phone}" value="0532-82865960"/>
+            </li>
+            <li class="item-site">
+                <div class="label">网址</div>
+                <div class="content">
+                    <input id="poi-site" th:value="${site}" value="http://www.cnhhl.com/" />
+                </div>
+            </li>
+            <li class="item-time">
+                <div class="label">用时参考</div>
+                <input id="poi-time" class="content" th:value="${commendTime}" value="1小时以下"/>
+            </li>
+        </ul>
+
+        <dl>
+            <dt>交通</dt>
+            <dd>
+                <textarea id="poi-traffic" th:utext="${traffic}"></textarea>
+            </dd>
+        </dl>
+        <dl>
+            <dt>门票</dt>
+            <dd>
+                <textarea id="poi-ticket" th:utext="${ticket}">
+                </textarea>
+
+            </dd>
+        </dl>
+        <dl>
+            <dt>开放时间</dt>
+            <dd>
+                <textarea id="poi-openTime" th:utext="${openTime}" style="max-height: none; overflow: initial;"></textarea>
+            </dd>
+        </dl>
+
+    </div>
+    <!-- 简介 End -->
+
+    <!-- 位置 S -->
+    <div class="mod mod-location">
+        <div class="mhd" style="overflow: hidden;">景点位置：<input class="sub" id="poi-location" style="width: 400px" th:value="${position}"/>
+        </div>
+        <span>经度：</span><input id="poi-longitude" th:value="${longitude}"/><br/>
+        <span>纬度：</span><input id="poi-latitude" th:value="${latitude}"/>
+    </div>
+
+    <!-- 位置 End -->
+
+    <a id="btn-publish" class="btn-publish" onclick="clickSubmit()">提交</a>
+</div>
+</body>
+
+</html>

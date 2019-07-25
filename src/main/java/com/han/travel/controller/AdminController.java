@@ -166,19 +166,23 @@ public class AdminController
 	
 	@PostMapping("/admin/check")
     @ResponseBody					
-    public boolean loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
+    public String loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {
 		String result=adminService.adminCheck(map);
-		System.out.println("2");
-		 if(result!=null)
+		 if(result.equals("用户名或密码不正确"))
+		 {
+			 return "用户名或密码不正确";
+		 }
+		 else if(result.equals("管理员未启用"))
+		 {
+			 return "管理员未启用";
+		 }
+		 else
 		 {
 			 request.getSession().setAttribute("adminusername", map.get("username"));
 			 request.getSession().setAttribute("adminpassword", map.get("password"));
 			 request.getSession().setAttribute("role",result);
-			 return true;
-		 }else
-		 {
-			 return false;
+			 return "正确";
 		 }
     }
 	
@@ -398,6 +402,48 @@ public class AdminController
 		return "admin/verify/previewSight";
 	}
 
+
+	@RequestMapping("/admin/sight/new")
+	public String newSight()
+	{
+		return "admin/verify/sight";
+	}
+
+
+	@RequestMapping("/admin/sight/{id}")
+	public String sight(@PathVariable int id, Map<String, Object> dto)
+	{
+		dto.putAll(adminService.ab03queryById(id));
+		return "admin/verify/sight";
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 添加景点
+	 * @Date 2019/7/25
+	 * @param map
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/addSight")
+	@ResponseBody
+	public boolean addSight(@RequestBody Map<String, Object> map)
+	{
+		return adminService.insertAttraction(map);
+	}
+
+	/**
+	 * @Author Saki
+	 * @Description 更新景点
+	 * @Date 2019/7/25
+	 * @param map
+	 * @return boolean
+	 **/
+	@PostMapping("/admin/updateSight")
+	@ResponseBody
+	public boolean updateSight(@RequestBody Map<String, Object> map)
+	{
+		return adminService.updateAttraction(map);
+	}
 
 	//========================审核详细页面=========================================
 	/**

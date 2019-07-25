@@ -26,22 +26,22 @@
 	
 	<insert id="insertAttraction" parameterType="java.util.HashMap" >
 		INSERT into ab03(aaa301,aab302,aab303,aab304,aab305,aab306,aab307,aab308,aab309,aab310,aab311,aab312,aab313)
-		VALUES(#{aaa301},#{aab302},#{aab303},#{aab304},#{aab305},#{aab306},
-		#{aab307},#{aab308},#{aab309},#{aab310},#{aab311},#{aab312},#{aab313})
+		VALUES(#{pid},#{name},#{summary},#{phone},#{site},#{time},
+		#{traffic},#{ticket},#{openTime},#{location},#{longitude},#{latitude},#{image})
 		;
 	</insert>
 	
 	<delete id="delAttraction" parameterType="java.lang.Integer" >
 		DELETE FROM ab03
-		WHERE aab301=#{id}
+		WHERE aab301=#{id};
 	</delete>
 	
 	<update id="updateAttraction" parameterType="java.util.HashMap"  >
 		UPDATE ab03
-		SET aaa301=#{aaa301},aab302=#{aab302},aab303=#{aab303},aab304=#{aab304},aab305=#{aab305},
-		aab306=#{aab306},aab307=#{aab307},aab308=#{aab308},aab309=#{aab309},aab310=#{aab310},
-		aab311=#{aab311},aab312=#{aab312},aab313=#{aab313}
-		WHERE aab301=#{id}
+		SET aaa301=#{pid},aab302=#{name},aab303=#{summary},aab304=#{phone},aab305=#{site},
+		aab306=#{time},aab307=#{traffic},aab308=#{ticket},aab309=#{openTime},aab310=#{location},
+		aab311=#{longitude},aab312=#{latitude},aab313=#{image}
+		WHERE aab301=#{sid};
 	</update>
 		
 	<select id="fuzzySelectCount" parameterType="java.lang.String" resultType="java.lang.Integer">

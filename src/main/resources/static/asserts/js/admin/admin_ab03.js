@@ -43,7 +43,7 @@ $(document).ready(function() {
                              "<i class='layui-icon layui-icon-link' style=' font-size: 23px;margin-left:20px '  ></i></a>" +
                              "</a></td>"+
 		            	     "<td class='td-manage'>"+
-		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"   /editAttraction?id="+ls.aab301+"&operation=2    \",600,600)'>"+
+		            	     "<button class='layui-btn layui-btn layui-btn-xs'  onclick='xadmin.open(\"编辑\",\"/admin/sight/"+ls.aab301+"\")'>"+
 		            		 "<i class='layui-icon'>&#xe642;</i>编辑</button><br>"+
 	                         "<button class='layui-btn-danger layui-btn layui-btn-xs'  onclick='delAttraction("+ls.aab301+")'>"+
 	                         "<i class='layui-icon'>&#xe640;</i>删除</button>"+

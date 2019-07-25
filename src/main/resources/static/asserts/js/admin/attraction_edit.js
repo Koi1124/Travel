@@ -27,14 +27,14 @@ $(document).ready(function() {
 	        success: function (result) {
 	        	$("#parentId").val(result.aaa301);
 	        	$("#name").val(result.aab302);
-	        	$("#intro").val(result.aab303);
+	        	$("#intro").val(result.aab303.replace(/<br\/>/g,"\n"));
 	        	$("#tel").val(result.aab304);
 	        	$("#web").val(result.aab305);
 	        	$("#timeReference").val(result.aab306);
-	        	$("#tran").val(result.aab307);
-	        	$("#ticket").val(result.aab308);
-	        	$("#openTime").val(result.aab309);
-	        	$("#location").val(result.aab310);
+	        	$("#tran").html(result.aab307);
+	        	$("#ticket").html(result.aab308.replace(/<br\/>/g,"\n"));
+	        	$("#openTime").html(result.aab309.replace(/<br\/>/g,"\n"));
+	        	$("#location").html(result.aab310);
 	        	$("#longitude").val(result.aab311);
 	        	$("#latitude").val(result.aab312);
 	        	$("#img").attr('src',result.aab313);

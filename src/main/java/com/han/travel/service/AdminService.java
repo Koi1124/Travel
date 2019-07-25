@@ -8,6 +8,7 @@ import com.han.travel.dao.Ab01Dao;
 import com.han.travel.dao.Ab02Dao;
 import com.han.travel.dao.Ab03Dao;
 import com.han.travel.dao.Ab05Dao;
+import com.han.travel.support.ImgUploadTools;
 import com.han.travel.support.PageBean;
 import com.han.travel.support.Utils;
 
@@ -52,7 +53,7 @@ public class AdminService
      * @Author 
      * @Description 
      * @Date 2019/7/15
-     * @param map
+     * @param str
      * @return boolean
      **/
     public boolean notEmpty(String str)
@@ -117,21 +118,27 @@ public class AdminService
     
     public String adminCheck(Map<String, Object> map)
     {
-    	System.out.println("get");
         String username=map.get("username").toString();
         String password=map.get("password").toString();
-        System.out.println("username:"+username+"password:"+password);
         Map<String,Object> result=aa04Dao.getPwdAndRoleByName(username);
         if(result!=null)  //数据库存在该数据时
         {
         	if(Utils.encode(password).substring(0,18).equals(result.get("pwd").toString()))
             {
-            	return result.get("role").toString();
+        		if(result.get("state").toString().equals("0"))
+        		{
+        			
+        			return "管理员未启用";//用户未启用
+        		}
+        		else
+        		{
+        			return result.get("role").toString();	
+        		}	
             }
             else
             {
             	//用户名和密码不对
-            	return null;
+            	return "用户名或密码不正确";
             }
         }
         else
@@ -235,7 +242,9 @@ public class AdminService
   	//======================景点========================
   	public boolean insertAttraction(Map<String,Object>map)
     {
-		return ab03Dao.insertAttraction(map);
+		String path = ImgUploadTools.uploadImg(map.get("image").toString());
+		map.put("image", path);
+        return ab03Dao.insertAttraction(map);
     }
   	
   	public boolean delAttraction(Map<String,Object>map)
@@ -245,7 +254,9 @@ public class AdminService
   	
   	public boolean updateAttraction(Map<String,Object>map)
     {
-		return ab03Dao.updateAttraction(map);
+        String path = ImgUploadTools.uploadImg(map.get("image").toString());
+        map.put("image", path);
+        return ab03Dao.updateAttraction(map);
     }
   	
   	public Map<String,Object> ad03fuzzyQuery(Map<String,Object>map)
@@ -253,15 +264,17 @@ public class AdminService
 		return PageBean.fuzzyQuery(ab03Dao, "ab03",map);
     }
   	
-  	public Map<String,Object> ab03queryById(Map<String,Object>map)
+  	public Map<String,Object> ab03queryById(int sid)
     {
-		return ab03Dao.queryById(Integer.parseInt(map.get("id").toString()));
+		return ab03Dao.getSightDetailById(sid, null);
     }
   	public boolean exist(Map<String,Object>map)
     {
 		int id=0;
-		if(map.get("id").toString()!=null&&!(map.get("id").toString()).equals("")&&map.get("id") instanceof java.lang.Integer)
+		String tem=map.get("id").toString();
+		if(tem!=null&&!tem.equals("")&&tem.matches("^[0-9]*$"))
 		{
+			
 			id=Integer.parseInt(map.get("id").toString());
 		}
 		return aa03Dao.exist(id)>0;
