@@ -176,7 +176,7 @@
                                                     transition: box-shadow 0.25s linear 0s;">
                             <div class="item">
                                 <span class="label">用户</span>
-                                <div class="ui-input inp-tel" ><a href="##"><p th:text="${app.name}">茄子</p></a></div>
+                                <div class="ui-input inp-tel" ><a th:href="@{'/u/' + ${app.id} + '/note'}"><p th:text="${app.name}">茄子</p></a></div>
                             </div>
                             <div class="item">
                                 <span class="label">联系电话</span>

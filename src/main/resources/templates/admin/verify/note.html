@@ -89,10 +89,6 @@
                 <div class="vc_time">
                     <span class="time" th:text="${editTime}">2019-07-09 14:41</span>
                 </div>
-                <div th:if="${uid eq session.user_id}" class="person-edit">
-                    <a th:href="'/note/editNote/' + ${nid}" title="编辑">编辑</a>|
-                    <a id="btn-delete" title="删除">删除</a>
-                </div>
             </div>
 
 
