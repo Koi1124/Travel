@@ -19,7 +19,7 @@ $(document).ready(function() {
 	        data:JSON.stringify({currPage:currPage.text(),city:city,name:name}),
 	        contentType: "application/json",
 	        dataType: "json",
-	        async: true,
+	        async: false,
 	        success: function (result) {
 	        		var data=result.data;
 	        		count=data.length;
