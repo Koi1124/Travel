@@ -41,7 +41,7 @@
                         <dd>
                             <a onclick='xadmin.open("修改个人信息","/editInfo?adminname="+$("#tag").val(),600,600 )'>修改个人信息</a></dd>
                         <dd>
-                            <a href="/admin">退出</a></dd>
+                            <a href="#" onclick="exit()">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
@@ -150,8 +150,15 @@
         $(document).ready(function() {
         	var adminname=$("#tag").val();
 			$("#iframe").attr('src','/welcome?adminname='+adminname);
+			
         })
-
+		function exit()
+			{
+				$('.layui-tab-title li[lay-id]').find('.layui-tab-close').click();
+				$('#tab_right').hide();
+		        $('#tab_show').hide();
+		        location.href='/admin';
+			}
 		</script>
     </body>
 

@@ -166,19 +166,23 @@ public class AdminController
 	
 	@PostMapping("/admin/check")
     @ResponseBody					
-    public boolean loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
+    public String loginCheck(@RequestBody Map<String, Object> map,HttpServletRequest request)
     {
 		String result=adminService.adminCheck(map);
-		System.out.println("2");
-		 if(result!=null)
+		 if(result.equals("用户名或密码不正确"))
+		 {
+			 return "用户名或密码不正确";
+		 }
+		 else if(result.equals("管理员未启用"))
+		 {
+			 return "管理员未启用";
+		 }
+		 else
 		 {
 			 request.getSession().setAttribute("adminusername", map.get("username"));
 			 request.getSession().setAttribute("adminpassword", map.get("password"));
 			 request.getSession().setAttribute("role",result);
-			 return true;
-		 }else
-		 {
-			 return false;
+			 return "正确";
 		 }
     }
 	

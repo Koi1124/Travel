@@ -118,21 +118,27 @@ public class AdminService
     
     public String adminCheck(Map<String, Object> map)
     {
-    	System.out.println("get");
         String username=map.get("username").toString();
         String password=map.get("password").toString();
-        System.out.println("username:"+username+"password:"+password);
         Map<String,Object> result=aa04Dao.getPwdAndRoleByName(username);
         if(result!=null)  //数据库存在该数据时
         {
         	if(Utils.encode(password).substring(0,18).equals(result.get("pwd").toString()))
             {
-            	return result.get("role").toString();
+        		if(result.get("state").toString().equals("0"))
+        		{
+        			
+        			return "管理员未启用";//用户未启用
+        		}
+        		else
+        		{
+        			return result.get("role").toString();	
+        		}	
             }
             else
             {
             	//用户名和密码不对
-            	return null;
+            	return "用户名或密码不正确";
             }
         }
         else
@@ -265,8 +271,10 @@ public class AdminService
   	public boolean exist(Map<String,Object>map)
     {
 		int id=0;
-		if(map.get("id").toString()!=null&&!(map.get("id").toString()).equals("")&&map.get("id") instanceof java.lang.Integer)
+		String tem=map.get("id").toString();
+		if(tem!=null&&!tem.equals("")&&tem.matches("^[0-9]*$"))
 		{
+			
 			id=Integer.parseInt(map.get("id").toString());
 		}
 		return aa03Dao.exist(id)>0;

@@ -45,5 +45,12 @@ public class WelcomeController
         return "homepage";
     }
 
+    @RequestMapping("/userTest")
+    public String tooo(HttpSession session)
+    {
+        session.setAttribute(SessionConfig.USER_ID,1);
+        session.setAttribute(SessionConfig.USER_NAME,"user1");
+        return "homepage";
+    }
 
 }

@@ -86,10 +86,10 @@ function member_stop(obj,state,id){
 	  	        dataType: "json",
 	  	        async: true,
 	  	        success: function (result) {
-	  	        	console.log('已修改');
+	  	        	toastr.success('修改成功');
 	  	        },
 	  	        error: function (e) {
-	  	        	console.log('网络故障');
+	  	        	toastr.error('修改失败');
 	  	        }
 	  	    });
 	          fuzzyQueryTest();
