@@ -70,7 +70,7 @@ public class PageBean
     	List<Map<String,Object>>data=check.getAll(param);
     	Map<String,Object> result=new HashMap<>();
     	result.put("data", data);
-    	result.put("currPage",bean.getCurrPage());
+    	result.put("currPage",currPage);
     	result.put("tolPage",bean.getTolPage());
     	return result;
 	}

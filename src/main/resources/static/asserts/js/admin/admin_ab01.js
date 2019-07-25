@@ -15,7 +15,7 @@ $(document).ready(function() {
 		$.ajax({
 	        type: "post",
 	        url: "/admin/ab01/selectByPage",
-	        data:JSON.stringify({currPage:currPage.text()}),
+	        data:JSON.stringify({currPage:$("#pageNum").text()}),
 	        contentType: "application/json",
 	        dataType: "json",
 	        async: true,

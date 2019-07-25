@@ -33,7 +33,7 @@ $(document).ready(function() {
 		            	var ls=data[i];
 		            	html="<tr><td>"+ls.aaa302+"</td><td>"+ls.aab302+"</td><td>"+
 		            	 	 "<p>"+ls.aab303+
-		            	     "</p></td><td>"+ls.aab304+"</td><td>"+ls.aab305+"</td><td>"+ls.aab306+"</td><td>"+
+		            	     "</p></td><td>"+changeEmpty(ls.aab304)+"</td><td>"+changeEmpty(ls.aab305)+"</td><td>"+changeEmpty(ls.aab306)+"</td><td>"+
 		            	     "<p>"+ls.aab307+
 		            	     "</p></td><td><p>"+ls.aab308+
 		            	     // "</p></td><td><p>"+ls.aab309+
@@ -86,7 +86,16 @@ function decrease(page)
 	fuzzyQueryTest($("#name").val(),$("#intro").val()); 
 }
 
-
+function endPage(page)
+{
+	$(page).text($("#tolPage").text());
+	fuzzyQueryTest($("#name").val(),$("#intro").val());
+}
+function startPage(page)
+{
+	$(page).text(1);
+	fuzzyQueryTest($("#name").val(),$("#intro").val());
+}
 function delAttraction(id)
 {
 	$.ajax({
@@ -117,4 +126,8 @@ function find(name,intro)
 	{
 		toastr.error('查询失败');
 	}
+}
+function changeEmpty(str)
+{
+	return (str==null)?'':str;
 }
