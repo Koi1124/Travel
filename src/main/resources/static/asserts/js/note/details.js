@@ -252,8 +252,41 @@ function initFollow() {
 }
 
 //==============作者操作==================================================
-function initDelete() {
+function clickDeleteNote() {
+    $("#_j_layer_0").fadeIn(250);
+}
 
+function deleteNote() {
+    $.ajax({
+        type: "post",
+        url: "/note/changeStatus",
+        contentType: "application/json",
+        dataType: "json",
+        data:JSON.stringify({
+            nid:nid,
+            status:9
+        }),
+        async: true,
+        success: function (result) {
+            if (result) {
+                logSuccess("删除成功");
+                setTimeout(function () {
+                    window.location.href = "/note/startNote";
+                }, 1250);
+            }
+            else {
+                logError("网络故障，请稍后再试");
+            }
+        },
+        error: function (e) {
+            logError("网络故障，请稍后再试");
+            console.log(e);
+        }
+    });
+}
+
+function deleteCancle() {
+    $("#_j_layer_0").fadeOut(250);
 }
 
 //==============工具方法==================================================

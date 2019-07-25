@@ -163,7 +163,7 @@ public class AdminService
     
     public String getEmailAa04(Map<String, Object> map)
     {	
-			return aa04Dao.getEmailByName(map.get("adminname").toString());		
+		return aa04Dao.getEmailByName(map.get("adminname").toString());
     }
     
     public boolean changeRoleAa04(Map<String, Object> map)

@@ -25,13 +25,6 @@ $(document).ready(function() {
         $("title").text("注册");
         turnToRegister();
     }
-    if (window.location.pathname.substr(window.location.pathname.lastIndexOf("/") + 1) == "agency") {
-        $("title").text("旅行社登录");
-        $("#name").hide();
-        path = "/agency";
-        type = "2";
-        illegal[0] = 0;
-    }
 
 
     name.blur(function () {
