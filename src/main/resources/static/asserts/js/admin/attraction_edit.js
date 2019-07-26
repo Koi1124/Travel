@@ -53,7 +53,7 @@ function exist(){
 	console.log("blur");
 	$.ajax({
         type: "post",
-        url: "http://localhost:8080/aa03/exist",
+        url: "/aa03/exist",
         data:JSON.stringify({id:$("#parentId").val()}),
         contentType: "application/json",
         dataType: "json",

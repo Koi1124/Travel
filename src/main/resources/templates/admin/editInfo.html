@@ -55,7 +55,7 @@
     	
     		$.ajax({
 				type:"post",
-				url: "http://localhost:8080/admin/aa04/getAdminEmail",
+				url: "/admin/aa04/getAdminEmail",
 				data: JSON.stringify({adminname:$('#adminname').val()}),
 			    contentType: "application/json",
 			    dataType: "text",
@@ -88,7 +88,7 @@
           form.on('submit(update)', function(data){
         	  $.ajax({
   				type:"post",
-  				url: "http://localhost:8080/admin/aa04/updateInfo",
+  				url: "/admin/aa04/updateInfo",
   				data: JSON.stringify({oldname:$("#adminname").val(),newname:$("#name").val(),email:$("#email").val()}),
   			    contentType: "application/json",
   			    dataType: "text",
