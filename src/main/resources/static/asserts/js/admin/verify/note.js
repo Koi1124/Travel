@@ -119,10 +119,7 @@ function setTopNote() {
         async: true,
         success: function (result) {
             if (result) {
-                if (status == 2)
-                    logSuccess("通过成功, 1秒后页面自动关闭");
-                else if (status == 3)
-                    logSuccess("设置成功, 1秒后页面自动关闭");
+                logSuccess("设置成功, 1秒后页面自动关闭");
                 $(".btn-publish").unbind();
 
                 setTimeout(function () {

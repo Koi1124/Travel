@@ -13,4 +13,9 @@
                 VALUES (#{nid}, #{pic}, #{title}, #{date});
     </insert>
 
+    <delete id="deleteNote">
+        DELETE FROM topnote
+        WHERE noteId=#{nid};
+    </delete>
+
 </mapper>

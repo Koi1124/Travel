@@ -124,7 +124,7 @@
                     <a class="show-pic" th:href="@{'/note/' + ${note.noteId}}" target="_blank">
                         <img th:src="${note.pic}">
                     </a>
-                    <a class="show-title dark" href="/note/82" target="_blank">
+                    <a class="show-title dark" th:href="@{'/note/' + ${note.noteId}}" target="_blank">
                         <div class="date" th:text="${note.date}">
                             <span class="day">31</span>/Dec.2018
                         </div>

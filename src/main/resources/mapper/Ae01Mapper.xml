@@ -3,7 +3,7 @@
 <mapper namespace="com.han.travel.dao.Ae01Dao">
     
     <select id="getLatestLetterByClient" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae106 AS 'state', a.aae104 AS 'client1', a.aae105 AS 'client2',
+        SELECT a.aae102 AS 'content', DATE_FORMAT(a.aae103,'%Y-%m-%d %H:%i:%S') AS 'time', a.aae106 AS 'state', a.aae104 AS 'client1', a.aae105 AS 'client2',
                 b.aae101 AS 'letter_id'
         FROM ae01 a, af01 b
         WHERE a.aae101=b.aae101 AND (a.aae104=#{id} OR a.aae105=#{id})
@@ -28,7 +28,7 @@
     </update>
 
     <select id="getDetailByClientAndToClient" resultType="java.util.HashMap">
-        SELECT a.aae102 AS 'content', a.aae103 AS 'time', a.aae104 AS 'userId'
+        SELECT a.aae102 AS 'content', DATE_FORMAT(a.aae103,'%Y-%m-%d %H:%i:%S') AS 'time', a.aae104 AS 'userId'
         FROM ae01 a
         WHERE ((a.aae104=#{cid} AND a.aae105=#{tocid}) OR (a.aae104=#{tocid} AND a.aae105=#{cid}))
         ORDER BY time

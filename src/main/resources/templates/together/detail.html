@@ -176,7 +176,7 @@
                                                     transition: box-shadow 0.25s linear 0s;">
                             <div class="item">
                                 <span class="label">用户</span>
-                                <div class="ui-input inp-tel" ><a th:href="@{'/u/' + ${app.id} + '/note'}"><p th:text="${app.name}">茄子</p></a></div>
+                                <div class="ui-input inp-tel" ><a th:href="@{'/u/' + ${app.uid} + '/note'}"><p th:text="${app.name}">茄子</p></a></div>
                             </div>
                             <div class="item">
                                 <span class="label">联系电话</span>
@@ -222,8 +222,8 @@
                     <div class="bd">
                         <ul class="clearfix" id="_apply_user_list">
                             <li th:each="applicant,appStatus:${applicants}">
-                                <a class="avatar" href="#" target="_blank"><img th:src="${applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
-                                <a class="name" href="#" target="_blank"><p th:text="${applicant.applicantName}">时光吹老了好少年</p></a>
+                                <a class="avatar" th:href="@{'/u/' + ${applicant.applicantId} + '/note'}" target="_blank"><img th:src="${applicant.applicantPic}" src="https://n3-q.mafengwo.net/s11/M00/66/F8/wKgBEFtYGxiAM7FnAABP_Orx0PU37.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90" style="width: 68px;height: 68px;"></a>
+                                <a class="name" th:href="@{'/u/' + ${applicant.applicantId} + '/note'}" target="_blank"><p th:text="${applicant.applicantName}">时光吹老了好少年</p></a>
                             </li>
                         </ul>
                     </div>

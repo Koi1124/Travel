@@ -1,5 +1,6 @@
 package com.han.travel.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface TopNoteDao
     List<Map<String, Object>> getTopNotes();
 
     boolean addTopNote(Map<String, Object> map);
+
+    boolean deleteNote(@Param("nid") int nid);
 
 }

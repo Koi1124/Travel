@@ -279,6 +279,7 @@ public class NoteService
      **/
     public boolean changeStatus(Map<String, Object> map)
     {
+        topNoteDao.deleteNote(Integer.valueOf(map.get("nid").toString()));
         return ab01Dao.changeStateById(map);
     }
 
